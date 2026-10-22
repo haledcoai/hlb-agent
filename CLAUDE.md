@@ -44,7 +44,7 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 
 `tieu_chi.json` chỉ đổi khi thang chấm đổi. Khi đổi tiêu chí, điểm tối đa hoặc ngưỡng trong `.claude/agents/danh-gia-noi-dung.md`, sửa luôn `TIEU_CHI`, `NGUONG` và tăng `THANG_CHAM` trong `tools/phieu_duyet.py`, để trang không so lẫn điểm của hai thang.
 
-**Hook nhắc (Stop):** mỗi file `Bai_*.md` bị sửa bằng Edit/Write được ghi nhận. Khi kết thúc lượt mà file đó chưa có phiếu duyệt khớp nội dung (chưa được chấm lại sau lần sửa cuối), hook không cho dừng và yêu cầu chạy vòng duyệt. Hook nhắc tối đa 3 lần cho một file, sau đó cho dừng kèm cảnh báo. Gặp nhắc này thì chấm lại bài, không kết thúc lượt bằng cách khác.
+**Hook nhắc (Stop):** mỗi file `Bai_*.md` bị sửa bằng Edit/Write được ghi nhận. Khi kết thúc lượt mà file đó chưa có phiếu duyệt khớp nội dung (chưa được chấm lại sau lần sửa cuối), hook không cho dừng và yêu cầu chạy vòng duyệt. Hook nhắc tối đa 3 lần cho một file, sau đó cho dừng kèm cảnh báo. Khi agent `danh-gia-noi-dung` đang chấm (kể cả chạy nền), hook không nhắc; dấu "đang chấm" xóa khi agent ghi phiếu hoặc kết thúc, quá 30 phút thì tự hết hạn. Gặp nhắc này thì chấm lại bài, không kết thúc lượt bằng cách khác.
 
 **Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `tao-anh`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
 
