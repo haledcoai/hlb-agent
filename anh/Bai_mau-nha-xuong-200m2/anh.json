@@ -1,0 +1,18 @@
+{
+  "bai": "Bai_mau-nha-xuong-200m2.md",
+  "anh": [
+    {
+      "ten": "so-do-bo-tri-den-nha-xuong-200m2.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/so-do-bo-tri-den-nha-xuong-200m2.jpg",
+      "nguon": "python",
+      "alt": "sơ đồ bố trí đèn cho mẫu nhà xưởng 200m2 kích thước 10 x 20 m",
+      "mo_ta": "sơ đồ bố trí 21 đèn lưới 3 x 7 và 6 đèn lưới 2 x 3 trên mặt bằng 10 x 20 m",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Vẽ bằng ve_so_do.py (mau_anh.py), số liệu theo 2 trường hợp trong bài: BUFO4-50 lưới 3 x 7, BUFO4-100 lưới 2 x 3",
+      "prompt": "",
+      "trang_thai": "cho_duyet"
+    }
+  ]
+}
