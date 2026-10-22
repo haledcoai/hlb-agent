@@ -334,7 +334,7 @@ function render() {
   const a = document.activeElement, aid = a && a.id, pos = a && a.selectionStart;
   renderStages(); renderFilters(); renderList(); renderDetail();
   if (aid) { const el = document.getElementById(aid); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} } }
-  const last = cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent tự kiểm tra bảng định kỳ.";
+  const last = (cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent tự kiểm tra bảng mỗi giờ, 7h đến 21h.") + (cfg.moi_truong ? " " + cfg.moi_truong : "");
   $("#runInfo").textContent = last;
 }
 

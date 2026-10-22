@@ -65,7 +65,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 ## 4. Mỗi lượt chạy
 
-1. Ghi `cau_hinh/chung.lan_chay_cuoi`.
+1. Kiểm tra môi trường, không in giá trị mật khẩu: có biến `WP_USER` và `WP_APP_PASSWORD` không; `https://denlednhaxuongcaocap.com/wp-json/` trả về 200 không; repo push được không. Ghi `cau_hinh/chung.lan_chay_cuoi` (giờ ISO) và `cau_hinh/chung.moi_truong` (một câu, ví dụ "Đủ mật khẩu, website kết nối được, repo push được" hoặc nói rõ phần nào thiếu). Thiếu mật khẩu hoặc không vào được website thì chỉ làm các việc không cần đăng bản nháp (nghiên cứu, outline), các bước cần đăng chuyển `can_xu_ly` với lý do.
 2. `list` collection `tu_khoa`. Từ khóa đang ở trạng thái `dang_*` có `khoa_luc` quá 3 giờ thì coi là lượt trước bị ngắt: đưa về trạng thái chờ tương ứng, ghi lịch sử.
 3. Chọn việc theo thứ tự: `cho_hoan_thien`, `sua_bai`, `sua_outline`, `cho_tao_anh`, `cho_viet`, `moi` (việc gần xong và việc người dùng vừa góp ý làm trước). Cùng loại thì `cap_nhat` cũ trước.
 4. Với mỗi việc: `update` trạng thái `dang_*`, `khoa_luc`, `tien_do` (kèm `if_version`; lỗi phiên bản thì bỏ qua từ khóa đó). Làm xong ghi kết quả, trạng thái kết thúc, thêm một dòng `lich_su`, xóa `khoa_luc`.
