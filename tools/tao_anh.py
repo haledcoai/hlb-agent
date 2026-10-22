@@ -3,11 +3,13 @@ chuan hoa anh, ghi danh sach anh de wp_draft.py chen vao ban nhap.
 
 Cach dung:
   python tools/tao_anh.py liet-ke <file_bai.md>                  # cac cho [ANH], ngu canh, trang thai
+  python tools/tao_anh.py phan-loai <file_bai.md>                # goi y nguon cho tung cho [ANH], doi chieu CSV san pham
   python tools/tao_anh.py san-pham <slug>                        # anh that cua san pham tren website
   python tools/tao_anh.py tai <url> <file_ra>                    # tai mot anh ve may
   python tools/tao_anh.py chuan-hoa <file_vao> <file_ra.jpg> [--cat]
   python tools/tao_anh.py ghi <file_bai.md> --ten <ten file trong [ANH]> --file <anh.jpg> --nguon python|canva|website|nguoi-dung
-                         [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."]
+                         [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."] [--prompt "..."]
+                                                                 # anh canva bat buoc --prompt (prompt da dung)
   python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
   python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
@@ -37,6 +39,14 @@ NGUON = ("python", "canva", "website", "nguoi-dung")
 RONG, MIN_RONG, MAX_RONG = 820, 800, 850
 MIN_CAO, MAX_CAO = 400, 800
 MAX_KB = 300
+GACH = re.compile("[\u2013\u2014]")
+# Alt cua anh minh hoa AI khong duoc ngu y la cong trinh that
+ALT_CONG_TRINH = re.compile(r"công trình (của |do )?hlb|dự án (của |do )?hlb|công trình thực tế|dự án thực tế|khách hàng", re.I)
+# Goi y nguon theo mo ta, thu tu uu tien tu tren xuong
+GOI_Y = (("nguoi-dung", re.compile(r"công trình|dự án|thực tế|khách hàng|lắp đặt tại|đội thi công", re.I)),
+         ("python", re.compile(r"sơ đồ|bảng|biểu đồ|cách đọc|minh họa (ý nghĩa|cách)|so sánh|các bước|quy trình|mặt cắt|"
+                               r"góc chiếu|thông số|công thức|lux|infographic", re.I)),
+         ("canva", re.compile(r"toàn cảnh|không gian|nhà xưởng|nhà kho|kho hàng|xưởng|nhà máy", re.I)))
 
 
 TEN_HOP_LE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*\.jpg$")
@@ -115,6 +125,21 @@ def slug_trung_website(goc):
     return trung, loi
 
 
+def doc_csv():
+    """(ten san pham, url, ma model) tu file du_lieu_san_pham_*.csv moi nhat."""
+    import csv
+    import glob
+    found = sorted(glob.glob(os.path.join(ROOT, "du_lieu_san_pham_*.csv")))
+    if not found:
+        return []
+    with open(found[-1], encoding="utf-8-sig") as f:
+        out = []
+        for r in csv.DictReader(f):
+            ma = r["name"].split()[-1] if r.get("name") else ""
+            out.append((r.get("name", ""), r.get("url", ""), ma))
+        return out
+
+
 def doc_manifest(article):
     try:
         with open(manifest_path(article), encoding="utf-8") as f:
@@ -156,6 +181,29 @@ def liet_ke(args):
         status = "CHƯA CÓ" if not a else "%s (%s)" % (a["file"], a["nguon"])
         print("%d. %s\n   alt: %s\n   tên file: %s\n   thuộc mục: %s\n   đoạn trước: %s\n   đoạn sau: %s\n   trạng thái: %s"
               % (i, c["mo_ta"], c["alt"], c["ten"], c["heading"], c["doan_truoc"], c["doan_sau"], status))
+
+
+def phan_loai(args):
+    sp = [x for x in doc_csv() if re.search(r"\d", x[2])]  # chi ma model co so, vd BUFO4-150
+    for i, c in enumerate(doc_cho_anh(args.article), 1):
+        chu = " ".join((c["mo_ta"], c["alt"]))
+        khop = [x for x in sp if re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(x[2]), chu, re.I)]
+        if khop:
+            nguon, ly_do = "website", "có model %s trong CSV" % ", ".join(sorted({x[2] for x in khop}))
+        else:
+            nguon, ly_do = "canva", "không khớp mẫu nào, mặc định ảnh không gian chung"
+            for n, mau in GOI_Y:
+                m = mau.search(chu)
+                if m:
+                    nguon, ly_do = n, "mô tả có \"%s\"" % m.group(0)
+                    break
+        print("%d. %s\n   gợi ý nguồn: %s (%s)" % (i, c["ten"], nguon, ly_do))
+        for ten, url, _ in khop[:3]:
+            slug = url.rstrip("/").split("/")[-1]
+            print("   sản phẩm: %s, lấy ảnh: python tools/tao_anh.py san-pham %s" % (ten, slug))
+        if nguon == "nguoi-dung":
+            print("   chưa có ảnh của người dùng thì tạo ảnh minh họa Canva, ghi rõ \"ảnh minh họa\"")
+    print("\nĐây chỉ là gợi ý theo từ khóa. Đọc ngữ cảnh đoạn văn (lệnh liet-ke) trước khi chốt nguồn.")
 
 
 def san_pham(args):
@@ -216,6 +264,11 @@ def ghi(args):
     path = os.path.abspath(args.file)
     if not os.path.isfile(path):
         sys.exit("Không thấy file ảnh %s" % args.file)
+    if args.nguon == "canva" and not args.prompt:
+        sys.exit("Ảnh Canva phải ghi --prompt (prompt đã dùng), để làm lại đúng ý khi bị trả về")
+    ghi_chu = args.ghi_chu or ""
+    if args.nguon == "canva" and "minh họa" not in ghi_chu.lower():
+        ghi_chu = ("Ảnh minh họa, không phải công trình thật. " + ghi_chu).strip()
     if args.nguon != "website" and os.path.basename(path) != args.ten:
         sys.exit("Tên file ảnh phải đúng như gợi ý trong bài: %s (đang là %s)" % (args.ten, os.path.basename(path)))
     m = doc_manifest(args.article)
@@ -232,7 +285,8 @@ def ghi(args):
         "url_website": args.url_website,
         "media_id": args.media_id,
         "dai_dien": bool(args.dai_dien),
-        "ghi_chu": args.ghi_chu or "",
+        "ghi_chu": ghi_chu,
+        "prompt": args.prompt or "",
         "trang_thai": "cho_duyet",
     })
     os.makedirs(thu_muc(args.article), exist_ok=True)
@@ -289,6 +343,14 @@ def kiem(args):
             loi += ["%s: %s" % (a["file"], x) for x in loi_chuan(f)]
         if not a["alt"] or len(a["alt"]) > 125:
             loi.append("Alt của %s trống hoặc quá 125 ký tự" % c["ten"])
+        if GACH.search(a["alt"]):
+            loi.append("Alt của %s có em dash hoặc en dash, chỉ dùng hyphen" % c["ten"])
+        if a["nguon"] == "canva":
+            if ALT_CONG_TRINH.search(a["alt"]):
+                loi.append("Alt của %s ngụ ý công trình thật (\"%s\") nhưng ảnh là minh họa AI. Báo để sửa alt trong bài"
+                           % (c["ten"], ALT_CONG_TRINH.search(a["alt"]).group(0)))
+            if "minh họa" not in a.get("ghi_chu", "").lower():
+                loi.append("%s là ảnh Canva nhưng ghi chú chưa ghi \"ảnh minh họa\"" % c["ten"])
         if a["nguon"] == "website" and not a.get("url_website"):
             loi.append("%s nguồn website nhưng thiếu url_website" % c["ten"])
     if sum(1 for a in m.values() if a.get("dai_dien")) > 1:
@@ -306,6 +368,7 @@ def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("liet-ke"); p.add_argument("article"); p.set_defaults(func=liet_ke)
+    p = sub.add_parser("phan-loai"); p.add_argument("article"); p.set_defaults(func=phan_loai)
     p = sub.add_parser("san-pham"); p.add_argument("slug"); p.set_defaults(func=san_pham)
     p = sub.add_parser("tai"); p.add_argument("url"); p.add_argument("out"); p.set_defaults(func=tai)
     p = sub.add_parser("chuan-hoa"); p.add_argument("src"); p.add_argument("out")
@@ -314,7 +377,7 @@ def main():
     p = sub.add_parser("ghi"); p.add_argument("article"); p.add_argument("--ten", required=True)
     p.add_argument("--file", required=True); p.add_argument("--nguon", required=True, choices=NGUON)
     p.add_argument("--url-website"); p.add_argument("--media-id", type=int)
-    p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu")
+    p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu"); p.add_argument("--prompt")
     p.set_defaults(func=ghi)
     p = sub.add_parser("kiem"); p.add_argument("article")
     p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")

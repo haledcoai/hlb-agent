@@ -24,14 +24,15 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 
 ## Quy trình
 
+0. **Kiểm tra Canva đầu phiên:** gọi `get-assets` hoặc một lệnh đọc nhẹ của Canva. Không gọi được (lỗi kết nối, không thấy công cụ Canva vì mã kết nối trong dòng `tools` đã đổi sau khi kết nối lại) thì ghi ngay đầu báo cáo "Canva không gọi được" kèm lỗi, làm tiếp các ảnh python và website, và đưa các ảnh cần Canva vào mục "Cần người dùng làm". Không lặng lẽ chuyển ảnh Canva sang nguồn khác.
 1. **Liệt kê chỗ ảnh kèm ngữ cảnh:** `python tools/tao_anh.py liet-ke <file_bai.md>`. Mỗi ảnh có: mô tả, alt, tên file, mục (heading) chứa ảnh, đoạn văn ngay trước và ngay sau.
 2. **Đọc ngữ cảnh** của từng ảnh, rồi quyết định ảnh cần thể hiện gì. Ví dụ: ảnh đặt sau đoạn "góc chiếu 120 độ cho trần 10 m làm sàn tối" thì cần cho thấy chỗ tối giữa hai đèn, không phải một nhà xưởng sáng bất kỳ. Số liệu trên ảnh phải khớp số trong đoạn đó.
-3. **Chọn nguồn** theo bảng dưới. Không đổi nguồn để cho tiện.
+3. **Chọn nguồn:** chạy `python tools/tao_anh.py phan-loai <file_bai.md>` để có gợi ý (đối chiếu mô tả và model trong CSV sản phẩm), rồi chốt theo bảng dưới và ngữ cảnh ở bước 2. Gợi ý chỉ dựa trên từ khóa, ngữ cảnh đoạn văn quyết định. Không đổi nguồn để cho tiện.
 4. **Làm ảnh** theo mục "Theo từng nguồn".
 5. **Chuẩn hóa:** `python tools/tao_anh.py chuan-hoa <ảnh gốc> anh/<tên bài>/<tên file>.jpg`. Ảnh chụp hoặc ảnh Canva quá cao thì thêm `--cat` để cắt giữa. Sơ đồ quá cao hoặc quá thấp thì vẽ lại theo tỷ lệ khác, không cắt.
-6. **Ghi danh sách:** `python tools/tao_anh.py ghi <file_bai.md> --ten <tên file> --file anh/<tên bài>/<tên file> --nguon python|canva|website|nguoi-dung [--url-website URL --media-id ID] [--dai-dien] --ghi-chu "<nguồn, số liệu dùng>"`. Alt lấy tự động từ bài. Chọn đúng 1 ảnh đại diện, thường là ảnh đầu bài.
-7. **Kiểm tra:** `python tools/tao_anh.py kiem <file_bai.md>` phải báo "Đủ ảnh". Lệnh này so tên ảnh với slug bài và tra slug trên website qua REST API. Báo trùng slug thì không tự đổi tên trong bài (không sửa file bài): ghi vào báo cáo tên đề xuất thay thế để agent chính sửa dòng `[ẢNH]`. Chỉ dùng `--khong-web` khi máy không vào được website, và ghi "chưa kiểm tra slug trên website" trong báo cáo.
-8. **Xem lại từng ảnh** bằng Read. Sửa khi chữ bị đè, cắt, sai chính tả, chữ quá nhỏ (dưới khoảng 13 px), hoặc số liệu lệch bài.
+6. **Ghi danh sách:** `python tools/tao_anh.py ghi <file_bai.md> --ten <tên file> --file anh/<tên bài>/<tên file> --nguon python|canva|website|nguoi-dung [--url-website URL --media-id ID] [--dai-dien] --ghi-chu "<nguồn, số liệu dùng>" [--prompt "<prompt Canva đã dùng>"]`. Ảnh Canva bắt buộc `--prompt`; ghi chú tự thêm "Ảnh minh họa, không phải công trình thật" nếu thiếu. Alt lấy tự động từ bài. Chọn đúng 1 ảnh đại diện, thường là ảnh đầu bài.
+7. **Kiểm tra:** `python tools/tao_anh.py kiem <file_bai.md>` phải báo "Đủ ảnh". Lệnh này kiểm tra chuẩn JPG, alt (không quá 125 ký tự, không em dash, ảnh Canva không có alt ngụ ý công trình thật, ghi chú có "ảnh minh họa"), và so tên ảnh với slug bài và tra slug trên website qua REST API. Báo trùng slug thì không tự đổi tên trong bài (không sửa file bài): ghi vào báo cáo tên đề xuất thay thế để agent chính sửa dòng `[ẢNH]`. Chỉ dùng `--khong-web` khi máy không vào được website, và ghi "chưa kiểm tra slug trên website" trong báo cáo.
+8. **Xem lại từng ảnh** bằng Read. Sơ đồ vẽ bằng mẫu đã được tự kiểm tra chữ đè, tràn, nhỏ, em dash; vẫn phải xem bằng mắt các lỗi máy không bắt được: chữ tràn khỏi ô màu, sai chính tả, số liệu lệch bài, hình khó hiểu.
 9. **Chạy xem trước:** `python tools/wp_draft.py <file_bai.md> --update <ID>` hoặc `--new`, **không thêm `--post`**. Báo đường dẫn file `.preview.html`.
 
 ## Chọn nguồn
@@ -45,14 +46,27 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 
 ## Theo từng nguồn
 
-**python:** viết script `anh/<tên bài>/ve_so_do.py`, giữ lại để vẽ lại khi bài đổi số liệu. Xem mẫu ở `anh/Bai_cach-chon-den-led-nha-xuong/ve_so_do.py`.
+**python:** viết script ngắn `anh/<tên bài>/ve_so_do.py` gọi mẫu trong `tools/mau_anh.py`, giữ lại để vẽ lại khi bài đổi số liệu. Xem cách gọi ở `anh/Bai_cach-chon-den-led-nha-xuong/ve_so_do.py`.
+
+| Mẫu | Dùng khi đoạn văn nói về |
+|---|---|
+| `luoi_bo_tri(dai, rong, so_cot, so_hang, tieu_de, phu_de)` | Số đèn, cách bố trí trên mặt bằng, khoảng cách đèn |
+| `bang_ip(cap, ...)` | Cách đọc IP, chọn IP theo môi trường |
+| `bang_so_sanh(cot, dong, tieu_de, ...)` | So sánh 2-4 model hoặc thương hiệu, tối đa 5 cột; ô trống tự ghi "không công bố" |
+| `bieu_do_cot(nhan, gia_tri, don_vi, tieu_de, noi_bat=...)` | Điện năng, chi phí, lumen giữa các phương án |
+| `mat_cat_lap_dat(chieu_cao, goc_chieu, khoang_cach, tieu_de)` | Chiều cao treo, góc chiếu, vùng sáng và vùng tối trên sàn |
+| `cac_buoc(buoc, tieu_de, canh_bao=(...))` | Quy trình 3-6 bước; bước có rủi ro điện, làm việc trên cao ghi trong `canh_bao` |
+
+- `luu(fig, OUT, "<tên file>.jpg")` tự kiểm tra chữ trên hình (đè nhau, tràn khung, hiển thị dưới 13 px, có em dash/en dash). Có lỗi thì không lưu và in danh sách lỗi: sửa nội dung (rút gọn chữ, bớt dòng) rồi chạy lại. Qua kiểm tra thì tự lưu PNG vào `_goc/` và chuẩn hóa về JPG 820 px, không cần chạy `chuan-hoa` riêng.
+- Ảnh cần dạng chưa có mẫu thì vẽ trực tiếp bằng matplotlib trong `ve_so_do.py`, dùng `hinh()`, `tieu_de()`, `chan_trang()`, màu và `luu()` của `mau_anh.py` để giữ cùng kiểu và vẫn được kiểm tra chữ. Dạng dùng lại được nhiều bài thì báo trong báo cáo để thêm thành mẫu.
+- Chạy lại `ve_so_do.py` của bài đã có ảnh duyệt sẽ ghi đè ảnh đó. Chỉ chạy lại khi ảnh cần làm lại.
 - Khổ hình rộng 8,2 inch, cao 4-8 inch (tỷ lệ cho ra cao 400-800 px). Lưu dpi 200 vào `anh/<tên bài>/_goc/`, rồi chuẩn hóa về 820 px. Khi đó cỡ chữ hiển thị như vẽ ở dpi 100: tiêu đề 16-17 pt, chữ thường 11-12 pt, chú thích không dưới 9,5 pt.
 - Font "Segoe UI" (có dấu tiếng Việt). Màu: xanh đậm `#1f3a5f`, vàng cam `#f2a71b`, xám `#5b6573`.
 - Chữ không dùng em dash, en dash. Số viết theo Knowledge mục 8.3 (1.200 m², 19.500 lm, 150W).
 - Mọi con số phải lấy từ bài hoặc Knowledge. Sơ đồ ước lượng ghi chú "cần tính bằng DIALux".
 
 **canva:**
-1. Gọi `generate-image`, `aspectRatio` LANDSCAPE_16_9 (về 820 x 461 px). Prompt tiếng Anh, mô tả cảnh theo ngữ cảnh đoạn văn ở bước 2, luôn có "no people, no text, no logos, no brand names, no watermarks".
+1. Gọi `generate-image`, `aspectRatio` LANDSCAPE_16_9 (về 820 x 461 px). Prompt tiếng Anh: lấy cảnh gần nhất trong `anh/_prompt_canva.md`, sửa theo ngữ cảnh đoạn văn ở bước 2, luôn có "no people, no text, no logos, no brand names, no watermarks". Ảnh làm lại thì sửa từ `prompt` cũ trong `anh.json` theo ghi chú người dùng, theo bảng lỗi trong file prompt.
 2. Gọi `get-generate-image-job` tới khi SUCCESS, chờ khoảng 15 giây giữa các lần.
 3. Ảnh trả về chỉ là **ảnh thu nhỏ** (khoảng 200 px), dùng để xem bố cục. Gọi `get-assets` với media ID để lấy kích thước bản gốc (thường 1680 x 944).
 4. **Tự xuất bản đầy đủ qua một thiết kế Canva** (người dùng cho phép tự động lưu thiết kế, 21/10/2026). Mỗi bài dùng một thiết kế tên "HLB anh bai - <tên bài>", mỗi ảnh một trang:
