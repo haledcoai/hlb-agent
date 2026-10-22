@@ -39,6 +39,8 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 
 **Hook nhắc (Stop):** mỗi file `Bai_*.md` bị sửa bằng Edit/Write được ghi nhận. Khi kết thúc lượt mà file đó chưa có phiếu duyệt khớp nội dung (chưa được chấm lại sau lần sửa cuối), hook không cho dừng và yêu cầu chạy vòng duyệt. Hook nhắc tối đa 3 lần cho một file, sau đó cho dừng kèm cảnh báo. Gặp nhắc này thì chấm lại bài, không kết thúc lượt bằng cách khác.
 
+**Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `tao-anh`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
+
 ## Ảnh
 
 - Ảnh do sub agent `tao-anh` chuẩn bị. **Tự gọi ngay khi vòng duyệt cho bài ĐẠT**, không chờ người dùng nhắc. Gọi cả khi người dùng yêu cầu tạo ảnh. Truyền đường dẫn bài và ảnh người dùng đã cung cấp.

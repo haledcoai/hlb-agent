@@ -10,8 +10,9 @@ Cach dung:
   python tools/tao_anh.py tai <url> <file_ra>                    # tai mot anh ve may
   python tools/tao_anh.py chuan-hoa <file_vao> <file_ra.jpg> [--cat]
   python tools/tao_anh.py ghi <file_bai.md> --ten <ten file trong [ANH]> --file <anh.jpg> --nguon python|canva|website|nguoi-dung
-                         [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."] [--prompt "..."]
+                         [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."] [--prompt "..."] [--tac-gia "..."]
                                                                  # anh canva bat buoc --prompt (prompt da dung)
+                                                                 # anh Unsplash bat buoc --tac-gia (ten tac gia, hien trong chu thich)
   python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
   python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
@@ -116,17 +117,31 @@ def bo_hau_to(slug):
     return re.sub(r"-\d+$", "", slug)
 
 
-def slug_trung_website(goc):
-    """Cac noi dung tren website co slug dung bang goc. Tra ve (danh sach trung, danh sach loai khong kiem tra duoc)."""
-    trung, loi = [], []
-    for nhan, duong in LOAI_SLUG:
-        try:
-            data = json.loads(get("%s/wp-json/%s?slug=%s&_fields=id,slug,link" % (SITE, duong, urllib.parse.quote(goc))))
-        except Exception:
-            loi.append(nhan)
-            continue
-        trung += ["%s %s (ID %s)" % (nhan, d.get("link", ""), d.get("id")) for d in data if isinstance(d, dict)]
-    return trung, loi
+def tra_slug(goc, loai):
+    """Noi dung loai (nhan, duong dan REST) co slug dung bang goc. None khi khong kiem tra duoc."""
+    nhan, duong = loai
+    try:
+        data = json.loads(get("%s/wp-json/%s?slug=%s&_fields=id,slug,link" % (SITE, duong, urllib.parse.quote(goc)),
+                              timeout=20))
+    except Exception:
+        return None
+    return ["%s %s (ID %s)" % (nhan, d.get("link", ""), d.get("id")) for d in data if isinstance(d, dict)]
+
+
+def slug_trung_website(ds_goc):
+    """{goc: (danh sach trung, danh sach loai khong kiem tra duoc)} cho nhieu ten anh.
+    Goi song song 4 luong (lan luot mat hon 2 phut cho 10 anh; nhieu luong hon thi website tu choi)."""
+    from concurrent.futures import ThreadPoolExecutor
+    cap = [(g, l) for g in ds_goc for l in LOAI_SLUG]
+    with ThreadPoolExecutor(4) as ex:
+        kq = list(ex.map(lambda x: tra_slug(*x), cap))
+    out = {g: ([], []) for g in ds_goc}
+    for (g, (nhan, _)), r in zip(cap, kq):
+        if r is None:
+            out[g][1].append(nhan)
+        else:
+            out[g][0].extend(r)
+    return out
 
 
 def doc_csv():
@@ -152,9 +167,9 @@ def doc_manifest(article):
         return {"bai": os.path.basename(article), "anh": []}
 
 
-def get(url):
+def get(url, timeout=60):
     req = urllib.request.Request(url, headers={"User-Agent": "HLB-anh/1.0"})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 
 
@@ -259,7 +274,7 @@ def tim_anh(args):
               % (i, args.kho, id_, w, h, mo_ta, trang, xem, lon))
     print("\nGiấy phép: %s. Ghi --ghi-chu gồm trang gốc và giấy phép khi chạy lệnh ghi với --nguon kho-anh." % GIAY_PHEP[args.kho])
     if args.kho == "unsplash":
-        print("Unsplash: tải bằng `tai unsplash:<id> <file>` (không tải thẳng link ảnh), ghi chú thêm \"Ảnh: <tác giả> trên Unsplash\".")
+        print("Unsplash: tải bằng `tai unsplash:<id> <file>` (không tải thẳng link ảnh), khi ghi thêm --tac-gia \"<tác giả>\".")
 
 
 def get_unsplash(duong_dan):
@@ -326,6 +341,8 @@ def ghi(args):
     ghi_chu = args.ghi_chu or ""
     if args.nguon == "kho-anh" and not any(g in ghi_chu for g in GIAY_PHEP.values()):
         sys.exit("Ảnh kho-anh phải ghi trong --ghi-chu: trang gốc của ảnh và tên giấy phép (%s)" % ", ".join(GIAY_PHEP.values()))
+    if GIAY_PHEP["unsplash"] in ghi_chu and not args.tac_gia:
+        sys.exit("Ảnh Unsplash phải ghi --tac-gia (tên tác giả lệnh tim-anh in ra); chú thích ảnh sẽ ghi \"Ảnh: <tác giả> trên Unsplash\"")
     if args.nguon in ("canva", "kho-anh") and "minh họa" not in ghi_chu.lower():
         ghi_chu = ("Ảnh minh họa, không phải công trình thật. " + ghi_chu).strip()
     if args.nguon != "website" and os.path.basename(path) != args.ten:
@@ -346,6 +363,8 @@ def ghi(args):
         "dai_dien": bool(args.dai_dien),
         "ghi_chu": ghi_chu,
         "prompt": args.prompt or "",
+        "tac_gia": ("%s trên Unsplash" % args.tac_gia) if args.tac_gia and GIAY_PHEP["unsplash"] in ghi_chu
+                   else (args.tac_gia or ""),
         "trang_thai": "cho_duyet",
     })
     os.makedirs(thu_muc(args.article), exist_ok=True)
@@ -374,6 +393,9 @@ def kiem(args):
     slug = slug_bai(args.article)
     if not slug:
         loi.append("Không đọc được slug bài ở phần A (dòng | Slug | ... |), chưa so được tên ảnh với slug bài")
+    can_tra = [] if args.khong_web else [c["ten"][:-4] if c["ten"].lower().endswith(".jpg") else c["ten"]
+                                         for c in cho if not (m.get(c["ten"]) or {}).get("url_da_tai")]
+    ket_qua_web = slug_trung_website(can_tra)  # anh da tai len thi khong so voi chinh no
     ten_da_gap = set()
     for c in cho:
         goc = c["ten"][:-4] if c["ten"].lower().endswith(".jpg") else c["ten"]
@@ -385,9 +407,8 @@ def kiem(args):
         if slug and bo_hau_to(goc) == bo_hau_to(slug):
             loi.append("Tên ảnh %s trùng slug bài (%s). Thêm từ mô tả nội dung ảnh, ví dụ %s-so-do.jpg"
                        % (c["ten"], slug, slug))
-        a = m.get(c["ten"])
-        if not args.khong_web and not (a and a.get("url_da_tai")):  # anh da tai len thi khong so voi chinh no
-            trung, khong_kiem = slug_trung_website(goc)
+        if goc in ket_qua_web:
+            trung, khong_kiem = ket_qua_web[goc]
             loi += ["Tên ảnh %s trùng slug đã có trên website: %s" % (c["ten"], t) for t in trung]
             if khong_kiem:
                 print("Chưa kiểm tra được slug %s với: %s" % (goc, ", ".join(khong_kiem)))
@@ -440,6 +461,7 @@ def main():
     p.add_argument("--file", required=True); p.add_argument("--nguon", required=True, choices=NGUON)
     p.add_argument("--url-website"); p.add_argument("--media-id", type=int)
     p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu"); p.add_argument("--prompt")
+    p.add_argument("--tac-gia", help="ten tac gia anh kho-anh (bat buoc voi Unsplash)")
     p.set_defaults(func=ghi)
     p = sub.add_parser("kiem"); p.add_argument("article")
     p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")
