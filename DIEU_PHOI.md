@@ -38,13 +38,17 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 | `diem_vong` | Agent | Mảng `{vong, diem, ket_luan}` (`DAT`, `CAN_SUA`, `KHONG_DAT`) |
 | `bao_cao`, `cau_hoi` | Agent | Báo cáo chấm vòng cuối (markdown), câu hỏi mục 2b và placeholder còn lại, đánh số |
 | `draft_id`, `link_nhap`, `link_xem` | Agent | ID bản nháp, `https://denlednhaxuongcaocap.com/wp-admin/post.php?post=<ID>&action=edit`, link xem trước |
-| `gop_y_bai`, `ghi_chu_duyet_bai` | Người dùng | |
+| `nhap_khop` | Agent | `{luc, vong}`: bản nháp WP đã được ghi đè bằng bài vòng `vong` lúc `luc` và đã kiểm tra qua REST API. Xóa trường này ngay khi file bài thay đổi mà chưa đẩy |
+| `gop_y_bai`, `ghi_chu_duyet_bai` | Người dùng | Góp ý chung, trả lời câu hỏi theo số |
+| `gop_y_muc` | Người dùng | Mảng `{muc, gop_y}`: góp ý gắn với từng mục H2 ("Mở bài" là phần trước H2 đầu tiên) |
 | `anh_tong`, `anh_duyet` | Agent | Số ảnh cần và đã duyệt |
 | `ly_do`, `quay_ve` | Agent | Khi dừng `can_xu_ly`: lý do và câu hỏi (markdown), trạng thái quay lại sau khi người dùng trả lời |
 | `tra_loi` | Người dùng | Trả lời cho `ly_do` |
 | `lich_su` | Cả hai | Mảng `{luc, ai: "agent" or "ban", viec}`, chỉ thêm vào cuối |
 | `khoa_luc` | Agent | Giờ bắt đầu xử lý (chống chạy trùng) |
 | `cap_nhat` | Cả hai | Giờ ISO |
+
+Collection `bai_viet`, tài liệu cùng id với từ khóa: `tieu_de`, `noi_dung` (phần B markdown, bỏ H1), `vong`, `file_bai`, `thay_doi` (markdown: đã sửa gì so với bản trước), `cap_nhat`. Tạo bằng `python dieu_phoi/bai_len_bang.py Bai_<slug>.md --thay-doi "..."` rồi `ArtifactData set` với `file_path`. Bảng hiện bài này để người dùng đọc và góp ý theo mục, không cần mở wp-admin.
 
 Tài liệu `cau_hinh/chung`: `trigger_id` (lịch chạy để nút "Chạy Agent ngay" gọi), `lan_chay_cuoi`, `link_duyet_anh`, `link_lich_su_cham`.
 
@@ -56,10 +60,21 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 |---|---|---|---|
 | `moi` | `dang_nghien_cuu` | Bước 1 SERP (5 mục) rồi Bước 2 outline (9 mục) | `cho_duyet_outline`; hoặc `can_xu_ly` (`quay_ve: "moi"`) nếu SERP khuyên không viết blog, trùng, ngoài phạm vi |
 | `sua_outline` | `dang_nghien_cuu` | Làm lại outline theo `gop_y_outline`, giữ SERP trừ khi góp ý yêu cầu | `cho_duyet_outline` |
-| `cho_viet` | `dang_viet` | Bước 3 viết theo đúng `outline` trên bảng (có thể người dùng đã sửa), Bước 4 tự kiểm tra, vòng duyệt CLAUDE.md (tối đa 3 vòng), ĐẠT thì `wp_draft.py` xem trước rồi `--post` | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
-| `sua_bai` | `dang_viet` | Sửa bài theo `gop_y_bai` (và `tra_loi` nếu có), chấm lại, đẩy lại cùng bản nháp `--draft-id <draft_id>` | `cho_duyet_bai` |
+| `cho_viet` | `dang_viet` | Bước 3 viết theo đúng `outline` trên bảng (có thể người dùng đã sửa), Bước 4 tự kiểm tra, vòng duyệt CLAUDE.md (tối đa 3 vòng). ĐẠT thì làm đủ mục 3a | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
+| `sua_bai` | `dang_viet` | Sửa theo `gop_y_muc` (chỉ sửa đúng các mục được góp ý, giữ nguyên chữ các mục khác), `gop_y_bai` và `tra_loi` nếu có. Chấm lại theo CLAUDE.md. ĐẠT thì làm đủ mục 3a với `--draft-id <draft_id>`, `thay_doi` liệt kê từng mục đã sửa | `cho_duyet_bai` |
 | `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên trang Duyệt ảnh HLB (CLAUDE.md) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
 | `cho_hoan_thien` | `dang_hoan_thien` | Đọc trang Duyệt ảnh, xử lý như "xử lý ảnh đã duyệt". Còn ảnh `lam_lai` hoặc yêu cầu mới: làm lại, quay về `cho_duyet_anh`. Đủ ảnh duyệt: `--post --draft-id <draft_id>` để chèn ảnh, kiểm tra thẻ ảnh, alt, link, Rank Math | `san_sang_dang` |
+
+### 3a. Bài vừa ĐẠT: bắt buộc làm đủ trước khi chuyển `cho_duyet_bai`
+
+Người dùng đã giao (22/10/2026): bài ĐẠT thì tự cập nhật bản nháp và hiện bài lên bảng, không hỏi lại.
+
+1. `wp_draft.py` xem trước, rồi `--post` (bài mới) hoặc `--post --draft-id <draft_id>` (bài đã có bản nháp).
+2. Kiểm tra qua REST API (`context=edit`): `status` vẫn `draft`, `modified` mới hơn lúc bắt đầu, nội dung có một câu chỉ có ở bản mới. Đạt thì ghi `nhap_khop: {luc, vong}`, `draft_id`, `link_nhap`, `link_xem`.
+3. Ghi `bai_viet/<id>` bằng `bai_len_bang.py`.
+4. Ghi `diem_vong`, `bao_cao`, `cau_hoi`, rồi mới chuyển `cho_duyet_bai`.
+
+Bước 1 hoặc 2 lỗi (mạng, đăng nhập, quyền chạy lệnh bị chặn): vẫn làm bước 3, 4 để người dùng đọc được bài, nhưng không ghi `nhap_khop` và ghi rõ trong `cau_hoi` dòng đầu: "Bản nháp WP chưa cập nhật: <lý do>". Lượt chạy sau thấy từ khóa `cho_duyet_bai` không có `nhap_khop` mà phiếu vẫn ĐẠT và khớp file thì thử đẩy lại (việc ngắn, không tính vào giới hạn).
 
 Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khóa về `quay_ve`. Agent đọc thêm `tra_loi` ở bước đó.
 

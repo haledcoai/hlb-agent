@@ -97,6 +97,14 @@ code, .mono { font-family: var(--mono); font-size: 13px; }
 .panel.act { background: var(--surface); border: 1px solid var(--color_primary); box-shadow: inset 4px 0 0 var(--color_primary); }
 .panel.stopbox { background: var(--surface); border: 1px solid var(--danger); box-shadow: inset 4px 0 0 var(--danger); }
 .panel.stopbox h3 { color: var(--danger); }
+.bai .muc { border-top: 1px dashed var(--gray_300); padding-top: 4px; }
+.bai .muc:first-child { border-top: 0; }
+.bai .mgy { margin: 4px 0 10px; }
+.bai .mgy summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--color_main); list-style: none; display: inline-block; padding: 2px 8px; border: 1px solid var(--color_main); border-radius: var(--radius-sm); }
+.bai .mgy[open] summary, .bai .mgy.has summary { background: var(--you_surface); border-color: var(--color_primary); color: var(--color_body); }
+.bai .mgy textarea { margin-top: 6px; min-height: 70px; }
+.sync { font-size: 14px; font-weight: 700; }
+.sync.ok { color: var(--ok); } .sync.bad { color: var(--danger); }
 details.sec { border-top: 1px solid var(--gray_200); padding-top: 10px; }
 details.sec > summary { cursor: pointer; font-weight: 700; padding: 4px 0; text-transform: uppercase; font-size: 14px; color: var(--color_body); }
 details.sec > summary:hover { color: var(--color_main); }
@@ -231,6 +239,7 @@ const DEFAULT_ANH = "https://claude.ai/artifact/TpJeKMDsiBV4RgN9bFTWXp";
 
 let db = null, mcp = null, rows = [], cfg = {}, filter = "you", stageSel = 0, selId = null, readOnly = false;
 const drafts = {}; let editOutline = false;
+const bai = {}; let baiUnsub = null, baiFor = null;
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -286,6 +295,48 @@ function scoresHtml(r) {
 
 function sec(title, body, open) { return body ? `<details class="sec" ${open ? "open" : ""}><summary>${title}</summary><div class="md">${body}</div></details>` : ""; }
 
+function splitMuc(text) {
+  const out = []; let cur = { h: "Mở bài", lines: [] };
+  for (const line of String(text || "").split("\n")) {
+    const m = line.match(/^##\s+(.+)/);
+    if (m) { if (cur.lines.join("").trim()) out.push(cur); cur = { h: m[1].trim(), lines: [] }; }
+    cur.lines.push(line);
+  }
+  if (cur.lines.join("").trim()) out.push(cur);
+  return out;
+}
+
+function baiHtml(r, canNote) {
+  const b = bai[r.id];
+  if (b === undefined) return r.file_bai ? `<p class="hint">Đang tải bài...</p>` : "";
+  if (!b || !b.noi_dung) return `<p class="hint">Agent chưa đưa bài lên bảng.</p>`;
+  const dis = readOnly ? "disabled" : "";
+  const head = `<p class="hint">Bản vòng ${esc(b.vong ?? "")}, cập nhật ${fmt(b.cap_nhat)}.${canNote ? " Góp ý thẳng vào mục cần sửa, Agent chỉ sửa đúng các mục đó." : ""}</p>`
+    + (b.thay_doi ? `<details class="sec"><summary>Thay đổi so với bản trước</summary><div class="md">${md(b.thay_doi)}</div></details>` : "");
+  const body = splitMuc(b.noi_dung).map((m, i) => {
+    const key = r.id + "#" + i, v = drafts[key] ?? "";
+    const box = canNote ? `<details class="mgy ${v ? "has" : ""}" ${v ? "open" : ""}><summary>Góp ý mục này</summary>
+      <textarea id="muc-${esc(key)}" data-muc="${esc(key)}" data-h="${esc(m.h)}" aria-label="Góp ý mục ${esc(m.h)}" placeholder="Ví dụ: đoạn này dài, rút còn 3 câu; thêm ví dụ trần 8 m" ${dis}>${esc(v)}</textarea></details>` : "";
+    return `<div class="muc"><div class="md">${md(m.lines.join("\n"))}</div>${box}</div>`;
+  }).join("");
+  return head + `<div class="bai">${body}</div>`;
+}
+
+function watchBai() {
+  if (!db || baiFor === selId) return;
+  if (baiUnsub) { try { baiUnsub(); } catch (e) {} baiUnsub = null; }
+  baiFor = selId;
+  const r = rows.find(x => x.id === selId);
+  if (!r || !r.file_bai) return;
+  const id = selId;
+  baiUnsub = db.doc("bai_viet/" + id).onSnapshot(d => { bai[id] = d.exists === false ? null : (d.data() || null); if (selId === id) renderDetail(); },
+    () => { bai[id] = null; if (selId === id) renderDetail(); });
+}
+
+function mucNotes(r) {
+  return [...document.querySelectorAll(`[data-muc^="${CSS.escape(r.id)}#"]`)].map(t => ({ muc: t.dataset.h, gop_y: t.value.trim() })).filter(x => x.gop_y);
+}
+
 function actionHtml(r) {
   const t = r.trang_thai, dis = readOnly ? "disabled" : "";
   const note = drafts[r.id] ?? "";
@@ -305,7 +356,7 @@ function actionHtml(r) {
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_bai") return `<div class="panel act box">
       <h3>Duyệt bài</h3>
-      <p class="hint">Xem bài trong bản nháp WordPress, đọc báo cáo chấm bên dưới. Trả lời câu hỏi của Agent (nếu có) ngay trong ô góp ý.</p>
+      <p class="hint">Đọc bài ngay bên dưới, góp ý thẳng vào từng mục. Ô này dành cho nhận xét chung và trả lời câu hỏi của Agent theo số.</p>
       <label for="note-${esc(r.id)}">Nhận xét, góp ý thêm</label>
       <textarea id="note-${esc(r.id)}" data-note="${esc(r.id)}" placeholder="Ví dụ: câu hỏi 1 giữ MF 0,8; đoạn mở bài nói thẳng số đèn cho xưởng 1.000 m2" ${dis}>${esc(note)}</textarea>
       <div class="actions">
@@ -340,6 +391,7 @@ function renderDetail() {
   const s = st(r);
   const links = [
     r.link_nhap ? `<dt>Bản nháp</dt><dd><a href="${esc(r.link_nhap)}" target="_blank" rel="noopener">Mở trong wp-admin${r.draft_id ? ` (ID ${esc(r.draft_id)})` : ""}</a></dd>` : "",
+    r.draft_id ? `<dt>Bản nháp WP</dt><dd>${r.nhap_khop ? `<span class="sync ok">Đã cập nhật bản vòng ${esc(r.nhap_khop.vong ?? "")} lúc ${fmt(r.nhap_khop.luc)}</span>` : `<span class="sync bad">Chưa cập nhật bản mới nhất</span>`}</dd>` : "",
     r.link_xem ? `<dt>Xem trước</dt><dd><a href="${esc(r.link_xem)}" target="_blank" rel="noopener">Xem bản nháp</a></dd>` : "",
     r.file_bai ? `<dt>File bài</dt><dd class="mono">${esc(r.file_bai)}</dd>` : "",
     r.tieu_de ? `<dt>Tiêu đề</dt><dd>${esc(r.tieu_de)}</dd>` : "",
@@ -357,7 +409,8 @@ function renderDetail() {
     ${scoresHtml(r)}
     ${links ? `<dl class="kv">${links}</dl>` : ""}
     <div class="box">
-      ${sec("Báo cáo chấm bài", md(r.bao_cao), atBai)}
+      ${r.file_bai ? `<details class="sec" ${atBai ? "open" : ""}><summary>Bài viết</summary><div>${baiHtml(r, atBai && !readOnly)}</div></details>` : ""}
+      ${sec("Báo cáo chấm bài", md(r.bao_cao), false)}
       ${sec("Câu hỏi của Agent", md(r.cau_hoi), atBai || atOutline)}
       ${sec("Nghiên cứu SERP", md(r.serp), atOutline)}
       ${sec("Outline", md(r.outline), atOutline && !editOutline)}
@@ -368,7 +421,7 @@ function renderDetail() {
 
 function render() {
   const a = document.activeElement, aid = a && a.id, pos = a && a.selectionStart;
-  renderStages(); renderFilters(); renderList(); renderDetail();
+  watchBai(); renderStages(); renderFilters(); renderList(); renderDetail();
   if (aid) { const el = document.getElementById(aid); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} } }
   const last = (cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.") + (cfg.moi_truong ? " " + cfg.moi_truong : "");
   $("#runInfo").textContent = last;
@@ -391,7 +444,9 @@ async function act(r, kind, btn) {
   const note = noteEl ? noteEl.value.trim() : "";
   const errEl = btn.closest(".panel")?.querySelector("[data-err]");
   const showErr = m => { if (errEl) { errEl.textContent = m; errEl.hidden = false; } };
-  const need = ["gop_y_outline", "gop_y_bai", "tra_loi"];
+  const muc = r.trang_thai === "cho_duyet_bai" ? mucNotes(r) : [];
+  if (kind === "duyet_bai" && muc.length) { showErr(`Bạn đang có góp ý ở ${muc.length} mục. Bấm "Gửi góp ý, sửa bài", hoặc xóa góp ý mục rồi mới duyệt.`); return; }
+  const need = ["gop_y_outline", "tra_loi"].concat(muc.length ? [] : ["gop_y_bai"]);
   if (need.includes(kind) && !note) { showErr("Ghi nội dung góp ý hoặc trả lời để Agent biết cần làm gì."); noteEl && noteEl.focus(); return; }
   if (kind === "sua_tay") { editOutline = !editOutline; renderDetail(); return; }
   const lich = Array.isArray(r.lich_su) ? r.lich_su.slice(-60) : [];
@@ -403,7 +458,7 @@ async function act(r, kind, btn) {
     upd.trang_thai = "cho_viet"; upd.ghi_chu_duyet_outline = note; queue = true;
   } else if (kind === "gop_y_outline") { upd.trang_thai = "sua_outline"; upd.gop_y_outline = note; viec = "Góp ý outline"; queue = true; }
   else if (kind === "duyet_bai") { upd.trang_thai = "cho_tao_anh"; upd.ghi_chu_duyet_bai = note; viec = "Duyệt bài"; queue = true; }
-  else if (kind === "gop_y_bai") { upd.trang_thai = "sua_bai"; upd.gop_y_bai = note; viec = "Góp ý bài"; queue = true; }
+  else if (kind === "gop_y_bai") { upd.trang_thai = "sua_bai"; upd.gop_y_bai = note; upd.gop_y_muc = muc; viec = "Góp ý bài" + (muc.length ? ` (${muc.length} mục: ${muc.map(x => x.muc).join("; ")})` : ""); queue = true; }
   else if (kind === "anh_xong") { upd.trang_thai = "cho_hoan_thien"; viec = "Báo đã duyệt ảnh xong"; queue = true; }
   else if (kind === "tra_loi") { upd.trang_thai = r.quay_ve && ST[r.quay_ve] ? r.quay_ve : "moi"; upd.tra_loi = note; viec = "Trả lời câu hỏi của Agent"; queue = true; }
   else if (kind === "bo") { upd.trang_thai = "bo_qua"; upd.truoc_khi_bo = r.trang_thai; viec = "Bỏ từ khóa"; }
@@ -414,7 +469,7 @@ async function act(r, kind, btn) {
   btn.disabled = true;
   try {
     await db.doc("tu_khoa/" + r.id).update(upd);
-    delete drafts[r.id]; editOutline = false;
+    delete drafts[r.id]; Object.keys(drafts).filter(k => k.startsWith(r.id + "#")).forEach(k => delete drafts[k]); editOutline = false;
     if (queue) { const m = await fireAgent(`Bảng điều phối: ${viec.split(":")[0]} cho từ khóa "${r.tu_khoa}" (${r.id}).`); flash(m); }
   } catch (e) {
     btn.disabled = false;
@@ -424,7 +479,7 @@ async function act(r, kind, btn) {
 
 function flash(m) { $("#runInfo").textContent = m; }
 
-document.addEventListener("input", e => { const id = e.target.dataset && e.target.dataset.note; if (id) drafts[id] = e.target.value; });
+document.addEventListener("input", e => { const d = e.target.dataset || {}; if (d.note) drafts[d.note] = e.target.value; if (d.muc) { drafts[d.muc] = e.target.value; e.target.closest(".mgy")?.classList.toggle("has", !!e.target.value); } });
 
 document.addEventListener("click", async e => {
   const b = e.target.closest("button"); if (!b) return;
