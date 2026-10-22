@@ -404,12 +404,23 @@ function mucNotes(r) {
   return [...document.querySelectorAll(`[data-muc^="${CSS.escape(r.id)}#"]`)].map(t => ({ muc: t.dataset.h, gop_y: t.value.trim() })).filter(x => x.gop_y);
 }
 
+function anhTienDo(r) {
+  if (!["cho_tao_anh", "dang_tao_anh", "cho_duyet_anh", "cho_hoan_thien"].includes(r.trang_thai)) return "";
+  const key = (r.file_bai || "").replace(/\.md$/, ""), rs = anh.filter(a => a.bai === key);
+  const tong = r.anh_tong || rs.length, duyet = rs.filter(a => a.trang_thai === "duyet").length, cho = rs.filter(a => (a.trang_thai || "cho_duyet") === "cho_duyet").length;
+  const thieu = Array.isArray(r.anh_thieu) ? r.anh_thieu : [];
+  if (!tong && !rs.length) return "";
+  return `<p class="hint" style="margin-top:10px">Ảnh: đã có ${rs.length}/${tong}, bạn đã duyệt ${duyet}${cho ? `, còn ${cho} chờ bạn duyệt` : ""}.${thieu.length ? ` Agent còn thiếu: ${thieu.map(esc).join(", ")}.` : ""}
+    ${rs.length ? ` <button class="btn ghost" type="button" data-go="anh" data-bai="${esc(key)}">Mở tab Duyệt ảnh</button>` : ""}</p>`;
+}
+
 function actionHtml(r) {
   const t = r.trang_thai, dis = readOnly ? "disabled" : "";
   const note = drafts[r.id] ?? "";
   if (st(r).run) return `<div class="panel"><div class="working"><span class="dot"></span>Agent đang làm bước này${r.tien_do ? `: ${esc(r.tien_do)}` : ""}. Trang tự cập nhật khi xong.</div></div>`;
+  const anhBox = anhTienDo(r);
   if (["moi", "sua_outline", "cho_viet", "sua_bai", "cho_tao_anh", "cho_hoan_thien"].includes(t))
-    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.</span><button class="btn ghost" type="button" data-run ${dis}>Chạy Agent ngay</button></div></div>`;
+    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn ghost" type="button" data-run ${dis}>Chạy Agent ngay</button></div>${anhBox}</div>`;
   if (t === "cho_duyet_outline") return `<div class="panel act box">
       <h3>Duyệt outline</h3>
       <label for="note-${esc(r.id)}">Góp ý cho Agent</label>
@@ -433,7 +444,7 @@ function actionHtml(r) {
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_anh") return `<div class="panel act box">
       <h3>Duyệt ảnh</h3>
-      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh ở tab Duyệt ảnh${r.anh_tong ? ` (đã duyệt ${esc(r.anh_duyet || 0)}/${esc(r.anh_tong)} ảnh)` : ""}. Xong thì quay lại bấm nút bên dưới.</p>
+      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh ở tab Duyệt ảnh. Xong thì quay lại bấm nút bên dưới.</p>${anhTienDo(r)}
       <div class="actions">
         <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Duyệt ảnh</button>
         <button class="btn ok" type="button" data-act="anh_xong" ${dis}>Đã duyệt ảnh xong</button>
