@@ -1,0 +1,32 @@
+[
+ {
+  "ma": "intent",
+  "ten": "Đáp ứng search intent",
+  "toi_da": 15
+ },
+ {
+  "ma": "du_lieu",
+  "ten": "Chính xác dữ liệu và nguồn",
+  "toi_da": 25
+ },
+ {
+  "ma": "eeat",
+  "ten": "Chuyên môn và EEAT",
+  "toi_da": 15
+ },
+ {
+  "ma": "thuong_hieu",
+  "ten": "Thương hiệu và tuân thủ",
+  "toi_da": 15
+ },
+ {
+  "ma": "giong_van",
+  "ten": "Giọng văn",
+  "toi_da": 15
+ },
+ {
+  "ma": "cau_truc",
+  "ten": "Cấu trúc và SEO",
+  "toi_da": 15
+ }
+]

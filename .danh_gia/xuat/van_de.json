@@ -1,0 +1,362 @@
+[
+ {
+  "nhan": "bao-hanh-ap-chung",
+  "muc": "bat_buoc",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "Bảo hành 2 năm áp cho mọi hàng, chỉ đúng với dòng cao cấp",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "den-gia-dinh-trung-hang-khac",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "Đèn giả định 16.500 lm trùng quang thông model Philips, Rạng Đông",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "placeholder-da-co-dap-an",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Trang BUFO4-150 đã ghi tùy chọn chip, driver",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "tra-loi-nhanh-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Đoạn trả lời nhanh 77 từ, thiếu số, 5 ý cho 6 bước",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "bang-sai-thu-tu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Bảng độ rọi lộn thứ tự, lặp chữ đóng gói",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Phần 5 lỗi nhắc lại Bước 2, 5, 6",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 cho xưởng bụi trung bình",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "lm/W dùng trước khi giải thích",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "thieu-dong-trong-heading",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Thiếu dòng trống trước H3",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Không H2 nào chứa nguyên từ khóa chính",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "ket-bai-thieu-truong-hop",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Kết bài thiếu trường hợp trần 4-6 m",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "phan-c-sai-so-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phần C ghi 4 model cùng 16.500 lm, agent cho là 5",
+  "ma": "L001",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "ket-bai-mau-thuan-than-bai",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Kết bài 6-10 m 100-150W ngược bảng bước 2",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "tra-loi-nhanh-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Đoạn trả lời nhanh khoảng 66 từ",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "lm chưa giải thích ở lần đầu",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Lỗi 3 và lỗi 5 cùng ý treo dọc lối đi",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "so-sanh-thieu-moc",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "11 bộ so với 39 đèn tính ra, không phải 40",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ 2 lặp ý chia vùng ở Bước 1",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "phan-c-thieu-chi-tiet",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phần C thiếu BD HB03L 350/150W, còn câu lịch sử sửa",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Không H2 nào chứa nguyên từ khóa chính",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 cho xưởng bụi trung bình",
+  "ma": "L002",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "den-gia-dinh-trung-hang-khac",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "15.000 lm trùng Rạng Đông BD HB02L 430/150W",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "cau-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Câu đầu kết bài 3 vế, lặp chữ xưởng khô",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Câu quang thông ở đoạn trả lời nhanh đọc gượng",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Ý treo theo lối đi xuất hiện 3 nơi",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "placeholder-chua-goi-y",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Placeholder xưởng bụi chưa nêu model IP65 đang bán",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "phan-c-sai-so-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Số từ phần B ghi 2.900, thực tế khoảng 3.040",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Không H2 nào chứa nguyên từ khóa chính",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 cho xưởng bụi trung bình",
+  "ma": "L003",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "tra-loi-nhanh-thieu-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "3 y cuoi doan tra loi nhanh (kieu den, IP, driver) chua co tieu chi hay dieu kien cu the",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "bao-hanh-them-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "Buoc 6 them dieu kien loi do nha san xuat, khong co trong chinh sach da xac nhan",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 117 lua chon toi uu, dong 123 va 166 hay gap nhat, nhieu nhat chua co can cu",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "ket-bai-lap-bang-buoc-2",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Ket bai chep lai 3 dong bang chon nhanh Buoc 2, cau dau dai 77 tu",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Chua H2 nao chua nguyen cum cach chon den LED nha xuong",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 la muc cao cho xuong co khi bui trung binh",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "placeholder-chua-goi-y",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Xuong bui: goi y den IP65/IP66 hang khac hay de trung lap",
+  "ma": "L006",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ }
+]

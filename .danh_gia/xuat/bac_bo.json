@@ -1,0 +1,18 @@
+[
+ {
+  "ma": "B004",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "nhan": "phan-c-sai-so-lieu",
+  "ly_do": "CSV chỉ có 4 model 150W ghi đúng 16.500 lm; phần C ghi bốn model là đúng",
+  "ngay": "2026-10-21"
+ },
+ {
+  "ma": "B005",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "nhan": "den-gia-dinh-trung-hang-khac",
+  "ly_do": "Gợi ý đổi sang 15.000 lm vẫn trùng Rạng Đông BD HB02L 430/150W, vòng 3 bị chấm lại là lỗi",
+  "ngay": "2026-10-21"
+ }
+]

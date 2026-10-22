@@ -1,0 +1,53 @@
+{
+  "bai": "Bai_cach-chon-den-led-nha-xuong.md",
+  "anh": [
+    {
+      "ten": "cap-bao-ve-ip-den-nha-xuong.jpg",
+      "file": "anh/Bai_cach-chon-den-led-nha-xuong/cap-bao-ve-ip-den-nha-xuong.jpg",
+      "nguon": "python",
+      "alt": "Cách đọc cấp bảo vệ IP của đèn LED nhà xưởng",
+      "mo_ta": "Bảng minh họa ý nghĩa hai chữ số trong cấp bảo vệ IP",
+      "url_website": null,
+      "media_id": 8518,
+      "dai_dien": false,
+      "ghi_chu": "Vẽ bằng ve_so_do.py, nội dung theo Knowledge mục 6 (IEC 60529)",
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/10/cap-bao-ve-ip-den-nha-xuong.jpg",
+      "sha_da_tai": "67caede0c3b52faa1209985603348d729c077ad9d19af4f24c20493287121386",
+      "chu_thich_da_ghi": "Bảng minh họa ý nghĩa hai chữ số trong cấp bảo vệ IP"
+    },
+    {
+      "ten": "so-do-bo-tri-den-nha-xuong-1200m2.jpg",
+      "file": "anh/Bai_cach-chon-den-led-nha-xuong/so-do-bo-tri-den-nha-xuong-1200m2.jpg",
+      "nguon": "python",
+      "alt": "Sơ đồ bố trí 40 đèn LED nhà xưởng cho mặt bằng 1.200 m²",
+      "mo_ta": "Sơ đồ bố trí lưới 5 hàng x 8 đèn cho nhà xưởng 30 x 40 m",
+      "url_website": null,
+      "media_id": 8519,
+      "dai_dien": false,
+      "ghi_chu": "Vẽ bằng ve_so_do.py, số liệu theo ví dụ 1.200 m² trong bài",
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/10/so-do-bo-tri-den-nha-xuong-1200m2.jpg",
+      "sha_da_tai": "9348c9673adf493f79848336659bc24bd495267361583101cf67be09014c7cea",
+      "chu_thich_da_ghi": "Sơ đồ bố trí lưới 5 hàng x 8 đèn cho nhà xưởng 30 x 40 m"
+    },
+    {
+      "ten": "cach-chon-den-led-nha-xuong.jpg",
+      "file": "anh/Bai_cach-chon-den-led-nha-xuong/cach-chon-den-led-nha-xuong.jpg",
+      "nguon": "canva",
+      "alt": "Nhà xưởng lắp đèn LED UFO chiếu sáng đều mặt sàn",
+      "mo_ta": "Toàn cảnh nhà xưởng lắp đèn LED UFO chiếu sáng đều",
+      "url_website": null,
+      "media_id": 8520,
+      "dai_dien": true,
+      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYng0gjEU), xuất qua thiết kế DAHYnysKTTQ trang 2. Không phải công trình thật.",
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "Giữ ảnh này",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/10/cach-chon-den-led-nha-xuong.jpg",
+      "sha_da_tai": "1937153160043f2f181a5ab6a8ecdc7a808374c0af38e9d5caf7d1e717113925",
+      "chu_thich_da_ghi": "Toàn cảnh nhà xưởng lắp đèn LED UFO chiếu sáng đều (ảnh minh họa)"
+    }
+  ]
+}
