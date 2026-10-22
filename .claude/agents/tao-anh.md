@@ -66,7 +66,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 - Mọi con số phải lấy từ bài hoặc Knowledge. Sơ đồ ước lượng ghi chú "cần tính bằng DIALux".
 
 **kho-anh:**
-1. `python tools/tao_anh.py tim-anh "<từ khóa tiếng Anh theo ngữ cảnh>" --kho pixabay` (hoặc `--kho pexels`, `--kho unsplash`). Key đọc từ `PIXABAY_API_KEY`, `PEXELS_API_KEY`, `UNSPLASH_ACCESS_KEY`; ảnh Unsplash phải tải bằng `tai unsplash:<id> <file>` (lệnh tự báo lượt tải theo quy định Unsplash); thiếu key hoặc bị chặn mạng thì báo trong báo cáo và chuyển sang `canva`.
+1. `python tools/tao_anh.py tim-anh "<từ khóa tiếng Anh theo ngữ cảnh>" --kho unsplash`; không có ảnh hợp thì `--kho pixabay` (Pexels hiện không cấp API, chốt 22/10/2026). Key đọc từ `PIXABAY_API_KEY`, `PEXELS_API_KEY`, `UNSPLASH_ACCESS_KEY`; ảnh Unsplash phải tải bằng `tai unsplash:<id> <file>` (lệnh tự báo lượt tải theo quy định Unsplash); thiếu key hoặc bị chặn mạng thì báo trong báo cáo và chuyển sang `canva`.
 2. Xem ảnh xem trước. Loại ảnh có logo, chữ, biển hiệu, tên hãng, người nhận ra được, ảnh trông như ảnh AI, ảnh không khớp ngữ cảnh đoạn văn (kiểu kết cấu, loại đèn). Thử tối đa 2 từ khóa khác nhau.
 3. `tai` bản lớn về `_goc/`, `chuan-hoa ... --cat`, xem lại bản 820 px.
 4. `ghi ... --nguon kho-anh --ghi-chu "Ảnh minh họa, không phải công trình thật. Nguồn: <trang gốc>, <Pixabay Content License | Pexels License | Unsplash License>"`. Ảnh Unsplash ghi thêm "Ảnh: <tác giả> trên Unsplash".

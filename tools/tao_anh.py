@@ -430,7 +430,7 @@ def main():
     p = sub.add_parser("phan-loai"); p.add_argument("article"); p.set_defaults(func=phan_loai)
     p = sub.add_parser("san-pham"); p.add_argument("slug"); p.set_defaults(func=san_pham)
     p = sub.add_parser("tim-anh"); p.add_argument("tu_khoa")
-    p.add_argument("--kho", choices=("pixabay", "pexels", "unsplash"), default="pixabay"); p.add_argument("--so", type=int, default=8)
+    p.add_argument("--kho", choices=("pixabay", "pexels", "unsplash"), default="unsplash"); p.add_argument("--so", type=int, default=8)
     p.set_defaults(func=tim_anh)
     p = sub.add_parser("tai"); p.add_argument("url"); p.add_argument("out"); p.set_defaults(func=tai)
     p = sub.add_parser("chuan-hoa"); p.add_argument("src"); p.add_argument("out")
