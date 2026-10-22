@@ -31,12 +31,9 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 
 Mỗi lần agent đánh giá ghi phiếu, `tools/phieu_duyet.py` thêm một dòng vào `.danh_gia/nhat_ky.jsonl` (điểm từng tiêu chí, các vấn đề có nhãn). Agent chính ghi thêm các lần bác bỏ (bước 3). Không sửa tay file nhật ký.
 
-Trang **Lịch sử chấm bài HLB**: https://claude.ai/artifact/JVfjfAmGtDAtZr49TFodBc (Dashboard, dữ liệu là các file đính kèm). Cập nhật trang một lần khi kết thúc vòng duyệt (bước 5), trước khi báo người dùng:
-1. `python tools/phieu_duyet.py xuat` (ghi `.danh_gia/xuat/cham.json`, `van_de.json`, `bac_bo.json`, `tieu_chi.json`).
-2. Đọc dataset hiện tại: `ArtifactData` `list` collection `datasets` (lấy `version` và `source.url` cũ).
-3. Với mỗi file có thay đổi: tải lên bằng Artifact `publish` với `url` trên, `asset: true`, `file_path` (mỗi file JSON một lần gọi).
-4. Một `ArtifactData` `batch` gồm các `update` vào `datasets/<cham|van_de|bac_bo|tieu_chi>`: `source` với `url` mới (`/_blob/<id>`) và `name`, `updated: {at: <giờ ISO>, by: "Claude (phieu_duyet.py xuat)"}`, kèm `if_version`.
-5. Xóa file cũ: Artifact `delete` với `url` trên và `path` là id cũ.
+Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (từ 22/10/2026 thay trang Lịch sử chấm bài HLB cũ, trang cũ không cập nhật nữa). Cập nhật một lần khi kết thúc vòng duyệt (bước 5), trước khi báo người dùng:
+1. `python tools/phieu_duyet.py xuat` rồi `python dieu_phoi/cham_len_bang.py > <file tạm>.json`.
+2. `ArtifactData` `set` collection `cham_bai`, doc_id `tong_hop`, `file_path` là file tạm, kèm `if_version` (đọc `get` trước để lấy version).
 
 `tieu_chi.json` chỉ đổi khi thang chấm đổi. Khi đổi tiêu chí, điểm tối đa hoặc ngưỡng trong `.claude/agents/danh-gia-noi-dung.md`, sửa luôn `TIEU_CHI`, `NGUONG` và tăng `THANG_CHAM` trong `tools/phieu_duyet.py`, để trang không so lẫn điểm của hai thang.
 
@@ -52,7 +49,7 @@ Trang **Lịch sử chấm bài HLB**: https://claude.ai/artifact/JVfjfAmGtDAtZr
 
 ### Trang duyệt ảnh
 
-Người dùng duyệt ảnh trên trang **Duyệt ảnh HLB**: https://claude.ai/artifact/TpJeKMDsiBV4RgN9bFTWXp (tệp nguồn `anh/trang-duyet-anh.html`). Dữ liệu đọc ghi bằng công cụ `ArtifactData` với URL trên:
+Người dùng duyệt ảnh ở tab **Duyệt ảnh** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (từ 22/10/2026 thay trang Duyệt ảnh HLB cũ; trang cũ và `anh/trang-duyet-anh.html` không dùng nữa). Dữ liệu đọc ghi bằng công cụ `ArtifactData` với URL trên, cấu trúc giữ như cũ:
 - Collection `anh`, mã tài liệu `<tên bài>--<tên file>` (ví dụ `Bai_cach-chon-den-led-nha-xuong--cap-bao-ve-ip-den-nha-xuong.jpg`). Trường: `bai`, `tieu_de_bai`, `ten`, `thu_tu`, `muc`, `alt`, `nguon`, `url`, `asset_id`, `rong`, `cao`, `vong`, `trang_thai` (`cho_duyet` | `duyet` | `lam_lai`), `ghi_chu` (của người dùng), `ghi_chu_agent`, `cap_nhat`.
 - Collection `yeu_cau`: ảnh người dùng xin thêm. Trường: `bai`, `noi_dung` (tên file hoặc mô tả), `ghi_chu`, `trang_thai` (`moi` | `da_xu_ly`), `phan_hoi`, `tao_luc`.
 

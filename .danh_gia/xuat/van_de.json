@@ -358,5 +358,135 @@
   "bai": "cach-chon-den-led-nha-xuong",
   "vong": 1,
   "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "dan-sai-dieu-khoan",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "FAQ giay phep: mien phep cap IV gan cho khoan 2 Dieu 43, nguon khong ghi vay",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "gia-thieu-luu-y-thay-doi",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Dong 177 thieu cau gia thay doi theo so luong va thoi diem",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "thong-so-ap-cho-muc-cong-suat",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Bang 100-500m2 dung quang thong BUFO4 nhung ghi chung 50W, 100W",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "tra-loi-nhanh-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Khoi chon nhanh dong 18-26 khoang 95 tu, chuan 40-60",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "3/4 loi chieu sang dong 266-272 lap lai luu y o dong 62, 106, 114, 147",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ so den va FAQ khung thep hay be tong lap gan nguyen than bai",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "phan-c-sai-so-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan C ghi 9 vi tri anh, than bai co 3, 7 mau chua co placeholder anh",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "ten-file-anh-sai-dinh-dang",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Dong 258 ten file anh duoi .png, website chi dung .jpg",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "phan-a-thieu-truong",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan A thieu Category va Excerpt",
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "tra-loi-nhanh-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Khoi chon nhanh dong 20-24 con 76 tu, chuan 40-60",
+  "ma": "L009",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 304 may moc moi la phan chinh: chua co can cu, khong dung voi kho hang",
+  "ma": "L009",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ chia cong tac dong 306-308 lap y dong 159 va dong 84",
+  "ma": "L009",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "phan-c-sai-so-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan C ghi nam cho da dien, thieu placeholder dong 308, dong FAQ giay phep chua dien",
+  "ma": "L009",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
  }
 ]

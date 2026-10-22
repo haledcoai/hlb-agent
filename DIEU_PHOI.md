@@ -17,7 +17,7 @@ Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc b�
 
 - Duyệt SERP và outline gộp làm một lần trên bảng. Riêng khi SERP cho thấy nên tối ưu trang danh mục/sản phẩm thay vì viết blog, trùng bài cũ, hoặc ngoài phạm vi chiếu sáng nhà xưởng: dừng ở SERP, chuyển `can_xu_ly`.
 - Người dùng bấm "Duyệt outline" là đồng ý cho viết bài và **đăng bản nháp** khi bài có phiếu ĐẠT. Không cần hỏi lại trước `--post`. Bài chưa ĐẠT sau 3 vòng thì không đăng, chuyển `can_xu_ly`.
-- Người dùng bấm "Duyệt bài" thì mới tạo ảnh. Ảnh duyệt trên trang Duyệt ảnh HLB như cũ.
+- Người dùng bấm "Duyệt bài" thì mới tạo ảnh. Ảnh duyệt ở tab Duyệt ảnh trên chính bảng này.
 - Bước 7 "Hoàn thiện bản nháp": đẩy lại bản nháp kèm ảnh đã duyệt, kiểm tra lần cuối, chuyển `san_sang_dang`. Không bao giờ đăng công khai.
 
 ## 2. Dữ liệu trên bảng
@@ -62,8 +62,8 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 | `sua_outline` | `dang_nghien_cuu` | Làm lại outline theo `gop_y_outline`, giữ SERP trừ khi góp ý yêu cầu | `cho_duyet_outline` |
 | `cho_viet` | `dang_viet` | Bước 3 viết theo đúng `outline` trên bảng (có thể người dùng đã sửa), Bước 4 tự kiểm tra, vòng duyệt CLAUDE.md (tối đa 3 vòng). ĐẠT thì làm đủ mục 3a | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
 | `sua_bai` | `dang_viet` | Sửa theo `gop_y_muc` (chỉ sửa đúng các mục được góp ý, giữ nguyên chữ các mục khác), `gop_y_bai` và `tra_loi` nếu có. Chấm lại theo CLAUDE.md. ĐẠT thì làm đủ mục 3a với `--draft-id <draft_id>`, `thay_doi` liệt kê từng mục đã sửa | `cho_duyet_bai` |
-| `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên trang Duyệt ảnh HLB (CLAUDE.md) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
-| `cho_hoan_thien` | `dang_hoan_thien` | Đọc trang Duyệt ảnh, xử lý như "xử lý ảnh đã duyệt". Còn ảnh `lam_lai` hoặc yêu cầu mới: làm lại, quay về `cho_duyet_anh`. Đủ ảnh duyệt: `--post --draft-id <draft_id>` để chèn ảnh, kiểm tra thẻ ảnh, alt, link, Rank Math | `san_sang_dang` |
+| `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên tab Duyệt ảnh của bảng (CLAUDE.md) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
+| `cho_hoan_thien` | `dang_hoan_thien` | Đọc collection `anh`, `yeu_cau` trên bảng, xử lý như "xử lý ảnh đã duyệt". Còn ảnh `lam_lai` hoặc yêu cầu mới: làm lại, quay về `cho_duyet_anh`. Đủ ảnh duyệt: `--post --draft-id <draft_id>` để chèn ảnh, kiểm tra thẻ ảnh, alt, link, Rank Math | `san_sang_dang` |
 
 ### 3a. Bài vừa ĐẠT: bắt buộc làm đủ trước khi chuyển `cho_duyet_bai`
 

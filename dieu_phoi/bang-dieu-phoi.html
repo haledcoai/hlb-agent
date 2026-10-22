@@ -155,6 +155,62 @@ a.btn.main:hover { color: var(--color_body); }
 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color_main); flex: none; }
 @media (prefers-reduced-motion: no-preference) { .dot { animation: pulse 1.6s ease-in-out infinite; } }
 @keyframes pulse { 50% { opacity: .25; } }
+/* Tab trang */
+.ptabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 2px solid var(--gray_300); }
+.ptab { font: inherit; font-size: 15px; font-weight: 700; text-transform: uppercase; background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 10px 16px; color: var(--muted); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.ptab:hover { color: var(--color_main); }
+.ptab[aria-selected="true"] { color: var(--color_main); border-bottom-color: var(--color_main); }
+.ptab .cnt { background: var(--color_primary); color: var(--color_body); border-radius: var(--radius-pill); font-size: 12px; padding: 0 8px; font-variant-numeric: tabular-nums; }
+.pane[hidden] { display: none; }
+.pane { display: grid; gap: 18px; min-width: 0; }
+/* Tổng quan Agent */
+.agents { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.acard { background: var(--surface); border: 1px solid var(--gray_300); border-top: 4px solid var(--color_main); border-radius: var(--radius-lg); padding: 16px 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.acard h3 { font-size: 17px; text-transform: uppercase; color: var(--color_main); }
+.acard .role { margin: 0; font-size: 14px; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 8px; }
+.stat { background: var(--gray_100); border-radius: var(--radius-sm); padding: 8px 10px; display: grid; gap: 0; }
+.stat b { font-size: 24px; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.stat span { font-size: 12px; color: var(--muted); line-height: 1.3; }
+.stat.you { background: var(--you_surface); }
+.files { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-family: var(--mono); font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.feed { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14px; }
+.feed li { display: grid; grid-template-columns: 104px 1fr; gap: 10px; }
+.feed .t { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; }
+.feed .k { font-weight: 700; }
+@media (max-width: 520px) { .feed li { grid-template-columns: 1fr; gap: 0; } }
+.panelw { background: var(--surface); border: 1px solid var(--gray_300); border-radius: var(--radius-lg); padding: 16px 18px; display: grid; gap: 12px; min-width: 0; }
+/* Duyệt ảnh */
+.agrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr)); gap: 16px; }
+.icard { background: var(--surface); border: 1px solid var(--gray_300); border-radius: var(--radius-lg); overflow: hidden; display: grid; align-content: start; min-width: 0; }
+.icard.duyet { border-color: var(--ok); box-shadow: inset 0 4px 0 var(--ok); }
+.icard.lam_lai { border-color: var(--color_primary); box-shadow: inset 0 4px 0 var(--color_primary); }
+.icard img { display: block; width: 100%; height: auto; background: var(--gray_200); }
+.icard .body { padding: 14px 16px 16px; display: grid; gap: 10px; min-width: 0; }
+.icard .top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; justify-content: space-between; }
+.icard .ten { font-family: var(--mono); font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+.icard dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px; font-size: 13px; }
+.icard dt { color: var(--muted); }
+.icard dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.anote { font-size: 13px; color: var(--muted); background: var(--gray_100); border-radius: var(--radius-sm); padding: 8px 10px; }
+.bai-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; border-bottom: 2px solid var(--color_main); padding-bottom: 8px; }
+.bai-head h3 { font-size: 17px; color: var(--color_body); min-width: 0; }
+.bai-head .mono { color: var(--muted); }
+.req { background: var(--surface); border: 1px dashed var(--line_strong); border-radius: var(--radius-lg); padding: 14px 16px; display: grid; gap: 10px; }
+.req ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.req li { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 14px; }
+.req li .txt { flex: 1 1 260px; min-width: 0; overflow-wrap: anywhere; }
+.req form { display: grid; gap: 8px; }
+/* Lịch sử chấm */
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.tbl th, .tbl td { border-bottom: 1px solid var(--gray_200); padding: 7px 8px; text-align: left; vertical-align: top; }
+.tbl th { font-size: 12px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.tbl td.n, .tbl th.n { text-align: right; }
+.tscroll { overflow-x: auto; max-width: 100%; }
+.tbl th { min-width: 64px; }
+.tbl td:first-child { min-width: 150px; overflow-wrap: anywhere; }
+.tbl td.nw { white-space: nowrap; }
+select { width: auto; min-width: 220px; max-width: 100%; }
 .foot { text-align: center; font-size: 13px; color: var(--muted); }
 </style>
 
@@ -164,7 +220,7 @@ a.btn.main:hover { color: var(--color_body); }
       <img src="/_blob/c92dc3c831753633c28613cbcabceed9" alt="HALEDCO" width="56" height="56">
       <div>
         <h1>Bảng điều phối HLB</h1>
-        <p>Nạp từ khóa, duyệt outline, duyệt bài và theo dõi ảnh ở một chỗ. Bấm Duyệt hoặc Gửi góp ý là Agent nhận việc bước tiếp theo.</p>
+        <p>Nạp từ khóa, duyệt outline, duyệt bài, duyệt ảnh và theo dõi ba Agent ở một chỗ. Bấm Duyệt hoặc Gửi góp ý là Agent nhận việc bước tiếp theo.</p>
       </div>
     </div>
     <div class="run">
@@ -173,7 +229,14 @@ a.btn.main:hover { color: var(--color_body); }
     </div>
   </div>
 </header>
-<div class="wrap" style="padding-top:24px">
+<div class="wrap" style="padding-top:20px">
+  <nav class="ptabs" role="tablist" aria-label="Khu vực" id="ptabs">
+    <button class="ptab" role="tab" type="button" data-pane="dieu_phoi" aria-selected="true">Điều phối</button>
+    <button class="ptab" role="tab" type="button" data-pane="agent" aria-selected="false">Các Agent</button>
+    <button class="ptab" role="tab" type="button" data-pane="anh" aria-selected="false">Duyệt ảnh <span class="cnt" id="cntAnh" hidden></span></button>
+    <button class="ptab" role="tab" type="button" data-pane="cham" aria-selected="false">Lịch sử chấm</button>
+  </nav>
+  <section class="pane" id="pane-dieu_phoi">
   <div class="bar"><h2>Tiến độ 8 chặng</h2><span class="side">Viền vàng: chặng bạn duyệt. Viền xanh: chặng Agent làm.</span></div>
 
   <nav class="stages" id="stages" aria-label="Các chặng"></nav>
@@ -200,6 +263,10 @@ a.btn.main:hover { color: var(--color_body); }
       <div class="empty">Chọn một từ khóa ở danh sách để xem SERP, outline, bài viết và các nút duyệt. Chưa có từ khóa nào thì mở mục "Nạp từ khóa" ở trên.</div>
     </section>
   </div>
+  </section>
+  <section class="pane" id="pane-agent" hidden></section>
+  <section class="pane" id="pane-anh" hidden></section>
+  <section class="pane" id="pane-cham" hidden></section>
   <p class="foot">Đèn LED Nhà Xưởng HLB · Dòng cao cấp do HALEDCO sản xuất, HLB phân phối</p>
 </div>
 
@@ -235,11 +302,11 @@ const ST = {
   bo_qua:           { t: "Đã bỏ", c: "off", s: 0 }
 };
 const FILTERS = [["you", "Cần bạn"], ["agent", "Agent đang làm"], ["done", "Sẵn sàng đăng"], ["all", "Tất cả"], ["off", "Đã bỏ"]];
-const DEFAULT_ANH = "https://claude.ai/artifact/TpJeKMDsiBV4RgN9bFTWXp";
 
 let db = null, mcp = null, rows = [], cfg = {}, filter = "you", stageSel = 0, selId = null, readOnly = false;
 const drafts = {}; let editOutline = false;
 const bai = {}; let baiUnsub = null, baiFor = null;
+let pane = "dieu_phoi", anh = [], yeuCau = [], cham = null, locAnh = "cho_duyet", locBai = "", locCham = "";
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -366,9 +433,9 @@ function actionHtml(r) {
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_anh") return `<div class="panel act box">
       <h3>Duyệt ảnh</h3>
-      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh trên trang Duyệt ảnh HLB${r.anh_tong ? ` (đã duyệt ${esc(r.anh_duyet || 0)}/${esc(r.anh_tong)} ảnh)` : ""}. Xong thì quay lại bấm nút bên dưới.</p>
+      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh ở tab Duyệt ảnh${r.anh_tong ? ` (đã duyệt ${esc(r.anh_duyet || 0)}/${esc(r.anh_tong)} ảnh)` : ""}. Xong thì quay lại bấm nút bên dưới.</p>
       <div class="actions">
-        <a class="btn main" href="${esc(cfg.link_duyet_anh || DEFAULT_ANH)}" target="_blank" rel="noopener">Mở trang Duyệt ảnh</a>
+        <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Duyệt ảnh</button>
         <button class="btn ok" type="button" data-act="anh_xong" ${dis}>Đã duyệt ảnh xong</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "can_xu_ly") return `<div class="panel stopbox box">
@@ -419,9 +486,148 @@ function renderDetail() {
   `;
 }
 
+const AGENTS = [
+  { k: "viet", t: "Agent viết bài", role: "Nghiên cứu SERP, lập outline, viết bài, đăng và cập nhật bản nháp WordPress.",
+    files: ["1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md", "tools/wp_draft.py"] },
+  { k: "cham", t: "Agent đánh giá", role: "Chấm bài 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
+    files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
+  { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Duyệt ảnh, chèn ảnh đã duyệt vào bản nháp.",
+    files: [".claude/agents/tao-anh.md", "tools/tao_anh.py"] }
+];
+const stat = (n, t, you) => `<div class="stat ${you ? "you" : ""}"><b>${esc(n)}</b><span>${esc(t)}</span></div>`;
+const KL = { DAT: "Đạt", CAN_SUA: "Cần sửa", KHONG_DAT: "Không đạt" };
+
+function lastScores() {
+  const c = (cham && cham.cham) || [], m = {};
+  c.forEach(x => { if (!m[x.bai] || (x.ma || "") > (m[x.bai].ma || "")) m[x.bai] = x; });
+  return Object.values(m);
+}
+function topIssues(n) {
+  const v = (cham && cham.van_de) || [], m = {};
+  v.forEach(x => { const o = m[x.nhan] || (m[x.nhan] = { nhan: x.nhan, so: 0, bai: new Set(), muc: x.muc, mo_ta: x.mo_ta, tc: x.ten_tieu_chi }); o.so++; o.bai.add(x.bai); if (x.muc === "bat_buoc") o.muc = "bat_buoc"; });
+  return Object.values(m).sort((a, b) => b.so - a.so || b.bai.size - a.bai.size).slice(0, n);
+}
+
+function renderAgent() {
+  const by = k => rows.filter(r => r.trang_thai === k).length;
+  const nhap = rows.filter(r => r.draft_id).length;
+  const ls = lastScores(), dat = ls.filter(x => x.ket_luan === "DAT").length;
+  const tb = ls.length ? Math.round(ls.reduce((a, x) => a + (x.diem_tinh ?? x.diem ?? 0), 0) / ls.length) : "-";
+  const ac = k => anh.filter(a => (a.trang_thai || "cho_duyet") === k).length;
+  const body = {
+    viet: stat(by("moi") + by("sua_outline") + by("cho_viet") + by("sua_bai"), "Đang chờ Agent")
+      + stat(by("dang_nghien_cuu") + by("dang_viet"), "Đang làm")
+      + stat(by("cho_duyet_outline"), "Chờ bạn duyệt outline", true)
+      + stat(by("cho_duyet_bai"), "Chờ bạn duyệt bài", true)
+      + stat(nhap, "Bài có bản nháp"),
+    cham: stat(((cham && cham.cham) || []).length, "Lượt chấm") + stat(ls.length, "Bài đã chấm")
+      + stat(dat, "Bài ĐẠT ở lần cuối") + stat(tb, "Điểm TB lần cuối"),
+    anh: stat(ac("cho_duyet"), "Chờ bạn duyệt", true) + stat(ac("lam_lai"), "Chờ làm lại") + stat(ac("duyet"), "Đã duyệt")
+      + stat(yeuCau.filter(y => y.trang_thai !== "da_xu_ly").length, "Yêu cầu thêm ảnh")
+  };
+  const extra = {
+    viet: "",
+    cham: (() => { const t = topIssues(3); return t.length ? `<div><label>Lỗi hay gặp</label><ul class="feed">${t.map(x => `<li><span class="t">${x.so} lần, ${x.bai.size} bài</span><span>${esc(x.mo_ta)}</span></li>`).join("")}</ul></div>` : ""; })()
+      + `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
+    anh: `<div class="actions"><button class="btn redo" type="button" data-go="anh">Mở tab Duyệt ảnh</button></div>`
+  };
+  const feed = rows.flatMap(r => (Array.isArray(r.lich_su) ? r.lich_su : []).map(h => ({ ...h, kw: r.tu_khoa, id: r.id })))
+    .sort((a, b) => (b.luc || "").localeCompare(a.luc || "")).slice(0, 15);
+  $("#pane-agent").innerHTML = `
+    <div class="bar"><h2>Ba Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
+    <div class="agents">${AGENTS.map(a => `<article class="acard">
+      <h3>${esc(a.t)}</h3><p class="role">${esc(a.role)}</p>
+      <div class="stats">${body[a.k]}</div>${extra[a.k]}
+      <ul class="files" aria-label="File quy tắc">${a.files.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+    </article>`).join("")}</div>
+    <div class="bar"><h2>Hoạt động gần đây</h2></div>
+    <div class="panelw">${feed.length ? `<ul class="feed">${feed.map(h => `<li><span class="t">${fmt(h.luc)}</span><span><span class="k">${h.ai === "ban" ? "Bạn" : "Agent"}</span>, <a href="#" data-open="${esc(h.id)}">${esc(h.kw)}</a>: ${esc(h.viec)}</span></li>`).join("")}</ul>` : `<div class="empty">Chưa có hoạt động.</div>`}</div>`;
+}
+
+const ALABEL = { cho_duyet: "Chờ duyệt", duyet: "Đã duyệt", lam_lai: "Chờ làm lại" };
+const NGUON = { python: "Vẽ bằng Python", canva: "Ảnh minh họa Canva", website: "Ảnh sản phẩm trên website", "nguoi-dung": "Ảnh bạn gửi" };
+
+function renderAnh() {
+  const dis = readOnly ? "disabled" : "";
+  const c = { tat_ca: anh.length, cho_duyet: 0, duyet: 0, lam_lai: 0 };
+  anh.forEach(a => { c[a.trang_thai || "cho_duyet"]++; });
+  const tabs = [["cho_duyet", "Chờ duyệt"], ["lam_lai", "Chờ làm lại"], ["duyet", "Đã duyệt"], ["tat_ca", "Tất cả"]];
+  const bais = [...new Set([...anh.map(a => a.bai), ...yeuCau.map(r => r.bai)])].filter(Boolean).sort();
+  const show = locBai && bais.includes(locBai) ? [locBai] : bais;
+  const card = a => {
+    const st = a.trang_thai || "cho_duyet", note = drafts["anh:" + a.id] ?? a.ghi_chu ?? "";
+    return `<article class="icard ${st}">
+      ${a.url ? `<img src="${esc(a.url)}" alt="${esc(a.alt)}" loading="lazy" width="${esc(a.rong || 820)}" height="${esc(a.cao || 461)}">` : ""}
+      <div class="body">
+        <div class="top"><span class="ten">${esc(a.ten)}</span><span class="pill ${st === "duyet" ? "done" : st === "lam_lai" ? "you" : "agent"}">${ALABEL[st]}${a.vong > 1 ? ", lần " + esc(a.vong) : ""}</span></div>
+        <dl><dt>Mục</dt><dd>${esc(a.muc)}</dd><dt>Alt</dt><dd>${esc(a.alt)}</dd>
+          <dt>Nguồn</dt><dd>${esc(NGUON[a.nguon] || a.nguon)}${a.rong ? `, ${esc(a.rong)} x ${esc(a.cao)} px` : ""}</dd></dl>
+        ${a.ghi_chu_agent ? `<div class="anote">${esc(a.ghi_chu_agent)}</div>` : ""}
+        <label for="an-${esc(a.id)}">Ghi chú cho Agent</label>
+        <textarea id="an-${esc(a.id)}" data-anote="${esc(a.id)}" placeholder="Ví dụ: đèn phải là UFO tròn dẹt, chụp góc thấp hơn" ${dis}>${esc(note)}</textarea>
+        <div class="actions">
+          <button class="btn ok" type="button" data-aact="duyet" data-aid="${esc(a.id)}" ${dis}>Duyệt</button>
+          <button class="btn redo" type="button" data-aact="lam_lai" data-aid="${esc(a.id)}" ${dis}>Làm lại</button>
+          ${st !== "cho_duyet" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Bỏ chọn</button>` : ""}
+        </div><div class="msg err" data-aerr="${esc(a.id)}" hidden></div>
+      </div></article>`;
+  };
+  const req = b => {
+    const items = yeuCau.filter(r => r.bai === b).sort((x, y) => (x.tao_luc || "").localeCompare(y.tao_luc || ""));
+    return `<section class="req"><label>Yêu cầu thêm ảnh</label>
+      <p class="hint">Ghi tên file hoặc mô tả ảnh còn thiếu. Agent tạo ảnh rồi đưa lên đây để bạn duyệt.</p>
+      ${items.length ? `<ul>${items.map(r => `<li><span class="pill ${r.trang_thai === "da_xu_ly" ? "done" : "you"}">${r.trang_thai === "da_xu_ly" ? "Đã tạo" : "Chờ tạo"}</span>
+        <span class="txt">${esc(r.noi_dung)}${r.ghi_chu ? ` (${esc(r.ghi_chu)})` : ""}${r.phan_hoi ? `<br><small>${esc(r.phan_hoi)}</small>` : ""}</span>
+        ${r.trang_thai !== "da_xu_ly" && !readOnly ? `<button class="btn ghost" type="button" data-rdel="${esc(r.id)}">Xóa</button>` : ""}</li>`).join("")}</ul>` : ""}
+      ${readOnly ? "" : `<form data-rbai="${esc(b)}"><input type="text" name="noi_dung" required aria-label="Ảnh cần thêm" placeholder="Tên file hoặc mô tả ảnh">
+        <input type="text" name="ghi_chu" aria-label="Ghi chú vị trí" placeholder="Đặt ở đoạn nào, cần thể hiện gì (không bắt buộc)">
+        <div class="actions"><button class="btn ok" type="submit">Gửi yêu cầu</button></div></form>`}</section>`;
+  };
+  $("#pane-anh").innerHTML = `
+    <div class="bar"><h2>Duyệt ảnh</h2><span class="side">Duyệt ảnh dùng được, ảnh chưa ưng thì ghi lý do rồi bấm Làm lại.</span></div>
+    <div class="filters">${tabs.map(([k, t]) => `<button type="button" class="chip" data-aloc="${k}" aria-pressed="${locAnh === k}">${t} ${c[k]}</button>`).join("")}
+      ${bais.length > 1 ? `<select aria-label="Lọc theo bài" data-abai><option value="">Tất cả bài</option>${bais.map(b => `<option value="${esc(b)}" ${b === locBai ? "selected" : ""}>${esc(b)}</option>`).join("")}</select>` : ""}</div>
+    ${!bais.length ? `<div class="empty">Chưa có ảnh nào. Ảnh xuất hiện ở đây sau khi Agent tạo ảnh xong.</div>` : show.map(b => {
+      const rs = anh.filter(a => a.bai === b).sort((x, y) => (x.thu_tu ?? 99) - (y.thu_tu ?? 99));
+      const sh = rs.filter(a => locAnh === "tat_ca" || (a.trang_thai || "cho_duyet") === locAnh);
+      return `<section class="pane"><div class="bai-head"><h3>${esc((rs[0] && rs[0].tieu_de_bai) || b)}</h3><span class="mono">${esc(b)}.md, đã duyệt ${rs.filter(a => a.trang_thai === "duyet").length}/${rs.length}</span></div>
+        ${sh.length ? `<div class="agrid">${sh.map(card).join("")}</div>` : `<div class="empty">Không có ảnh nào ở mục này.</div>`}${req(b)}</section>`;
+    }).join("")}`;
+  const n = c.cho_duyet, el = $("#cntAnh"); el.hidden = !n; el.textContent = n;
+}
+
+function renderCham() {
+  if (!cham) { $("#pane-cham").innerHTML = `<div class="empty">Chưa có dữ liệu chấm. Agent đưa lên sau mỗi vòng chấm.</div>`; return; }
+  const tc = cham.tieu_chi || [], all = (cham.cham || []).slice().sort((a, b) => (b.ma || "").localeCompare(a.ma || ""));
+  const bais = [...new Set(all.map(x => x.bai))].sort();
+  const list = locCham && bais.includes(locCham) ? all.filter(x => x.bai === locCham) : all;
+  const iss = topIssues(12), bb = cham.bac_bo || [];
+  $("#pane-cham").innerHTML = `
+    <div class="bar"><h2>Lịch sử chấm bài</h2><span class="side">Cập nhật ${fmt(cham.cap_nhat)}. Ngưỡng ĐẠT hiện tại 95/100.</span></div>
+    ${bais.length > 1 ? `<div class="filters"><select aria-label="Lọc theo bài" data-cbai><option value="">Tất cả bài</option>${bais.map(b => `<option value="${esc(b)}" ${b === locCham ? "selected" : ""}>${esc(b)}</option>`).join("")}</select></div>` : ""}
+    <div class="panelw tscroll"><table class="tbl"><thead><tr><th>Bài</th><th class="n">Vòng</th><th>Ngày</th><th class="n">Điểm</th><th>Kết luận</th>${tc.map(t => `<th class="n" title="${esc(t.ten)}">${esc(t.ten)} /${esc(t.toi_da)}</th>`).join("")}</tr></thead>
+      <tbody>${list.map(x => `<tr><td>${esc(x.bai)}</td><td class="n">${esc(x.vong)}</td><td class="nw">${esc(x.ngay)}</td><td class="n"><b>${esc(x.diem_tinh ?? x.diem)}</b>${x.thang_cham && x.thang_cham !== "v2" ? ` <small>(thang ${esc(x.thang_cham)}, ngưỡng ${esc(x.nguong)})</small>` : ""}</td>
+        <td><span class="pill ${x.ket_luan === "DAT" ? "done" : x.ket_luan === "CAN_SUA" ? "you" : "stop"}">${esc(KL[x.ket_luan] || x.ket_luan)}</span></td>${tc.map(t => `<td class="n">${esc(x[t.ma] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+    <div class="bar"><h2>Lỗi hay gặp</h2><span class="side">Đếm theo nhãn qua mọi lần chấm.</span></div>
+    <div class="panelw tscroll">${iss.length ? `<table class="tbl"><thead><tr><th>Vấn đề</th><th>Tiêu chí</th><th class="n">Số lần</th><th class="n">Số bài</th></tr></thead>
+      <tbody>${iss.map(x => `<tr><td>${esc(x.mo_ta)}<br><small class="mono">${esc(x.nhan)}${x.muc === "bat_buoc" ? ", từng là lỗi bắt buộc" : ""}</small></td><td>${esc(x.tc)}</td><td class="n">${x.so}</td><td class="n">${x.bai.size}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">Chưa có vấn đề nào.</div>`}</div>
+    ${bb.length ? `<div class="bar"><h2>Agent đánh giá nhận định sai, đã bác bỏ</h2></div>
+    <div class="panelw"><ul class="feed">${bb.map(x => `<li><span class="t">${esc(x.bai || "")} v${esc(x.vong ?? "")}</span><span><span class="mono">${esc(x.nhan || "")}</span>: ${esc(x.ly_do || "")}</span></li>`).join("")}</ul></div>` : ""}`;
+}
+
+function showPane(k) {
+  pane = k;
+  document.querySelectorAll(".ptab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.pane === k)));
+  document.querySelectorAll(".pane[id^=pane-]").forEach(p => { p.hidden = p.id !== "pane-" + k; });
+  try { history.replaceState(null, "", "#" + k); } catch (e) {}
+  render();
+}
+
 function render() {
   const a = document.activeElement, aid = a && a.id, pos = a && a.selectionStart;
   watchBai(); renderStages(); renderFilters(); renderList(); renderDetail();
+  if (pane === "agent") renderAgent(); else if (pane === "anh") renderAnh(); else if (pane === "cham") renderCham();
+  if (pane !== "anh") { const n = anh.filter(a => (a.trang_thai || "cho_duyet") === "cho_duyet").length, el = $("#cntAnh"); el.hidden = !n; el.textContent = n; }
   if (aid) { const el = document.getElementById(aid); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} } }
   const last = (cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.") + (cfg.moi_truong ? " " + cfg.moi_truong : "");
   $("#runInfo").textContent = last;
@@ -479,15 +685,45 @@ async function act(r, kind, btn) {
 
 function flash(m) { $("#runInfo").textContent = m; }
 
-document.addEventListener("input", e => { const d = e.target.dataset || {}; if (d.note) drafts[d.note] = e.target.value; if (d.muc) { drafts[d.muc] = e.target.value; e.target.closest(".mgy")?.classList.toggle("has", !!e.target.value); } });
+document.addEventListener("input", e => { const d = e.target.dataset || {}; if (d.note) drafts[d.note] = e.target.value; if (d.anote) drafts["anh:" + d.anote] = e.target.value; if (d.muc) { drafts[d.muc] = e.target.value; e.target.closest(".mgy")?.classList.toggle("has", !!e.target.value); } });
 
 document.addEventListener("click", async e => {
   const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.pane) { showPane(b.dataset.pane); return; }
+  if (b.dataset.go) { locBai = b.dataset.bai || ""; if (b.dataset.go === "anh") locAnh = "tat_ca"; showPane(b.dataset.go); window.scrollTo({ top: 0 }); return; }
+  if (b.dataset.aloc) { locAnh = b.dataset.aloc; renderAnh(); return; }
+  if (b.dataset.aact && db) {
+    const id = b.dataset.aid, ta = document.querySelector(`[data-anote="${CSS.escape(id)}"]`), note = ta ? ta.value.trim() : "";
+    const errEl = document.querySelector(`[data-aerr="${CSS.escape(id)}"]`);
+    if (b.dataset.aact === "lam_lai" && !note) { errEl.textContent = "Ghi lý do cần làm lại để Agent biết sửa gì."; errEl.hidden = false; ta && ta.focus(); return; }
+    b.disabled = true;
+    try { await db.doc("anh/" + id).update({ trang_thai: b.dataset.aact, ghi_chu: note, cap_nhat: now() }); delete drafts["anh:" + id]; }
+    catch (err) { errEl.textContent = err && err.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này." : "Chưa lưu được, thử lại sau ít giây."; errEl.hidden = false; b.disabled = false; }
+    return;
+  }
+  if (b.dataset.rdel && db) { b.disabled = true; try { await db.doc("yeu_cau/" + b.dataset.rdel).delete(); } catch (err) { b.disabled = false; } return; }
   if (b.dataset.stage) { const k = +b.dataset.stage; stageSel = stageSel === k ? 0 : k; render(); return; }
   if (b.dataset.filter) { filter = b.dataset.filter; stageSel = 0; render(); return; }
   if (b.dataset.id) { selId = b.dataset.id; editOutline = false; render(); if (window.innerWidth < 900) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
   if (b.id === "runNow" || b.hasAttribute("data-run")) { b.disabled = true; flash(await fireAgent("Bảng điều phối: bạn bấm Chạy Agent ngay.")); b.disabled = false; return; }
   if (b.dataset.act && db) { const r = rows.find(x => x.id === selId); if (r) act(r, b.dataset.act, b); }
+});
+
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-open]"); if (!a) return;
+  e.preventDefault(); selId = a.dataset.open; editOutline = false; showPane("dieu_phoi");
+});
+document.addEventListener("change", e => {
+  if (e.target.matches("[data-abai]")) { locBai = e.target.value; renderAnh(); }
+  if (e.target.matches("[data-cbai]")) { locCham = e.target.value; renderCham(); }
+});
+document.addEventListener("submit", async e => {
+  const f = e.target.closest("form[data-rbai]"); if (!f) return;
+  e.preventDefault(); if (!db) return;
+  const noi = f.noi_dung.value.trim(); if (!noi) return;
+  const btn = f.querySelector("button"); btn.disabled = true;
+  try { await db.collection("yeu_cau").add({ bai: f.dataset.rbai, noi_dung: noi, ghi_chu: f.ghi_chu.value.trim(), trang_thai: "moi", tao_luc: now() }); f.reset(); }
+  catch (err) { btn.disabled = false; }
 });
 
 $("#addForm").addEventListener("submit", async e => {
@@ -520,7 +756,7 @@ $("#addForm").addEventListener("submit", async e => {
   render();
 });
 
-render();
+{ const h = (location.hash || "").slice(1); if (["agent", "anh", "cham"].includes(h)) showPane(h); else render(); }
 (async () => {
   db = await claude.use("db");
   if (!db) { $("#list").innerHTML = `<div class="empty">Không mở được dữ liệu. Đăng nhập claude.ai rồi mở lại trang.</div>`; return; }
@@ -530,5 +766,8 @@ render();
   db.collection("tu_khoa").onSnapshot(s => { rows = s.docs.map(d => ({ id: d.id, ...d.data() })); if (!selId) { const f = rows.find(r => cls(r) === "you"); if (f) selId = f.id; } render(); },
     () => { $("#list").innerHTML = `<div class="empty">Mất kết nối dữ liệu. Tải lại trang.</div>`; });
   db.doc("cau_hinh/chung").onSnapshot(d => { cfg = d.data() || {}; render(); }, () => {});
+  db.collection("anh").onSnapshot(q => { anh = q.docs.map(d => ({ id: d.id, ...d.data() })); render(); }, () => {});
+  db.collection("yeu_cau").onSnapshot(q => { yeuCau = q.docs.map(d => ({ id: d.id, ...d.data() })); render(); }, () => {});
+  db.doc("cham_bai/tong_hop").onSnapshot(d => { cham = d.exists ? d.data() : null; render(); }, () => {});
 })();
 </script>
