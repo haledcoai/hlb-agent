@@ -2,6 +2,13 @@
 
 Quy trình viết bài, giọng văn và quy tắc dữ liệu nằm ở `1_Project_Instructions_Auto_Blog_HLB.md` và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Trạng thái và việc còn dở nằm ở `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`. Đọc ba file này trước khi làm việc với bài viết.
 
+## Nhóm từ khóa (người dùng chốt 22/10/2026)
+
+Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc trong chat) là một bài. Từ đứng đầu là **từ khóa chính** (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng.
+- Không tự đổi từ khóa chính. H1, đoạn mở bài, phần A (Focus keyword) dùng đúng từ khóa chính đó.
+- Từ khóa phụ xử lý theo Project Instructions bước 2 (giữ trong bài, tách bài riêng hoặc bỏ, kèm lý do). Chỉ có từ khóa chính thì tự đề xuất từ khóa phụ.
+- SERP cho thấy từ khóa chính lệch intent (nên làm trang danh mục, sản phẩm, trùng bài cũ) hoặc một từ khóa phụ hợp làm từ khóa chính hơn: không tự đổi, ghi nhận xét và đề xuất để người dùng quyết.
+
 ## Vòng duyệt tự động (bắt buộc)
 
 Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`), tự chạy vòng sau, không chờ người dùng nhắc:
