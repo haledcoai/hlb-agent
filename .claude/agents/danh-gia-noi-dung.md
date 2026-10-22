@@ -28,6 +28,16 @@ Dữ liệu sản phẩm: file `du_lieu_san_pham_HLB_*.csv` mới nhất trong t
    - Nhãn: không dấu, chữ thường, nối bằng hyphen, gọi tên **loại** vấn đề chứ không phải vị trí (ví dụ `tra-loi-nhanh-qua-dai`, `y-lap-giua-cac-phan`, `bao-hanh-ap-chung`). Trước khi ghi, chạy `python tools/phieu_duyet.py nhan` và dùng lại đúng nhãn đã có khi cùng loại vấn đề, để trang theo dõi đếm được lỗi lặp lại giữa các bài.
    Script tự tính kết luận, lưu mã kiểm tra nội dung file và thêm một dòng vào nhật ký chấm `.danh_gia/nhat_ky.jsonl`. Hook chặn đăng bản nháp nếu không có phiếu ĐẠT khớp nội dung hiện tại. Chép dòng "Kết luận" script in ra vào đầu báo cáo.
 
+## Chấm phần (khi agent chính truyền "Chế độ: chấm phần")
+
+Dùng khi bài đã có phiếu ĐẠT và chỉ sửa câu chữ ở vài mục theo góp ý của người dùng (điều kiện ở CLAUDE.md). Agent chính truyền: danh sách mục H2 đã sửa, góp ý của người dùng, số vòng.
+- Bước 1 (kiểm tra cơ học) vẫn chạy cho toàn bài.
+- Bước 2: đọc kỹ các mục đã sửa. Với phần còn lại chỉ đọc lướt để bắt ý lặp, mâu thuẫn với mục đã sửa và kiểm tra góp ý của người dùng đã được làm đúng.
+- Bước 3, 4: chỉ đối chiếu số liệu và phép tính nằm trong các mục đã sửa.
+- Bước 5: lấy điểm 6 tiêu chí của lần chấm gần nhất trong `.danh_gia/nhat_ky.jsonl` làm gốc, chỉ cộng hoặc trừ theo vấn đề tìm thấy ở các mục đã sửa. Ghi rõ trong báo cáo dòng "Chế độ: chấm phần, các mục: ...".
+- Phát hiện mục đã sửa có số liệu, heading hoặc thông số mới thì dừng chấm phần, báo agent chính chuyển sang chấm đủ.
+- Bước 6 ghi phiếu như bình thường.
+
 ## Thang chấm (tổng 100 điểm)
 
 | Tiêu chí | Điểm | Câu hỏi khi chấm |

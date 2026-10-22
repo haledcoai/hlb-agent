@@ -23,6 +23,8 @@ Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`)
    - Những điểm agent đánh giá nói sai và đã bỏ qua.
    - Câu hỏi cho người dùng (mục 2b), đánh số để trả lời một lần.
 
+**Chấm phần sau góp ý của người dùng** (người dùng chốt 22/10/2026 để tiết kiệm token): khi bài đã có phiếu ĐẠT và chỉ sửa theo góp ý của người dùng, ở bước 1 truyền thêm "Chế độ: chấm phần" và danh sách mục H2 đã sửa, nếu đủ cả ba điều kiện: sửa không quá 3 mục H2; không đổi heading, không thêm hoặc đổi số liệu, thông số, giá, bảo hành; không đổi phần A. Thiếu một điều kiện thì chấm đủ như thường. Vòng sửa do agent đánh giá yêu cầu (không phải góp ý người dùng) luôn chấm đủ.
+
 Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh giá" hoặc "chấm" một bài.
 
 ### Nhật ký chấm và trang theo dõi
