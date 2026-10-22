@@ -28,7 +28,8 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 
 | Trường | Ai ghi | Nội dung |
 |---|---|---|
-| `tu_khoa`, `tu_khoa_phu` (mảng), `id_bai_cu`, `ghi_chu` | Người dùng khi nạp | `id_bai_cu` có giá trị thì là viết lại bài cũ (`--update`) |
+| `tu_khoa`, `id_bai_cu`, `ghi_chu` | Người dùng khi nạp | Mỗi dòng nạp là một từ khóa chính. `id_bai_cu` có giá trị thì là viết lại bài cũ (`--update`) |
+| `tu_khoa_phu` (mảng) | Agent | Người dùng không nạp từ khóa phụ (chốt 22/10/2026). Agent tự chọn ở bước SERP và ghi vào đây |
 | `trang_thai` | Cả hai | Xem mục 3 |
 | `tien_do` | Agent | Một dòng đang làm gì, ví dụ "Vòng chấm 2" |
 | `serp`, `outline` | Agent (người dùng có thể sửa `outline`) | Markdown: 5 mục SERP, 9 mục outline đúng Project Instructions |

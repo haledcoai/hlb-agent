@@ -244,9 +244,9 @@ select { width: auto; min-width: 220px; max-width: 100%; }
   <details class="add" id="addBox">
     <summary>Nạp từ khóa</summary>
     <form id="addForm">
-      <p class="hint">Mỗi dòng là một nhóm từ khóa. Từ khóa chính đứng đầu, từ khóa phụ cách nhau bằng dấu phẩy. Nếu muốn viết lại một bài cũ, thêm <code>#ID</code> của bài, ví dụ <code>đèn led nhà xưởng 150w, đèn ufo 150w #2410</code>.</p>
+      <p class="hint">Mỗi dòng một từ khóa. Agent tự tìm từ khóa phụ khi nghiên cứu. Nếu muốn viết lại một bài cũ, thêm <code>#ID</code> của bài ở cuối dòng, ví dụ <code>đèn led nhà xưởng 150w #2410</code>.</p>
       <label for="kwInput">Danh sách từ khóa</label>
-      <textarea id="kwInput" name="kw" required placeholder="cách tính số lượng đèn nhà xưởng, công thức tính đèn nhà xưởng&#10;đèn led nhà kho kệ cao"></textarea>
+      <textarea id="kwInput" name="kw" required placeholder="đèn pha bảng hiệu&#10;đèn hắt biển quảng cáo"></textarea>
       <label for="kwNote">Ghi chú chung cho Agent (không bắt buộc)</label>
       <input type="text" id="kwNote" name="note" placeholder="Ví dụ: ưu tiên khách là chủ xưởng cơ khí">
       <div class="actions"><button class="btn ok" type="submit" id="addBtn">Nạp và giao Agent</button><span class="msg" id="addMsg" role="status"></span></div>
@@ -736,14 +736,13 @@ $("#addForm").addEventListener("submit", async e => {
   let ok = 0, trung = [];
   for (const line of lines) {
     const m = line.match(/#\s*(\d+)/); const idCu = m ? m[1] : "";
-    const parts = line.replace(/#\s*\d+/, "").split(",").map(s => s.trim()).filter(Boolean);
-    if (!parts.length) continue;
-    const chinh = parts[0];
+    const chinh = line.replace(/#\s*\d+/, "").trim();
+    if (!chinh) continue;
     if (rows.some(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase() && r.trang_thai !== "bo_qua")) { trung.push(chinh); continue; }
     const t = now();
     const id = (slug(chinh) || "tu-khoa") + "-" + Math.random().toString(36).slice(2, 6);
     try {
-      await db.doc("tu_khoa/" + id).set({ tu_khoa: chinh, tu_khoa_phu: parts.slice(1), id_bai_cu: idCu, ghi_chu: note,
+      await db.doc("tu_khoa/" + id).set({ tu_khoa: chinh, tu_khoa_phu: [], id_bai_cu: idCu, ghi_chu: note,
         trang_thai: "moi", tao_luc: t, cap_nhat: t, outline_lan: 0, lich_su: [{ luc: t, ai: "ban", viec: "Nạp từ khóa" }] });
       ok++;
     } catch (err) { msg.className = "msg err"; msg.textContent = "Chưa lưu được, thử lại sau ít giây."; btn.disabled = false; return; }
@@ -751,8 +750,8 @@ $("#addForm").addEventListener("submit", async e => {
   btn.disabled = false;
   if (ok) { $("#kwInput").value = ""; filter = "agent"; stageSel = 0; }
   msg.className = "msg good";
-  msg.textContent = `Đã nạp ${ok} nhóm từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} nhóm đã có: ${trung.join(", ")}.` : "");
-  if (ok) flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} nhóm từ khóa mới.`));
+  msg.textContent = `Đã nạp ${ok} từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} từ khóa đã có: ${trung.join(", ")}.` : "");
+  if (ok) flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`));
   render();
 });
 
