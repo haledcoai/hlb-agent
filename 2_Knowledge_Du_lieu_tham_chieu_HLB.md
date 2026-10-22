@@ -27,7 +27,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 **Được dùng ngay:**
 - Tên: Đèn LED Nhà Xưởng HLB (gọi tắt HLB), website denlednhaxuongcaocap.com.
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- **Vai trò (người dùng xác nhận 21/10/2026):** dòng đèn "cao cấp" do **HALEDCO sản xuất và lắp ráp**, **HLB phân phối**. Viết "dòng đèn cao cấp do HALEDCO sản xuất, HLB phân phối". Không viết "HLB sản xuất", "nhà máy của chúng tôi". Với Philips, Rạng Đông, Điện Quang, HLB là đơn vị cung cấp.
+- **Vai trò (người dùng xác nhận 21/10/2026):** dòng đèn "cao cấp" do **HALEDCO sản xuất và lắp ráp**, **HLB phân phối**. Viết "dòng đèn do HALEDCO sản xuất và lắp ráp, HLB phân phối". Không viết "HLB sản xuất", "nhà máy của chúng tôi". Với Philips, Rạng Đông, Điện Quang, HLB là đơn vị cung cấp.
 - Văn phòng: Tầng 21 Chung cư C2 Xuân Đỉnh, P. Xuân Đỉnh, Hà Nội. Trụ sở chính: Số 42 Phùng Hưng, Phường Sơn Tây, Thành phố Hà Nội. Bán hàng và giao hàng toàn quốc.
 - **Liên hệ (người dùng xác nhận 21/10/2026):**
   - Hotline bán hàng, ưu tiên dùng trong bài và CTA: 0967569588 (có Zalo cùng số).
