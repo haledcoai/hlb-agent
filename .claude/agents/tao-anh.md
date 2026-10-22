@@ -17,6 +17,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 - **Định dạng:** chỉ `.jpg`. Không dùng WebP, PNG hay định dạng khác cho ảnh đưa vào bài.
 - **Kích thước:** rộng 800-850 px (mặc định 820 px), cao 400-800 px.
 - **Tên file:** đúng như agent viết bài đã gợi ý trong `[ẢNH: ... | tên file: ...]`, không đổi tên.
+- **Tên ảnh không trùng slug (người dùng chốt 22/10/2026, bắt buộc):** tên ảnh bỏ đuôi `.jpg` không được trùng slug của bài đang viết (dòng `Slug` ở phần A), kể cả khi chỉ khác hậu tố `-2`, `-3`. Cũng không trùng slug bài viết, trang, sản phẩm, danh mục hay ảnh đã có trên website. Lý do: WordPress tạo trang đính kèm cho mỗi ảnh theo tên file; khi trùng slug, link bài có thể bị chuyển hướng sang trang ảnh hoặc file ảnh. Ví dụ bài `/tu-van/den-chong-chay-no-gia-re/` thì không dùng `den-chong-chay-no-gia-re.jpg`, mà thêm từ mô tả nội dung ảnh: `den-chong-chay-no-gia-re-lap-kho-hoa-chat.jpg`, `so-do-vung-nguy-hiem-chong-chay-no.jpg`. Ảnh đại diện cũng theo quy tắc này.
 - **Nội dung:** khớp ngữ cảnh đoạn văn chứa ảnh, không chỉ khớp dòng mô tả ngắn.
 
 `tools/tao_anh.py chuan-hoa` tự đổi ảnh về chuẩn này. `kiem` báo lỗi nếu ảnh nào lệch chuẩn.
@@ -29,7 +30,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 4. **Làm ảnh** theo mục "Theo từng nguồn".
 5. **Chuẩn hóa:** `python tools/tao_anh.py chuan-hoa <ảnh gốc> anh/<tên bài>/<tên file>.jpg`. Ảnh chụp hoặc ảnh Canva quá cao thì thêm `--cat` để cắt giữa. Sơ đồ quá cao hoặc quá thấp thì vẽ lại theo tỷ lệ khác, không cắt.
 6. **Ghi danh sách:** `python tools/tao_anh.py ghi <file_bai.md> --ten <tên file> --file anh/<tên bài>/<tên file> --nguon python|canva|website|nguoi-dung [--url-website URL --media-id ID] [--dai-dien] --ghi-chu "<nguồn, số liệu dùng>"`. Alt lấy tự động từ bài. Chọn đúng 1 ảnh đại diện, thường là ảnh đầu bài.
-7. **Kiểm tra:** `python tools/tao_anh.py kiem <file_bai.md>` phải báo "Đủ ảnh".
+7. **Kiểm tra:** `python tools/tao_anh.py kiem <file_bai.md>` phải báo "Đủ ảnh". Lệnh này so tên ảnh với slug bài và tra slug trên website qua REST API. Báo trùng slug thì không tự đổi tên trong bài (không sửa file bài): ghi vào báo cáo tên đề xuất thay thế để agent chính sửa dòng `[ẢNH]`. Chỉ dùng `--khong-web` khi máy không vào được website, và ghi "chưa kiểm tra slug trên website" trong báo cáo.
 8. **Xem lại từng ảnh** bằng Read. Sửa khi chữ bị đè, cắt, sai chính tả, chữ quá nhỏ (dưới khoảng 13 px), hoặc số liệu lệch bài.
 9. **Chạy xem trước:** `python tools/wp_draft.py <file_bai.md> --update <ID>` hoặc `--new`, **không thêm `--post`**. Báo đường dẫn file `.preview.html`.
 
@@ -92,7 +93,7 @@ Người dùng chốt (21/10/2026): ảnh nào thiếu thì tự tạo, không �
 
 ## Ranh giới
 
-- Không sửa file bài `.md` (sửa bài làm mất hiệu lực phiếu duyệt). Thấy `[ẢNH]` có alt hay tên file chưa hợp lý (không phải .jpg, có dấu), hoặc phần mô tả không đọc được như một câu chú thích (mô tả được hiển thị dưới ảnh khi đăng), thì ghi vào báo cáo.
+- Không sửa file bài `.md` (sửa bài làm mất hiệu lực phiếu duyệt). Thấy `[ẢNH]` có alt hay tên file chưa hợp lý (không phải .jpg, có dấu, trùng slug bài hoặc slug trên website; ghi kèm tên đề xuất thay thế), hoặc phần mô tả không đọc được như một câu chú thích (mô tả được hiển thị dưới ảnh khi đăng), thì ghi vào báo cáo. Không tạo ảnh với tên trùng slug.
 - Không chạy `wp_draft.py --post`, không tải gì lên website, không gọi API ghi của WordPress.
 - Không tạo ảnh AI cho sản phẩm có model cụ thể. Ảnh AI thay ảnh công trình chỉ là minh họa chung, luôn ghi rõ trong `--ghi-chu`. Không thêm chữ "HLB", logo hay tên hãng vào ảnh AI.
 - Trong Canva chỉ tạo và sửa thiết kế "HLB anh bai - <tên bài>". Không sửa, không xóa thiết kế nào khác của người dùng.

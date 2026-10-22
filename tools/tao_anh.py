@@ -8,14 +8,17 @@ Cach dung:
   python tools/tao_anh.py chuan-hoa <file_vao> <file_ra.jpg> [--cat]
   python tools/tao_anh.py ghi <file_bai.md> --ten <ten file trong [ANH]> --file <anh.jpg> --nguon python|canva|website|nguoi-dung
                          [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."]
-  python tools/tao_anh.py kiem <file_bai.md>                     # du anh, dung chuan, alt hop le
+  python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
   python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
 
 wp_draft.py chi chen anh co trang_thai "duyet"; anh chua duyet duoc xu ly nhu anh thieu.
 
 Chuan anh tao ra (nguoi dung chot 21/10/2026): JPG, rong 800-850 px (mac dinh 820), cao 400-800 px,
-ten file dung nhu goi y trong [ANH]. Anh nguon website dung lai URL co san tren website, khong ap chuan nay.
+ten file dung nhu goi y trong [ANH].
+Ten anh (bo .jpg) khong duoc trung slug cua bai dang viet, cung khong trung slug bai, trang, san pham, danh muc
+hay anh da co tren website. WordPress tao trang dinh kem (attachment) theo ten file; trung slug thi link bai
+co the bi chuyen huong sang trang anh hoac file anh. Anh nguon website dung lai URL co san tren website, khong ap chuan nay.
 Anh luu o anh/<ten bai>/, danh sach o anh/<ten bai>/anh.json. File bai .md khong bi sua,
 nen phieu duyet khong mat hieu luc khi them anh. Script nay khong tai gi len website.
 """
@@ -34,6 +37,12 @@ NGUON = ("python", "canva", "website", "nguoi-dung")
 RONG, MIN_RONG, MAX_RONG = 820, 800, 850
 MIN_CAO, MAX_CAO = 400, 800
 MAX_KB = 300
+
+
+TEN_HOP_LE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*\.jpg$")
+# Cac loai noi dung tren website co slug co the dung voi trang dinh kem cua anh
+LOAI_SLUG = (("bài viết", "wp/v2/posts"), ("trang", "wp/v2/pages"), ("sản phẩm", "wp/v2/product"),
+             ("ảnh", "wp/v2/media"), ("chuyên mục", "wp/v2/categories"), ("danh mục sản phẩm", "wp/v2/product_cat"))
 
 
 def thu_muc(article):
@@ -76,6 +85,34 @@ def doc_cho_anh(article):
                     item["ten"] = v.strip()
             out.append(item)
     return out
+
+
+def slug_bai(article):
+    """Slug cua bai, lay o dong '| Slug | ... |' trong phan A."""
+    with open(article, encoding="utf-8") as f:
+        for line in f:
+            m = re.match(r"^\|\s*Slug\s*\|\s*([^|(]+)", line, re.I)
+            if m:
+                return m.group(1).strip().strip("`/").split("/")[-1]
+    return ""
+
+
+def bo_hau_to(slug):
+    """WordPress them -2, -3 khi trung; so sanh ca ban da bo hau to so."""
+    return re.sub(r"-\d+$", "", slug)
+
+
+def slug_trung_website(goc):
+    """Cac noi dung tren website co slug dung bang goc. Tra ve (danh sach trung, danh sach loai khong kiem tra duoc)."""
+    trung, loi = [], []
+    for nhan, duong in LOAI_SLUG:
+        try:
+            data = json.loads(get("%s/wp-json/%s?slug=%s&_fields=id,slug,link" % (SITE, duong, urllib.parse.quote(goc))))
+        except Exception:
+            loi.append(nhan)
+            continue
+        trung += ["%s %s (ID %s)" % (nhan, d.get("link", ""), d.get("id")) for d in data if isinstance(d, dict)]
+    return trung, loi
 
 
 def doc_manifest(article):
@@ -221,9 +258,26 @@ def kiem(args):
     loi = []
     cho = doc_cho_anh(args.article)
     co = sum(1 for c in cho if c["ten"] in m)
+    slug = slug_bai(args.article)
+    if not slug:
+        loi.append("Không đọc được slug bài ở phần A (dòng | Slug | ... |), chưa so được tên ảnh với slug bài")
+    ten_da_gap = set()
     for c in cho:
-        if not c["ten"].lower().endswith(".jpg"):
-            loi.append("Tên file gợi ý trong bài phải là .jpg: %s" % c["ten"])
+        goc = c["ten"][:-4] if c["ten"].lower().endswith(".jpg") else c["ten"]
+        if not TEN_HOP_LE.match(c["ten"]):
+            loi.append("Tên file phải là chữ thường không dấu, số, nối bằng hyphen, đuôi .jpg: %s" % c["ten"])
+        if c["ten"] in ten_da_gap:
+            loi.append("Tên file bị lặp trong bài: %s" % c["ten"])
+        ten_da_gap.add(c["ten"])
+        if slug and bo_hau_to(goc) == bo_hau_to(slug):
+            loi.append("Tên ảnh %s trùng slug bài (%s). Thêm từ mô tả nội dung ảnh, ví dụ %s-so-do.jpg"
+                       % (c["ten"], slug, slug))
+        a = m.get(c["ten"])
+        if not args.khong_web and not (a and a.get("url_da_tai")):  # anh da tai len thi khong so voi chinh no
+            trung, khong_kiem = slug_trung_website(goc)
+            loi += ["Tên ảnh %s trùng slug đã có trên website: %s" % (c["ten"], t) for t in trung]
+            if khong_kiem:
+                print("Chưa kiểm tra được slug %s với: %s" % (goc, ", ".join(khong_kiem)))
         a = m.get(c["ten"])
         if not a:
             loi.append("Chưa có ảnh cho %s" % c["ten"])
@@ -244,7 +298,7 @@ def kiem(args):
         for x in loi:
             print("- " + x)
         sys.exit(1)
-    print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ." % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO))
+    print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ, tên ảnh không trùng slug." % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO))
 
 
 def main():
@@ -262,7 +316,9 @@ def main():
     p.add_argument("--url-website"); p.add_argument("--media-id", type=int)
     p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu")
     p.set_defaults(func=ghi)
-    p = sub.add_parser("kiem"); p.add_argument("article"); p.set_defaults(func=kiem)
+    p = sub.add_parser("kiem"); p.add_argument("article")
+    p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")
+    p.set_defaults(func=kiem)
     p = sub.add_parser("duyet"); p.add_argument("article"); p.add_argument("--ten", required=True)
     p.add_argument("--trang-thai", required=True, choices=("duyet", "lam_lai", "cho_duyet")); p.add_argument("--ghi-chu")
     p.set_defaults(func=duyet)
