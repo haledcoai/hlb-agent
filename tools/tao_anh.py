@@ -5,8 +5,8 @@ Cach dung:
   python tools/tao_anh.py liet-ke <file_bai.md>                  # cac cho [ANH], ngu canh, trang thai
   python tools/tao_anh.py phan-loai <file_bai.md>                # goi y nguon cho tung cho [ANH], doi chieu CSV san pham
   python tools/tao_anh.py san-pham <slug>                        # anh that cua san pham tren website
-  python tools/tao_anh.py tim-anh "<tu khoa tieng Anh>" [--kho pixabay|pexels] [--so 8]
-                                                                 # tim anh kho mien phi (key: PIXABAY_API_KEY, PEXELS_API_KEY)
+  python tools/tao_anh.py tim-anh "<tu khoa tieng Anh>" [--kho pixabay|pexels|unsplash] [--so 8]
+                                                                 # tim anh kho mien phi (key: PIXABAY_API_KEY, PEXELS_API_KEY, UNSPLASH_ACCESS_KEY)
   python tools/tao_anh.py tai <url> <file_ra>                    # tai mot anh ve may
   python tools/tao_anh.py chuan-hoa <file_vao> <file_ra.jpg> [--cat]
   python tools/tao_anh.py ghi <file_bai.md> --ten <ten file trong [ANH]> --file <anh.jpg> --nguon python|canva|website|nguoi-dung
@@ -39,7 +39,7 @@ SITE = "https://denlednhaxuongcaocap.com"
 IMAGE = re.compile(r"\[ẢNH:([^\]]*)\]")
 NGUON = ("python", "canva", "kho-anh", "website", "nguoi-dung")
 # Kho anh mien phi cho dung thuong mai, duoc sua anh, khong bat buoc ghi ten tac gia
-GIAY_PHEP = {"pixabay": "Pixabay Content License", "pexels": "Pexels License"}
+GIAY_PHEP = {"pixabay": "Pixabay Content License", "pexels": "Pexels License", "unsplash": "Unsplash License"}
 RONG, MIN_RONG, MAX_RONG = 820, 800, 850
 MIN_CAO, MAX_CAO = 400, 800
 MAX_KB = 300
@@ -235,6 +235,13 @@ def tim_anh(args):
                               "&min_width=1640&safesearch=true&per_page=%d" % (key, q, max(3, args.so))))
         ds = [(h["id"], h["imageWidth"], h["imageHeight"], h["tags"], h["pageURL"], h["previewURL"], h["largeImageURL"])
               for h in data.get("hits", [])]
+    elif args.kho == "unsplash":
+        # Theo API guidelines cua Unsplash: tai qua lenh `tai unsplash:<id>` de bao luot tai, ghi ten tac gia trong ghi chu
+        data = json.loads(get_unsplash("/search/photos?query=%s&orientation=landscape&per_page=%d" % (q, args.so)))
+        ds = [(h["id"], h["width"], h["height"],
+               "%s (tác giả: %s)" % (h.get("alt_description") or h.get("description") or "", h["user"]["name"]),
+               h["links"]["html"], h["urls"]["small"], "unsplash:%s" % h["id"])
+              for h in data.get("results", []) if h["width"] >= 1640]
     else:
         key = os.environ.get("PEXELS_API_KEY")
         if not key:
@@ -251,9 +258,25 @@ def tim_anh(args):
         print("%d. %s %s, %d x %d: %s\n   trang gốc: %s\n   xem trước: %s\n   tải bản lớn: %s"
               % (i, args.kho, id_, w, h, mo_ta, trang, xem, lon))
     print("\nGiấy phép: %s. Ghi --ghi-chu gồm trang gốc và giấy phép khi chạy lệnh ghi với --nguon kho-anh." % GIAY_PHEP[args.kho])
+    if args.kho == "unsplash":
+        print("Unsplash: tải bằng `tai unsplash:<id> <file>` (không tải thẳng link ảnh), ghi chú thêm \"Ảnh: <tác giả> trên Unsplash\".")
+
+
+def get_unsplash(duong_dan):
+    key = os.environ.get("UNSPLASH_ACCESS_KEY")
+    if not key:
+        sys.exit("Thiếu biến môi trường UNSPLASH_ACCESS_KEY")
+    req = urllib.request.Request("https://api.unsplash.com" + duong_dan, headers={
+        "Authorization": "Client-ID " + key, "Accept-Version": "v1", "User-Agent": "HLB-anh/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.read()
 
 
 def tai(args):
+    if args.url.startswith("unsplash:"):
+        # Goi download endpoint (bat buoc theo guidelines) roi tai ban rong 1640 px
+        url = json.loads(get_unsplash("/photos/%s/download" % urllib.parse.quote(args.url[9:])))["url"]
+        args.url = url + ("&" if "?" in url else "?") + "w=1640&fm=jpg&q=85"
     if not args.url.startswith("https://"):
         sys.exit("Chỉ tải qua https")
     data = get(args.url)
@@ -407,7 +430,7 @@ def main():
     p = sub.add_parser("phan-loai"); p.add_argument("article"); p.set_defaults(func=phan_loai)
     p = sub.add_parser("san-pham"); p.add_argument("slug"); p.set_defaults(func=san_pham)
     p = sub.add_parser("tim-anh"); p.add_argument("tu_khoa")
-    p.add_argument("--kho", choices=("pixabay", "pexels"), default="pixabay"); p.add_argument("--so", type=int, default=8)
+    p.add_argument("--kho", choices=("pixabay", "pexels", "unsplash"), default="pixabay"); p.add_argument("--so", type=int, default=8)
     p.set_defaults(func=tim_anh)
     p = sub.add_parser("tai"); p.add_argument("url"); p.add_argument("out"); p.set_defaults(func=tai)
     p = sub.add_parser("chuan-hoa"); p.add_argument("src"); p.add_argument("out")
