@@ -5,6 +5,8 @@ Cach dung:
   python tools/tao_anh.py liet-ke <file_bai.md>                  # cac cho [ANH], ngu canh, trang thai
   python tools/tao_anh.py phan-loai <file_bai.md>                # goi y nguon cho tung cho [ANH], doi chieu CSV san pham
   python tools/tao_anh.py san-pham <slug>                        # anh that cua san pham tren website
+  python tools/tao_anh.py tim-anh "<tu khoa tieng Anh>" [--kho pixabay|pexels] [--so 8]
+                                                                 # tim anh kho mien phi (key: PIXABAY_API_KEY, PEXELS_API_KEY)
   python tools/tao_anh.py tai <url> <file_ra>                    # tai mot anh ve may
   python tools/tao_anh.py chuan-hoa <file_vao> <file_ra.jpg> [--cat]
   python tools/tao_anh.py ghi <file_bai.md> --ten <ten file trong [ANH]> --file <anh.jpg> --nguon python|canva|website|nguoi-dung
@@ -35,7 +37,9 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://denlednhaxuongcaocap.com"
 IMAGE = re.compile(r"\[ẢNH:([^\]]*)\]")
-NGUON = ("python", "canva", "website", "nguoi-dung")
+NGUON = ("python", "canva", "kho-anh", "website", "nguoi-dung")
+# Kho anh mien phi cho dung thuong mai, duoc sua anh, khong bat buoc ghi ten tac gia
+GIAY_PHEP = {"pixabay": "Pixabay Content License", "pexels": "Pexels License"}
 RONG, MIN_RONG, MAX_RONG = 820, 800, 850
 MIN_CAO, MAX_CAO = 400, 800
 MAX_KB = 300
@@ -219,6 +223,36 @@ def san_pham(args):
         print("- media %s: %s\n  alt trên website: %s" % (img.get("id"), img["src"], img.get("alt")))
 
 
+def tim_anh(args):
+    """In danh sach anh tu kho mien phi: so thu tu, kich thuoc, mo ta, trang goc, link tai ban lon.
+    Agent xem anh xem truoc, loai anh co logo, chu, bien hieu, nguoi nhan ra duoc, roi tai bang lenh tai."""
+    q = urllib.parse.quote(args.tu_khoa)
+    if args.kho == "pixabay":
+        key = os.environ.get("PIXABAY_API_KEY")
+        if not key:
+            sys.exit("Thiếu biến môi trường PIXABAY_API_KEY")
+        data = json.loads(get("https://pixabay.com/api/?key=%s&q=%s&image_type=photo&orientation=horizontal"
+                              "&min_width=1640&safesearch=true&per_page=%d" % (key, q, max(3, args.so))))
+        ds = [(h["id"], h["imageWidth"], h["imageHeight"], h["tags"], h["pageURL"], h["previewURL"], h["largeImageURL"])
+              for h in data.get("hits", [])]
+    else:
+        key = os.environ.get("PEXELS_API_KEY")
+        if not key:
+            sys.exit("Thiếu biến môi trường PEXELS_API_KEY")
+        req = urllib.request.Request("https://api.pexels.com/v1/search?query=%s&orientation=landscape&per_page=%d"
+                                     % (q, args.so), headers={"Authorization": key, "User-Agent": "HLB-anh/1.0"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            data = json.loads(r.read())
+        ds = [(h["id"], h["width"], h["height"], h.get("alt", ""), h["url"], h["src"]["medium"], h["src"]["large2x"])
+              for h in data.get("photos", []) if h["width"] >= 1640]
+    if not ds:
+        sys.exit("Không thấy ảnh phù hợp cho \"%s\" ở %s" % (args.tu_khoa, args.kho))
+    for i, (id_, w, h, mo_ta, trang, xem, lon) in enumerate(ds[:args.so], 1):
+        print("%d. %s %s, %d x %d: %s\n   trang gốc: %s\n   xem trước: %s\n   tải bản lớn: %s"
+              % (i, args.kho, id_, w, h, mo_ta, trang, xem, lon))
+    print("\nGiấy phép: %s. Ghi --ghi-chu gồm trang gốc và giấy phép khi chạy lệnh ghi với --nguon kho-anh." % GIAY_PHEP[args.kho])
+
+
 def tai(args):
     if not args.url.startswith("https://"):
         sys.exit("Chỉ tải qua https")
@@ -267,7 +301,9 @@ def ghi(args):
     if args.nguon == "canva" and not args.prompt:
         sys.exit("Ảnh Canva phải ghi --prompt (prompt đã dùng), để làm lại đúng ý khi bị trả về")
     ghi_chu = args.ghi_chu or ""
-    if args.nguon == "canva" and "minh họa" not in ghi_chu.lower():
+    if args.nguon == "kho-anh" and not any(g in ghi_chu for g in GIAY_PHEP.values()):
+        sys.exit("Ảnh kho-anh phải ghi trong --ghi-chu: trang gốc của ảnh và tên giấy phép (%s)" % ", ".join(GIAY_PHEP.values()))
+    if args.nguon in ("canva", "kho-anh") and "minh họa" not in ghi_chu.lower():
         ghi_chu = ("Ảnh minh họa, không phải công trình thật. " + ghi_chu).strip()
     if args.nguon != "website" and os.path.basename(path) != args.ten:
         sys.exit("Tên file ảnh phải đúng như gợi ý trong bài: %s (đang là %s)" % (args.ten, os.path.basename(path)))
@@ -345,12 +381,12 @@ def kiem(args):
             loi.append("Alt của %s trống hoặc quá 125 ký tự" % c["ten"])
         if GACH.search(a["alt"]):
             loi.append("Alt của %s có em dash hoặc en dash, chỉ dùng hyphen" % c["ten"])
-        if a["nguon"] == "canva":
+        if a["nguon"] in ("canva", "kho-anh"):
             if ALT_CONG_TRINH.search(a["alt"]):
                 loi.append("Alt của %s ngụ ý công trình thật (\"%s\") nhưng ảnh là minh họa AI. Báo để sửa alt trong bài"
                            % (c["ten"], ALT_CONG_TRINH.search(a["alt"]).group(0)))
             if "minh họa" not in a.get("ghi_chu", "").lower():
-                loi.append("%s là ảnh Canva nhưng ghi chú chưa ghi \"ảnh minh họa\"" % c["ten"])
+                loi.append("%s là ảnh %s nhưng ghi chú chưa ghi \"ảnh minh họa\"" % (c["ten"], a["nguon"]))
         if a["nguon"] == "website" and not a.get("url_website"):
             loi.append("%s nguồn website nhưng thiếu url_website" % c["ten"])
     if sum(1 for a in m.values() if a.get("dai_dien")) > 1:
@@ -370,6 +406,9 @@ def main():
     p = sub.add_parser("liet-ke"); p.add_argument("article"); p.set_defaults(func=liet_ke)
     p = sub.add_parser("phan-loai"); p.add_argument("article"); p.set_defaults(func=phan_loai)
     p = sub.add_parser("san-pham"); p.add_argument("slug"); p.set_defaults(func=san_pham)
+    p = sub.add_parser("tim-anh"); p.add_argument("tu_khoa")
+    p.add_argument("--kho", choices=("pixabay", "pexels"), default="pixabay"); p.add_argument("--so", type=int, default=8)
+    p.set_defaults(func=tim_anh)
     p = sub.add_parser("tai"); p.add_argument("url"); p.add_argument("out"); p.set_defaults(func=tai)
     p = sub.add_parser("chuan-hoa"); p.add_argument("src"); p.add_argument("out")
     p.add_argument("--cat", action="store_true", help="cat giua khi anh qua cao (chi dung cho anh chup)")

@@ -42,7 +42,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 | Ảnh sản phẩm có model cụ thể | `website`: ảnh thật lấy qua `python tools/tao_anh.py san-pham <slug>`. Mặc định dùng lại URL và media ID có sẵn trên website, không tải lại | Tạo ảnh sản phẩm bằng AI |
 | Ảnh công trình, dự án, khách hàng | `nguoi-dung`: ảnh người dùng cung cấp. Chưa có thì tạo ảnh minh họa chung bằng Canva (người dùng chốt 21/10/2026: thiếu ảnh thì tự tạo), ghi chú "ảnh minh họa, thay bằng ảnh công trình thật khi có" | Ghi hay ngụ ý ảnh AI là công trình thật của HLB. Alt trong bài nói "công trình HLB" thì báo để sửa alt |
 | Sơ đồ, bảng, biểu đồ, cách đọc thông số | `python`: vẽ bằng matplotlib | Dùng ảnh AI (hay sai chữ, sai số) |
-| Ảnh minh họa không gian chung (nhà xưởng, kho) | `canva`: tạo bằng Canva | Có logo, tên hãng, chữ trong ảnh; cho người đọc hiểu đây là công trình thật của HLB |
+| Ảnh minh họa không gian chung (nhà xưởng, kho) | `kho-anh` trước (Pixabay, Pexels, ảnh chụp thật có giấy phép dùng thương mại), không có ảnh hợp thì `canva` (người dùng chốt 22/10/2026) | Có logo, tên hãng, chữ trong ảnh; cho người đọc hiểu đây là công trình thật của HLB |
 
 ## Theo từng nguồn
 
@@ -64,6 +64,13 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 - Font "Segoe UI" (có dấu tiếng Việt). Màu: xanh đậm `#1f3a5f`, vàng cam `#f2a71b`, xám `#5b6573`.
 - Chữ không dùng em dash, en dash. Số viết theo Knowledge mục 8.3 (1.200 m², 19.500 lm, 150W).
 - Mọi con số phải lấy từ bài hoặc Knowledge. Sơ đồ ước lượng ghi chú "cần tính bằng DIALux".
+
+**kho-anh:**
+1. `python tools/tao_anh.py tim-anh "<từ khóa tiếng Anh theo ngữ cảnh>" --kho pixabay` (hoặc `--kho pexels`). Key đọc từ `PIXABAY_API_KEY`, `PEXELS_API_KEY`; thiếu key hoặc bị chặn mạng thì báo trong báo cáo và chuyển sang `canva`.
+2. Xem ảnh xem trước. Loại ảnh có logo, chữ, biển hiệu, tên hãng, người nhận ra được, ảnh trông như ảnh AI, ảnh không khớp ngữ cảnh đoạn văn (kiểu kết cấu, loại đèn). Thử tối đa 2 từ khóa khác nhau.
+3. `tai` bản lớn về `_goc/`, `chuan-hoa ... --cat`, xem lại bản 820 px.
+4. `ghi ... --nguon kho-anh --ghi-chu "Ảnh minh họa, không phải công trình thật. Nguồn: <trang gốc>, <Pixabay Content License | Pexels License>"`.
+- Chỉ lấy từ Pixabay, Pexels. Không lấy ảnh từ Google Images, website đối thủ, nhà sản xuất hay báo chí. Không cắt bỏ logo hoặc watermark của ảnh bất kỳ để dùng.
 
 **canva:**
 1. Gọi `generate-image`, `aspectRatio` LANDSCAPE_16_9 (về 820 x 461 px). Prompt tiếng Anh: lấy cảnh gần nhất trong `anh/_prompt_canva.md`, sửa theo ngữ cảnh đoạn văn ở bước 2, luôn có "no people, no text, no logos, no brand names, no watermarks". Ảnh làm lại thì sửa từ `prompt` cũ trong `anh.json` theo ghi chú người dùng, theo bảng lỗi trong file prompt.
