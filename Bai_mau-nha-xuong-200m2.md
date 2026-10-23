@@ -241,7 +241,7 @@ N = (E x S) / (Φ x UF x MF)
 
 Trong đó N là số đèn, E là độ rọi cần đạt (lux), S là diện tích (m²), Φ là quang thông một đèn (lm), UF là hệ số sử dụng, MF là hệ số duy trì (tính tới bụi bẩn và suy giảm ánh sáng theo thời gian).
 
-Hai ví dụ dưới đây dùng đèn dòng cao cấp do HALEDCO sản xuất, HLB phân phối, với quang thông lấy theo trang sản phẩm.
+Hai ví dụ dưới đây dùng đèn dòng cao cấp HLB phân phối, với quang thông lấy theo trang sản phẩm.
 
 **Trường hợp 1: xưởng mộc hoặc cơ khí nhỏ, trần 5 m, cần 300 lux**
 
