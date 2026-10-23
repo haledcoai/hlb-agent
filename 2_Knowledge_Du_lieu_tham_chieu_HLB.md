@@ -27,7 +27,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 **Được dùng ngay:**
 - Tên: Đèn LED Nhà Xưởng HLB (gọi tắt HLB), website denlednhaxuongcaocap.com.
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- **Vai trò (người dùng xác nhận 21/10/2026):** dòng đèn "cao cấp" do **HALEDCO sản xuất và lắp ráp**, **HLB phân phối**. Viết "dòng đèn do HALEDCO sản xuất và lắp ráp, HLB phân phối". Không viết "HLB sản xuất", "nhà máy của chúng tôi". Với Philips, Rạng Đông, Điện Quang, HLB là đơn vị cung cấp.
+- **Vai trò (người dùng chốt 23/10/2026, thay bản 21/10):** **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** HALEDCO là một trong các thương hiệu HLB phân phối, không phải nhà sản xuất của "dòng cao cấp". Gọi dòng này là "dòng đèn cao cấp HLB phân phối", không gán hãng sản xuất. Không viết "HLB sản xuất", "nhà máy của chúng tôi", "dòng cao cấp do HALEDCO sản xuất".
 - Văn phòng: Tầng 21 Chung cư C2 Xuân Đỉnh, P. Xuân Đỉnh, Hà Nội. Trụ sở chính: Số 42 Phùng Hưng, Phường Sơn Tây, Thành phố Hà Nội. Bán hàng và giao hàng toàn quốc.
 - **Liên hệ (người dùng xác nhận 21/10/2026):**
   - Hotline bán hàng, ưu tiên dùng trong bài và CTA: 0967569588 (có Zalo cùng số).
@@ -35,7 +35,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
   - Email: denlednhaxuongcaocap@gmail.com.
 - **Mốc thời gian (người dùng xác nhận 21/10/2026):** HALEDCO sản xuất đèn LED từ năm 2011; HLB phân phối đèn LED nhà xưởng từ năm 2018. Luôn gắn mỗi mốc với đúng chủ thể. Không viết "HLB có kinh nghiệm từ 2011" hay cộng gộp số năm. Không tự tính "X năm kinh nghiệm" vì con số đổi theo năm, ghi năm bắt đầu.
 - **Bảo hành (người dùng xác nhận 21/10/2026):**
-  - Dòng cao cấp (HALEDCO sản xuất, HLB phân phối): 2 năm, bảo hành linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
+  - Dòng cao cấp HLB phân phối: 2 năm, bảo hành linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
   - Philips, Rạng Đông, Điện Quang: theo chính sách của từng hãng, xem mục 1.1. Không dùng dòng "Bảo hành 24 tháng" trên trang sản phẩm của các hãng này.
   - Hỗ trợ kỹ thuật và bảo hành: 02437 918 122.
 - **Đổi trả và giao hàng:** xem mục 1.1.

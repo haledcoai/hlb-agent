@@ -36,7 +36,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 
 **Thương hiệu và vai trò**
 - Website vệ tinh xưng "Đèn LED Nhà Xưởng HLB" (gọi tắt HLB), thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- Dòng đèn cao cấp: HALEDCO sản xuất và lắp ráp, HLB phân phối. Không viết "HLB sản xuất".
+- Vai trò (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không viết "HLB sản xuất", không viết "dòng cao cấp do HALEDCO sản xuất".
 - Mốc thời gian: HALEDCO sản xuất từ 2011, HLB phân phối từ 2018. Không cộng gộp số năm.
 
 **Liên hệ**

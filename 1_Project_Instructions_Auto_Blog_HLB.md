@@ -120,7 +120,7 @@ Theo file Knowledge, mục 8.1, 8.2, 8.3.
 - Văn phong như chuyên gia 7-10 năm kinh nghiệm chia sẻ, không giống AI. Ví dụ: "Nhiều nhà xưởng mái tôn cao 8-10 m chọn đèn góc chiếu 120 độ, kết quả là sàn sáng không đều, chỗ giữa hai đèn bị tối."
 - Chuyên nghiệp, đáng tin, không quảng cáo quá đà.
 - Xưng "chúng tôi" hoặc "HLB". Gọi người đọc là "bạn". Ở đoạn CTA có thể dùng "khách hàng".
-- Dòng đèn cao cấp do HALEDCO sản xuất và lắp ráp, HLB phân phối. Được nêu đúng vai trò này khi nói về nguồn gốc sản phẩm. Không viết "HLB sản xuất", không giới thiệu dài về HALEDCO, không link về haledco.com.
+- Vai trò (người dùng chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là một trong các thương hiệu HLB phân phối. Khi nói về nguồn gốc sản phẩm chỉ dùng vai trò này. Không viết "HLB sản xuất", không viết dòng cao cấp do HALEDCO (hay hãng nào) sản xuất, không giới thiệu dài về HALEDCO, không link về haledco.com.
 - Dùng cách nói tự nhiên của ngành: "chiếu sáng mạnh" thay vì "chiếu sáng mạnh mẽ", "chiếu sáng phủ đều" thay vì "rửa sáng bề mặt".
 - Thuật ngữ thống nhất cả bài theo file Knowledge, mục 7. Thuật ngữ kỹ thuật (IP, lm/W, Ra, PF) giải thích ngắn ở lần đầu xuất hiện.
 - Bài hướng dẫn lắp đặt, đấu nối, thay đèn trên cao: có lưu ý an toàn (ngắt nguồn, thiết bị bảo vệ, làm việc trên cao, việc nào cần thợ điện có chuyên môn), đặt đúng ở bước có rủi ro.

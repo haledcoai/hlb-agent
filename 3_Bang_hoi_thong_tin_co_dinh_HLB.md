@@ -17,7 +17,7 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 | 1.3 | Có Zalo hoặc email khác ngoài denlednhaxuongcaocap@gmail.com không? | | |
 | 1.4 | HLB thành lập năm nào? Được nêu số năm kinh nghiệm không? | Chưa thấy | |
 | 1.5 | Khu vực phục vụ chính (miền Bắc, toàn quốc)? Có kho hoặc văn phòng phía Nam không? | Trang sản phẩm ghi "Giao hàng toàn quốc" | |
-| 1.6 | Trong bài, dòng "cao cấp" được viết là HLB **sản xuất**, HALEDCO sản xuất, hay HLB **phân phối**? | Trang sản phẩm ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp", "Xuất xứ: Việt Nam" | |
+| 1.6 | Trong bài, dòng "cao cấp" được viết là HLB **sản xuất**, HALEDCO sản xuất, hay HLB **phân phối**? | Trang sản phẩm ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp", "Xuất xứ: Việt Nam" | Chốt 23/10/2026: HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không gán hãng sản xuất cho dòng cao cấp. |
 
 ## 2. Chính sách
 

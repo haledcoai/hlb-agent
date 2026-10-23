@@ -55,8 +55,9 @@ UNVERIFIED = {
 
 # Vai tro thuong hieu (Knowledge muc 1)
 BRAND_ROLE = {
-    r"hlb\s+(tự\s+)?sản xuất": "viết \"HALEDCO sản xuất, HLB phân phối\", không viết \"HLB sản xuất\"",
-    r"nhà máy của (chúng tôi|hlb)": "HLB không có nhà máy, dòng cao cấp do HALEDCO sản xuất",
+    r"hlb\s+(tự\s+)?sản xuất": "HLB phân phối đèn LED nhiều thương hiệu, không viết \"HLB sản xuất\"",
+    r"nhà máy của (chúng tôi|hlb)": "HLB là đơn vị phân phối, không có nhà máy",
+    r"(do|của)\s+haledco\s+(sản xuất|lắp ráp)|haledco\s+sản xuất\s*(và lắp ráp)?\s*,\s*hlb": "không gán dòng cao cấp cho HALEDCO sản xuất; viết \"HLB phân phối\" (HALEDCO là một thương hiệu HLB phân phối)",
     r"chúng tôi (tự\s+)?sản xuất": "HLB là đơn vị phân phối, không sản xuất",
     r"hlb.{0,40}từ (năm )?2011": "mốc 2011 là của HALEDCO, HLB phân phối từ 2018",
     r"\d+\s+năm kinh nghiệm": "không tự tính số năm kinh nghiệm, ghi năm bắt đầu",

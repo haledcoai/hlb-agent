@@ -42,7 +42,7 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Có từ tuyệt đối: 100%, duy nhất, số 1, hoàn hảo, tốt nhất, rẻ nhất, hot nhất, hàng đầu, vượt trội, siêu sáng, đứng đầu.
 - Có cụm văn mẫu kiểu AI (Knowledge 8.4), ví dụ: "trong bài viết này", "ngày nay" đầu câu, "đóng vai trò quan trọng", "giải pháp tối ưu", "khám phá", "bí quyết", "tóm lại", "hy vọng bài viết", "đừng ngần ngại".
 - Có câu quảng cáo chưa kiểm chứng (Knowledge mục 5): tiết kiệm 70% điện, làm mát 30%, không chiếu sáng quá 10 tiếng, đổi trả "trong vòng tuần", Graphene/TCPlus khi không ghi "theo công bố".
-- Sai vai trò thương hiệu: "HLB sản xuất", "nhà máy của chúng tôi", "chúng tôi sản xuất", gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
+- Sai vai trò thương hiệu: "HLB sản xuất", "nhà máy của chúng tôi", "chúng tôi sản xuất", "dòng cao cấp do HALEDCO sản xuất", gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
 - Số điện thoại ngoài 2 hotline đã xác nhận: 0967569588 và 02437 918 122.
 - Link tới haledco.com, website hãng đèn (philips, signify, rangdong, dienquang) hoặc cửa hàng (shopee, lazada, tiki, sendo). Anchor kiểu "tại đây", "xem thêm". Một URL link 2 lần. Hai URL khác nhau dùng chung anchor.
 - Link nội bộ (không tính trang Liên hệ ở CTA) ngoài khoảng 3-5. Link về trang danh mục ngoài khoảng 1-3. Link ngoài quá 3.
@@ -71,7 +71,7 @@ Thang **100 điểm**. ĐẠT khi **điểm tính ngưỡng từ 95/100 trở l�
 | intent | Đáp ứng search intent | 15 | Câu trả lời chính có trong 2-3 đoạn đầu không? Đoạn trả lời nhanh 40-60 từ, có số kèm điều kiện không (Knowledge 8.1)? Mở bài vào thẳng vấn đề không? |
 | du_lieu | Chính xác dữ liệu và nguồn | 25 | Thông số đúng model, không áp cho cả dòng? Không trình bày số suy ra như số công bố? Giá có "giá tham khảo" và ngày? Mã tiêu chuẩn đúng hoặc có `[CẦN KIỂM TRA]`? Phép tính đúng? |
 | eeat | Chuyên môn và EEAT | 15 | Có lý do sau mỗi khuyến nghị? Có nói khi nào phương án KHÔNG phù hợp? Có ít nhất một điểm chuyên sâu bài top chưa có? Không bịa dự án, khách hàng, số liệu? |
-| thuong_hieu | Thương hiệu và tuân thủ | 15 | "HALEDCO sản xuất, HLB phân phối" đúng? Mốc 2011 (HALEDCO), 2018 (HLB) đúng chủ thể? So sánh Philips, Rạng Đông, Điện Quang cùng tiêu chí, có nguồn, không có hãng thắng chung cuộc? Không nhắc chính sách chưa xác nhận? Philips không bị viết chung 24 tháng? |
+| thuong_hieu | Thương hiệu và tuân thủ | 15 | "HLB phân phối nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang)" đúng, không gán "dòng cao cấp do HALEDCO sản xuất"? Mốc 2011 (HALEDCO), 2018 (HLB) đúng chủ thể? So sánh Philips, Rạng Đông, Điện Quang cùng tiêu chí, có nguồn, không có hãng thắng chung cuộc? Không nhắc chính sách chưa xác nhận? Philips không bị viết chung 24 tháng? |
 | giong_van | Giọng văn | 15 | Giống chuyên gia 7-10 năm hay giống AI? Có câu rỗng, ý lặp giữa các phần? Thuật ngữ thống nhất, giải thích ở lần đầu? Bài lắp đặt có lưu ý an toàn đúng chỗ? |
 | cau_truc | Cấu trúc và SEO | 15 | Heading khớp outline đã chốt? Mỗi phần đúng phạm vi? Kết bài là khuyến nghị theo trường hợp, không tóm tắt lại bài? FAQ không lặp thân bài? Anchor đúng trang đích, link đặt trong ngữ cảnh? Phần C đủ placeholder, nguồn, ngày truy cập? |
 
