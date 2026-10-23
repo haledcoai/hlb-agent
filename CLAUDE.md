@@ -9,6 +9,11 @@ Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc 
 - Từ khóa phụ xử lý theo Project Instructions bước 2 (giữ trong bài, tách bài riêng hoặc bỏ, kèm lý do). Chỉ có từ khóa chính thì tự đề xuất từ khóa phụ.
 - SERP cho thấy từ khóa chính lệch intent (nên làm trang danh mục, sản phẩm, trùng bài cũ) hoặc một từ khóa phụ hợp làm từ khóa chính hơn: không tự đổi, ghi nhận xét và đề xuất để người dùng quyết.
 
+## Đồng bộ code (người dùng chốt 23/10/2026)
+
+- GitHub (`haledcoai/hlb-agent`, nhánh `main`) là bản gốc. Mỗi khi người dùng chốt một phương án làm đổi code, agent, CLAUDE.md hay quy trình, đẩy thay đổi lên GitHub ngay trong lượt đó, không chờ nhắc.
+- Máy Windows (folder `AI Agent denlednhaxuong`) chưa cài git. Khi phiên có quyền vào folder này thì tự chép các file vừa đổi về máy. Riêng thư mục `.claude/` công cụ không ghi được: chép file vào `cap_nhat_agent/` và báo người dùng lệnh PowerShell chép đè.
+
 ## Vòng duyệt tự động (bắt buộc)
 
 Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`), tự chạy vòng sau, không chờ người dùng nhắc:
