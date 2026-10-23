@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 .env
 anh/*/_goc/
+.danh_gia/_dang_cham.json

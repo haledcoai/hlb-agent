@@ -146,7 +146,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 | `.claude/agents/danh-gia-noi-dung.md` | Định nghĩa sub agent (công cụ: Read, Grep, Glob, PowerShell, Bash, WebFetch) |
 | `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4. Thoát mã 1 khi còn LỖI |
 | `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, và là các hook |
-| `.claude/settings.json` | 3 hook: chặn đăng khi chưa có phiếu ĐẠT; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt |
+| `.claude/settings.json` | Cho phép lệnh `phieu_duyet.py ghi`, `nhan` chạy không hỏi. 5 hook: chặn đăng khi chưa có phiếu ĐẠT và chặn ghi phiếu khi không phải agent đánh giá; đánh dấu đang chấm khi gọi agent đánh giá; bỏ đánh dấu khi sub agent kết thúc; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt (bỏ qua khi đang có lượt chấm) |
 | `CLAUDE.md` | Vòng duyệt tự động ở phần 8, cách cập nhật trang theo dõi |
 | `.danh_gia/` | Phiếu từng bài (`<bài>.json`, có mã SHA-256 nội dung lúc chấm), nhật ký `nhat_ky.jsonl`, dữ liệu xuất `xuat/` |
 
@@ -213,10 +213,8 @@ Lần chấm 98/100 sau đó không được ghi phiếu (bị chặn), và bả
 
 ## 11. Việc còn mở
 
-1. **Lệnh ghi phiếu bị chặn:** chế độ tự động của Claude Code đã từ chối lệnh `phieu_duyet.py ghi` của agent đánh giá, lý do nghi là lách quy định. Cần chọn một trong hai:
-   - thêm quy tắc cho phép đúng lệnh này vào `.claude/settings.local.json`
-   - người dùng tự chạy lệnh ghi
-2. **Hook nhắc chấm lại** vẫn nhắc trong lúc một lần chấm đang chạy nền. Nên cho hook bỏ qua khi đang có lượt chấm chạy.
+1. **Lệnh ghi phiếu bị chặn:** đã xử lý (23/10/2026). `.claude/settings.json` cho phép đúng lệnh `phieu_duyet.py ghi`, đồng thời hook chỉ cho agent đánh giá (hoặc agent `general-purpose` đang chấm thay theo CLAUDE.md) chạy lệnh này.
+2. **Hook nhắc chấm lại khi đang chấm nền:** đã xử lý (23/10/2026). Gọi agent đánh giá thì hook đánh dấu "đang chấm", Stop hook không nhắc cho tới khi sub agent kết thúc hoặc quá 30 phút.
 3. **Tiêu chí nên bổ sung:**
    - so với bài top SERP
    - chất lượng ảnh: khớp đoạn văn, alt, kích thước

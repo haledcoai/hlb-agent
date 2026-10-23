@@ -64,6 +64,11 @@ BRAND_ROLE = {
     r"haledco\.com": "không nhắc hoặc link haledco.com",
 }
 
+# Cach goi dong cao cap (Knowledge muc 1, chot 23/10/2026): canh bao de nguoi cham xem lai ngu canh
+BRAND_ROLE_WARN = {
+    r"dòng[^.;:]{0,40}\b(của|do)\s+haledco\b": "dòng cao cấp gọi là \"dòng đèn cao cấp HLB phân phối\", không gán cho HALEDCO",
+}
+
 # Thuat ngu thong nhat (Knowledge muc 7)
 TERMS = {
     "cos phi": "hệ số công suất (PF)", "rửa sáng": "chiếu sáng phủ đều", "mạnh mẽ": "chiếu sáng mạnh",
@@ -182,6 +187,9 @@ def check_text(rep, lines):
         for pat, why in BRAND_ROLE.items():
             if re.search(pat, norm(line)):
                 rep.error(no, "Sai vai trò thương hiệu: %s" % why)
+        for pat, why in BRAND_ROLE_WARN.items():
+            if re.search(pat, norm(line)):
+                rep.warn(no, "Kiểm tra vai trò thương hiệu: %s" % why)
         for bad, good in TERMS.items():
             if bad in text:
                 rep.warn(no, "Thuật ngữ \"%s\" nên thống nhất thành \"%s\"" % (bad, good))
@@ -389,6 +397,31 @@ def check_seo(rep, seo, body):
         rep.error(None, "Từ khóa chính không có trong 100 chữ đầu bài")
 
 
+def check_faq(rep, body):
+    """FAQ 3-5 cau (Knowledge 9.6): dem H3 duoi H2 co "câu hỏi thường gặp" hoac "FAQ"."""
+    start, n = None, 0
+    for no, line in body:
+        if re.match(r"^## ", line):
+            if start is not None:
+                break
+            if re.search(r"câu hỏi thường gặp|\bfaq\b", line.lower()):
+                start = no
+        elif start is not None and re.match(r"^### ", line):
+            n += 1
+    if start is None:
+        rep.info(None, "Không thấy mục FAQ (H2 \"Câu hỏi thường gặp\"), kiểm tra outline đã chốt có FAQ không")
+    elif not 3 <= n <= 5:
+        rep.warn(start, "FAQ có %d câu, nên 3-5 câu (ít hơn chỉ khi không đủ câu có giá trị)" % n)
+
+
+def check_price_note(rep, body):
+    """Gia phai ghi "giá tham khảo" kem thoi diem (Instructions muc 6)."""
+    price_lines = [no for no, line in body if re.search(r"\d{1,3}(?:\.\d{3})+\s*(đồng|đ\b|vnđ)", line, re.I)]
+    text = norm(" ".join(l for _, l in body))
+    if price_lines and "tham khảo" not in text:
+        rep.warn(price_lines[0], "Bài có giá nhưng không ghi \"giá tham khảo tại thời điểm [ngày]\"")
+
+
 def check_placeholders(rep, body, notes):
     counts = {}
     for no, line in body:
@@ -400,9 +433,9 @@ def check_placeholders(rep, body, notes):
         rep.info(None, "[%s] còn %d chỗ trong phần B, dòng %s" % (kind, len(nos), ", ".join(map(str, nos))))
     if not notes:
         rep.error(None, "Thiếu phần C. Ghi chú cho người duyệt")
-    elif any(k in counts for k in ("CẦN BỔ SUNG", "CẦN KIỂM TRA", "LINK")):
+    elif any(k in counts for k in ("CẦN BỔ SUNG", "CẦN KIỂM TRA", "CHỜ XÁC NHẬN", "LINK")):
         text = " ".join(l for _, l in notes)
-        for kind in ("CẦN BỔ SUNG", "CẦN KIỂM TRA", "LINK"):
+        for kind in ("CẦN BỔ SUNG", "CẦN KIỂM TRA", "CHỜ XÁC NHẬN", "LINK"):
             if kind in counts and kind not in text:
                 rep.error(None, "Phần B có [%s] nhưng phần C không liệt kê" % kind)
 
@@ -474,6 +507,8 @@ def main():
     seo = seo_fields(a)
     check_images(rep, b, (seo.get("Slug", (None, ""))[1] or " ").split(" ")[0])
     check_seo(rep, seo, b)
+    check_faq(rep, b)
+    check_price_note(rep, b)
     check_placeholders(rep, b, c)
 
     csv_path = args.csv

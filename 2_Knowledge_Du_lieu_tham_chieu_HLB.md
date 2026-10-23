@@ -1,6 +1,6 @@
 # DỮ LIỆU THAM CHIẾU HLB (FILE KNOWLEDGE)
 
-Phiên bản: 21/10/2026. Dùng kèm "Project Instructions: Viết blog cho denlednhaxuongcaocap.com".
+Phiên bản: 23/10/2026. Dùng kèm "Project Instructions: Viết blog cho denlednhaxuongcaocap.com".
 
 Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này khác với thông tin đang đăng trên website, làm theo website (đã mở kiểm tra trong phiên) và ghi chênh lệch vào phần C.
 
@@ -124,7 +124,7 @@ Dùng để biết website có gì. Thông số và giá phải mở trang sản
 
 ### 2.4 Bài viết đã có trên mục Tư vấn (đã kiểm tra ngày 21/10/2026)
 
-Dùng cho Bước 1 (kiểm tra trùng chủ đề) và gợi ý link. Bài mới hơn ngày này thì tìm `site:denlednhaxuongcaocap.com + chủ đề`. Không đoán URL theo cấu trúc slug.
+Dùng cho Bước 1 (kiểm tra trùng chủ đề) và gợi ý link. Bài mới hơn ngày này thì tìm bằng ô tìm kiếm của website: `https://denlednhaxuongcaocap.com/?s=chủ đề&post_type=post` (lệnh `site:` trên Google không trả kết quả đúng cho website này). Không đoán URL theo cấu trúc slug.
 
 | Chủ đề | URL |
 |---|---|
