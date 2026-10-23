@@ -12,7 +12,8 @@
       "dai_dien": false,
       "ghi_chu": "Vẽ bằng ve_so_do.py (mau_anh.py), số liệu theo 2 trường hợp trong bài: BUFO4-50 lưới 3 x 7, BUFO4-100 lưới 2 x 3",
       "prompt": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-khung-thep-mai-ton.jpg",
@@ -25,7 +26,8 @@
       "dai_dien": false,
       "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYtwNJbzw), xuất qua thiết kế DAHYt5W2EQg trang 2. Không phải công trình thật.",
       "prompt": "Wide-angle photo of the interior of a small single-storey steel frame workshop about 10 x 20 m, steel columns and steel roof trusses with purlins, corrugated metal roof about 6 m high with insulation layer under the roof, low brick wall combined with metal cladding, a few round LED high bay lights hanging on short chains well below the roof in a simple grid, bright even light on concrete floor, small woodworking machines, realistic, natural colors, no people, no text, no logos, no brand names, no watermarks",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-be-tong-cot-thep.jpg",
@@ -38,7 +40,8 @@
       "dai_dien": false,
       "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYt6qqJqw), xuất qua thiết kế DAHYt5W2EQg trang 3. Không phải công trình thật.",
       "prompt": "Wide-angle photo of the interior of a small reinforced concrete factory building about 10 x 20 m, large concrete columns and deep concrete beams under the roof, heavy machines on concrete floor, round LED high bay lights hanging between the beams (not next to them), even bright light on the floor, realistic, natural colors, no people, no text, no logos, no brand names, no watermarks",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-gac-lung.jpg",
@@ -51,7 +54,8 @@
       "dai_dien": false,
       "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYt-HrQt0), xuất qua thiết kế DAHYt5W2EQg trang 4. Không phải công trình thật.",
       "prompt": "Wide-angle photo of the interior of a small steel frame workshop with a mezzanine floor at the gable end, steel staircase up to the mezzanine, the low area under the mezzanine lit by linear LED panel lights, the high main workshop area lit by round LED high bay lights hanging from the roof trusses, corrugated metal roof, concrete floor, realistic, no people, no text, no logos, no brand names, no watermarks",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-ket-hop-van-phong.jpg",
@@ -64,7 +68,8 @@
       "dai_dien": false,
       "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYtwSsYJs), xuất qua thiết kế DAHYt5W2EQg trang 5. Không phải công trình thật.",
       "prompt": "Exterior photo of a small factory building with a two-storey office block at the front with glass windows and entrance, and a single-storey steel frame workshop with corrugated metal roof and roller door behind it, clean concrete yard, daytime, realistic architecture photo, no people, no text, no logos, no brand names, no signs, no watermarks",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "mau-nha-xuong-200m2-tong-hop.jpg",
@@ -78,7 +83,8 @@
       "ghi_chu": "Ảnh minh họa, không phải công trình thật. Ghép bằng ghep_tong_hop.py (mau_anh.py) từ 8 ảnh mẫu của bài (Canva và Unsplash), mỗi ô một nhãn.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-khu-boc-xep.jpg",
@@ -92,7 +98,8 @@
       "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYyWz4mVo), xuất qua thiết kế DAHYt5W2EQg trang 7. Không phải công trình thật.",
       "prompt": "Photo of a small factory with a steel canopy roof extending a few meters out over the front loading area, a small box truck parked under the canopy at the open roll-up door, rainy day with wet concrete ground, weatherproof LED flood lights mounted under the canopy lighting the loading area evenly, realistic, natural colors, no people, no text, no logos, no brand names, no watermarks, no signs",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-mai-vom.jpg",
@@ -106,7 +113,8 @@
       "ghi_chu": "Ảnh minh họa, không phải công trình thật. Nguồn: https://unsplash.com/photos/XiwYWGqnIjA, Unsplash License",
       "prompt": "",
       "tac_gia": "Sadia Alam trên Unsplash",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-kho-200m2.jpg",
@@ -120,7 +128,8 @@
       "ghi_chu": "Ảnh minh họa, không phải công trình thật. Nguồn: https://unsplash.com/photos/a-large-warehouse-filled-with-lots-of-boxes--aCrA9FmT8Y, Unsplash License",
       "prompt": "",
       "tac_gia": "Alberto Rodríguez trên Unsplash",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "nha-xuong-200m2-2-tang.jpg",
@@ -134,7 +143,8 @@
       "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYyj4qNb0), xuất qua thiết kế DAHYt5W2EQg trang 8. Làm lại theo ghi chú 'Không giống nhà xưởng, nhìn không quy mô': khung thép, tôn bao che, 2 cửa cuốn tầng 1, dãy cửa sổ tầng 2, cầu thang thép ngoài. Unsplash, Pixabay không có ảnh hợp. Không phải công trình thật.",
       "prompt": "Realistic wide-angle daytime photo of a small two-storey industrial factory building in a Vietnamese industrial park, seen from a three-quarter angle so the full 20 m long side and 10 m front are visible. Pre-engineered steel frame with exposed steel columns, grey corrugated metal wall cladding over a low concrete base wall, two large industrial roll-up steel shutter doors on the ground floor for forklift loading, a concrete loading apron and wide concrete yard in front, a clearly visible intermediate floor slab line between floors, a long continuous band of industrial ribbon windows along the upper floor, low-pitch corrugated metal gable roof with roof ventilators, an external steel staircase on the side, utilitarian factory look, not a house, not an office, not residential, overcast natural light, photorealistic, no people, no text, no logos, no brand names, no watermarks, no signs",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     }
   ]
 }
