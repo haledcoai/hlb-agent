@@ -28,7 +28,7 @@ SITE = "https://denlednhaxuongcaocap.com"
 API = SITE + "/wp-json"
 
 PLACEHOLDER = re.compile(r"\[(?:CẦN BỔ SUNG|CẦN KIỂM TRA|LINK|ẢNH|Ghi chú)[^\]]*\]")
-IMAGE_LINE = re.compile(r"^\[ẢNH:[^\]]*\|\s*tên file:\s*([^\]|]+?)\s*\]$")
+IMAGE_LINE = re.compile(r"^(?:\*\*)?\[ẢNH:[^\]]*\|\s*tên file:\s*([^\]|]+?)\s*\](?:\*\*)?$")  # dong [ANH] co the in dam **...**
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
 BOLD = re.compile(r"\*\*(.+?)\*\*")
