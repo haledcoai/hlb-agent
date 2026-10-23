@@ -81,12 +81,15 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 ## 4. Mỗi lượt chạy
 
 1. Kiểm tra môi trường, không in giá trị mật khẩu: có biến `WP_USER` và `WP_APP_PASSWORD` không; `https://denlednhaxuongcaocap.com/wp-json/` trả về 200 không; repo push được không. Ghi `cau_hinh/chung.lan_chay_cuoi` (giờ ISO) và `cau_hinh/chung.moi_truong` (một câu, ví dụ "Đủ mật khẩu, website kết nối được, repo push được" hoặc nói rõ phần nào thiếu). Thiếu mật khẩu hoặc không vào được website thì chỉ làm các việc không cần đăng bản nháp (nghiên cứu, outline), các bước cần đăng chuyển `can_xu_ly` với lý do.
-2. `list` collection `tu_khoa`. Từ khóa đang ở trạng thái `dang_*` có `khoa_luc` quá 3 giờ thì coi là lượt trước bị ngắt: đưa về trạng thái chờ tương ứng, ghi lịch sử.
+2. **Làm tiếp việc dở trước** (người dùng chốt 23/10/2026: lượt trước dừng giữa chừng, ví dụ hết hạn mức token, thì lượt sau phải tự làm tiếp, không chờ người dùng nhắc). `list` collection `tu_khoa`, rồi:
+   - Từ khóa ở `dang_*` có `khoa_luc` quá 1 giờ: lượt trước bị ngắt. Đưa về trạng thái chờ tương ứng (`dang_nghien_cuu` về `moi` hoặc `sua_outline`, `dang_viet` về `cho_viet` hoặc `sua_bai`, `dang_tao_anh` về `cho_tao_anh`, `dang_hoan_thien` về `cho_hoan_thien`), ghi lịch sử "Lượt trước bị ngắt, làm tiếp từ <tien_do>".
+   - Kiểm tra theo file trên repo, không làm lại phần đã xong: bài đã có file và phiếu ĐẠT khớp nội dung thì không viết, không chấm lại; `cho_duyet_bai` chưa có `nhap_khop` thì đẩy nháp (mục 3a); `cho_tao_anh` thì chạy `python tools/tao_anh.py kiem <file_bai>` và chỉ gọi `tao-anh` cho ảnh còn thiếu; ảnh đã có trong `anh/<bài>/` mà chưa có dòng trong collection `anh` thì đưa lên bảng ngay.
+   - Việc dở làm trước mọi việc mới ở bước 3.
 3. Chọn việc theo thứ tự: `cho_hoan_thien`, `sua_bai`, `sua_outline`, `cho_tao_anh`, `cho_viet`, `moi` (việc gần xong và việc người dùng vừa góp ý làm trước). Cùng loại thì `cap_nhat` cũ trước.
 4. Với mỗi việc: `update` trạng thái `dang_*`, `khoa_luc`, `tien_do` (kèm `if_version`; lỗi phiên bản thì bỏ qua từ khóa đó). Làm xong ghi kết quả, trạng thái kết thúc, thêm một dòng `lich_su`, xóa `khoa_luc`.
 5. Giới hạn mỗi lượt: tối đa 3 việc nghiên cứu (`moi`, `sua_outline`) và 1 việc viết bài (`cho_viet`, `sua_bai`), không giới hạn việc ngắn. Còn việc thì lượt sau làm tiếp.
 6. Lỗi không tự xử lý được (mạng, đăng nhập WordPress, thiếu dữ liệu bắt buộc): chuyển `can_xu_ly`, `ly_do` nói rõ lỗi gì và người dùng cần làm gì, `quay_ve` là trạng thái chờ trước đó.
-7. Lưu thay đổi file (bài, phiếu, nhật ký, ảnh) về kho chung trước khi kết thúc lượt.
+7. **Lưu sau từng bước, không đợi cuối lượt**: viết xong bài, chấm xong một vòng, tạo xong mỗi ảnh đều commit và push ngay, đồng thời ghi `tien_do` trên bảng nói rõ bước vừa xong và bước kế tiếp. Lượt bị ngắt bất kỳ lúc nào thì lượt sau vẫn biết làm tiếp từ đâu (bước 2).
 
 ## 5. Ranh giới
 
