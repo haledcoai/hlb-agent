@@ -81,20 +81,6 @@
       "trang_thai": "cho_duyet"
     },
     {
-      "ten": "nha-xuong-200m2-2-tang.jpg",
-      "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-2-tang.jpg",
-      "nguon": "canva",
-      "alt": "mẫu nhà xưởng 200m2 2 tầng",
-      "mo_ta": "nhà xưởng 2 tầng",
-      "url_website": null,
-      "media_id": null,
-      "dai_dien": false,
-      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYyUoCmag), xuất qua thiết kế DAHYt5W2EQg trang 6. Không phải công trình thật.",
-      "prompt": "Photo of the exterior of a small two-storey factory building about 10 x 20 m in a Vietnamese industrial area, reinforced concrete frame, ground floor with a large roll-up door for loading goods, upper floor with a row of windows for a light storage and packing area, corrugated metal roof on top, plain painted walls, clear daytime, realistic, natural colors, no people, no text, no logos, no brand names, no watermarks, no signs",
-      "tac_gia": "",
-      "trang_thai": "cho_duyet"
-    },
-    {
       "ten": "nha-xuong-200m2-khu-boc-xep.jpg",
       "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-khu-boc-xep.jpg",
       "nguon": "canva",
@@ -134,6 +120,20 @@
       "ghi_chu": "Ảnh minh họa, không phải công trình thật. Nguồn: https://unsplash.com/photos/a-large-warehouse-filled-with-lots-of-boxes--aCrA9FmT8Y, Unsplash License",
       "prompt": "",
       "tac_gia": "Alberto Rodríguez trên Unsplash",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "nha-xuong-200m2-2-tang.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-2-tang.jpg",
+      "nguon": "canva",
+      "alt": "mẫu nhà xưởng 200m2 2 tầng",
+      "mo_ta": "nhà xưởng 2 tầng",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYyj4qNb0), xuất qua thiết kế DAHYt5W2EQg trang 8. Làm lại theo ghi chú 'Không giống nhà xưởng, nhìn không quy mô': khung thép, tôn bao che, 2 cửa cuốn tầng 1, dãy cửa sổ tầng 2, cầu thang thép ngoài. Unsplash, Pixabay không có ảnh hợp. Không phải công trình thật.",
+      "prompt": "Realistic wide-angle daytime photo of a small two-storey industrial factory building in a Vietnamese industrial park, seen from a three-quarter angle so the full 20 m long side and 10 m front are visible. Pre-engineered steel frame with exposed steel columns, grey corrugated metal wall cladding over a low concrete base wall, two large industrial roll-up steel shutter doors on the ground floor for forklift loading, a concrete loading apron and wide concrete yard in front, a clearly visible intermediate floor slab line between floors, a long continuous band of industrial ribbon windows along the upper floor, low-pitch corrugated metal gable roof with roof ventilators, an external steel staircase on the side, utilitarian factory look, not a house, not an office, not residential, overcast natural light, photorealistic, no people, no text, no logos, no brand names, no watermarks, no signs",
+      "tac_gia": "",
       "trang_thai": "cho_duyet"
     }
   ]
