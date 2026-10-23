@@ -5,6 +5,7 @@ Cach dung:
   python tools/tao_anh.py liet-ke <file_bai.md>                  # cac cho [ANH], ngu canh, trang thai
   python tools/tao_anh.py phan-loai <file_bai.md>                # goi y nguon cho tung cho [ANH], doi chieu CSV san pham
   python tools/tao_anh.py san-pham <slug>                        # anh that cua san pham tren website
+  python tools/tao_anh.py anh-bai-cu <file_bai.md | ID bai>      # anh dang co trong bai cu tren website (bai viet lai)
   python tools/tao_anh.py tim-anh "<tu khoa tieng Anh>" [--kho pixabay|pexels|unsplash] [--so 8]
                                                                  # tim anh kho mien phi (key: PIXABAY_API_KEY, PEXELS_API_KEY, UNSPLASH_ACCESS_KEY)
   python tools/tao_anh.py tai <url> <file_ra>                    # tai mot anh ve may
@@ -238,6 +239,40 @@ def san_pham(args):
         print("- media %s: %s\n  alt trên website: %s" % (img.get("id"), img["src"], img.get("alt")))
 
 
+def anh_bai_cu(args):
+    """Anh dang co trong bai cu tren website, kem heading gan nhat, de dung lai cho bai viet lai (nguon website)."""
+    import html as h
+    if args.bai.isdigit():
+        data = [json.loads(get("%s/wp-json/wp/v2/posts/%s?_fields=id,link,content,featured_media" % (SITE, args.bai)))]
+    else:
+        slug = slug_bai(args.bai) if args.bai.endswith(".md") else args.bai
+        if not slug:
+            sys.exit("Không đọc được slug bài ở phần A")
+        data = json.loads(get("%s/wp-json/wp/v2/posts?slug=%s&_fields=id,link,content,featured_media"
+                              % (SITE, urllib.parse.quote(slug))))
+        if not data:
+            sys.exit("Website chưa có bài slug %s (bài mới, không có ảnh cũ)" % slug)
+    bai = data[0]
+    noi_dung = bai["content"]["rendered"]
+    print("Bài cũ ID %s: %s (ảnh đại diện: media %s)" % (bai["id"], bai["link"], bai.get("featured_media")))
+    heading, n = "", 0
+    for m in re.finditer(r"<h[2-4][^>]*>(.*?)</h[2-4]>|<img[^>]*>", noi_dung, re.S):
+        if m.group(1) is not None:
+            heading = h.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
+            continue
+        tag = m.group(0)
+        thuoc_tinh = dict(re.findall(r'(\w+)="([^"]*)"', tag))
+        mid = re.search(r"wp-image-(\d+)", tag)
+        n += 1
+        print("%d. media %s, %sx%s: %s\n   alt: %s\n   thuộc mục: %s" % (
+            n, mid.group(1) if mid else "?", thuoc_tinh.get("width", "?"), thuoc_tinh.get("height", "?"),
+            thuoc_tinh.get("src", ""), h.unescape(thuoc_tinh.get("alt", "")), heading))
+    if not n:
+        print("Bài cũ không có ảnh trong nội dung.")
+    print("\nDùng lại: ghi ... --nguon website --url-website <src> --media-id <media>. Chỉ chọn ảnh khớp ngữ cảnh đoạn văn mới; "
+          "ảnh có logo, chữ, công trình của bên khác thì không dùng.")
+
+
 def tim_anh(args):
     """In danh sach anh tu kho mien phi: so thu tu, kich thuoc, mo ta, trang goc, link tai ban lon.
     Agent xem anh xem truoc, loai anh co logo, chu, bien hieu, nguoi nhan ra duoc, roi tai bang lenh tai."""
@@ -450,6 +485,7 @@ def main():
     p = sub.add_parser("liet-ke"); p.add_argument("article"); p.set_defaults(func=liet_ke)
     p = sub.add_parser("phan-loai"); p.add_argument("article"); p.set_defaults(func=phan_loai)
     p = sub.add_parser("san-pham"); p.add_argument("slug"); p.set_defaults(func=san_pham)
+    p = sub.add_parser("anh-bai-cu"); p.add_argument("bai"); p.set_defaults(func=anh_bai_cu)
     p = sub.add_parser("tim-anh"); p.add_argument("tu_khoa")
     p.add_argument("--kho", choices=("pixabay", "pexels", "unsplash"), default="unsplash"); p.add_argument("--so", type=int, default=8)
     p.set_defaults(func=tim_anh)

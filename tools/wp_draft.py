@@ -229,10 +229,8 @@ def mark_images(body_lines, images):
 def image_caption(a):
     """Chu thich hien duoi anh: noi dung anh theo [ANH]; anh tao bang AI ghi ro la anh minh hoa."""
     cap = a["mo_ta"].rstrip(".")
-    if a["nguon"] not in ("canva", "kho-anh"):
-        return cap
-    # Anh Unsplash ghi ten tac gia theo quy dinh API cua Unsplash
-    return cap + (" (ảnh minh họa, ảnh: %s)" % a["tac_gia"] if a.get("tac_gia") else " (ảnh minh họa)")
+    # Ten tac gia anh kho (Unsplash) chi ghi trong mo ta Media, chu thich chi ghi "anh minh hoa" (nguoi dung chot 23/10/2026)
+    return cap + " (ảnh minh họa)" if a["nguon"] in ("canva", "kho-anh") else cap
 
 
 def insert_images(content, images, src_of, preview=False):

@@ -24,18 +24,27 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 
 ## Quy trình
 
-0. **Kiểm tra Canva đầu phiên:** gọi `get-assets` hoặc một lệnh đọc nhẹ của Canva. Trên máy Windows công cụ Canva có tên `mcp__b0cec744-...__<lệnh>`, trên cloud là `mcp__Canva__<lệnh>`; dùng tên nào thấy trong phiên. Không gọi được (lỗi kết nối, không thấy công cụ Canva vì mã kết nối trong dòng `tools` đã đổi sau khi kết nối lại) thì ghi ngay đầu báo cáo "Canva không gọi được" kèm lỗi, làm tiếp các ảnh python và website, và đưa các ảnh cần Canva vào mục "Cần người dùng làm". Không lặng lẽ chuyển ảnh Canva sang nguồn khác.
+0. **Kiểm tra Canva đầu phiên:** gọi `get-assets` hoặc một lệnh đọc nhẹ của Canva. Trên máy Windows công cụ Canva có tên `mcp__b0cec744-...__<lệnh>`, trên cloud là `mcp__Canva__<lệnh>`; dùng tên nào thấy trong phiên. Không gọi được (lỗi kết nối, không thấy công cụ Canva vì mã kết nối trong dòng `tools` đã đổi sau khi kết nối lại) thì ghi ngay đầu báo cáo "Canva không gọi được" kèm lỗi, làm các ảnh đó bằng nguồn khác theo thứ tự ở mục "Chọn nguồn" (kho ảnh, tự vẽ), ghi rõ trong báo cáo ảnh nào đã chuyển nguồn.
 1. **Liệt kê chỗ ảnh kèm ngữ cảnh:** `python tools/tao_anh.py liet-ke <file_bai.md>`. Mỗi ảnh có: mô tả, alt, tên file, mục (heading) chứa ảnh, đoạn văn ngay trước và ngay sau.
 2. **Đọc ngữ cảnh** của từng ảnh, rồi quyết định ảnh cần thể hiện gì. Ví dụ: ảnh đặt sau đoạn "góc chiếu 120 độ cho trần 10 m làm sàn tối" thì cần cho thấy chỗ tối giữa hai đèn, không phải một nhà xưởng sáng bất kỳ. Số liệu trên ảnh phải khớp số trong đoạn đó.
-3. **Chọn nguồn:** chạy `python tools/tao_anh.py phan-loai <file_bai.md>` để có gợi ý (đối chiếu mô tả và model trong CSV sản phẩm), rồi chốt theo bảng dưới và ngữ cảnh ở bước 2. Gợi ý chỉ dựa trên từ khóa, ngữ cảnh đoạn văn quyết định. Không đổi nguồn để cho tiện.
+3. **Chọn nguồn:** chạy `python tools/tao_anh.py phan-loai <file_bai.md>` để có gợi ý (đối chiếu mô tả và model trong CSV sản phẩm), rồi chốt theo mục "Chọn nguồn" và ngữ cảnh ở bước 2. Gợi ý chỉ dựa trên từ khóa, ngữ cảnh đoạn văn quyết định. Bài viết lại (đã có trên website) thì chạy thêm `python tools/tao_anh.py anh-bai-cu <file_bai.md>` để xem ảnh của bài cũ trước khi làm ảnh mới.
 4. **Làm ảnh** theo mục "Theo từng nguồn".
 5. **Chuẩn hóa:** `python tools/tao_anh.py chuan-hoa <ảnh gốc> anh/<tên bài>/<tên file>.jpg`. Ảnh chụp hoặc ảnh Canva quá cao thì thêm `--cat` để cắt giữa. Sơ đồ quá cao hoặc quá thấp thì vẽ lại theo tỷ lệ khác, không cắt.
-6. **Ghi danh sách:** `python tools/tao_anh.py ghi <file_bai.md> --ten <tên file> --file anh/<tên bài>/<tên file> --nguon python|canva|website|nguoi-dung [--url-website URL --media-id ID] [--dai-dien] --ghi-chu "<nguồn, số liệu dùng>" [--prompt "<prompt Canva đã dùng>"]`. Ảnh Canva bắt buộc `--prompt`; ghi chú tự thêm "Ảnh minh họa, không phải công trình thật" nếu thiếu. Alt lấy tự động từ bài. Chọn đúng 1 ảnh đại diện, thường là ảnh đầu bài.
+6. **Ghi danh sách:** `python tools/tao_anh.py ghi <file_bai.md> --ten <tên file> --file anh/<tên bài>/<tên file> --nguon python|canva|kho-anh|website|nguoi-dung [--url-website URL --media-id ID] [--dai-dien] --ghi-chu "<nguồn, số liệu dùng>" [--prompt "<prompt Canva đã dùng>"]`. Ảnh Canva bắt buộc `--prompt`; ghi chú tự thêm "Ảnh minh họa, không phải công trình thật" nếu thiếu. Alt lấy tự động từ bài. Chọn đúng 1 ảnh đại diện, thường là ảnh đầu bài.
 7. **Kiểm tra:** `python tools/tao_anh.py kiem <file_bai.md>` phải báo "Đủ ảnh". Lệnh này kiểm tra chuẩn JPG, alt (không quá 125 ký tự, không em dash, ảnh Canva không có alt ngụ ý công trình thật, ghi chú có "ảnh minh họa"), và so tên ảnh với slug bài và tra slug trên website qua REST API. Báo trùng slug thì không tự đổi tên trong bài (không sửa file bài): ghi vào báo cáo tên đề xuất thay thế để agent chính sửa dòng `[ẢNH]`. Chỉ dùng `--khong-web` khi máy không vào được website, và ghi "chưa kiểm tra slug trên website" trong báo cáo.
 8. **Xem lại từng ảnh** bằng Read. Sơ đồ vẽ bằng mẫu đã được tự kiểm tra chữ đè, tràn, nhỏ, em dash; vẫn phải xem bằng mắt các lỗi máy không bắt được: chữ tràn khỏi ô màu, sai chính tả, số liệu lệch bài, hình khó hiểu.
 9. **Chạy xem trước:** `python tools/wp_draft.py <file_bai.md> --update <ID>` hoặc `--new`, **không thêm `--post`**. Báo đường dẫn file `.preview.html`.
 
 ## Chọn nguồn
+
+**Nguyên tắc (người dùng chốt 23/10/2026):** mục tiêu là đủ ảnh đạt chất lượng với ít thời gian và token nhất. Agent tự chọn và kết hợp nguồn, không hỏi người dùng. Thứ tự thử cho mỗi chỗ `[ẢNH]`:
+1. **Ảnh bài cũ** (chỉ bài viết lại): `anh-bai-cu` liệt kê ảnh đang có trong bài cũ kèm mục chứa ảnh. Ảnh khớp ngữ cảnh đoạn văn mới thì dùng lại luôn (`--nguon website --url-website <src> --media-id <media>`), không tải lại, giữ nguyên kích thước cũ (ảnh nguồn website không áp chuẩn 800-850 px). Không dùng ảnh cũ có logo hoặc tên hãng khác, chữ sai với bài mới, hoặc ngụ ý công trình của HLB khi không phải.
+2. **Ảnh sản phẩm trên website** cho chỗ nói về model cụ thể.
+3. **Kho ảnh** (Unsplash, rồi Pixabay) cho ảnh không gian chung.
+4. **Tự vẽ bằng Python** cho sơ đồ, bảng, và khi kho ảnh không có ảnh hợp. Ảnh tổng hợp (ví dụ "các mẫu nhà xưởng") thì ghép bằng Python từ các ảnh đã có của bài, mỗi ô một nhãn ngắn.
+5. **Canva** khi các nguồn trên không có ảnh hợp, và Canva gọi được, tải về được.
+
+Một bài có thể dùng nhiều nguồn. Không thử lại một nguồn đã thất bại cho cùng loại ảnh trong cùng bài (ví dụ Unsplash không có "nhà xưởng mái vòm" thì sang Pixabay, rồi tự vẽ, không đổi từ khóa quá 2 lần).
 
 | Loại ảnh | Nguồn | Không được |
 |---|---|---|
@@ -69,7 +78,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 1. `python tools/tao_anh.py tim-anh "<từ khóa tiếng Anh theo ngữ cảnh>" --kho unsplash`; không có ảnh hợp thì `--kho pixabay` (Pexels hiện không cấp API, chốt 22/10/2026). Key đọc từ `PIXABAY_API_KEY`, `PEXELS_API_KEY`, `UNSPLASH_ACCESS_KEY`; ảnh Unsplash phải tải bằng `tai unsplash:<id> <file>` (lệnh tự báo lượt tải theo quy định Unsplash); thiếu key hoặc bị chặn mạng thì báo trong báo cáo và chuyển sang `canva`.
 2. Xem ảnh xem trước: tải bằng `python tools/tao_anh.py tai "<link xem trước>" anh/<tên bài>/_goc/xem-truoc-<số>.jpg` rồi mở bằng Read (link ảnh không xem được trực tiếp), xóa các file xem trước khi xong. Loại ảnh có logo, chữ, biển hiệu, tên hãng, người nhận ra được, ảnh trông như ảnh AI, ảnh không khớp ngữ cảnh đoạn văn (kiểu kết cấu, loại đèn). Thử tối đa 2 từ khóa khác nhau.
 3. `tai` bản lớn về `_goc/`, `chuan-hoa ... --cat`, xem lại bản 820 px.
-4. `ghi ... --nguon kho-anh --ghi-chu "Ảnh minh họa, không phải công trình thật. Nguồn: <trang gốc>, <Pixabay Content License | Pexels License | Unsplash License>"`. Ảnh Unsplash bắt buộc thêm `--tac-gia "<tên tác giả tim-anh in ra>"`; `wp_draft.py` tự ghi "ảnh: <tác giả> trên Unsplash" vào chú thích dưới ảnh và mô tả Media, theo quy định API của Unsplash.
+4. `ghi ... --nguon kho-anh --ghi-chu "Ảnh minh họa, không phải công trình thật. Nguồn: <trang gốc>, <Pixabay Content License | Pexels License | Unsplash License>"`. Ảnh Unsplash bắt buộc thêm `--tac-gia "<tên tác giả tim-anh in ra>"`. Chú thích dưới ảnh chỉ ghi "(ảnh minh họa)" (người dùng chốt 23/10/2026); tên tác giả chỉ ghi trong mô tả Media trên WordPress.
 - Chỉ lấy từ Pixabay, Pexels, Unsplash. Không lấy ảnh từ Google Images, website đối thủ, nhà sản xuất hay báo chí. Không cắt bỏ logo hoặc watermark của ảnh bất kỳ để dùng.
 
 **canva:**
@@ -91,7 +100,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 ## Khi thiếu ảnh
 
 Người dùng chốt (21/10/2026): ảnh nào thiếu thì tự tạo, không để trống. Thử lần lượt:
-1. Đúng nguồn ở bảng trên.
+1. Lần lượt các nguồn theo thứ tự ở mục "Chọn nguồn", tự chuyển nguồn, không hỏi người dùng.
 2. Ảnh sản phẩm không có trên website: dùng ảnh khác của chính model đó, không có nữa thì dùng ảnh của model cùng dòng và ghi rõ trong `--ghi-chu`.
 3. Ảnh Canva lỗi hoặc không đạt: tạo lại với prompt sát ngữ cảnh hơn (tối đa 2 lần), rồi vẽ minh họa bằng Python nếu ảnh có thể diễn đạt bằng sơ đồ.
 4. Vẫn không có: báo trong mục "Cần người dùng làm". `wp_draft.py` vẫn đăng bài với các ảnh có sẵn, chỗ thiếu giữ dòng `[ẢNH]` in đậm và liệt kê trong ghi chú biên tập. Ảnh đại diện thiếu thì tự lấy ảnh đầu tiên có sẵn.
