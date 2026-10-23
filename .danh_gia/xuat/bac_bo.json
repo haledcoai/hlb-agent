@@ -14,5 +14,13 @@
   "nhan": "den-gia-dinh-trung-hang-khac",
   "ly_do": "Gợi ý đổi sang 15.000 lm vẫn trùng Rạng Đông BD HB02L 430/150W, vòng 3 bị chấm lại là lỗi",
   "ngay": "2026-10-21"
+ },
+ {
+  "ma": "B007",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "nhan": "bao-hanh-ap-chung",
+  "ly_do": "Goi y sua o lan cham L001 (thang v1) viet 'loi chip LED va driver do nha san xuat'; lan cham v2 vong 1 cham la them dieu kien khong co trong Knowledge 1.1 (bao-hanh-them-dieu-kien)",
+  "ngay": "2026-10-21"
  }
 ]

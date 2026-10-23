@@ -27,7 +27,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 **Được dùng ngay:**
 - Tên: Đèn LED Nhà Xưởng HLB (gọi tắt HLB), website denlednhaxuongcaocap.com.
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- **Vai trò (người dùng xác nhận 21/10/2026):** dòng đèn "cao cấp" do **HALEDCO sản xuất và lắp ráp**, **HLB phân phối**. Viết "dòng đèn cao cấp do HALEDCO sản xuất, HLB phân phối". Không viết "HLB sản xuất", "nhà máy của chúng tôi". Với Philips, Rạng Đông, Điện Quang, HLB là đơn vị cung cấp.
+- **Vai trò (người dùng xác nhận 21/10/2026):** dòng đèn "cao cấp" do **HALEDCO sản xuất và lắp ráp**, **HLB phân phối**. Viết "dòng đèn do HALEDCO sản xuất và lắp ráp, HLB phân phối". Không viết "HLB sản xuất", "nhà máy của chúng tôi". Với Philips, Rạng Đông, Điện Quang, HLB là đơn vị cung cấp.
 - Văn phòng: Tầng 21 Chung cư C2 Xuân Đỉnh, P. Xuân Đỉnh, Hà Nội. Trụ sở chính: Số 42 Phùng Hưng, Phường Sơn Tây, Thành phố Hà Nội. Bán hàng và giao hàng toàn quốc.
 - **Liên hệ (người dùng xác nhận 21/10/2026):**
   - Hotline bán hàng, ưu tiên dùng trong bài và CTA: 0967569588 (có Zalo cùng số).
@@ -418,6 +418,7 @@ Anchor text:
 - Mỗi ảnh ghi: vị trí, nội dung, alt text, tên file gợi ý.
 - Alt text dưới 125 ký tự, mô tả đúng ảnh, có từ khóa khi tự nhiên.
 - Tên file không dấu, nối bằng hyphen, đuôi `.jpg` (website chỉ dùng ảnh JPG). Tên này được dùng nguyên văn làm tên file ảnh.
+- Tên ảnh (bỏ `.jpg`) không được trùng slug của bài đang viết, và không trùng slug bài, trang, sản phẩm, danh mục, ảnh đã có trên website (người dùng chốt 22/10/2026). WordPress tạo trang đính kèm theo tên file, trùng slug thì link bài có thể bị chuyển hướng sang ảnh. Thêm từ mô tả nội dung ảnh: bài `den-chong-chay-no-gia-re` dùng `den-chong-chay-no-gia-re-lap-kho-hoa-chat.jpg`, không dùng `den-chong-chay-no-gia-re.jpg`.
 - Kích thước ảnh tạo ra (người dùng chốt 21/10/2026): rộng 800-850 px, cao 400-800 px.
 - Mô tả ảnh theo đúng ý của đoạn văn chứa ảnh (ảnh minh họa điều đoạn đó nói), không mô tả chung chung.
 - Phần "nội dung ảnh" trong `[ẢNH]` được dùng làm chú thích hiển thị dưới ảnh, nên viết như một câu chú thích cho người đọc.

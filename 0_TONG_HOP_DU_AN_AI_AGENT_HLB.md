@@ -23,11 +23,13 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | CLAUDE.md | Vòng duyệt tự động: viết hoặc sửa bài xong thì gọi agent đánh giá, chưa đạt 95 thì agent chính tự sửa và chấm lại, tối đa 3 vòng |
 | tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại |
 | .claude/agents/tao-anh.md | Sub agent chuẩn bị ảnh: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Không sửa bài, không tải lên website |
-| tools/tao_anh.py | Liệt kê chỗ [ẢNH], lấy ảnh sản phẩm thật, chuẩn hóa JPG 820 px (rộng 800-850, cao 400-800), ghi trạng thái duyệt, ghi danh sách `anh/<bài>/anh.json`, kiểm tra đủ ảnh (cần Pillow, matplotlib) |
-| anh/<bài>/ | Ảnh của từng bài, `anh.json` và script vẽ sơ đồ `ve_so_do.py`. `wp_draft.py` đọc `anh.json`: xem trước dùng ảnh trong máy, `--post` tải ảnh lên Media, chèn vào bài và đặt ảnh đại diện |
-| anh/trang-duyet-anh.html | Trang **Duyệt ảnh HLB** (https://claude.ai/artifact/TpJeKMDsiBV4RgN9bFTWXp): người dùng bấm Duyệt hoặc Làm lại từng ảnh, ghi ảnh còn thiếu. Agent đọc qua ArtifactData, chỉ ảnh đã duyệt được đăng. Quy trình ở CLAUDE.md |
+| tools/tao_anh.py | Liệt kê chỗ [ẢNH], gợi ý nguồn ảnh (`phan-loai`, đối chiếu CSV), lấy ảnh sản phẩm thật, chuẩn hóa JPG 820 px (rộng 800-850, cao 400-800), ghi trạng thái duyệt, ghi danh sách `anh/<bài>/anh.json` (ảnh Canva lưu cả prompt), kiểm tra đủ ảnh, tên ảnh không trùng slug, alt (cần Pillow, matplotlib) |
+| tools/mau_anh.py | Thư viện 6 mẫu sơ đồ dùng chung: lưới bố trí, bảng IP, bảng so sánh, biểu đồ cột, mặt cắt chiều cao treo và góc chiếu, các bước. Tự kiểm tra chữ trên hình (đè, tràn, dưới 13 px, em dash) trước khi lưu |
+| anh/_prompt_canva.md | 6 prompt Canva mẫu cho cảnh nhà xưởng, cách sửa prompt khi ảnh bị trả về |
+| anh/<bài>/ | Ảnh của từng bài, `anh.json` và script vẽ sơ đồ `ve_so_do.py` (gọi mẫu trong `tools/mau_anh.py`). `wp_draft.py` đọc `anh.json`: xem trước dùng ảnh trong máy, `--post` tải ảnh lên Media, chèn vào bài và đặt ảnh đại diện |
+| anh/trang-duyet-anh.html | Trang Duyệt ảnh HLB cũ (từ 22/10/2026 chuyển sang tab Duyệt ảnh của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG): người dùng bấm Duyệt hoặc Làm lại từng ảnh, ghi ảnh còn thiếu. Agent đọc qua ArtifactData, chỉ ảnh đã duyệt được đăng. Quy trình ở CLAUDE.md |
 | .danh_gia/nhat_ky.jsonl | Nhật ký chấm, chỉ thêm không ghi đè: mỗi lần chấm (điểm 6 tiêu chí, vấn đề có nhãn, phiên bản thang chấm) và mỗi lần agent đánh giá bị bác bỏ. Đã nhập lại 3 lần chấm bài "cách chọn đèn" ngày 21/10/2026 (thang v1) |
-| Trang **Lịch sử chấm bài HLB** | https://claude.ai/artifact/JVfjfAmGtDAtZr49TFodBc: điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (CLAUDE.md) |
+| Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (CLAUDE.md) |
 | .claude/settings.json | Khai báo 3 hook: PreToolUse (chặn đăng), PostToolUse (ghi nhận sửa bài), Stop (nhắc chấm lại) |
 
 ## 3. Quyết định đã chốt

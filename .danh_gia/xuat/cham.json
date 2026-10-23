@@ -74,5 +74,43 @@
   "thuong_hieu": 14,
   "giong_van": 14,
   "cau_truc": 13
+ },
+ {
+  "ma": "L008",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ngay": "2026-10-22",
+  "thang_cham": "v2",
+  "nguong": 95,
+  "diem": 88,
+  "diem_tinh": 88,
+  "loi_bat_buoc": 1,
+  "ket_luan": "CAN_SUA",
+  "ket_luan_ten": "Cần sửa",
+  "intent": 14,
+  "du_lieu": 21,
+  "eeat": 15,
+  "thuong_hieu": 15,
+  "giong_van": 13,
+  "cau_truc": 10
+ },
+ {
+  "ma": "L009",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ngay": "2026-10-22",
+  "thang_cham": "v2",
+  "nguong": 95,
+  "diem": 96,
+  "diem_tinh": 96,
+  "loi_bat_buoc": 0,
+  "ket_luan": "DAT",
+  "ket_luan_ten": "Đạt",
+  "intent": 14,
+  "du_lieu": 25,
+  "eeat": 15,
+  "thuong_hieu": 15,
+  "giong_van": 14,
+  "cau_truc": 13
  }
 ]

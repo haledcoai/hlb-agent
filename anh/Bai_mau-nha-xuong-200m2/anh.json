@@ -1,0 +1,70 @@
+{
+  "bai": "Bai_mau-nha-xuong-200m2.md",
+  "anh": [
+    {
+      "ten": "so-do-bo-tri-den-nha-xuong-200m2.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/so-do-bo-tri-den-nha-xuong-200m2.jpg",
+      "nguon": "python",
+      "alt": "sơ đồ bố trí đèn cho mẫu nhà xưởng 200m2 kích thước 10 x 20 m",
+      "mo_ta": "sơ đồ bố trí 21 đèn lưới 3 x 7 và 6 đèn lưới 2 x 3 trên mặt bằng 10 x 20 m",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Vẽ bằng ve_so_do.py (mau_anh.py), số liệu theo 2 trường hợp trong bài: BUFO4-50 lưới 3 x 7, BUFO4-100 lưới 2 x 3",
+      "prompt": "",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "nha-xuong-200m2-khung-thep-mai-ton.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-khung-thep-mai-ton.jpg",
+      "nguon": "canva",
+      "alt": "mẫu nhà xưởng 200m2 khung thép mái tôn 1 tầng",
+      "mo_ta": "nhà xưởng khung thép mái tôn 1 tầng",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYtwNJbzw), xuất qua thiết kế DAHYt5W2EQg trang 2. Không phải công trình thật.",
+      "prompt": "Wide-angle photo of the interior of a small single-storey steel frame workshop about 10 x 20 m, steel columns and steel roof trusses with purlins, corrugated metal roof about 6 m high with insulation layer under the roof, low brick wall combined with metal cladding, a few round LED high bay lights hanging on short chains well below the roof in a simple grid, bright even light on concrete floor, small woodworking machines, realistic, natural colors, no people, no text, no logos, no brand names, no watermarks",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "nha-xuong-200m2-be-tong-cot-thep.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-be-tong-cot-thep.jpg",
+      "nguon": "canva",
+      "alt": "mẫu nhà xưởng 200m2 bê tông cốt thép",
+      "mo_ta": "nhà xưởng bê tông cốt thép",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYt6qqJqw), xuất qua thiết kế DAHYt5W2EQg trang 3. Không phải công trình thật.",
+      "prompt": "Wide-angle photo of the interior of a small reinforced concrete factory building about 10 x 20 m, large concrete columns and deep concrete beams under the roof, heavy machines on concrete floor, round LED high bay lights hanging between the beams (not next to them), even bright light on the floor, realistic, natural colors, no people, no text, no logos, no brand names, no watermarks",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "nha-xuong-200m2-gac-lung.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-gac-lung.jpg",
+      "nguon": "canva",
+      "alt": "mẫu nhà xưởng 200m2 có gác lửng",
+      "mo_ta": "nhà xưởng có gác lửng ở đầu hồi",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYt-HrQt0), xuất qua thiết kế DAHYt5W2EQg trang 4. Không phải công trình thật.",
+      "prompt": "Wide-angle photo of the interior of a small steel frame workshop with a mezzanine floor at the gable end, steel staircase up to the mezzanine, the low area under the mezzanine lit by linear LED panel lights, the high main workshop area lit by round LED high bay lights hanging from the roof trusses, corrugated metal roof, concrete floor, realistic, no people, no text, no logos, no brand names, no watermarks",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "nha-xuong-200m2-ket-hop-van-phong.jpg",
+      "file": "anh/Bai_mau-nha-xuong-200m2/nha-xuong-200m2-ket-hop-van-phong.jpg",
+      "nguon": "canva",
+      "alt": "mẫu nhà xưởng 200m2 kết hợp văn phòng",
+      "mo_ta": "nhà xưởng có khối văn phòng phía trước",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Ảnh minh họa AI tạo bằng Canva (media MAHYtwSsYJs), xuất qua thiết kế DAHYt5W2EQg trang 5. Không phải công trình thật.",
+      "prompt": "Exterior photo of a small factory building with a two-storey office block at the front with glass windows and entrance, and a single-storey steel frame workshop with corrugated metal roof and roller door behind it, clean concrete yard, daytime, realistic architecture photo, no people, no text, no logos, no brand names, no signs, no watermarks",
+      "trang_thai": "cho_duyet"
+    }
+  ]
+}

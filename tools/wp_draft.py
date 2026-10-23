@@ -194,8 +194,10 @@ def upload_media(path, alt, title, description, auth):
 def media_description(a):
     """Mo ta anh trong thu vien Media: noi dung anh theo [ANH], ghi ro anh minh hoa neu tao bang AI."""
     desc = a["mo_ta"].rstrip(".") + "."
-    if a["nguon"] == "canva":
+    if a["nguon"] in ("canva", "kho-anh"):
         desc += " Ảnh minh họa."
+    if a.get("tac_gia"):
+        desc += " Ảnh: %s." % a["tac_gia"]
     elif a["nguon"] == "python":
         desc += " Sơ đồ minh họa theo số liệu trong bài."
     return desc
@@ -227,7 +229,8 @@ def mark_images(body_lines, images):
 def image_caption(a):
     """Chu thich hien duoi anh: noi dung anh theo [ANH]; anh tao bang AI ghi ro la anh minh hoa."""
     cap = a["mo_ta"].rstrip(".")
-    return cap + " (ảnh minh họa)" if a["nguon"] == "canva" else cap
+    # Ten tac gia anh kho (Unsplash) chi ghi trong mo ta Media, chu thich chi ghi "anh minh hoa" (nguoi dung chot 23/10/2026)
+    return cap + " (ảnh minh họa)" if a["nguon"] in ("canva", "kho-anh") else cap
 
 
 def insert_images(content, images, src_of, preview=False):

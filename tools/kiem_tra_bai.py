@@ -300,7 +300,8 @@ def check_links(rep, body):
              % (len(content), len(category), len(set(external)), len(set(internal)) - len(content)))
 
 
-def check_images(rep, body):
+def check_images(rep, body, slug=""):
+    goc_slug = re.sub(r"-\d+$", "", slug)
     for no, line in body:
         for m in IMAGE.finditer(line):
             parts = {}
@@ -317,6 +318,9 @@ def check_images(rep, body):
                 rep.warn(no, "Ảnh thiếu tên file gợi ý")
             elif not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*\.jpg", name):
                 rep.warn(no, "Tên file ảnh \"%s\" nên không dấu, chữ thường, nối bằng hyphen, đuôi .jpg (Knowledge 9.5)" % name)
+            if name and goc_slug and re.sub(r"-\d+$", "", name[:-4] if name.endswith(".jpg") else name) == goc_slug:
+                rep.error(no, "Tên ảnh \"%s\" trùng slug bài, WordPress có thể chuyển hướng link bài sang ảnh. "
+                              "Thêm từ mô tả nội dung ảnh (Knowledge 9.5)" % name)
 
 
 def check_seo(rep, seo, body):
@@ -466,8 +470,9 @@ def main():
     check_numbers(rep, b)
     check_structure(rep, b)
     check_links(rep, b)
-    check_images(rep, b)
-    check_seo(rep, seo_fields(a), b)
+    seo = seo_fields(a)
+    check_images(rep, b, (seo.get("Slug", (None, ""))[1] or " ").split(" ")[0])
+    check_seo(rep, seo, b)
     check_placeholders(rep, b, c)
 
     csv_path = args.csv

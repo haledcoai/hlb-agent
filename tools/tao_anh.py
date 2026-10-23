@@ -3,19 +3,28 @@ chuan hoa anh, ghi danh sach anh de wp_draft.py chen vao ban nhap.
 
 Cach dung:
   python tools/tao_anh.py liet-ke <file_bai.md>                  # cac cho [ANH], ngu canh, trang thai
+  python tools/tao_anh.py phan-loai <file_bai.md>                # goi y nguon cho tung cho [ANH], doi chieu CSV san pham
   python tools/tao_anh.py san-pham <slug>                        # anh that cua san pham tren website
+  python tools/tao_anh.py anh-bai-cu <file_bai.md | ID bai>      # anh dang co trong bai cu tren website (bai viet lai)
+  python tools/tao_anh.py tim-anh "<tu khoa tieng Anh>" [--kho pixabay|pexels|unsplash] [--so 8]
+                                                                 # tim anh kho mien phi (key: PIXABAY_API_KEY, PEXELS_API_KEY, UNSPLASH_ACCESS_KEY)
   python tools/tao_anh.py tai <url> <file_ra>                    # tai mot anh ve may
   python tools/tao_anh.py chuan-hoa <file_vao> <file_ra.jpg> [--cat]
   python tools/tao_anh.py ghi <file_bai.md> --ten <ten file trong [ANH]> --file <anh.jpg> --nguon python|canva|website|nguoi-dung
-                         [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."]
-  python tools/tao_anh.py kiem <file_bai.md>                     # du anh, dung chuan, alt hop le
+                         [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."] [--prompt "..."] [--tac-gia "..."]
+                                                                 # anh canva bat buoc --prompt (prompt da dung)
+                                                                 # anh Unsplash bat buoc --tac-gia (ten tac gia, hien trong chu thich)
+  python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
   python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
 
 wp_draft.py chi chen anh co trang_thai "duyet"; anh chua duyet duoc xu ly nhu anh thieu.
 
 Chuan anh tao ra (nguoi dung chot 21/10/2026): JPG, rong 800-850 px (mac dinh 820), cao 400-800 px,
-ten file dung nhu goi y trong [ANH]. Anh nguon website dung lai URL co san tren website, khong ap chuan nay.
+ten file dung nhu goi y trong [ANH].
+Ten anh (bo .jpg) khong duoc trung slug cua bai dang viet, cung khong trung slug bai, trang, san pham, danh muc
+hay anh da co tren website. WordPress tao trang dinh kem (attachment) theo ten file; trung slug thi link bai
+co the bi chuyen huong sang trang anh hoac file anh. Anh nguon website dung lai URL co san tren website, khong ap chuan nay.
 Anh luu o anh/<ten bai>/, danh sach o anh/<ten bai>/anh.json. File bai .md khong bi sua,
 nen phieu duyet khong mat hieu luc khi them anh. Script nay khong tai gi len website.
 """
@@ -30,10 +39,26 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://denlednhaxuongcaocap.com"
 IMAGE = re.compile(r"\[ẢNH:([^\]]*)\]")
-NGUON = ("python", "canva", "website", "nguoi-dung")
+NGUON = ("python", "canva", "kho-anh", "website", "nguoi-dung")
+# Kho anh mien phi cho dung thuong mai, duoc sua anh, khong bat buoc ghi ten tac gia
+GIAY_PHEP = {"pixabay": "Pixabay Content License", "pexels": "Pexels License", "unsplash": "Unsplash License"}
 RONG, MIN_RONG, MAX_RONG = 820, 800, 850
 MIN_CAO, MAX_CAO = 400, 800
 MAX_KB = 300
+GACH = re.compile("[\u2013\u2014]")
+# Alt cua anh minh hoa AI khong duoc ngu y la cong trinh that
+ALT_CONG_TRINH = re.compile(r"công trình (của |do )?hlb|dự án (của |do )?hlb|công trình thực tế|dự án thực tế|khách hàng", re.I)
+# Goi y nguon theo mo ta, thu tu uu tien tu tren xuong
+GOI_Y = (("nguoi-dung", re.compile(r"công trình|dự án|thực tế|khách hàng|lắp đặt tại|đội thi công", re.I)),
+         ("python", re.compile(r"sơ đồ|bảng|biểu đồ|cách đọc|minh họa (ý nghĩa|cách)|so sánh|các bước|quy trình|mặt cắt|"
+                               r"góc chiếu|thông số|công thức|lux|infographic", re.I)),
+         ("canva", re.compile(r"toàn cảnh|không gian|nhà xưởng|nhà kho|kho hàng|xưởng|nhà máy", re.I)))
+
+
+TEN_HOP_LE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*\.jpg$")
+# Cac loai noi dung tren website co slug co the dung voi trang dinh kem cua anh
+LOAI_SLUG = (("bài viết", "wp/v2/posts"), ("trang", "wp/v2/pages"), ("sản phẩm", "wp/v2/product"),
+             ("ảnh", "wp/v2/media"), ("chuyên mục", "wp/v2/categories"), ("danh mục sản phẩm", "wp/v2/product_cat"))
 
 
 def thu_muc(article):
@@ -78,6 +103,63 @@ def doc_cho_anh(article):
     return out
 
 
+def slug_bai(article):
+    """Slug cua bai, lay o dong '| Slug | ... |' trong phan A."""
+    with open(article, encoding="utf-8") as f:
+        for line in f:
+            m = re.match(r"^\|\s*Slug\s*\|\s*([^|(]+)", line, re.I)
+            if m:
+                return m.group(1).strip().strip("`/").split("/")[-1]
+    return ""
+
+
+def bo_hau_to(slug):
+    """WordPress them -2, -3 khi trung; so sanh ca ban da bo hau to so."""
+    return re.sub(r"-\d+$", "", slug)
+
+
+def tra_slug(goc, loai):
+    """Noi dung loai (nhan, duong dan REST) co slug dung bang goc. None khi khong kiem tra duoc."""
+    nhan, duong = loai
+    try:
+        data = json.loads(get("%s/wp-json/%s?slug=%s&_fields=id,slug,link" % (SITE, duong, urllib.parse.quote(goc)),
+                              timeout=20))
+    except Exception:
+        return None
+    return ["%s %s (ID %s)" % (nhan, d.get("link", ""), d.get("id")) for d in data if isinstance(d, dict)]
+
+
+def slug_trung_website(ds_goc):
+    """{goc: (danh sach trung, danh sach loai khong kiem tra duoc)} cho nhieu ten anh.
+    Goi song song 4 luong (lan luot mat hon 2 phut cho 10 anh; nhieu luong hon thi website tu choi)."""
+    from concurrent.futures import ThreadPoolExecutor
+    cap = [(g, l) for g in ds_goc for l in LOAI_SLUG]
+    with ThreadPoolExecutor(4) as ex:
+        kq = list(ex.map(lambda x: tra_slug(*x), cap))
+    out = {g: ([], []) for g in ds_goc}
+    for (g, (nhan, _)), r in zip(cap, kq):
+        if r is None:
+            out[g][1].append(nhan)
+        else:
+            out[g][0].extend(r)
+    return out
+
+
+def doc_csv():
+    """(ten san pham, url, ma model) tu file du_lieu_san_pham_*.csv moi nhat."""
+    import csv
+    import glob
+    found = sorted(glob.glob(os.path.join(ROOT, "du_lieu_san_pham_*.csv")))
+    if not found:
+        return []
+    with open(found[-1], encoding="utf-8-sig") as f:
+        out = []
+        for r in csv.DictReader(f):
+            ma = r["name"].split()[-1] if r.get("name") else ""
+            out.append((r.get("name", ""), r.get("url", ""), ma))
+        return out
+
+
 def doc_manifest(article):
     try:
         with open(manifest_path(article), encoding="utf-8") as f:
@@ -86,9 +168,9 @@ def doc_manifest(article):
         return {"bai": os.path.basename(article), "anh": []}
 
 
-def get(url):
+def get(url, timeout=60):
     req = urllib.request.Request(url, headers={"User-Agent": "HLB-anh/1.0"})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 
 
@@ -121,6 +203,29 @@ def liet_ke(args):
               % (i, c["mo_ta"], c["alt"], c["ten"], c["heading"], c["doan_truoc"], c["doan_sau"], status))
 
 
+def phan_loai(args):
+    sp = [x for x in doc_csv() if re.search(r"\d", x[2])]  # chi ma model co so, vd BUFO4-150
+    for i, c in enumerate(doc_cho_anh(args.article), 1):
+        chu = " ".join((c["mo_ta"], c["alt"]))
+        khop = [x for x in sp if re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(x[2]), chu, re.I)]
+        if khop:
+            nguon, ly_do = "website", "có model %s trong CSV" % ", ".join(sorted({x[2] for x in khop}))
+        else:
+            nguon, ly_do = "canva", "không khớp mẫu nào, mặc định ảnh không gian chung"
+            for n, mau in GOI_Y:
+                m = mau.search(chu)
+                if m:
+                    nguon, ly_do = n, "mô tả có \"%s\"" % m.group(0)
+                    break
+        print("%d. %s\n   gợi ý nguồn: %s (%s)" % (i, c["ten"], nguon, ly_do))
+        for ten, url, _ in khop[:3]:
+            slug = url.rstrip("/").split("/")[-1]
+            print("   sản phẩm: %s, lấy ảnh: python tools/tao_anh.py san-pham %s" % (ten, slug))
+        if nguon == "nguoi-dung":
+            print("   chưa có ảnh của người dùng thì tạo ảnh minh họa Canva, ghi rõ \"ảnh minh họa\"")
+    print("\nĐây chỉ là gợi ý theo từ khóa. Đọc ngữ cảnh đoạn văn (lệnh liet-ke) trước khi chốt nguồn.")
+
+
 def san_pham(args):
     data = json.loads(get(SITE + "/wp-json/wc/store/v1/products?slug=" + urllib.parse.quote(args.slug)))
     if not data:
@@ -134,7 +239,94 @@ def san_pham(args):
         print("- media %s: %s\n  alt trên website: %s" % (img.get("id"), img["src"], img.get("alt")))
 
 
+def anh_bai_cu(args):
+    """Anh dang co trong bai cu tren website, kem heading gan nhat, de dung lai cho bai viet lai (nguon website)."""
+    import html as h
+    if args.bai.isdigit():
+        data = [json.loads(get("%s/wp-json/wp/v2/posts/%s?_fields=id,link,content,featured_media" % (SITE, args.bai)))]
+    else:
+        slug = slug_bai(args.bai) if args.bai.endswith(".md") else args.bai
+        if not slug:
+            sys.exit("Không đọc được slug bài ở phần A")
+        data = json.loads(get("%s/wp-json/wp/v2/posts?slug=%s&_fields=id,link,content,featured_media"
+                              % (SITE, urllib.parse.quote(slug))))
+        if not data:
+            sys.exit("Website chưa có bài slug %s (bài mới, không có ảnh cũ)" % slug)
+    bai = data[0]
+    noi_dung = bai["content"]["rendered"]
+    print("Bài cũ ID %s: %s (ảnh đại diện: media %s)" % (bai["id"], bai["link"], bai.get("featured_media")))
+    heading, n = "", 0
+    for m in re.finditer(r"<h[2-4][^>]*>(.*?)</h[2-4]>|<img[^>]*>", noi_dung, re.S):
+        if m.group(1) is not None:
+            heading = h.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
+            continue
+        tag = m.group(0)
+        thuoc_tinh = dict(re.findall(r'(\w+)="([^"]*)"', tag))
+        mid = re.search(r"wp-image-(\d+)", tag)
+        n += 1
+        print("%d. media %s, %sx%s: %s\n   alt: %s\n   thuộc mục: %s" % (
+            n, mid.group(1) if mid else "?", thuoc_tinh.get("width", "?"), thuoc_tinh.get("height", "?"),
+            thuoc_tinh.get("src", ""), h.unescape(thuoc_tinh.get("alt", "")), heading))
+    if not n:
+        print("Bài cũ không có ảnh trong nội dung.")
+    print("\nDùng lại: ghi ... --nguon website --url-website <src> --media-id <media>. Chỉ chọn ảnh khớp ngữ cảnh đoạn văn mới; "
+          "ảnh có logo, chữ, công trình của bên khác thì không dùng.")
+
+
+def tim_anh(args):
+    """In danh sach anh tu kho mien phi: so thu tu, kich thuoc, mo ta, trang goc, link tai ban lon.
+    Agent xem anh xem truoc, loai anh co logo, chu, bien hieu, nguoi nhan ra duoc, roi tai bang lenh tai."""
+    q = urllib.parse.quote(args.tu_khoa)
+    if args.kho == "pixabay":
+        key = os.environ.get("PIXABAY_API_KEY")
+        if not key:
+            sys.exit("Thiếu biến môi trường PIXABAY_API_KEY")
+        data = json.loads(get("https://pixabay.com/api/?key=%s&q=%s&image_type=photo&orientation=horizontal"
+                              "&min_width=1640&safesearch=true&per_page=%d" % (key, q, max(3, args.so))))
+        ds = [(h["id"], h["imageWidth"], h["imageHeight"], h["tags"], h["pageURL"], h["previewURL"], h["largeImageURL"])
+              for h in data.get("hits", [])]
+    elif args.kho == "unsplash":
+        # Theo API guidelines cua Unsplash: tai qua lenh `tai unsplash:<id>` de bao luot tai, ghi ten tac gia trong ghi chu
+        data = json.loads(get_unsplash("/search/photos?query=%s&orientation=landscape&per_page=%d" % (q, args.so)))
+        ds = [(h["id"], h["width"], h["height"],
+               "%s (tác giả: %s)" % (h.get("alt_description") or h.get("description") or "", h["user"]["name"]),
+               h["links"]["html"], h["urls"]["small"], "unsplash:%s" % h["id"])
+              for h in data.get("results", []) if h["width"] >= 1640]
+    else:
+        key = os.environ.get("PEXELS_API_KEY")
+        if not key:
+            sys.exit("Thiếu biến môi trường PEXELS_API_KEY")
+        req = urllib.request.Request("https://api.pexels.com/v1/search?query=%s&orientation=landscape&per_page=%d"
+                                     % (q, args.so), headers={"Authorization": key, "User-Agent": "HLB-anh/1.0"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            data = json.loads(r.read())
+        ds = [(h["id"], h["width"], h["height"], h.get("alt", ""), h["url"], h["src"]["medium"], h["src"]["large2x"])
+              for h in data.get("photos", []) if h["width"] >= 1640]
+    if not ds:
+        sys.exit("Không thấy ảnh phù hợp cho \"%s\" ở %s" % (args.tu_khoa, args.kho))
+    for i, (id_, w, h, mo_ta, trang, xem, lon) in enumerate(ds[:args.so], 1):
+        print("%d. %s %s, %d x %d: %s\n   trang gốc: %s\n   xem trước: %s\n   tải bản lớn: %s"
+              % (i, args.kho, id_, w, h, mo_ta, trang, xem, lon))
+    print("\nGiấy phép: %s. Ghi --ghi-chu gồm trang gốc và giấy phép khi chạy lệnh ghi với --nguon kho-anh." % GIAY_PHEP[args.kho])
+    if args.kho == "unsplash":
+        print("Unsplash: tải bằng `tai unsplash:<id> <file>` (không tải thẳng link ảnh), khi ghi thêm --tac-gia \"<tác giả>\".")
+
+
+def get_unsplash(duong_dan):
+    key = os.environ.get("UNSPLASH_ACCESS_KEY")
+    if not key:
+        sys.exit("Thiếu biến môi trường UNSPLASH_ACCESS_KEY")
+    req = urllib.request.Request("https://api.unsplash.com" + duong_dan, headers={
+        "Authorization": "Client-ID " + key, "Accept-Version": "v1", "User-Agent": "HLB-anh/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.read()
+
+
 def tai(args):
+    if args.url.startswith("unsplash:"):
+        # Goi download endpoint (bat buoc theo guidelines) roi tai ban rong 1640 px
+        url = json.loads(get_unsplash("/photos/%s/download" % urllib.parse.quote(args.url[9:])))["url"]
+        args.url = url + ("&" if "?" in url else "?") + "w=1640&fm=jpg&q=85"
     if not args.url.startswith("https://"):
         sys.exit("Chỉ tải qua https")
     data = get(args.url)
@@ -179,6 +371,15 @@ def ghi(args):
     path = os.path.abspath(args.file)
     if not os.path.isfile(path):
         sys.exit("Không thấy file ảnh %s" % args.file)
+    if args.nguon == "canva" and not args.prompt:
+        sys.exit("Ảnh Canva phải ghi --prompt (prompt đã dùng), để làm lại đúng ý khi bị trả về")
+    ghi_chu = args.ghi_chu or ""
+    if args.nguon == "kho-anh" and not any(g in ghi_chu for g in GIAY_PHEP.values()):
+        sys.exit("Ảnh kho-anh phải ghi trong --ghi-chu: trang gốc của ảnh và tên giấy phép (%s)" % ", ".join(GIAY_PHEP.values()))
+    if GIAY_PHEP["unsplash"] in ghi_chu and not args.tac_gia:
+        sys.exit("Ảnh Unsplash phải ghi --tac-gia (tên tác giả lệnh tim-anh in ra); chú thích ảnh sẽ ghi \"Ảnh: <tác giả> trên Unsplash\"")
+    if args.nguon in ("canva", "kho-anh") and "minh họa" not in ghi_chu.lower():
+        ghi_chu = ("Ảnh minh họa, không phải công trình thật. " + ghi_chu).strip()
     if args.nguon != "website" and os.path.basename(path) != args.ten:
         sys.exit("Tên file ảnh phải đúng như gợi ý trong bài: %s (đang là %s)" % (args.ten, os.path.basename(path)))
     m = doc_manifest(args.article)
@@ -195,7 +396,10 @@ def ghi(args):
         "url_website": args.url_website,
         "media_id": args.media_id,
         "dai_dien": bool(args.dai_dien),
-        "ghi_chu": args.ghi_chu or "",
+        "ghi_chu": ghi_chu,
+        "prompt": args.prompt or "",
+        "tac_gia": ("%s trên Unsplash" % args.tac_gia) if args.tac_gia and GIAY_PHEP["unsplash"] in ghi_chu
+                   else (args.tac_gia or ""),
         "trang_thai": "cho_duyet",
     })
     os.makedirs(thu_muc(args.article), exist_ok=True)
@@ -221,9 +425,28 @@ def kiem(args):
     loi = []
     cho = doc_cho_anh(args.article)
     co = sum(1 for c in cho if c["ten"] in m)
+    slug = slug_bai(args.article)
+    if not slug:
+        loi.append("Không đọc được slug bài ở phần A (dòng | Slug | ... |), chưa so được tên ảnh với slug bài")
+    can_tra = [] if args.khong_web else [c["ten"][:-4] if c["ten"].lower().endswith(".jpg") else c["ten"]
+                                         for c in cho if not (m.get(c["ten"]) or {}).get("url_da_tai")]
+    ket_qua_web = slug_trung_website(can_tra)  # anh da tai len thi khong so voi chinh no
+    ten_da_gap = set()
     for c in cho:
-        if not c["ten"].lower().endswith(".jpg"):
-            loi.append("Tên file gợi ý trong bài phải là .jpg: %s" % c["ten"])
+        goc = c["ten"][:-4] if c["ten"].lower().endswith(".jpg") else c["ten"]
+        if not TEN_HOP_LE.match(c["ten"]):
+            loi.append("Tên file phải là chữ thường không dấu, số, nối bằng hyphen, đuôi .jpg: %s" % c["ten"])
+        if c["ten"] in ten_da_gap:
+            loi.append("Tên file bị lặp trong bài: %s" % c["ten"])
+        ten_da_gap.add(c["ten"])
+        if slug and bo_hau_to(goc) == bo_hau_to(slug):
+            loi.append("Tên ảnh %s trùng slug bài (%s). Thêm từ mô tả nội dung ảnh, ví dụ %s-so-do.jpg"
+                       % (c["ten"], slug, slug))
+        if goc in ket_qua_web:
+            trung, khong_kiem = ket_qua_web[goc]
+            loi += ["Tên ảnh %s trùng slug đã có trên website: %s" % (c["ten"], t) for t in trung]
+            if khong_kiem:
+                print("Chưa kiểm tra được slug %s với: %s" % (goc, ", ".join(khong_kiem)))
         a = m.get(c["ten"])
         if not a:
             loi.append("Chưa có ảnh cho %s" % c["ten"])
@@ -235,6 +458,14 @@ def kiem(args):
             loi += ["%s: %s" % (a["file"], x) for x in loi_chuan(f)]
         if not a["alt"] or len(a["alt"]) > 125:
             loi.append("Alt của %s trống hoặc quá 125 ký tự" % c["ten"])
+        if GACH.search(a["alt"]):
+            loi.append("Alt của %s có em dash hoặc en dash, chỉ dùng hyphen" % c["ten"])
+        if a["nguon"] in ("canva", "kho-anh"):
+            if ALT_CONG_TRINH.search(a["alt"]):
+                loi.append("Alt của %s ngụ ý công trình thật (\"%s\") nhưng ảnh là minh họa AI. Báo để sửa alt trong bài"
+                           % (c["ten"], ALT_CONG_TRINH.search(a["alt"]).group(0)))
+            if "minh họa" not in a.get("ghi_chu", "").lower():
+                loi.append("%s là ảnh %s nhưng ghi chú chưa ghi \"ảnh minh họa\"" % (c["ten"], a["nguon"]))
         if a["nguon"] == "website" and not a.get("url_website"):
             loi.append("%s nguồn website nhưng thiếu url_website" % c["ten"])
     if sum(1 for a in m.values() if a.get("dai_dien")) > 1:
@@ -244,7 +475,7 @@ def kiem(args):
         for x in loi:
             print("- " + x)
         sys.exit(1)
-    print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ." % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO))
+    print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ, tên ảnh không trùng slug." % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO))
 
 
 def main():
@@ -252,7 +483,12 @@ def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("liet-ke"); p.add_argument("article"); p.set_defaults(func=liet_ke)
+    p = sub.add_parser("phan-loai"); p.add_argument("article"); p.set_defaults(func=phan_loai)
     p = sub.add_parser("san-pham"); p.add_argument("slug"); p.set_defaults(func=san_pham)
+    p = sub.add_parser("anh-bai-cu"); p.add_argument("bai"); p.set_defaults(func=anh_bai_cu)
+    p = sub.add_parser("tim-anh"); p.add_argument("tu_khoa")
+    p.add_argument("--kho", choices=("pixabay", "pexels", "unsplash"), default="unsplash"); p.add_argument("--so", type=int, default=8)
+    p.set_defaults(func=tim_anh)
     p = sub.add_parser("tai"); p.add_argument("url"); p.add_argument("out"); p.set_defaults(func=tai)
     p = sub.add_parser("chuan-hoa"); p.add_argument("src"); p.add_argument("out")
     p.add_argument("--cat", action="store_true", help="cat giua khi anh qua cao (chi dung cho anh chup)")
@@ -260,9 +496,12 @@ def main():
     p = sub.add_parser("ghi"); p.add_argument("article"); p.add_argument("--ten", required=True)
     p.add_argument("--file", required=True); p.add_argument("--nguon", required=True, choices=NGUON)
     p.add_argument("--url-website"); p.add_argument("--media-id", type=int)
-    p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu")
+    p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu"); p.add_argument("--prompt")
+    p.add_argument("--tac-gia", help="ten tac gia anh kho-anh (bat buoc voi Unsplash)")
     p.set_defaults(func=ghi)
-    p = sub.add_parser("kiem"); p.add_argument("article"); p.set_defaults(func=kiem)
+    p = sub.add_parser("kiem"); p.add_argument("article")
+    p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")
+    p.set_defaults(func=kiem)
     p = sub.add_parser("duyet"); p.add_argument("article"); p.add_argument("--ten", required=True)
     p.add_argument("--trang-thai", required=True, choices=("duyet", "lam_lai", "cho_duyet")); p.add_argument("--ghi-chu")
     p.set_defaults(func=duyet)
