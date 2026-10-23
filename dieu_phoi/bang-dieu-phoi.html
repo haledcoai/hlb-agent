@@ -708,7 +708,7 @@ document.addEventListener("click", async e => {
     const errEl = document.querySelector(`[data-aerr="${CSS.escape(id)}"]`);
     if (b.dataset.aact === "lam_lai" && !note) { errEl.textContent = "Ghi lý do cần làm lại để Agent biết sửa gì."; errEl.hidden = false; ta && ta.focus(); return; }
     b.disabled = true;
-    try { await db.doc("anh/" + id).update({ trang_thai: b.dataset.aact, ghi_chu: note, cap_nhat: now() }); delete drafts["anh:" + id]; }
+    try { await db.doc("anh/" + id).update({ trang_thai: b.dataset.aact, ghi_chu: note, cap_nhat: now() }); delete drafts["anh:" + id]; if (b.dataset.aact === "lam_lai") flash(await fireAgent("Bảng điều phối: bạn yêu cầu làm lại ảnh " + id + ".")); }
     catch (err) { errEl.textContent = err && err.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này." : "Chưa lưu được, thử lại sau ít giây."; errEl.hidden = false; b.disabled = false; }
     return;
   }
