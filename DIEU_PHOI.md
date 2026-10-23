@@ -58,7 +58,7 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 
 | Nhận khi | Đổi sang khi bắt đầu | Việc | Kết thúc |
 |---|---|---|---|
-| `moi` | `dang_nghien_cuu` | Bước 1 SERP (5 mục) rồi Bước 2 outline (9 mục) | `cho_duyet_outline`; hoặc `can_xu_ly` (`quay_ve: "moi"`) nếu SERP khuyên không viết blog, trùng, ngoài phạm vi |
+| `moi` | `dang_nghien_cuu` | Bước 1 SERP (5 mục; có `id_bai_cu` thì đọc bài gốc và chia ý Giữ/Bỏ theo Instructions Bước 1, ghi vào `serp`) rồi Bước 2 outline (9 mục) | `cho_duyet_outline`; hoặc `can_xu_ly` (`quay_ve: "moi"`) nếu SERP khuyên không viết blog, trùng, ngoài phạm vi |
 | `sua_outline` | `dang_nghien_cuu` | Làm lại outline theo `gop_y_outline`, giữ SERP trừ khi góp ý yêu cầu | `cho_duyet_outline` |
 | `cho_viet` | `dang_viet` | Bước 3 viết theo đúng `outline` trên bảng (có thể người dùng đã sửa), Bước 4 tự kiểm tra, vòng duyệt CLAUDE.md (tối đa 3 vòng). ĐẠT thì làm đủ mục 3a | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
 | `sua_bai` | `dang_viet` | Sửa theo `gop_y_muc` (chỉ sửa đúng các mục được góp ý, giữ nguyên chữ các mục khác), `gop_y_bai` và `tra_loi` nếu có. Chấm lại theo CLAUDE.md. ĐẠT thì làm đủ mục 3a với `--draft-id <draft_id>`, `thay_doi` liệt kê từng mục đã sửa | `cho_duyet_bai` |

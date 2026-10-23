@@ -39,6 +39,13 @@ Tìm từng cụm từ khóa trên Google, đọc 5-10 kết quả đầu, rồi
 4. **Kiểm tra trùng chủ đề trên website:** tìm bằng ô tìm kiếm của website (`https://denlednhaxuongcaocap.com/?s=từ khóa chính&post_type=post`, vì lệnh `site:` trên Google không trả kết quả đúng cho website này) và đối chiếu danh sách bài ở file Knowledge, mục 2.4. Nếu đã có bài, trang danh mục hoặc trang sản phẩm nhắm cùng từ khóa, ghi URL và đề xuất một trong ba hướng: đổi góc viết, chuyển sang từ khóa khác, hoặc cập nhật bài cũ thay vì viết mới. Không tìm được thì ghi "chưa kiểm tra được".
 5. **Kiểm tra phạm vi:** chủ đề có thuộc chiếu sáng nhà xưởng không. Nếu lệch phạm vi (ví dụ đèn trang trí nhà ở), báo người dùng trước khi làm tiếp.
 
+**Khi viết lại bài cũ** (có ID bài gốc, người dùng chốt 23/10/2026): đọc toàn bộ bài gốc qua API của website (`https://denlednhaxuongcaocap.com/wp-json/wp/v2/posts/<ID>?_fields=id,title,link,content`), rồi chia các ý trong bài gốc thành 3 nhóm:
+- **Giữ:** ý còn đúng và hữu ích, đưa vào outline ở Bước 2.
+- **Bỏ vì sai hoặc lỗi thời:** thông số, giá, chính sách đã đổi, câu ở file Knowledge mục 5.
+- **Bỏ vì ngoài phạm vi bài.**
+
+Báo kèm 5 mục trên một bảng ngắn 3 nhóm này. Danh sách ý bỏ đi và lý do ghi vào phần C của bài (file Knowledge mục 10), để người dùng duyệt trước khi chép nội dung mới sang bài gốc. Không đọc được bài gốc thì ghi "chưa đọc được bài gốc" và báo người dùng.
+
 Không tìm được SERP thì ghi rõ "chưa kiểm tra SERP", phần phân tích dựa trên hiểu biết chuyên môn và chưa chắc chắn.
 
 Báo xong thì dừng. Chưa lập outline ở bước này.
@@ -54,7 +61,7 @@ Không viết nội dung bài ở bước này. Trả về đúng 9 mục:
 3. **Từ khóa phụ:**
    - Người dùng đã đưa từ khóa phụ: xếp từng cụm vào **giữ trong bài** (cùng intent, trùng SERP), **tách bài riêng** (intent khác) hoặc **bỏ** (ít giá trị), kèm lý do ngắn. Chỉ có từ khóa chính thì tự đề xuất từ khóa phụ.
    - Cụm giữ trong bài tối đa 5. Ví dụ intent khác nhau phải tách: "cách chọn đèn nhà xưởng" và "giá đèn nhà xưởng".
-4. **Outline:** H1, các H2, H3, H4 (nếu có). Dưới mỗi heading ghi 1 dòng nội dung chính cần trả lời. Outline phải phủ đủ ý bắt buộc và có chỗ cho góc khác biệt ở mục 2. Có vị trí FAQ và kết bài.
+4. **Outline:** H1, các H2, H3, H4 (nếu có). Dưới mỗi heading ghi 1 dòng nội dung chính cần trả lời. Outline phải phủ đủ ý bắt buộc và có chỗ cho góc khác biệt ở mục 2. Có vị trí FAQ và kết bài. Viết lại bài cũ: các ý nhóm "Giữ" ở Bước 1 phải có chỗ trong outline.
 5. **Dữ liệu cần dùng:** liệt kê thông số, giá sẽ đưa vào bài và nguồn cụ thể (URL trang sản phẩm, website chính thức của hãng).
 6. **Câu hỏi cho người dùng:** dữ liệu còn thiếu, điểm cần xác nhận. Gom tất cả vào đây, đánh số để người dùng trả lời một lần. Không có thì ghi "Không có".
 7. **Gợi ý link** (theo file Knowledge, mục 9.3):

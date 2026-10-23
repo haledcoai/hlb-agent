@@ -469,6 +469,7 @@ Chỉ ghi mục có nội dung:
 6. Đề xuất schema.
 7. Chênh lệch phát hiện giữa các trang trên website (thông số, giá, lỗi gõ).
 8. Điểm cần người dùng quyết định.
+9. Viết lại bài cũ: ý của bài gốc đã bỏ đi và lý do (sai, lỗi thời, ngoài phạm vi), theo Instructions Bước 1. Người dùng duyệt danh sách này trước khi chép sang bài gốc.
 
 ---
 
