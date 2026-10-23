@@ -1,4 +1,12 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(python tools/phieu_duyet.py ghi:*)",
+      "PowerShell(python tools/phieu_duyet.py ghi:*)",
+      "Bash(python tools/phieu_duyet.py nhan)",
+      "PowerShell(python tools/phieu_duyet.py nhan)"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -10,6 +18,16 @@
             "timeout": 60,
             "onFailure": "block",
             "statusMessage": "Kiểm tra phiếu duyệt trước khi đăng"
+          }
+        ]
+      },
+      {
+        "matcher": "Agent|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/tools/phieu_duyet.py\" bat-dau-cham",
+            "timeout": 30
           }
         ]
       }
@@ -34,6 +52,17 @@
             "command": "python \"$CLAUDE_PROJECT_DIR/tools/phieu_duyet.py\" stop",
             "timeout": 30,
             "statusMessage": "Kiểm tra bài vừa sửa đã được chấm lại chưa"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/tools/phieu_duyet.py\" xong-cham",
+            "timeout": 30
           }
         ]
       }

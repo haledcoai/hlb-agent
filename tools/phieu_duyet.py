@@ -11,11 +11,15 @@ Cach dung:
   python tools/phieu_duyet.py hook        # PreToolUse hook, doc JSON tu stdin
   python tools/phieu_duyet.py da-sua      # PostToolUse hook (Edit|Write): ghi nhan file Bai_*.md vua sua
   python tools/phieu_duyet.py stop        # Stop hook: chua cho ket thuc luot khi bai vua sua chua duoc cham lai
+  python tools/phieu_duyet.py bat-dau-cham  # PreToolUse hook (Agent|Task): danh dau dang co luot cham chay
+  python tools/phieu_duyet.py xong-cham     # SubagentStop hook: bo danh dau khi sub agent danh gia ket thuc
 
 Phieu luu o .danh_gia/<ten_file>.json, kem ma SHA-256 cua file bai luc cham.
 Sua bai sau khi cham thi ma khong khop, phieu het hieu luc, phai cham lai.
 Bai DAT khi: khong con loi bat buoc va (diem + diem tru vi cho nguoi dung quyet) >= NGUONG.
 Hook chan "wp_draft.py ... --post" khi chua co phieu DAT khop noi dung hoac script kiem tra con LOI.
+Hook chan "phieu_duyet.py ghi" khi lenh khong do sub agent danh-gia-noi-dung chay (xem chi_agent_danh_gia_ghi).
+Khi dang co luot cham chay (ke ca chay nen), Stop hook khong nhac cham lai.
 
 Nhat ky: moi lan "ghi" va "bac-bo" them mot dong vao .danh_gia/nhat_ky.jsonl (khong ghi de),
 lam du lieu cho trang theo doi lich su danh gia va de hoan thien thang cham.
@@ -33,10 +37,14 @@ import sys
 NGUONG = 95
 THANG_CHAM = "v2"  # v1: nguong 80 (21/10/2026), v2: nguong 95, diem cho nguoi dung
 MAX_NHAC = 3  # so lan Stop hook chan toi da cho mot file, tranh vong lap khi khong cham duoc
+AGENT_DANH_GIA = "danh-gia-noi-dung"
+AGENT_DU_PHONG = "general-purpose"  # dung khi phien khong nap duoc .claude/agents (CLAUDE.md)
+HAN_DANG_CHAM = 30 * 60  # giay; danh dau "dang cham" qua han nay coi nhu luot cham da hong, Stop hook nhac lai
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PHIEU_DIR = os.path.join(ROOT, ".danh_gia")
 CAN_CHAM = os.path.join(PHIEU_DIR, "_can_cham.json")
 NHAT_KY = os.path.join(PHIEU_DIR, "nhat_ky.jsonl")
+DANG_CHAM = os.path.join(PHIEU_DIR, "_dang_cham.json")
 
 # Tieu chi cua thang cham trong .claude/agents/danh-gia-noi-dung.md: ma -> (ten, diem toi da)
 TIEU_CHI = {
@@ -125,6 +133,7 @@ def ghi(args):
     with open(phieu_path(args.article), "w", encoding="utf-8") as f:
         json.dump(phieu, f, ensure_ascii=False, indent=2)
     them_nhat_ky(dict(phieu, loai="cham", thang_cham=THANG_CHAM, tieu_chi=tieu_chi, van_de=van_de))
+    luu_dang_cham({})  # cham xong, Stop hook duoc nhac lai neu bai bi sua tiep
     print("Đã ghi phiếu: %s (và một dòng nhật ký)" % phieu_path(args.article))
     print("Kết luận: %s (điểm %d/100, điểm tính ngưỡng %d/100, cần từ %d; lỗi bắt buộc %d; vòng %d)"
           % (phieu["ket_luan"], args.diem, diem_tinh, NGUONG, args.loi_bat_buoc, args.vong))
@@ -231,6 +240,9 @@ def hook(_args):
     except ValueError:
         return
     cmd = (data.get("tool_input") or {}).get("command") or ""
+    if re.search(r"phieu_duyet\.py[\"']?\s+ghi(\s|$)", cmd):
+        chi_agent_danh_gia_ghi(data)
+        return
     if not re.search(r"wp_draft\.py", cmd) or not re.search(r"(^|\s)--post(\s|$)", cmd):
         return
     m = re.search(r"wp_draft\.py[\"']?\s+(\"[^\"]+\.md\"|'[^']+\.md'|\S+\.md)", cmd)
@@ -247,6 +259,73 @@ def hook(_args):
             print("- " + r, file=sys.stderr)
         print("Làm theo vòng duyệt trong CLAUDE.md. Không tự ghi phiếu thay agent đánh giá.", file=sys.stderr)
         sys.exit(2)
+
+
+def chi_agent_danh_gia_ghi(data):
+    """Chi sub agent danh-gia-noi-dung duoc ghi phieu.
+
+    Ban Claude Code moi gui agent_type trong du lieu hook khi lenh chay trong sub agent: dung no.
+    Ban cu khong gui truong nay: cho ghi khi dang co luot cham chay (danh dau boi bat-dau-cham).
+    """
+    agent = data.get("agent_type")
+    if agent == AGENT_DANH_GIA:
+        return
+    # Phien khong nap duoc .claude/agents thi agent general-purpose doc file agent danh gia de cham (CLAUDE.md):
+    # cho ghi khi bat-dau-cham da danh dau luot cham do
+    if agent in (None, AGENT_DU_PHONG) and dang_cham():
+        return
+    print("Chặn ghi phiếu duyệt: chỉ sub agent %s được chạy 'phieu_duyet.py ghi' sau khi chấm. "
+          "Gọi agent đánh giá chấm bài. Muốn đăng khi bài chưa đạt thì người dùng tự chạy lệnh trong terminal."
+          % AGENT_DANH_GIA, file=sys.stderr)
+    sys.exit(2)
+
+
+# ---------- Danh dau dang cham (PreToolUse Agent|Task + SubagentStop) ----------
+
+def doc_dang_cham():
+    try:
+        with open(DANG_CHAM, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def luu_dang_cham(state):
+    os.makedirs(PHIEU_DIR, exist_ok=True)
+    with open(DANG_CHAM, "w", encoding="utf-8") as f:
+        json.dump(state, f, ensure_ascii=False, indent=2)
+
+
+def dang_cham():
+    """Co luot cham bat dau chua qua HAN_DANG_CHAM giay khong (o bat ky phien nao)."""
+    now = datetime.datetime.now().timestamp()
+    return any(now - t < HAN_DANG_CHAM for t in doc_dang_cham().values())
+
+
+def la_luot_cham(tool_input):
+    """Loi goi Agent nay la luot cham: dung agent danh gia, hoac agent du phong duoc yeu cau doc file agent danh gia."""
+    kieu = tool_input.get("subagent_type")
+    if kieu == AGENT_DANH_GIA:
+        return True
+    return kieu in (None, "", AGENT_DU_PHONG) and AGENT_DANH_GIA in (tool_input.get("prompt") or "")
+
+
+def bat_dau_cham(_args):
+    data = doc_stdin()
+    if not la_luot_cham(data.get("tool_input") or {}):
+        return
+    state = doc_dang_cham()
+    state[data.get("session_id") or "khong-ro"] = datetime.datetime.now().timestamp()
+    luu_dang_cham(state)
+
+
+def xong_cham(_args):
+    data = doc_stdin()
+    if data.get("agent_type") not in (None, AGENT_DANH_GIA, AGENT_DU_PHONG):
+        return  # sub agent khac (vi du tao-anh) ket thuc, luot cham van dang chay
+    state = doc_dang_cham()
+    if state.pop(data.get("session_id") or "khong-ro", None) is not None:
+        luu_dang_cham(state)
 
 
 # ---------- Nhac cham lai sau khi sua bai (PostToolUse + Stop) ----------
@@ -297,6 +376,8 @@ def da_sua(_args):
 def stop(_args):
     data = doc_stdin()
     sid = data.get("session_id") or "khong-ro"
+    if dang_cham():
+        return  # luot cham dang chay (thuong la chay nen), khi xong phien duoc goi lai va Stop hook chay lai
     state = doc_can_cham()
     files = state.get(sid, {})
     chua, bo_qua = [], []
@@ -360,6 +441,8 @@ def main():
     h.set_defaults(func=hook)
     sub.add_parser("da-sua", help="PostToolUse hook").set_defaults(func=da_sua)
     sub.add_parser("stop", help="Stop hook").set_defaults(func=stop)
+    sub.add_parser("bat-dau-cham", help="PreToolUse hook (Agent|Task)").set_defaults(func=bat_dau_cham)
+    sub.add_parser("xong-cham", help="SubagentStop hook").set_defaults(func=xong_cham)
     args = ap.parse_args()
     args.func(args)
 

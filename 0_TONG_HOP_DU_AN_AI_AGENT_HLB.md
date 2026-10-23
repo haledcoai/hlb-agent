@@ -1,6 +1,6 @@
 # TỔNG HỢP DỰ ÁN AI AGENT VIẾT BÀI CHO DENLEDNHAXUONGCAOCAP.COM
 
-Cập nhật: 22/10/2026. File này tóm tắt các quyết định, trạng thái và việc còn dở, để tiếp tục ở phiên làm việc khác mà không cần đọc lại toàn bộ cuộc trò chuyện.
+Cập nhật: 23/10/2026. File này tóm tắt các quyết định, trạng thái và việc còn dở, để tiếp tục ở phiên làm việc khác mà không cần đọc lại toàn bộ cuộc trò chuyện.
 
 ## 1. Mục tiêu
 
@@ -21,7 +21,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | tools/kiem_tra_bai.py | Kiểm tra lỗi cơ học của bài (dấu gạch, từ cấm, link, độ dài SEO, định dạng số, thông số so với CSV). Thoát mã 1 khi còn LỖI |
 | .claude/agents/danh-gia-noi-dung.md | Sub agent đánh giá chất lượng bài: chạy script trên, đối chiếu dữ liệu, chấm 100 điểm (ĐẠT từ 95), ghi phiếu duyệt, trả báo cáo. Không sửa bài |
 | CLAUDE.md | Vòng duyệt tự động: viết hoặc sửa bài xong thì gọi agent đánh giá, chưa đạt 95 thì agent chính tự sửa và chấm lại, tối đa 3 vòng |
-| tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại |
+| tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; chỉ agent đánh giá được chạy `ghi`; đánh dấu đang chấm khi gọi agent đánh giá; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại (trừ khi đang có lượt chấm) |
 | .claude/agents/tao-anh.md | Sub agent chuẩn bị ảnh: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Không sửa bài, không tải lên website |
 | tools/tao_anh.py | Liệt kê chỗ [ẢNH], gợi ý nguồn ảnh (`phan-loai`, đối chiếu CSV), lấy ảnh sản phẩm thật, chuẩn hóa JPG 820 px (rộng 800-850, cao 400-800), ghi trạng thái duyệt, ghi danh sách `anh/<bài>/anh.json` (ảnh Canva lưu cả prompt), kiểm tra đủ ảnh, tên ảnh không trùng slug, alt (cần Pillow, matplotlib) |
 | tools/mau_anh.py | Thư viện 6 mẫu sơ đồ dùng chung: lưới bố trí, bảng IP, bảng so sánh, biểu đồ cột, mặt cắt chiều cao treo và góc chiếu, các bước. Tự kiểm tra chữ trên hình (đè, tràn, dưới 13 px, em dash) trước khi lưu |
@@ -30,7 +30,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | anh/trang-duyet-anh.html | Trang Duyệt ảnh HLB cũ (từ 22/10/2026 chuyển sang tab Duyệt ảnh của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG): người dùng bấm Duyệt hoặc Làm lại từng ảnh, ghi ảnh còn thiếu. Agent đọc qua ArtifactData, chỉ ảnh đã duyệt được đăng. Quy trình ở CLAUDE.md |
 | .danh_gia/nhat_ky.jsonl | Nhật ký chấm, chỉ thêm không ghi đè: mỗi lần chấm (điểm 6 tiêu chí, vấn đề có nhãn, phiên bản thang chấm) và mỗi lần agent đánh giá bị bác bỏ. Đã nhập lại 3 lần chấm bài "cách chọn đèn" ngày 21/10/2026 (thang v1) |
 | Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (CLAUDE.md) |
-| .claude/settings.json | Khai báo 3 hook: PreToolUse (chặn đăng), PostToolUse (ghi nhận sửa bài), Stop (nhắc chấm lại) |
+| .claude/settings.json | Cho phép lệnh `phieu_duyet.py ghi`, `nhan`. Khai báo 5 hook: PreToolUse Bash (chặn đăng, chặn ghi phiếu ngoài agent đánh giá), PreToolUse Agent (đánh dấu đang chấm), SubagentStop (bỏ đánh dấu), PostToolUse (ghi nhận sửa bài), Stop (nhắc chấm lại) |
 
 ## 3. Quyết định đã chốt
 
@@ -66,7 +66,8 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 
 | Việc | Trạng thái |
 |---|---|
-| Bài "cách chọn đèn LED nhà xưởng" (viết lại bài ID 2323) | Đã đẩy lên bản nháp ID 8514 ngày 21/10/2026 (14:38), phiếu ĐẠT 95, kèm 3 ảnh đã duyệt (Media 8518, 8519, 8520; ảnh đại diện 8520). Chờ người dùng duyệt trong wp-admin và chép sang bài gốc 2323 |
+| Bài "cách chọn đèn LED nhà xưởng" (viết lại bài ID 2323) | Bản nháp ID 8514, đẩy lần đầu 21/10/2026 kèm 3 ảnh đã duyệt (Media 8518, 8519, 8520; ảnh đại diện 8520). 23/10/2026 sửa câu vai trò thương hiệu, chấm phần ĐẠT 95, cập nhật lại bản nháp. Chờ người dùng duyệt trong wp-admin và chép sang bài gốc 2323. Bài này không có dòng trên Bảng điều phối |
+| Bài "mẫu nhà xưởng 200m2" | Bản nháp ID 8524, đủ 10/10 ảnh đúng chuẩn (`tao_anh.py kiem`). 23/10/2026 sửa câu vai trò thương hiệu, chấm phần ĐẠT 96. Trạng thái duyệt xem trên Bảng điều phối |
 | Bảng hỏi thông tin cố định | Xong nhóm 1. Nhóm 2 còn 4 điểm chờ xác nhận. Nhóm 3 đến 8 chưa trả lời |
 
 ## 5. Việc còn dở

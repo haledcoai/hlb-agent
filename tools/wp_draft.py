@@ -27,7 +27,7 @@ import urllib.request
 SITE = "https://denlednhaxuongcaocap.com"
 API = SITE + "/wp-json"
 
-PLACEHOLDER = re.compile(r"\[(?:CẦN BỔ SUNG|CẦN KIỂM TRA|LINK|ẢNH|Ghi chú)[^\]]*\]")
+PLACEHOLDER = re.compile(r"\[(?:CẦN BỔ SUNG|CẦN KIỂM TRA|CHỜ XÁC NHẬN|LINK|ẢNH|Ghi chú)[^\]]*\]")
 IMAGE_LINE = re.compile(r"^(?:\*\*)?\[ẢNH:[^\]]*\|\s*tên file:\s*([^\]|]+?)\s*\](?:\*\*)?$")  # dong [ANH] co the in dam **...**
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
@@ -331,6 +331,21 @@ def build(seo, title, body_lines, notes_lines, mode, original):
     return note + md_to_html(body_lines)
 
 
+def fill_rank_math(post_id, seo, auth):
+    """Dien focus keyword, SEO title, meta description vao Rank Math (ca khi tao moi lan ghi de ban nhap)."""
+    meta = {
+        "rank_math_focus_keyword": seo.get("Focus keyword", ""),
+        "rank_math_title": seo.get("SEO title", ""),
+        "rank_math_description": seo.get("Meta description", ""),
+    }
+    try:
+        call("POST", "/rankmath/v1/updateMeta",
+             {"objectType": "post", "objectID": post_id, "meta": meta}, auth=auth)
+        print("Da dien SEO title, meta description, focus keyword vao Rank Math.")
+    except RuntimeError as e:
+        print("Chua dien duoc Rank Math tu dong (thong tin SEO van nam trong khoi ghi chu):", e)
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
@@ -422,11 +437,13 @@ def main():
         cur = call("GET", "/wp/v2/posts/%d?context=edit&_fields=id,status" % args.draft_id, auth=auth)
         if cur["status"] != "draft":
             sys.exit("Bai ID %d khong phai ban nhap (status=%s). Khong ghi de." % (args.draft_id, cur["status"]))
-        update = {"title": draft_title, "content": content}
+        # Phan A co the da doi sau lan tao ban nhap: cap nhat ca excerpt va Rank Math, khong chi noi dung
+        update = {"title": draft_title, "content": content, "excerpt": seo.get("Excerpt", "")}
         if featured:
             update["featured_media"] = featured
         call("POST", "/wp/v2/posts/%d" % args.draft_id, update, auth=auth)
         print("Da cap nhat ban nhap ID", args.draft_id)
+        fill_rank_math(args.draft_id, seo, auth)
         print("Mo de duyet:", "%s/wp-admin/post.php?post=%d&action=edit" % (SITE, args.draft_id))
         return
     same = call("GET", "/wp/v2/posts?status=draft&context=edit&search=%s&_fields=id,title"
@@ -449,17 +466,7 @@ def main():
     print("Da tao ban nhap ID", post["id"])
     print("Mo de duyet:", "%s/wp-admin/post.php?post=%d&action=edit" % (SITE, post["id"]))
 
-    meta = {
-        "rank_math_focus_keyword": seo.get("Focus keyword", ""),
-        "rank_math_title": seo.get("SEO title", ""),
-        "rank_math_description": seo.get("Meta description", ""),
-    }
-    try:
-        call("POST", "/rankmath/v1/updateMeta",
-             {"objectType": "post", "objectID": post["id"], "meta": meta}, auth=auth)
-        print("Da dien SEO title, meta description, focus keyword vao Rank Math.")
-    except RuntimeError as e:
-        print("Chua dien duoc Rank Math tu dong (thong tin SEO van nam trong khoi ghi chu):", e)
+    fill_rank_math(post["id"], seo, auth)
 
 
 if __name__ == "__main__":
