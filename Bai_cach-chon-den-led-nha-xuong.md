@@ -137,7 +137,7 @@ Chip LED hiếm khi là bộ phận hỏng đầu tiên. Phần lớn đèn nhà
 - **Hệ số công suất (PF):** càng gần 1 càng ít tổn hao trên lưới điện. Nhà xưởng lắp hàng chục, hàng trăm đèn nên chọn PF từ 0,9 trở lên. Ví dụ BUFO4-150 công bố PF 0,98.
 - **Driver:** hỏi rõ hãng driver và điện áp làm việc. Với BUFO4-150, trang sản phẩm cho phép chọn hãng chip LED và hãng driver theo ngân sách dự án.
 - **Tản nhiệt:** thân nhôm đúc, cánh tản nhiệt đủ dày và có khe thoát khí. Đèn nhẹ bất thường so với công suất thường là dấu hiệu tản nhiệt mỏng.
-- **Bảo hành:** hỏi bảo hành có gồm driver không, đổi mới hay sửa chữa, và ai chịu chi phí tháo lắp. Dòng đèn cao cấp do HALEDCO sản xuất, HLB phân phối, được bảo hành 2 năm cho lỗi chip LED và driver do nhà sản xuất, cần giữ giấy tờ bảo hành. Đèn Philips, Rạng Đông, Điện Quang bảo hành theo chính sách của từng hãng. Hỗ trợ kỹ thuật và bảo hành qua số 02437 918 122.
+- **Bảo hành:** hỏi bảo hành có gồm driver không, đổi mới hay sửa chữa, và ai chịu chi phí tháo lắp. Dòng đèn cao cấp HLB phân phối được bảo hành 2 năm cho lỗi chip LED và driver do nhà sản xuất, cần giữ giấy tờ bảo hành. Đèn Philips, Rạng Đông, Điện Quang bảo hành theo chính sách của từng hãng. Hỗ trợ kỹ thuật và bảo hành qua số 02437 918 122.
 
 Đèn rẻ trở thành đắt khi phải thay sớm. Với đèn treo 9-10 m, mỗi lần thay thường cần xe nâng hoặc giàn giáo, chi phí nhân công và dừng sản xuất có khi cao hơn tiền mua một bộ đèn.
 
