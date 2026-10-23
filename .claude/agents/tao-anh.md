@@ -66,6 +66,7 @@ Một bài có thể dùng nhiều nguồn. Không thử lại một nguồn đ�
 | `mat_cat_lap_dat(chieu_cao, goc_chieu, khoang_cach, tieu_de)` | Chiều cao treo, góc chiếu, vùng sáng và vùng tối trên sàn |
 | `cac_buoc(buoc, tieu_de, canh_bao=(...))` | Quy trình 3-6 bước; bước có rủi ro điện, làm việc trên cao ghi trong `canh_bao` |
 
+- `_goc/` chỉ là thư mục làm việc tạm (ảnh gốc khổ lớn, bản xem trước). Không lưu ảnh gốc (người dùng chốt 23/10/2026): `tao_anh.py kiem` báo đủ ảnh thì tự xóa `_goc/`; `.gitignore` đã bỏ `_goc/` nên không lên GitHub. `--file` trong danh sách ảnh luôn trỏ tới bản 820 px trong `anh/<tên bài>/`, không trỏ vào `_goc/`.
 - `luu(fig, OUT, "<tên file>.jpg")` tự kiểm tra chữ trên hình (đè nhau, tràn khung, hiển thị dưới 13 px, có em dash/en dash). Có lỗi thì không lưu và in danh sách lỗi: sửa nội dung (rút gọn chữ, bớt dòng) rồi chạy lại. Qua kiểm tra thì tự lưu PNG vào `_goc/` và chuẩn hóa về JPG 820 px, không cần chạy `chuan-hoa` riêng.
 - Ảnh cần dạng chưa có mẫu thì vẽ trực tiếp bằng matplotlib trong `ve_so_do.py`, dùng `hinh()`, `tieu_de()`, `chan_trang()`, màu và `luu()` của `mau_anh.py` để giữ cùng kiểu và vẫn được kiểm tra chữ. Dạng dùng lại được nhiều bài thì báo trong báo cáo để thêm thành mẫu.
 - Chạy lại `ve_so_do.py` của bài đã có ảnh duyệt sẽ ghi đè ảnh đó. Chỉ chạy lại khi ảnh cần làm lại.

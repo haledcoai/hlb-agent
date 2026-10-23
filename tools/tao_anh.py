@@ -476,6 +476,21 @@ def kiem(args):
             print("- " + x)
         sys.exit(1)
     print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ, tên ảnh không trùng slug." % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO))
+    don_goc(args.article, m)
+
+
+def don_goc(article, m):
+    """Đủ ảnh thì xóa thư mục làm việc _goc/ (ảnh gốc khổ lớn, bản xem trước), không lưu lại."""
+    goc = os.path.join(os.path.dirname(manifest_path(article)), "_goc")
+    if not os.path.isdir(goc):
+        return
+    goc_rel = os.path.relpath(goc, ROOT).replace("\\", "/") + "/"
+    if any(a["file"].startswith(goc_rel) for a in m.values()):
+        print("Giữ %s vì danh sách ảnh còn trỏ vào đây" % goc_rel)
+        return
+    import shutil
+    shutil.rmtree(goc)
+    print("Đã xóa ảnh gốc trong %s (không cần lưu)" % goc_rel)
 
 
 def main():
