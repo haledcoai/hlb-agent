@@ -488,5 +488,75 @@
   "bai": "mau-nha-xuong-200m2",
   "vong": 2,
   "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "tra-loi-nhanh-thieu-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Giu tu lan cham truoc: 3 y cuoi tra loi nhanh chua co tieu chi cu the",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "bao-hanh-them-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "Buoc 6 dong 140 van giu cum loi do nha san xuat, Knowledge 1.1 khong co dieu kien nay",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Giu tu lan cham truoc: lua chon toi uu, hay gap nhat chua co can cu",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "ket-bai-lap-bang-buoc-2",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Giu tu lan cham truoc: ket bai chep lai bang chon nhanh Buoc 2",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Chua H2 nao chua nguyen cum cach chon den LED nha xuong",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 la muc cao cho xuong co khi bui trung binh",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "placeholder-chua-goi-y",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Xuong bui: goi y den IP65/IP66 hang khac hay de trung lap",
+  "ma": "L011",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
  }
 ]
