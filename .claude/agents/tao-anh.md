@@ -38,7 +38,7 @@ Mỗi chỗ `[ẢNH]` trong bài phải có đúng một ảnh đạt chuẩn. �
 ## Chọn nguồn
 
 **Nguyên tắc (người dùng chốt 23/10/2026):** mục tiêu là đủ ảnh đạt chất lượng với ít thời gian và token nhất. Agent tự chọn và kết hợp nguồn, không hỏi người dùng. Thứ tự thử cho mỗi chỗ `[ẢNH]`:
-1. **Ảnh bài cũ** (chỉ bài viết lại): `anh-bai-cu` liệt kê ảnh đang có trong bài cũ kèm mục chứa ảnh. Ảnh khớp ngữ cảnh đoạn văn mới thì dùng lại luôn (`--nguon website --url-website <src> --media-id <media>`), không tải lại, giữ nguyên kích thước cũ (ảnh nguồn website không áp chuẩn 800-850 px). Không dùng ảnh cũ có logo hoặc tên hãng khác, chữ sai với bài mới, hoặc ngụ ý công trình của HLB khi không phải.
+1. **Ảnh bài cũ** (chỉ bài viết lại): `anh-bai-cu` liệt kê ảnh đang có trong bài cũ kèm mục chứa ảnh. Đây là bước lọc, không phải lấy hết và không bắt buộc dùng (người dùng chốt 23/10/2026): xem từng ảnh, chỉ chọn ảnh thật sự hợp với đoạn văn mới; ảnh không hợp thì bỏ, làm ảnh mới từ nguồn sau. Ảnh khớp ngữ cảnh đoạn văn mới thì dùng lại luôn (`--nguon website --url-website <src> --media-id <media>`), không tải lại, giữ nguyên kích thước cũ (ảnh nguồn website không áp chuẩn 800-850 px). Không dùng ảnh cũ có logo hoặc tên hãng khác, chữ sai với bài mới, hoặc ngụ ý công trình của HLB khi không phải.
 2. **Ảnh sản phẩm trên website** cho chỗ nói về model cụ thể.
 3. **Kho ảnh** (Unsplash, rồi Pixabay) cho ảnh không gian chung.
 4. **Tự vẽ bằng Python** cho sơ đồ, bảng, và khi kho ảnh không có ảnh hợp. Ảnh tổng hợp (ví dụ "các mẫu nhà xưởng") thì ghép bằng Python từ các ảnh đã có của bài, mỗi ô một nhãn ngắn.
