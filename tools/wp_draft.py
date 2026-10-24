@@ -421,7 +421,8 @@ def main():
                     a["media_id"], a["url_da_tai"] = upload_media(path, a["alt"], a["alt"], media_description(a), auth)
                     a["sha_da_tai"] = digest
                     print("Da tai anh len Media ID %d: %s" % (a["media_id"], a["url_da_tai"]))
-                if a.get("chu_thich_da_ghi") != image_caption(a):
+                # Anh dung lai tu bai khac: media dung chung, khong ghi de chu thich cua bai goc
+                if not a.get("dung_lai_tu") and a.get("chu_thich_da_ghi") != image_caption(a):
                     call("POST", "/wp/v2/media/%d" % a["media_id"], {"caption": image_caption(a)}, auth=auth)
                     a["chu_thich_da_ghi"] = image_caption(a)
             if a.get("dai_dien"):

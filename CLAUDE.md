@@ -69,8 +69,8 @@ Người dùng duyệt ảnh ở tab **Duyệt ảnh** của **Bảng điều ph
 - Collection `yeu_cau`: ảnh người dùng xin thêm. Trường: `bai`, `noi_dung` (tên file hoặc mô tả), `ghi_chu`, `trang_thai` (`moi` | `da_xu_ly`), `phan_hoi`, `tao_luc`.
 
 **Đưa ảnh lên trang** (ngay sau khi agent `tao-anh` xong, không chờ nhắc):
-1. Tải các file JPG mới lên trang: Artifact `publish` với `url` trên, `asset: true`, `file_paths`.
-2. Ghi một dòng `anh` cho mỗi ảnh (`ArtifactData` `batch`), `trang_thai: "cho_duyet"`. Ảnh làm lại thì cập nhật dòng cũ: `url`, `asset_id` mới, `vong` + 1, chép `ghi_chu` cũ sang `ghi_chu_truoc`, xóa `ghi_chu`, `trang_thai: "cho_duyet"`, ghi `ghi_chu_agent` nói đã sửa gì. Xóa tài sản ảnh cũ khỏi trang (`action: "delete"` với `path` là asset id cũ).
+1. `python dieu_phoi/anh_len_bang.py <file_bai.md>` in danh sách file JPG cần tải (ảnh dùng lại từ thư viện, ảnh có sẵn trên website không cần tải). Tải lên trang: Artifact `publish` với `url` trên, `asset: true`, `file_paths` là danh sách đó.
+2. Ghi kết quả tải vào file JSON tạm `{"<tên file>": {"url": ..., "asset_id": ...}}`, chạy `python dieu_phoi/anh_len_bang.py <file_bai.md> --tai-san <file> --out <thư mục tạm>`, dán mảng `writes` in ra vào một lần `ArtifactData` `batch` (dòng mới, `trang_thai: "cho_duyet"`). Ảnh làm lại thì cập nhật dòng cũ: `url`, `asset_id` mới, `vong` + 1, chép `ghi_chu` cũ sang `ghi_chu_truoc`, xóa `ghi_chu`, `trang_thai: "cho_duyet"`, ghi `ghi_chu_agent` nói đã sửa gì. Xóa tài sản ảnh cũ khỏi trang (`action: "delete"` với `path` là asset id cũ).
 3. Cập nhật từ khóa của bài trên bảng (collection `tu_khoa`, tìm theo `file_bai`): `anh_tong` (số chỗ `[ẢNH]`), `anh_thieu` (mảng tên file còn thiếu theo `tao_anh.py kiem`, rỗng khi đủ), `tien_do`, thêm một dòng `lich_su`. Đủ ảnh thì chuyển `trang_thai` sang `cho_duyet_anh`; còn thiếu thì giữ `cho_tao_anh` để lượt sau làm tiếp. Không làm bước này thì bảng đứng yên ở chặng Tạo ảnh dù người dùng đã duyệt ảnh.
 4. Gửi người dùng link trang duyệt.
 

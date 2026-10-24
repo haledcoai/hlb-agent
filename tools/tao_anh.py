@@ -14,6 +14,8 @@ Cach dung:
                          [--url-website URL] [--media-id ID] [--dai-dien] [--ghi-chu "..."] [--prompt "..."] [--tac-gia "..."]
                                                                  # anh canva bat buoc --prompt (prompt da dung)
                                                                  # anh Unsplash bat buoc --tac-gia (ten tac gia, hien trong chu thich)
+  python tools/tao_anh.py thu-vien "<tu khoa tieng Viet>"           # anh da duyet, da tai len o bai khac, dung lai duoc
+  python tools/tao_anh.py dung-lai <file_bai.md> --ten <ten> --tu <bai>--<ten file>  # dung lai media co san, khong tai lai
   python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
   python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
@@ -29,6 +31,7 @@ Anh luu o anh/<ten bai>/, danh sach o anh/<ten bai>/anh.json. File bai .md khong
 nen phieu duyet khong mat hieu luc khi them anh. Script nay khong tai gi len website.
 """
 import argparse
+import glob
 import json
 import os
 import re
@@ -420,6 +423,58 @@ def duyet(args):
     print("%s: %s" % (args.ten, args.trang_thai))
 
 
+def thu_vien(args):
+    """Tim anh da duyet va da tai len website o cac bai khac (kho-anh, canva, nguoi-dung) de dung lai,
+    khong tao moi, khong tai len lai. So do python gan voi so lieu tung bai nen khong dua vao thu vien."""
+    tu = [t for t in re.split(r"\s+", args.tu_khoa.lower()) if t]
+    ds = []
+    for mf in sorted(glob.glob(os.path.join(ROOT, "anh", "Bai_*", "anh.json"))):
+        with open(mf, encoding="utf-8") as f:
+            m = json.load(f)
+        bai = os.path.basename(os.path.dirname(mf))
+        for a in m.get("anh", []):
+            if a.get("trang_thai") != "duyet" or a["nguon"] not in ("kho-anh", "canva", "nguoi-dung") \
+                    or not (a.get("media_id") and a.get("url_da_tai")) or a.get("dung_lai_tu"):
+                continue
+            chu = " ".join((a["ten"], a.get("mo_ta", ""), a.get("alt", ""), a.get("prompt", ""))).lower()
+            diem = sum(1 for t in tu if t in chu)
+            if diem:
+                ds.append((diem, bai, a))
+    if not ds:
+        sys.exit("Thư viện chưa có ảnh đã duyệt khớp \"%s\". Làm ảnh mới theo thứ tự nguồn." % args.tu_khoa)
+    for diem, bai, a in sorted(ds, key=lambda x: -x[0])[:args.so]:
+        print("- %s--%s (%s, khớp %d/%d từ)\n  mô tả: %s\n  file: %s" % (bai, a["ten"], a["nguon"], diem, len(tu),
+                                                                       a.get("mo_ta", ""), a["file"]))
+    print("\nXem file bằng Read. Ảnh hợp ngữ cảnh: dung-lai <file_bai.md> --ten <tên chỗ ảnh> --tu <bài>--<tên file>")
+
+
+def dung_lai(args):
+    """Chep muc anh da duyet tu bai khac: giu media_id, url_da_tai, sha (wp_draft khong tai lai), nguon va ghi chu
+    (van ghi anh minh hoa); alt, mo ta lay theo bai nay. Anh quay ve cho_duyet vi ngu canh doan van khac."""
+    cho = {c["ten"]: c for c in doc_cho_anh(args.article)}
+    if args.ten not in cho:
+        sys.exit("Bài không có chỗ [ẢNH] với tên file %s. Các tên có: %s" % (args.ten, ", ".join(cho)))
+    bai, _, ten = args.tu.partition("--")
+    mf = os.path.join(ROOT, "anh", bai, "anh.json")
+    if not os.path.isfile(mf):
+        sys.exit("Không thấy %s" % os.path.relpath(mf, ROOT))
+    with open(mf, encoding="utf-8") as f:
+        goc = next((a for a in json.load(f)["anh"] if a["ten"] == ten), None)
+    if not goc or goc.get("trang_thai") != "duyet" or not goc.get("url_da_tai"):
+        sys.exit("%s chưa duyệt hoặc chưa tải lên website, không dùng lại được" % args.tu)
+    m = doc_manifest(args.article)
+    m["anh"] = [a for a in m["anh"] if a["ten"] != args.ten]
+    moi = {k: goc.get(k) for k in ("file", "nguon", "media_id", "url_da_tai", "sha_da_tai", "chu_thich_da_ghi",
+                                   "ghi_chu", "prompt", "tac_gia")}
+    moi.update(ten=args.ten, alt=cho[args.ten]["alt"], mo_ta=cho[args.ten]["mo_ta"], url_website=None,
+               dai_dien=False, dung_lai_tu=args.tu, trang_thai="cho_duyet")
+    m["anh"].append(moi)
+    os.makedirs(thu_muc(args.article), exist_ok=True)
+    with open(manifest_path(args.article), "w", encoding="utf-8") as f:
+        json.dump(m, f, ensure_ascii=False, indent=2)
+    print("Đã dùng lại %s (media %s) cho %s" % (args.tu, goc["media_id"], args.ten))
+
+
 def kiem(args):
     m = {a["ten"]: a for a in doc_manifest(args.article)["anh"]}
     loi = []
@@ -514,6 +569,10 @@ def main():
     p.add_argument("--dai-dien", action="store_true"); p.add_argument("--ghi-chu"); p.add_argument("--prompt")
     p.add_argument("--tac-gia", help="ten tac gia anh kho-anh (bat buoc voi Unsplash)")
     p.set_defaults(func=ghi)
+    p = sub.add_parser("thu-vien"); p.add_argument("tu_khoa"); p.add_argument("--so", type=int, default=6)
+    p.set_defaults(func=thu_vien)
+    p = sub.add_parser("dung-lai"); p.add_argument("article"); p.add_argument("--ten", required=True)
+    p.add_argument("--tu", required=True, help="<bai>--<ten file> lay tu lenh thu-vien"); p.set_defaults(func=dung_lai)
     p = sub.add_parser("kiem"); p.add_argument("article")
     p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")
     p.set_defaults(func=kiem)

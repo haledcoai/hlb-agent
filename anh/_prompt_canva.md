@@ -53,3 +53,19 @@ Photo of a small single-storey steel frame workshop about [200] m2, corrugated m
 | Kiểu đèn khác mô tả | round UFO shaped LED high bay lights |
 | Có chữ hoặc biển hiệu | blank walls, no signs |
 | Sáng chói, cháy sáng | soft even lighting, no glare, correct exposure |
+
+## Cách tạo và xuất ảnh Canva (agent tao-anh đọc mục này chỉ khi cần dùng Canva)
+
+Tên công cụ: trên máy Windows là `mcp__b0cec744-...__<lệnh>`, trên cloud là `mcp__Canva__<lệnh>`; dùng tên nào thấy trong phiên. Lệnh đầu tiên lỗi kết nối hoặc hết hạn mức thì dừng Canva cho cả bài, ghi lỗi vào báo cáo, chuyển nguồn khác.
+
+1. `generate-image`, `aspectRatio` LANDSCAPE_16_9. Prompt lấy cảnh gần nhất ở mục "Cảnh mẫu", sửa theo ngữ cảnh đoạn văn, luôn có câu phủ định chuẩn. Ảnh làm lại thì sửa từ `prompt` cũ trong `anh.json` theo ghi chú người dùng và bảng ở mục trên.
+2. `get-generate-image-job` tới khi SUCCESS, cách nhau khoảng 15 giây. Ảnh trả về chỉ là ảnh thu nhỏ (khoảng 200 px), dùng xem bố cục. `get-assets` với media ID để lấy kích thước bản gốc (thường 1680 x 944).
+3. Xuất bản đầy đủ qua thiết kế "HLB anh bai - <tên bài>" (người dùng cho phép tự lưu thiết kế, 21/10/2026), mỗi ảnh một trang:
+   - Lần đầu của bài: `create-design` (brief "A single completely blank landscape page...", format "Facebook Post (Landscape)"), chờ `get-create-design-async-job` completed. Trang 1 tự sinh, bỏ qua.
+   - `read-design` với `open_transaction: true` lấy `transaction_id`; `edit-design` với `add_page` đúng kích thước bản gốc và `update_title`; `read-design` (`page_indices` trang mới) lấy `page_id`.
+   - `edit-design` với `insert_fill` media ID: top 0, left 0, width và height bằng trang. Ảnh thu nhỏ trả về phải phủ kín trang.
+   - `edit-design` với `finalize: commit`, rồi `export-design` kiểu `jpg`, `pages` [số trang], `quality` 95, `width`/`height` bằng bản gốc.
+   - `python tools/tao_anh.py tai "<url>" anh/<tên bài>/_goc/<tên file>.jpg`, rồi `chuan-hoa ... --cat`.
+   - `--ghi-chu` gồm media ID, ID thiết kế và số trang.
+4. Xem bản 820 px và phóng to một vùng bản gốc. Có chữ, logo, người, chi tiết sai (đèn lơ lửng, mái méo, kiểu đèn khác mô tả) hoặc không khớp ngữ cảnh thì tạo lại. Tối đa 3 lượt tạo cho mỗi chỗ ảnh (tính vào hạn mức Canva của người dùng). Ghi vào báo cáo nhận xét ảnh trông thật hay giả.
+5. Trong Canva chỉ tạo và sửa thiết kế "HLB anh bai - <tên bài>", không đụng thiết kế khác của người dùng.
