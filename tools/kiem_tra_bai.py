@@ -2,7 +2,10 @@
 
 Cach dung:
   python tools/kiem_tra_bai.py <file_bai.md>
+  python tools/kiem_tra_bai.py <file_bai.md> --gon      # chi in LOI, CANH BAO va mot dong tom tat (agent danh gia dung)
   python tools/kiem_tra_bai.py <file_bai.md> --csv du_lieu_san_pham_HLB_21-10-2026.csv
+  python tools/kiem_tra_bai.py --tra 16.500             # tra CSV: model, quang thong, gia, cong suat; dem so dong khop
+  python tools/kiem_tra_bai.py --cap-nhat-quy-tac       # ghi lai ma file goc vao quy_tac_cham.md sau khi da cap nhat file nay
 
 Chi bat loi may kiem tra duoc: dau gach, emoji, tu cam, link, do dai SEO, dinh dang so,
 doi chieu so lieu voi file CSV san pham. Chat luong noi dung do agent danh-gia-noi-dung danh gia.
@@ -10,12 +13,19 @@ Ma thoat: 0 = khong co LOI, 1 = co LOI can sua, 2 = file sai cau truc.
 """
 import argparse
 import csv
+import datetime
 import glob
+import hashlib
+import json
 import os
 import re
 import sys
 import unicodedata
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+QUY_TAC = os.path.join(ROOT, "quy_tac_cham.md")
+NGUON_QUY_TAC = ("1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md")
+DA_KIEM = os.path.join(ROOT, ".danh_gia", "_da_kiem.json")
 SITE_HOST = "denlednhaxuongcaocap.com"
 HOTLINES = {"0967569588", "02437918122"}
 
@@ -55,11 +65,16 @@ UNVERIFIED = {
 
 # Vai tro thuong hieu (Knowledge muc 1)
 BRAND_ROLE = {
-    r"hlb\s+(tự\s+)?sản xuất": "HLB phân phối đèn LED nhiều thương hiệu, không viết \"HLB sản xuất\"",
+    r"hlb\s+(tự\s+)?(sản xuất|lắp ráp)": "HLB phân phối đèn LED nhiều thương hiệu, không viết \"HLB sản xuất\"",
+    r"(hlb|chúng tôi)\s+là\s+(nhà|đơn vị|công ty|hãng)\s+sản xuất": "HLB là đơn vị phân phối, không phải nhà sản xuất",
+    r"(do|của)\s+(hlb|chúng tôi)\s+(tự\s+)?(sản xuất|lắp ráp)": "HLB là đơn vị phân phối, không sản xuất, không lắp ráp",
+    r"(xưởng|nhà máy)\s+(sản xuất\s+)?(của|thuộc)\s+(hlb|chúng tôi)": "HLB là đơn vị phân phối, không có xưởng, nhà máy",
     r"nhà máy của (chúng tôi|hlb)": "HLB là đơn vị phân phối, không có nhà máy",
     r"(do|của)\s+haledco\s+(sản xuất|lắp ráp)|haledco\s+sản xuất\s*(và lắp ráp)?\s*,\s*hlb": "không gán dòng cao cấp cho HALEDCO sản xuất; viết \"HLB phân phối\" (HALEDCO là một thương hiệu HLB phân phối)",
-    r"chúng tôi (tự\s+)?sản xuất": "HLB là đơn vị phân phối, không sản xuất",
-    r"hlb.{0,40}từ (năm )?2011": "mốc 2011 là của HALEDCO, HLB phân phối từ 2018",
+    r"chúng tôi (tự\s+)?(sản xuất|lắp ráp)": "HLB là đơn vị phân phối, không sản xuất, không lắp ráp",
+    r"(dòng|đèn)[^.;:]{0,40}\bhaledco\s+(sản xuất|lắp ráp)|\bhaledco\s+(sản xuất|lắp ráp)\s+(dòng|đèn)(?![^.;]{0,40}2011)":
+        "không gán dòng cao cấp cho HALEDCO sản xuất; chỉ dùng câu mốc \"HALEDCO sản xuất đèn LED từ năm 2011\"",
+    r"hlb.{0,40}(từ|năm|thành lập|ra đời)\s*(năm\s*)?2011": "mốc 2011 là của HALEDCO, HLB phân phối từ 2018",
     r"\d+\s+năm kinh nghiệm": "không tự tính số năm kinh nghiệm, ghi năm bắt đầu",
     r"haledco\.com": "không nhắc hoặc link haledco.com",
 }
@@ -414,6 +429,33 @@ def check_faq(rep, body):
         rep.warn(start, "FAQ có %d câu, nên 3-5 câu (ít hơn chỉ khi không đủ câu có giá trị)" % n)
 
 
+def check_quick_answer(rep, body):
+    """Doan tra loi nhanh 40-60 tu (Knowledge 8.1): khoi cuoi truoc H2 dau tien (gop voi mo bai neu chi co 1 khoi)."""
+    blocks, cur = [], []
+    for no, line in body:
+        s = line.strip()
+        if re.match(r"^## ", s):
+            break
+        if re.match(r"^# ", s) or not s or IMAGE.fullmatch(s) or PLACEHOLDER.fullmatch(s):
+            if cur:
+                blocks.append(cur)
+            cur = []
+            continue
+        cur.append((no, s))
+    if cur:
+        blocks.append(cur)
+    if not blocks:
+        rep.warn(None, "Không thấy mở bài và đoạn trả lời nhanh trước H2 đầu tiên")
+        return
+    qa = blocks[-1]
+    n = len(norm(strip_markup(" ".join(s for _, s in qa))).split())
+    gop = " (gộp với mở bài)" if len(blocks) == 1 else ""
+    if not 40 <= n <= 60:
+        rep.warn(qa[0][0], "Đoạn trả lời nhanh%s có %d từ, cần 40-60 (Knowledge 8.1)" % (gop, n))
+    else:
+        rep.info(qa[0][0], "Đoạn trả lời nhanh%s %d từ" % (gop, n))
+
+
 def check_price_note(rep, body):
     """Gia phai ghi "giá tham khảo" kem thoi diem (Instructions muc 6)."""
     price_lines = [no for no, line in body if re.search(r"\d{1,3}(?:\.\d{3})+\s*(đồng|đ\b|vnđ)", line, re.I)]
@@ -458,7 +500,9 @@ def check_against_csv(rep, body, models, csv_name):
     prices = {to_int(r["price"]) for r in models.values() if r["price"].strip("0 ")}
     for no, line in body:
         text = PLACEHOLDER.sub(" ", line)
-        for m in re.finditer(r"(\d{1,3}(?:\.\d{3})+)\s*(đồng|đ\b|vnđ)", text, re.I):
+        for m in re.finditer(r"(\d{1,3}(?:\.\d{3})+)\s*(đồng|đ\b|vnđ)(\s*/\s*(m²|m2|m³|m\b|kwh|tháng|năm|giờ))?", text, re.I):
+            if m.group(3):
+                continue  # don gia xay dung, gia dien... khong phai gia den
             if to_int(m.group(1)) not in prices:
                 rep.warn(no, "Giá %s không khớp sản phẩm nào trong %s" % (m.group(0), csv_name))
         codes = set(MODEL.findall(text))
@@ -482,14 +526,100 @@ def check_against_csv(rep, body, models, csv_name):
             rep.error(no, "%s: Ra trong bài %s, CSV ghi %s" % (code, ", ".join(ras), row["ra"]))
 
 
+# ---------- File quy tac cham rut gon ----------
+
+def ma_nguon():
+    out = []
+    for name in NGUON_QUY_TAC:
+        with open(os.path.join(ROOT, name), "rb") as f:
+            out.append("%s %s" % (name, hashlib.sha256(f.read()).hexdigest()[:12]))
+    return out
+
+
+def check_quy_tac(rep):
+    """quy_tac_cham.md phai duoc lam tu dung ban Instructions, Knowledge hien tai (dong 'Ma nguon:')."""
+    if not os.path.isfile(QUY_TAC):
+        return
+    with open(QUY_TAC, encoding="utf-8") as f:
+        text = f.read()
+    m = re.search(r"^Mã nguồn: (.*)$", text, re.M)
+    if not m or m.group(1).strip() != "; ".join(ma_nguon()):
+        rep.warn(None, "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ. Agent đánh giá đọc file gốc cho lần chấm này; "
+                       "cập nhật quy_tac_cham.md rồi chạy --cap-nhat-quy-tac")
+
+
+def cap_nhat_quy_tac():
+    with open(QUY_TAC, encoding="utf-8") as f:
+        text = f.read()
+    line = "Mã nguồn: " + "; ".join(ma_nguon())
+    text, n = re.subn(r"^Mã nguồn: .*$", line, text, flags=re.M)
+    if not n:
+        sys.exit("quy_tac_cham.md thiếu dòng 'Mã nguồn: ...'")
+    with open(QUY_TAC, "w", encoding="utf-8") as f:
+        f.write(text)
+    print("Đã ghi: " + line)
+
+
+def tim_csv(base):
+    found = sorted(glob.glob(os.path.join(base, "du_lieu_san_pham_*.csv")))
+    return found[-1] if found else None
+
+
+def tra(value, csv_path):
+    """Tim trong CSV theo ma model (mot phan ten) hoac so (quang thong, gia, cong suat). In cac dong khop va so dong."""
+    rows = list(csv.DictReader(open(csv_path, encoding="utf-8-sig")))
+    q = value.strip()
+    digits = re.sub(r"[.,\s]", "", q)
+    hits = []
+    for r in rows:
+        if digits.isdigit():
+            vals = [re.sub(r"[.,\s]", "", r.get(k) or "") for k in ("lm", "price", "regular_price")]
+            if digits in vals or re.fullmatch(digits + r"W?", re.sub(r"\s", "", r.get("w") or "")):
+                hits.append(r)
+        elif q.lower() in r["name"].lower():
+            hits.append(r)
+    keys = [k for k in ("name", "w", "lm", "pf", "ra", "price") if k in (rows[0] if rows else {})]
+    print("Tra \"%s\" trong %s: %d dòng khớp" % (q, os.path.basename(csv_path), len(hits)))
+    for r in hits:
+        print("- " + " | ".join("%s=%s" % (k, r.get(k, "")) for k in keys))
+
+
+def ghi_da_kiem(article, n_err):
+    """Ghi lai lan chay tren noi dung nay, de phieu_duyet.py ghi biet da kiem tra co hoc dung ban dang cham."""
+    try:
+        with open(DA_KIEM, encoding="utf-8") as f:
+            state = json.load(f)
+    except (OSError, ValueError):
+        state = {}
+    with open(article, "rb") as f:
+        sha = hashlib.sha256(f.read()).hexdigest()
+    state[os.path.basename(article)] = {"sha256": sha, "loi": n_err,
+                                        "luc": datetime.datetime.now().isoformat(timespec="seconds")}
+    os.makedirs(os.path.dirname(DA_KIEM), exist_ok=True)
+    with open(DA_KIEM, "w", encoding="utf-8") as f:
+        json.dump(state, f, ensure_ascii=False, indent=1)
+
+
 # ---------- Chay ----------
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
-    ap.add_argument("article")
+    ap.add_argument("article", nargs="?")
     ap.add_argument("--csv", help="file CSV san pham (mac dinh: file du_lieu_san_pham_*.csv moi nhat)")
+    ap.add_argument("--gon", action="store_true", help="chi in LOI, CANH BAO va dong tom tat")
+    ap.add_argument("--tra", help="tra CSV theo ma model hoac so")
+    ap.add_argument("--cap-nhat-quy-tac", action="store_true")
     args = ap.parse_args()
+    if args.cap_nhat_quy_tac:
+        return cap_nhat_quy_tac()
+    if args.tra:
+        csv_path = args.csv or tim_csv(ROOT)
+        if not csv_path:
+            sys.exit("Không thấy file CSV sản phẩm")
+        return tra(args.tra, csv_path)
+    if not args.article:
+        ap.error("cần file bài")
 
     sections = parse(args.article)
     missing = [k for k in "AB" if k not in sections]
@@ -508,24 +638,29 @@ def main():
     check_images(rep, b, (seo.get("Slug", (None, ""))[1] or " ").split(" ")[0])
     check_seo(rep, seo, b)
     check_faq(rep, b)
+    check_quick_answer(rep, b)
     check_price_note(rep, b)
     check_placeholders(rep, b, c)
+    check_quy_tac(rep)
 
-    csv_path = args.csv
-    if not csv_path:
-        found = sorted(glob.glob(os.path.join(os.path.dirname(os.path.abspath(args.article)), "du_lieu_san_pham_*.csv")))
-        csv_path = found[-1] if found else None
+    csv_path = args.csv or tim_csv(os.path.dirname(os.path.abspath(args.article)))
     if csv_path:
         check_against_csv(rep, b, load_csv(csv_path), os.path.basename(csv_path))
     else:
         rep.info(None, "Không tìm thấy file CSV sản phẩm, bỏ qua đối chiếu thông số và giá")
 
+    n_err, n_warn = len(rep.items["LỖI"]), len(rep.items["CẢNH BÁO"])
+    ghi_da_kiem(args.article, n_err)
     print("KIỂM TRA CƠ HỌC: %s" % args.article)
     for level, items in rep.items.items():
+        if args.gon and level == "THÔNG TIN":
+            print("\n" + "Thông tin: " + "; ".join(m for _, m in items))
+            continue
+        if args.gon and not items:
+            continue
         print("\n## %s (%d)" % (level, len(items)))
         for line, msg in sorted(items, key=lambda x: x[0] or 0):
             print("- %s%s" % ("[dòng %d] " % line if line else "", msg))
-    n_err, n_warn = len(rep.items["LỖI"]), len(rep.items["CẢNH BÁO"])
     print("\nTổng: %d lỗi, %d cảnh báo. %s" % (
         n_err, n_warn, "Sửa hết LỖI trước khi đăng bản nháp." if n_err else "Không có lỗi cơ học."))
     sys.exit(1 if n_err else 0)

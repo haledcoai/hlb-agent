@@ -6,6 +6,8 @@ Cach dung:
       --van-de "tra-loi-nhanh-qua-dai|nen_sua|intent|Doan tra loi nhanh 66 tu"
   python tools/phieu_duyet.py bac-bo <file_bai.md> --vong 1 --nhan <nhan> --ly-do "..."
   python tools/phieu_duyet.py nhan        # cac nhan van de da dung, de dung lai cho thong nhat
+  python tools/phieu_duyet.py lan-truoc <file_bai.md>  # diem, van de lan cham gan nhat (goc cho che do kiem lai)
+  python tools/phieu_duyet.py khac <file_bai.md>       # muc H2 da sua va diff so voi ban luc ghi phieu
   python tools/phieu_duyet.py xuat        # nhat ky -> .danh_gia/xuat/{cham,van_de,bac_bo,tieu_chi}.json cho trang theo doi
   python tools/phieu_duyet.py xem <file_bai.md>
   python tools/phieu_duyet.py hook        # PreToolUse hook, doc JSON tu stdin
@@ -16,6 +18,8 @@ Cach dung:
 
 Phieu luu o .danh_gia/<ten_file>.json, kem ma SHA-256 cua file bai luc cham.
 Sua bai sau khi cham thi ma khong khop, phieu het hieu luc, phai cham lai.
+"ghi" chi chay khi tools/kiem_tra_bai.py da chay tren dung noi dung bai trong 2 gio gan nhat, va luu
+mot ban bai o .danh_gia/ban_cham/ de vong sau dung "khac" xem phan da sua (che do kiem lai).
 Bai DAT khi: khong con loi bat buoc va (diem + diem tru vi cho nguoi dung quyet) >= NGUONG.
 Hook chan "wp_draft.py ... --post" khi chua co phieu DAT khop noi dung hoac script kiem tra con LOI.
 Hook chan "phieu_duyet.py ghi" khi lenh khong do sub agent danh-gia-noi-dung chay (xem chi_agent_danh_gia_ghi).
@@ -27,10 +31,12 @@ Doi thang cham (tieu chi, diem, nguong) thi tang THANG_CHAM de diem cu va moi kh
 """
 import argparse
 import datetime
+import difflib
 import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -45,6 +51,10 @@ PHIEU_DIR = os.path.join(ROOT, ".danh_gia")
 CAN_CHAM = os.path.join(PHIEU_DIR, "_can_cham.json")
 NHAT_KY = os.path.join(PHIEU_DIR, "nhat_ky.jsonl")
 DANG_CHAM = os.path.join(PHIEU_DIR, "_dang_cham.json")
+DA_KIEM = os.path.join(PHIEU_DIR, "_da_kiem.json")  # kiem_tra_bai.py ghi sau moi lan chay
+BAN_CHAM = os.path.join(PHIEU_DIR, "ban_cham")  # ban bai luc ghi phieu, de "khac" in phan da sua
+HAN_DA_KIEM = 2 * 3600  # giay; kiem tra co hoc phai chay tren dung noi dung nay trong khoang nay
+CHE_DO = ("du", "kiem-lai")
 
 # Tieu chi cua thang cham trong .claude/agents/danh-gia-noi-dung.md: ma -> (ten, diem toi da)
 TIEU_CHI = {
@@ -110,9 +120,28 @@ def doc_van_de(items):
     return out
 
 
+def da_kiem_co_hoc(article):
+    """kiem_tra_bai.py da chay tren dung noi dung file nay, gan day, khong con LOI."""
+    try:
+        with open(DA_KIEM, encoding="utf-8") as f:
+            d = json.load(f).get(os.path.basename(article)) or {}
+        luc = datetime.datetime.fromisoformat(d["luc"])
+    except (OSError, ValueError, KeyError):
+        return "chưa chạy tools/kiem_tra_bai.py trên bài này"
+    if d.get("sha256") != sha256(article):
+        return "bài đã sửa sau lần chạy tools/kiem_tra_bai.py gần nhất"
+    if (datetime.datetime.now() - luc).total_seconds() > HAN_DA_KIEM:
+        return "lần chạy tools/kiem_tra_bai.py gần nhất đã quá 2 giờ"
+    return None
+
+
 def ghi(args):
     if not os.path.isfile(args.article):
         sys.exit("Không thấy file bài: %s" % args.article)
+    ly_do = da_kiem_co_hoc(args.article)
+    if ly_do:
+        sys.exit("Chưa ghi phiếu: %s. Chạy python tools/kiem_tra_bai.py %s --gon rồi chấm lại."
+                 % (ly_do, os.path.basename(args.article)))
     tieu_chi = doc_tieu_chi(args.tieu_chi)
     van_de = doc_van_de(args.van_de)
     diem_tinh = min(100, args.diem + args.diem_cho)
@@ -127,9 +156,11 @@ def ghi(args):
         "nguong": NGUONG,
         "ket_luan": "DAT" if dat else "CAN_SUA",
         "vong": args.vong,
+        "che_do": args.che_do,
         "thoi_gian": datetime.datetime.now().isoformat(timespec="seconds"),
     }
-    os.makedirs(PHIEU_DIR, exist_ok=True)
+    os.makedirs(BAN_CHAM, exist_ok=True)
+    shutil.copyfile(args.article, ban_cham_path(args.article))
     with open(phieu_path(args.article), "w", encoding="utf-8") as f:
         json.dump(phieu, f, ensure_ascii=False, indent=2)
     them_nhat_ky(dict(phieu, loai="cham", thang_cham=THANG_CHAM, tieu_chi=tieu_chi, van_de=van_de))
@@ -141,6 +172,72 @@ def ghi(args):
         print("Cảnh báo: tổng điểm tiêu chí %d khác --diem %d" % (sum(tieu_chi.values()), args.diem))
     if not tieu_chi:
         print("Cảnh báo: thiếu --tieu-chi, trang theo dõi sẽ không có điểm từng tiêu chí cho lần chấm này")
+
+
+def ban_cham_path(article):
+    return os.path.join(BAN_CHAM, os.path.basename(article))
+
+
+def khac(args):
+    """In phan bai da sua so voi ban luc ghi phieu gan nhat: cac muc H2 bi dong toi va diff."""
+    old_path = ban_cham_path(args.article)
+    if not os.path.isfile(old_path):
+        sys.exit("Chưa có bản lúc chấm của %s (phiếu ghi trước khi có lệnh này). Chấm đủ." % os.path.basename(args.article))
+    with open(old_path, encoding="utf-8") as f:
+        old = f.read().splitlines()
+    with open(args.article, encoding="utf-8") as f:
+        new = f.read().splitlines()
+
+    def muc(lines):
+        """So dong (0-based) -> ten muc: phan A/C, 'Mở bài' truoc H2 dau tien cua phan B, hoac ten H2."""
+        out, phan, cur = [], "", "?"
+        for line in lines:
+            m = re.match(r"^# ([ABC])\.", line)
+            if m:
+                phan = m.group(1)
+                cur = {"A": "Phần A", "B": "Mở bài", "C": "Phần C"}[phan]
+            elif phan == "B" and re.match(r"^## ", line):
+                cur = line[3:].strip()
+            out.append(cur)
+        return out
+
+    muc_moi, muc_cu = muc(new), muc(old)
+    h_cu = [l for l in old if re.match(r"^#{1,4} ", l)]
+    h_moi = [l for l in new if re.match(r"^#{1,4} ", l)]
+    sm = difflib.SequenceMatcher(None, old, new, autojunk=False)
+    cham, so_dong = [], 0
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == "equal":
+            continue
+        so_dong += max(i2 - i1, j2 - j1)
+        for name in muc_moi[j1:j2] or muc_cu[i1:i2]:
+            if name not in cham:
+                cham.append(name)
+    tong = max(len(new), 1)
+    print("So với bản lúc ghi phiếu gần nhất: %d dòng đổi / %d dòng (%d%%)" % (so_dong, tong, 100 * so_dong // tong))
+    print("Mục bị sửa: " + (", ".join(cham) if cham else "không có"))
+    if h_cu != h_moi:
+        print("CHÚ Ý: heading đã đổi, phải chấm đủ.")
+    if "Phần A" in cham:
+        print("CHÚ Ý: phần A đã đổi, kiểm tra lại title, meta, slug.")
+    print()
+    sys.stdout.writelines(difflib.unified_diff([l + "\n" for l in old], [l + "\n" for l in new],
+                                               "lúc chấm", "hiện tại", n=1))
+
+
+def lan_truoc(args):
+    """In diem va van de cua lan cham gan nhat cua bai, lam goc cho che do kiem lai."""
+    name = os.path.basename(args.article)
+    rows = [d for d in doc_nhat_ky() if d.get("loai") == "cham" and d.get("file") == name]
+    if not rows:
+        sys.exit("Chưa có lần chấm nào của %s" % name)
+    d = rows[-1]
+    print("Lần chấm gần nhất: %s, vòng %s, chế độ %s, điểm %s/100 (tính ngưỡng %s), %s"
+          % (d.get("thoi_gian"), d.get("vong"), d.get("che_do", "du"), d.get("diem"), d.get("diem_tinh"),
+             KET_LUAN.get(d.get("ket_luan"), d.get("ket_luan"))))
+    print("Tiêu chí: " + ", ".join("%s=%s/%d" % (k, (d.get("tieu_chi") or {}).get(k, "?"), TIEU_CHI[k][1]) for k in TIEU_CHI))
+    for v in d.get("van_de", []):
+        print("- [%s] %s (%s): %s" % (v["muc"], v["nhan"], v["tieu_chi"], v["mo_ta"]))
 
 
 def bac_bo(args):
@@ -423,6 +520,7 @@ def main():
     g.add_argument("--vong", type=int, default=1)
     g.add_argument("--tieu-chi", help="diem tung tieu chi: %s" % ",".join("%s=x" % k for k in TIEU_CHI))
     g.add_argument("--van-de", action="append", help="nhan|muc|tieu_chi|mo ta, lap lai cho moi van de")
+    g.add_argument("--che-do", choices=CHE_DO, default="du", help="du: cham ca bai; kiem-lai: chi kiem phan da sua")
     g.set_defaults(func=ghi)
     b = sub.add_parser("bac-bo", help="ghi nhan dinh sai cua agent danh gia")
     b.add_argument("article")
@@ -431,6 +529,12 @@ def main():
     b.add_argument("--ly-do", required=True)
     b.set_defaults(func=bac_bo)
     sub.add_parser("nhan", help="liet ke nhan van de da dung").set_defaults(func=nhan)
+    k = sub.add_parser("khac", help="phan bai da sua so voi ban luc ghi phieu gan nhat")
+    k.add_argument("article")
+    k.set_defaults(func=khac)
+    t = sub.add_parser("lan-truoc", help="diem va van de lan cham gan nhat")
+    t.add_argument("article")
+    t.set_defaults(func=lan_truoc)
     e = sub.add_parser("xuat", help="xuat nhat ky thanh file JSON cho trang theo doi")
     e.add_argument("--thu-muc", default=os.path.join(PHIEU_DIR, "xuat"))
     e.set_defaults(func=xuat)

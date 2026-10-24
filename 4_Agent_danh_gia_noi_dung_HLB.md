@@ -1,10 +1,10 @@
 # AGENT ĐÁNH GIÁ CHẤT LƯỢNG NỘI DUNG (HLB)
 
-Phiên bản: 22/10/2026, thang chấm v2. Dùng kèm `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge).
+Phiên bản: 24/10/2026, thang chấm v2. Dùng kèm `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge).
 
 File này gom mọi thứ cần giữ về agent đánh giá: vai trò, cách chấm, cách báo cáo, cách nối vào quy trình viết bài và những bài học sau các lần chấm đầu tiên. Dùng được ở hai nơi:
 - **Claude Code (thư mục dự án):** agent chạy từ `.claude/agents/danh-gia-noi-dung.md`, có script hỗ trợ ở `tools/`. Phần 9 mô tả phần này.
-- **Claude Project trên claude.ai:** không có sub agent hay script. Dán file này vào Knowledge, rồi nhắn "đánh giá bài theo file 4" cho một cuộc trò chuyện riêng, hoặc tạo một Project riêng chỉ để chấm. Phần 4 có danh sách kiểm tra cơ học để làm tay thay cho script.
+- **Claude Project trên claude.ai:** dùng file gọn `5_Agent_danh_gia_ban_claude_ai.md` (đã bỏ phần Claude Code, có hướng dẫn ở đầu file).
 
 ---
 
@@ -17,13 +17,14 @@ Agent đánh giá tách riêng với agent viết vì nó không biết agent vi
 ## 2. Nguồn quy tắc
 
 - Chuẩn duy nhất là Instructions và Knowledge. Không tự đặt thêm quy tắc. Hai file khác nhau thì theo Instructions.
+- Khi chấm, agent đọc `quy_tac_cham.md` (bản rút gọn khoảng 10 KB của hai file trên) thay cho hai file gốc khoảng 62 KB. `kiem_tra_bai.py` so mã nội dung hai file gốc với dòng "Mã nguồn" trong bản rút gọn; lệch thì cảnh báo và lần chấm đó đọc file gốc. Ai sửa Instructions hoặc Knowledge thì sửa luôn bản rút gọn nếu quy tắc chấm đổi, rồi chạy `python tools/kiem_tra_bai.py --cap-nhat-quy-tac`.
 - Phần Knowledge hay dùng khi chấm: mục 1 (thông tin HLB được phép dùng), mục 5 (câu cần thận trọng), mục 7 (thuật ngữ), mục 8 (quy tắc viết), mục 9 (SEO), mục 11 (checklist).
 - Dữ liệu sản phẩm: file `du_lieu_san_pham_HLB_*.csv` mới nhất.
 - Điểm đang chờ người dùng xác nhận: file `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`, mục 5.
 
 ## 3. Quy trình chấm
 
-1. **Kiểm tra cơ học:** chạy `python tools/kiem_tra_bai.py <file_bai.md>`, hoặc làm tay theo phần 4 khi không có script. Mỗi LỖI phải mở đúng dòng xác nhận lại. Báo nhầm thì ghi "bỏ qua, dương tính giả" kèm lý do.
+1. **Kiểm tra cơ học:** chạy `python tools/kiem_tra_bai.py <file_bai.md> --gon`, hoặc làm tay theo phần 4 khi không có script. Mỗi LỖI phải mở đúng dòng xác nhận lại. Báo nhầm thì ghi "bỏ qua, dương tính giả" kèm lý do.
 2. **Đọc toàn bài** một lượt như người đọc thật (chủ xưởng, nhà thầu), rồi đọc lại từng phần để chấm.
 3. **Đối chiếu dữ liệu:** mọi thông số, giá, bảo hành phải khớp CSV hoặc nguồn ở phần C.
    - Nghi vấn thì mở trang sản phẩm, hoặc API `https://denlednhaxuongcaocap.com/wp-json/wc/store/v1/products?slug=<slug>` (trường `prices.price`).
@@ -32,6 +33,8 @@ Agent đánh giá tách riêng với agent viết vì nó không biết agent vi
 4. **Tính lại mọi phép tính** bằng Python: N = (E x S) / (Φ x UF x MF), tổng công suất, W/m², phần trăm chênh lệch. Số đèn phải làm tròn lên.
 5. **Chấm điểm** theo phần 5, viết báo cáo theo phần 6.
 6. **Ghi phiếu duyệt** (chỉ ở Claude Code, kể cả khi bài chưa đạt). Xem phần 9.
+
+**Chế độ kiểm lại** (người dùng chốt 24/10/2026, thay "chấm phần" ngày 22/10): vòng 2, 3 sau lần chấm CẦN SỬA, và lần sửa theo góp ý người dùng của bài đã ĐẠT. Agent lấy vấn đề lần trước (`phieu_duyet.py lan-truoc`), phần đã sửa (`phieu_duyet.py khac`), kiểm từng vấn đề đã sửa đúng chưa, chỉ đọc kỹ mục bị sửa, đối chiếu số liệu mới, giữ điểm phần không đổi. Tự chuyển sang chấm đủ khi lần trước KHÔNG ĐẠT, heading hoặc phần A đổi, hoặc phần sửa quá 40% số dòng. Chi tiết ở `.claude/agents/danh-gia-noi-dung.md`.
 
 ## 4. Kiểm tra cơ học (script `kiem_tra_bai.py` làm tự động)
 
@@ -42,7 +45,7 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Có từ tuyệt đối: 100%, duy nhất, số 1, hoàn hảo, tốt nhất, rẻ nhất, hot nhất, hàng đầu, vượt trội, siêu sáng, đứng đầu.
 - Có cụm văn mẫu kiểu AI (Knowledge 8.4), ví dụ: "trong bài viết này", "ngày nay" đầu câu, "đóng vai trò quan trọng", "giải pháp tối ưu", "khám phá", "bí quyết", "tóm lại", "hy vọng bài viết", "đừng ngần ngại".
 - Có câu quảng cáo chưa kiểm chứng (Knowledge mục 5): tiết kiệm 70% điện, làm mát 30%, không chiếu sáng quá 10 tiếng, đổi trả "trong vòng tuần", Graphene/TCPlus khi không ghi "theo công bố".
-- Sai vai trò thương hiệu: "HLB sản xuất", "nhà máy của chúng tôi", "chúng tôi sản xuất", "dòng cao cấp do HALEDCO sản xuất", gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
+- Sai vai trò thương hiệu: "HLB sản xuất", "HLB lắp ráp", "HLB là nhà sản xuất", "nhà máy, xưởng của chúng tôi", "chúng tôi sản xuất, lắp ráp", "dòng cao cấp do HALEDCO sản xuất", gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
 - Số điện thoại ngoài 2 hotline đã xác nhận: 0967569588 và 02437 918 122.
 - Link tới haledco.com, website hãng đèn (philips, signify, rangdong, dienquang) hoặc cửa hàng (shopee, lazada, tiki, sendo). Anchor kiểu "tại đây", "xem thêm". Một URL link 2 lần. Hai URL khác nhau dùng chung anchor.
 - Link nội bộ (không tính trang Liên hệ ở CTA) ngoài khoảng 3-5. Link về trang danh mục ngoài khoảng 1-3. Link ngoài quá 3.
@@ -144,17 +147,19 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 | Thành phần | Vai trò |
 |---|---|
 | `.claude/agents/danh-gia-noi-dung.md` | Định nghĩa sub agent (công cụ: Read, Grep, Glob, PowerShell, Bash, WebFetch) |
-| `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4. Thoát mã 1 khi còn LỖI |
-| `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, và là các hook |
+| `quy_tac_cham.md` | Bản rút gọn quy tắc chấm, có dòng "Mã nguồn" để phát hiện lệch với file gốc |
+| `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4, kiểm đoạn trả lời nhanh 40-60 từ. `--gon` in gọn, `--tra` tra và đếm trên CSV, `--cap-nhat-quy-tac`. Thoát mã 1 khi còn LỖI |
+| `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, các hook. `lan-truoc`, `khac` cho chế độ kiểm lại |
 | `.claude/settings.json` | Cho phép lệnh `phieu_duyet.py ghi`, `nhan` chạy không hỏi. 5 hook: chặn đăng khi chưa có phiếu ĐẠT và chặn ghi phiếu khi không phải agent đánh giá; đánh dấu đang chấm khi gọi agent đánh giá; bỏ đánh dấu khi sub agent kết thúc; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt (bỏ qua khi đang có lượt chấm) |
 | `CLAUDE.md` | Vòng duyệt tự động ở phần 8, cách cập nhật trang theo dõi |
-| `.danh_gia/` | Phiếu từng bài (`<bài>.json`, có mã SHA-256 nội dung lúc chấm), nhật ký `nhat_ky.jsonl`, dữ liệu xuất `xuat/` |
+| `.danh_gia/` | Phiếu từng bài (`<bài>.json`, có mã SHA-256 nội dung lúc chấm), bản bài lúc chấm `ban_cham/`, nhật ký `nhat_ky.jsonl`, dữ liệu xuất `xuat/` |
 
 **Phiếu duyệt:** agent đánh giá ghi phiếu bằng lệnh dưới đây:
 
-`python tools/phieu_duyet.py ghi <bài> --diem <x> --diem-cho <y> --loi-bat-buoc <n> --vong <v> --tieu-chi "intent=..,du_lieu=..,eeat=..,thuong_hieu=..,giong_van=..,cau_truc=.." --van-de "<nhãn>|<bat_buoc|nen_sua|cho_nguoi_dung>|<mã tiêu chí>|<mô tả>"`
+`python tools/phieu_duyet.py ghi <bài> --che-do <du|kiem-lai> --diem <x> --diem-cho <y> --loi-bat-buoc <n> --vong <v> --tieu-chi "intent=..,du_lieu=..,eeat=..,thuong_hieu=..,giong_van=..,cau_truc=.." --van-de "<nhãn>|<bat_buoc|nen_sua|cho_nguoi_dung>|<mã tiêu chí>|<mô tả>"`
 
 - Phiếu gắn với mã nội dung bài: sửa bài sau khi chấm thì phiếu hết hiệu lực, phải chấm lại.
+- Lệnh `ghi` chỉ chạy khi `kiem_tra_bai.py` đã chạy trên đúng nội dung bài trong 2 giờ gần nhất (thêm 24/10/2026, sau hai phiếu ngày 23/10 ghi cách nhau 32 giây mà không có dấu hiệu chấm lại).
 - Hook chặn `wp_draft.py --post` khi không có phiếu ĐẠT khớp nội dung, hoặc script kiểm tra còn lỗi.
 - Agent viết **không** được tự chạy lệnh `ghi`. Muốn đăng khi chưa đạt thì người dùng tự chạy lệnh trong terminal.
 
@@ -215,14 +220,15 @@ Lần chấm 98/100 sau đó không được ghi phiếu (bị chặn), và bả
 
 1. **Lệnh ghi phiếu bị chặn:** đã xử lý (23/10/2026). `.claude/settings.json` cho phép đúng lệnh `phieu_duyet.py ghi`, đồng thời hook chỉ cho agent đánh giá (hoặc agent `general-purpose` đang chấm thay theo CLAUDE.md) chạy lệnh này.
 2. **Hook nhắc chấm lại khi đang chấm nền:** đã xử lý (23/10/2026). Gọi agent đánh giá thì hook đánh dấu "đang chấm", Stop hook không nhắc cho tới khi sub agent kết thúc hoặc quá 30 phút.
-3. **Tiêu chí nên bổ sung:**
+3. **Rút gọn để chạy nhanh, ít token:** đã xử lý (24/10/2026): bản quy tắc rút gọn, chế độ kiểm lại cho vòng 2-3, script đếm và tra CSV, in gọn. Sửa luôn mẫu vai trò thương hiệu theo câu chuẩn 23/10 (trước đó script sót 6/8 câu sai trong bài thử) và bỏ cảnh báo giá cho đơn giá theo m², kWh.
+4. **Tiêu chí nên bổ sung:**
    - so với bài top SERP
    - chất lượng ảnh: khớp đoạn văn, alt, kích thước
    - khả năng được AI trích dẫn: đoạn trả lời nhanh và FAQ đứng riêng vẫn hiểu
    - độ mới của giá và thông số
 
    Thêm khi đã có khoảng 5-10 bài trong nhật ký. Mỗi lần đổi thì tăng phiên bản thang chấm.
-4. **Câu hỏi chờ người dùng cho bài "cách chọn đèn":**
+5. **Câu hỏi chờ người dùng cho bài "cách chọn đèn":**
    - đổi H2 kết bài để chứa từ khóa chính?
    - hệ số MF trong ví dụ: 0,8 hay thấp hơn?
    - phần xưởng bụi: gợi ý đèn IP65/IP66 của hãng khác hay để trung lập?
