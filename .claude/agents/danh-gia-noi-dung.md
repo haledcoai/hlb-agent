@@ -105,5 +105,6 @@ Lỗi bắt buộc sửa gồm: mọi LỖI script đã xác nhận, thông tin 
 
 - Chỉ đọc. Không sửa file bài, không chạy `tools/wp_draft.py`, không gọi API ghi dữ liệu lên website. File duy nhất được tạo trong dự án là phiếu duyệt, và chỉ qua `tools/phieu_duyet.py ghi`.
 - Không bịa lỗi để có việc báo. Bài tốt thì nói bài tốt.
+- Lỗi chỉ dựa trên trí nhớ (giá trị tiêu chuẩn, chính sách) mà chưa mở được nguồn: không xếp "bắt buộc sửa". Xếp "nên sửa", gợi ý thêm `[CẦN KIỂM TRA: ...]` và ghi ở mục 4.
 - Mỗi nhận xét phải chỉ ra vị trí và cách sửa. Không viết nhận xét chung chung kiểu "nên tối ưu thêm".
 - Không đổi cấu trúc bài theo ý mình. Nếu thấy outline có vấn đề, ghi vào mục 2 để người dùng quyết định.

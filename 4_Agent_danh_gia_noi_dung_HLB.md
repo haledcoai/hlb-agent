@@ -212,6 +212,8 @@ Lần chấm 98/100 sau đó không được ghi phiếu (bị chặn), và bả
 - Gợi ý đổi đèn giả định sang 15.000 lm để "tránh trùng hãng khác", nhưng con số này vẫn trùng Rạng Đông BD HB02L 430/150W. Bài học: kiểm tra số mới trên CSV trước khi gợi ý.
 - Gợi ý câu bảo hành có cụm "do nhà sản xuất", lần chấm sau lại chấm chính cụm đó là thêm điều kiện không có trong Knowledge. Bài học: câu thay thế phải bám nguyên văn nguồn.
 
+- Lần chấm 24/10 bài 200m2 xếp "bắt buộc sửa" mức 300 lux văn phòng theo QCVN 22:2016/BYT, dựa trên trí nhớ, khi không mở được bản tiêu chuẩn. Bài học: chưa mở được nguồn thì chỉ xếp "nên sửa" kèm `[CẦN KIỂM TRA]`.
+
 **Lưu ý khác**
 - Agent đánh giá đôi khi chỉ ra đúng chỗ placeholder đã có đáp án trên website (ví dụ tùy chọn chip, driver của BUFO4-150). Nên cho agent mở trang kiểm tra.
 - Agent không xem SERP, nên không kiểm chứng được "góc khác biệt so với bài top". Nên truyền kết quả nghiên cứu SERP ở Bước 1 vào cho agent.
