@@ -1,6 +1,6 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
-Phiên bản: 24/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng.
+Phiên bản: 24/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
 Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 56d9f88a19ba; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 42dacec854c4
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
@@ -20,7 +20,7 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 - Mốc: HALEDCO sản xuất đèn LED từ 2011; HLB phân phối đèn LED nhà xưởng từ 2018. Không cộng gộp, không tự tính "X năm kinh nghiệm".
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
 - Liên hệ: hotline bán hàng, Zalo 0967569588 (dùng trong bài, CTA); kỹ thuật, bảo hành 02437 918 122 (phần bảo hành, sự cố); email denlednhaxuongcaocap@gmail.com. Số khác là lỗi.
-- Bảo hành dòng cao cấp HLB phân phối: 2 năm, linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Không thêm điều kiện ngoài câu này (ví dụ "lỗi do nhà sản xuất").
+- Bảo hành dòng cao cấp HLB phân phối: 2 năm, linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
 - Rạng Đông, Điện Quang: 24 tháng theo chính sách hãng. Philips: theo từng model trên signify.com, **không viết chung 24 tháng**.
 - Đổi trả theo nhu cầu: phí 10% giá trị hàng. Thời hạn đổi trả, điều kiện 15 ngày, phí khi lỗi sản phẩm: đang chờ xác nhận, bài phải để `[CHỜ XÁC NHẬN]` hoặc không nêu.
 - Giao hàng toàn quốc, không nêu số ngày. Miễn phí khi đơn trên 5 triệu đồng trong bán kính 10 km (điểm tính đang chờ xác nhận).
