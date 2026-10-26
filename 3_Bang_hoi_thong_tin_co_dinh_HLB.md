@@ -55,7 +55,7 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 | B8 DX-30, B8 DX-50 (lowbay) | 70 lm/W, PF 0,7, Ra 70, IP40, góc 120 độ, 35.000 giờ | |
 | B1, B2, B3, B5, B11 (trừ 300W), B4 (trừ 120W) | **Bảng thông số trống** công suất, quang thông, Ra, góc, tuổi thọ | 47 model, xem 4.3 |
 
-Danh sách đầy đủ từng model: [du_lieu_san_pham_HLB_21-10-2026.csv](du_lieu_san_pham_HLB_21-10-2026.csv)
+Danh sách đầy đủ từng model: file `du_lieu_san_pham_HLB_*.csv` mới nhất (26/10/2026: các model này thật ra có thông số, cách đọc cũ bỏ sót)
 
 ### 4.2 Câu hỏi về dòng cao cấp
 

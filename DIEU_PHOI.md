@@ -67,6 +67,8 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 
 ### 3a. Bài vừa ĐẠT: bắt buộc làm đủ trước khi chuyển `cho_duyet_bai`
 
+Bài ĐẠT mà phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng chốt 26/10/2026): không đăng nháp (hook cũng chặn). Vẫn làm bước 3, 4 dưới đây để người dùng đọc bài, rồi chuyển `can_xu_ly` với `ly_do` liệt kê từng dữ liệu cần bổ sung (đánh số), `quay_ve: "sua_bai"`.
+
 Người dùng đã giao (22/10/2026): bài ĐẠT thì tự cập nhật bản nháp và hiện bài lên bảng, không hỏi lại.
 
 1. `wp_draft.py` xem trước, rồi `--post` (bài mới) hoặc `--post --draft-id <draft_id>` (bài đã có bản nháp).
@@ -80,7 +82,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 ## 4. Mỗi lượt chạy
 
-1. Kiểm tra môi trường, không in giá trị mật khẩu: có biến `WP_USER` và `WP_APP_PASSWORD` không; `https://denlednhaxuongcaocap.com/wp-json/` trả về 200 không; repo push được không. Ghi `cau_hinh/chung.lan_chay_cuoi` (giờ ISO) và `cau_hinh/chung.moi_truong` (một câu, ví dụ "Đủ mật khẩu, website kết nối được, repo push được" hoặc nói rõ phần nào thiếu). Thiếu mật khẩu hoặc không vào được website thì chỉ làm các việc không cần đăng bản nháp (nghiên cứu, outline), các bước cần đăng chuyển `can_xu_ly` với lý do.
+1. Kiểm tra môi trường, không in giá trị mật khẩu: có biến `WP_USER` và `WP_APP_PASSWORD` không; `https://denlednhaxuongcaocap.com/wp-json/` trả về 200 không; repo push được không. Ghi `cau_hinh/chung.lan_chay_cuoi` (giờ ISO) và `cau_hinh/chung.moi_truong` (một câu, ví dụ "Đủ mật khẩu, website kết nối được, repo push được" hoặc nói rõ phần nào thiếu). Thiếu mật khẩu hoặc không vào được website thì chỉ làm các việc không cần đăng bản nháp (nghiên cứu, outline), các bước cần đăng chuyển `can_xu_ly` với lý do. **Làm mới dữ liệu sản phẩm** (26/10/2026): file `du_lieu_san_pham_HLB_*.csv` mới nhất cũ hơn 1 ngày thì chạy `python tools/lam_moi_csv.py` (khoảng 2 phút), commit file mới. Thay đổi giá, thông số in ra mà đụng tới model trong bài đã viết (`grep` tên model trong `Bai_*.md`) thì ghi vào `tien_do` của từ khóa đó để lần sửa bài sau cập nhật.
 2. **Làm tiếp việc dở trước** (người dùng chốt 23/10/2026: lượt trước dừng giữa chừng, ví dụ hết hạn mức token, thì lượt sau phải tự làm tiếp, không chờ người dùng nhắc). `list` collection `tu_khoa`, rồi:
    - Từ khóa ở `dang_*` có `khoa_luc` quá 1 giờ: lượt trước bị ngắt. Đưa về trạng thái chờ tương ứng (`dang_nghien_cuu` về `moi` hoặc `sua_outline`, `dang_viet` về `cho_viet` hoặc `sua_bai`, `dang_tao_anh` về `cho_tao_anh`, `dang_hoan_thien` về `cho_hoan_thien`), ghi lịch sử "Lượt trước bị ngắt, làm tiếp từ <tien_do>".
    - Kiểm tra theo file trên repo, không làm lại phần đã xong: bài đã có file và phiếu ĐẠT khớp nội dung thì không viết, không chấm lại; `cho_duyet_bai` chưa có `nhap_khop` thì đẩy nháp (mục 3a); `cho_tao_anh` thì chạy `python tools/tao_anh.py kiem <file_bai>` và chỉ gọi `tao-anh` cho ảnh còn thiếu; ảnh đã có trong `anh/<bài>/` mà chưa có dòng trong collection `anh` thì đưa lên bảng ngay.
