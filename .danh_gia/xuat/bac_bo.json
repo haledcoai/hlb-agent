@@ -22,5 +22,13 @@
   "nhan": "bao-hanh-ap-chung",
   "ly_do": "Goi y sua o lan cham L001 (thang v1) viet 'loi chip LED va driver do nha san xuat'; lan cham v2 vong 1 cham la them dieu kien khong co trong Knowledge 1.1 (bao-hanh-them-dieu-kien)",
   "ngay": "2026-10-21"
+ },
+ {
+  "ma": "B014",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "nhan": "gia-tri-tieu-chuan-chua-khop",
+  "ly_do": "QCVN 22:2016/BYT muc 2.22 (atld.vn/law/473/content, mo 26/10/2026): phong lam viec chung 300 lux; phong danh may, xu ly du lieu 500 lux. Cau 300 lux cho phong lam viec chung la dung; da them dong 500 lux cho ro.",
+  "ngay": "2026-10-26"
  }
 ]
