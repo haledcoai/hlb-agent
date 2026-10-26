@@ -145,17 +145,17 @@ Chip LED hiếm khi là bộ phận hỏng đầu tiên. Đèn nhà xưởng h�
 Giả định: nhà xưởng cơ khí kích thước 30 m x 40 m, trần cao 9 m, giả sử cần độ rọi trung bình 300 lux trên toàn mặt bằng.
 
 1. Theo bảng ở bước 2, trần 9 m chọn đèn khoảng 150W, góc chiếu 60-90 độ. Chọn đèn BUFO4-150, quang thông công bố 19.500 lm.
-2. Giả định hệ số sử dụng UF = 0,6 (tỷ lệ ánh sáng của đèn thực sự rơi xuống mặt làm việc), hệ số duy trì MF = 0,8 (phần ánh sáng còn lại sau thời gian sử dụng và bám bụi), áp cho xưởng cơ khí bụi mức trung bình.
-3. Số đèn: N = (300 x 1.200) / (19.500 x 0,6 x 0,8) = 360.000 / 9.360 = 38,46
-4. Làm tròn lên: 39 đèn.
-5. Bố trí theo lưới đều: 5 hàng x 8 đèn = 40 đèn, khoảng cách khoảng 6 m theo chiều rộng và 5 m theo chiều dài.
-6. Tổng công suất: 40 x 150W = 6.000W, tương đương 5 W/m².
+2. Giả định hệ số sử dụng UF = 0,8 (tỷ lệ ánh sáng của đèn thực sự rơi xuống mặt làm việc), hệ số duy trì MF = 0,8 (phần ánh sáng còn lại sau thời gian sử dụng và bám bụi), áp cho xưởng cơ khí bụi mức trung bình.
+3. Số đèn: N = (300 x 1.200) / (19.500 x 0,8 x 0,8) = 360.000 / 12.480 = 28,85
+4. Làm tròn lên: 29 đèn.
+5. Bố trí theo lưới đều: 5 hàng x 6 đèn = 30 đèn, khoảng cách khoảng 6 m theo chiều rộng và 6,7 m theo chiều dài.
+6. Tổng công suất: 30 x 150W = 4.500W, tương đương 3,75 W/m².
 
-Nếu dùng đèn 150W hiệu suất 100 lm/W (quang thông ước tính 15.000 lm) cho cùng xưởng, số đèn tính ra là 360.000 / 7.200 = 50 đèn, nhiều hơn 11 bộ so với 39 đèn tính ra ở trên.
+Nếu dùng đèn 150W hiệu suất 100 lm/W (quang thông ước tính 15.000 lm) cho cùng xưởng, số đèn tính ra là 360.000 / 9.600 = 37,5, làm tròn lên 38 đèn, nhiều hơn 9 bộ so với 29 đèn tính ra ở trên.
 
 Kết quả trên chỉ để ước lượng ban đầu. Số lượng và vị trí đèn chính xác cần tính bằng phần mềm mô phỏng như DIALux theo mặt bằng, màu tường trần và vị trí máy móc thực tế.
 
-[ẢNH: Sơ đồ bố trí lưới 5 hàng x 8 đèn cho nhà xưởng 30 x 40 m | alt: Sơ đồ bố trí 40 đèn LED nhà xưởng cho mặt bằng 1.200 m² | tên file: so-do-bo-tri-den-nha-xuong-1200m2.jpg]
+[ẢNH: Sơ đồ bố trí lưới 5 hàng x 6 đèn cho nhà xưởng 30 x 40 m | alt: Sơ đồ bố trí 30 đèn LED nhà xưởng cho mặt bằng 1.200 m² | tên file: so-do-bo-tri-den-nha-xuong-1200m2.jpg]
 
 ## 5 lỗi hay gặp khi chọn đèn LED nhà xưởng
 
@@ -185,7 +185,7 @@ Nên cân nhắc nếu xưởng không có sẵn xe nâng người hoặc giàn 
 
 Chỉ dùng được ở vị trí có mái che kín, không bị mưa tạt trực tiếp. IP54 chịu được nước bắn tóe nhưng không chịu được tia nước và mưa hắt liên tục. Mái hiên, cửa xuất hàng hở hoặc khu rửa xe nên chọn đèn từ IP65 trở lên.
 
-## Nên chọn đèn LED nhà xưởng nào cho từng trường hợp
+## Cách chọn đèn LED nhà xưởng cho từng trường hợp
 
 Với đa số xưởng khô, mặt bằng rộng, đèn UFO IP54 chọn theo bảng chiều cao ở bước 2 là phương án gọn và tiết kiệm nhất. Xưởng bụi, ẩm hoặc có rửa sàn nên chốt cấp bảo vệ IP65, IP66 trước rồi mới so giá. Xưởng nóng nên chọn đèn công bố rõ dải nhiệt độ làm việc và tránh treo trên nguồn nhiệt. Kho kệ cao lối đi hẹp nên cân nhắc đèn dạng dài treo dọc lối đi.
 
@@ -230,7 +230,7 @@ Gửi kích thước nhà xưởng, chiều cao lắp và độ rọi mong muố
 
 1. Toàn cảnh nhà xưởng đã lắp đèn UFO (ưu tiên ảnh công trình thật của HLB, cần bạn cung cấp; câu hỏi 6 chưa trả lời).
 2. Bảng minh họa cách đọc cấp bảo vệ IP (thiết kế mới).
-3. Sơ đồ bố trí lưới 5 x 8 đèn cho mặt bằng 30 x 40 m (thiết kế mới, có thể xuất từ DIALux).
+3. Sơ đồ bố trí lưới 5 x 6 đèn cho mặt bằng 30 x 40 m (thiết kế mới, có thể xuất từ DIALux).
 
 ## 5. Schema
 
@@ -243,7 +243,7 @@ Article cho toàn bài, FAQPage cho 4 câu hỏi thường gặp.
 
 ## 7. Điểm cần bạn quyết định
 
-- Các H2 theo outline đã chốt chứa cụm "chọn đèn LED nhà xưởng" (H2 "5 lỗi hay gặp..." và H2 kết bài) nhưng không có nguyên cụm "cách chọn đèn LED nhà xưởng". Nếu muốn khớp hoàn toàn, có thể đổi H2 kết bài thành "Cách chọn đèn LED nhà xưởng cho từng trường hợp".
+- H2 kết bài đã đổi thành "Cách chọn đèn LED nhà xưởng cho từng trường hợp" theo đồng ý của người dùng 26/10/2026. Ví dụ tính dùng UF = 0,8, MF = 0,8 theo mức người dùng chốt 26/10/2026; sơ đồ bố trí đã vẽ lại thành 5 x 6 = 30 đèn.
 - Phần B dài khoảng 3.050 từ (tính cả placeholder và ghi chú ảnh), cao hơn mức dự kiến 2.200-2.600 từ. Phần dài nhất là bước 5 (4 môi trường), đây cũng là góc khác biệt của bài.
 - Slug giữ nguyên `chon-den-led-cho-nha-xuong` để không mất URL cũ, dù không chứa đủ từ khóa chính "cách chọn".
 - Khi đăng, xóa các mục cũ đã bỏ khỏi bài (giá qua mạng xã hội, đơn vị uy tín, đèn phòng sạch, hãng nào tốt) và đặt chuyển hướng nếu có anchor nội bộ trỏ vào các mục đó.

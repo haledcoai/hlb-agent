@@ -226,5 +226,24 @@
   "thuong_hieu": 15,
   "giong_van": 15,
   "cau_truc": 14
+ },
+ {
+  "ma": "L017",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ngay": "2026-10-26",
+  "thang_cham": "v2",
+  "nguong": 95,
+  "diem": 99,
+  "diem_tinh": 99,
+  "loi_bat_buoc": 0,
+  "ket_luan": "DAT",
+  "ket_luan_ten": "Đạt",
+  "intent": 15,
+  "du_lieu": 25,
+  "eeat": 15,
+  "thuong_hieu": 15,
+  "giong_van": 14,
+  "cau_truc": 15
  }
 ]
