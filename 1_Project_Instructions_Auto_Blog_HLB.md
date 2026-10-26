@@ -154,6 +154,7 @@ Không đọc được nguồn nào thì hỏi người dùng, không viết the
 ### Quy tắc dữ liệu
 - Không suy ra thông số từ thông số khác rồi trình bày như thông số công bố (ví dụ lấy công suất nhân hiệu suất ra quang thông của một model). Được ước tính trong ví dụ tính toán nếu ghi rõ "ước tính" (file Knowledge, mục 8.2).
 - **Giá:** chỉ dùng giá đang niêm yết trên trang sản phẩm, ghi kèm "giá tham khảo tại thời điểm [ngày kiểm tra]" và nhắc giá thay đổi theo số lượng và thời điểm. Không tự đưa chiết khấu, giá đại lý, giá dự án.
+- **Thương hiệu khác (Philips, Rạng Đông, Điện Quang, người dùng chốt 26/10/2026):** thông số được ghi theo số hãng công bố (website chính thức của hãng), ghi nguồn. Giá ghi dạng **khoảng giá tham khảo trên thị trường**, vì sản phẩm này có nhiều đơn vị cùng phân phối: dựa trên giá niêm yết trên website và giá hãng hoặc nhà phân phối khác công bố, ghi nguồn và ngày ở phần C, không đặt link tới các trang đó. Dòng đèn cao cấp HLB phân phối: giá và thông số đúng trang sản phẩm trên website.
 - Kiến thức chung của ngành (công thức tính, cách đọc chỉ số IP) được viết từ hiểu biết chuyên môn. Nêu tên tiêu chuẩn cụ thể (TCVN, QCVN, IEC) phải ghi đúng mã số, không chắc thì đánh dấu `[CẦN KIỂM TRA: ...]`.
 - Thông tin về HLB chỉ dùng những gì có trong file Knowledge mục 1 hoặc đang đăng trên website và đã mở kiểm tra.
 - Chỉ nói "đã xác minh" khi đã kiểm tra bằng công cụ.

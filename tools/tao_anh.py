@@ -152,7 +152,8 @@ def doc_csv():
     """(ten san pham, url, ma model) tu file du_lieu_san_pham_*.csv moi nhat."""
     import csv
     import glob
-    found = sorted(glob.glob(os.path.join(ROOT, "du_lieu_san_pham_*.csv")))
+    # sap theo ngay trong ten file (dd-mm-yyyy), sap theo chu thi 01-11 dung truoc 21-10
+    found = sorted(glob.glob(os.path.join(ROOT, "du_lieu_san_pham_*.csv")), key=lambda f: re.findall(r"(\d{2})-(\d{2})-(\d{4})", f)[-1][::-1] if re.findall(r"(\d{2})-(\d{2})-(\d{4})", f) else ())
     if not found:
         return []
     with open(found[-1], encoding="utf-8-sig") as f:

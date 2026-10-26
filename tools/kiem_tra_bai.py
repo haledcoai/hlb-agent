@@ -3,7 +3,7 @@
 Cach dung:
   python tools/kiem_tra_bai.py <file_bai.md>
   python tools/kiem_tra_bai.py <file_bai.md> --gon      # chi in LOI, CANH BAO va mot dong tom tat (agent danh gia dung)
-  python tools/kiem_tra_bai.py <file_bai.md> --csv du_lieu_san_pham_HLB_21-10-2026.csv
+  python tools/kiem_tra_bai.py <file_bai.md> --csv du_lieu_san_pham_HLB_26-10-2026.csv
   python tools/kiem_tra_bai.py --tra 16.500             # tra CSV: model, quang thong, gia, cong suat; dem so dong khop
   python tools/kiem_tra_bai.py --cap-nhat-quy-tac       # ghi lai ma file goc vao quy_tac_cham.md sau khi da cap nhat file nay
 
@@ -579,6 +579,11 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
         # Chung nhan khong co trong du lieu san pham
         for c in CERTS:
             if re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(c), text) and c.lower() not in certs_csv:
+                ma = [models.get(x) for x in MODEL.findall(text) if models.get(x)]
+                if re.search(r"philips|rạng đông|điện quang|signify", text, re.I) and \
+                        not any(re.search(r"cao cấp|haledco", r.get("brand", ""), re.I) for r in ma):
+                    rep.warn(no, "Chứng nhận \"%s\" của hãng khác: chỉ giữ khi hãng công bố, ghi nguồn ở phần C" % c)
+                    continue
                 rep.error(no, "Chứng nhận \"%s\" không có trong %s. Chỉ nêu chứng nhận trang sản phẩm công bố, "
                               "chưa có nguồn thì để [CẦN KIỂM TRA]" % (c, csv_name))
         # Ma tieu chuan chua co nguon
@@ -605,13 +610,19 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
         if not known:
             continue
         names = ", ".join(known)
+        # Hang khac (Philips, Rang Dong, Dien Quang): thong so duoc lay theo hang cong bo, gia ghi khoang gia thi truong
+        # (nguoi dung chot 26/10/2026), nen lech CSV chi canh bao, nguon ghi o phan C
+        hang_khac = all(not re.search(r"cao cấp|haledco", r.get("brand", ""), re.I) for r in known.values())
         # Mot dong co the co nhieu gia tri va nhieu model: bao loi khi khong gia tri nao khop model nao trong dong
         def cmp(label, found, values, error=True, fmt=str):
             values = {v for v in values if v not in (None, "")}
             if found and values and not set(found) & values:
                 msg = "%s: %s trong bài %s, CSV ghi %s" % (names, label, ", ".join(fmt(x) for x in found),
                                                            ", ".join(sorted(fmt(v) for v in values)))
-                (rep.error if error else rep.warn)(no, msg)
+                if hang_khac and error:
+                    rep.warn(no, msg + ". Hãng khác: dùng được số hãng công bố hoặc khoảng giá thị trường, ghi nguồn ở phần C")
+                else:
+                    (rep.error if error else rep.warn)(no, msg)
 
         cmp("quang thông (lm)", nums(r"(\d{1,3}(?:\.\d{3})+|\d{4,})\s*lm\b", text),
             {to_int(r["lm"]) for r in known.values() if r["lm"]})
@@ -622,8 +633,10 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
             {x for r in known.values() for x in re.findall(r"IP(\d{2})", r["ip"])}, fmt=lambda x: "IP" + x)
         if line_prices:
             listed = {to_int(r["price"]) for r in known.values() if r["price"].strip("0 ")}
-            if not listed:
+            if not listed and not hang_khac:
                 rep.error(no, "%s: trang sản phẩm ghi giá Liên hệ (CSV giá 0), bài không được nêu giá" % names)
+            elif not listed:
+                rep.warn(no, "%s: website ghi giá Liên hệ, giá trong bài phải là khoảng giá thị trường có nguồn ở phần C" % names)
             else:
                 cmp("giá (đồng)", line_prices, listed, fmt=lambda x: "{:,}".format(x).replace(",", "."))
         # Cong suat, tuoi tho: dong co the nhac den den cu (cao ap 250W, 10.000 gio) nen chi canh bao
@@ -674,7 +687,8 @@ def cap_nhat_quy_tac():
 
 
 def tim_csv(base):
-    found = sorted(glob.glob(os.path.join(base, "du_lieu_san_pham_*.csv")))
+    # sap theo ngay trong ten file (dd-mm-yyyy), sap theo chu thi 01-11 dung truoc 21-10
+    found = sorted(glob.glob(os.path.join(base, "du_lieu_san_pham_*.csv")), key=lambda f: re.findall(r"(\d{2})-(\d{2})-(\d{4})", f)[-1][::-1] if re.findall(r"(\d{2})-(\d{2})-(\d{4})", f) else ())
     return found[-1] if found else None
 
 

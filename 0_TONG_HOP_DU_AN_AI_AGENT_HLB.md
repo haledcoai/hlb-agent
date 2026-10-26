@@ -14,7 +14,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | 2_Knowledge_Du_lieu_tham_chieu_HLB.md | Thông tin HLB đã xác nhận, URL danh mục và bài Tư vấn, cách đọc trang sản phẩm, chuẩn SEO, checklist. Tải lên Project Knowledge |
 | 4_Agent_danh_gia_noi_dung_HLB.md | Tóm tắt agent đánh giá chất lượng: vai trò, kiểm tra cơ học (làm tay được khi không có script), thang 100 điểm cần từ 95, mẫu báo cáo, vòng duyệt, phiếu và nhật ký, bài học, việc còn mở. Dùng được cả trong Claude Project trên claude.ai |
 | 3_Bang_hoi_thong_tin_co_dinh_HLB.md | Bảng hỏi thông tin cố định (8 nhóm). Đã trả lời nhóm 1 và phần lớn nhóm 2 |
-| du_lieu_san_pham_HLB_21-10-2026.csv | Thông số và giá 113 sản phẩm đọc từ website ngày 21/10/2026 |
+| du_lieu_san_pham_HLB_<ngày>.csv | Thông số và giá 113 sản phẩm đọc từ website. Làm mới bằng `python tools/lam_moi_csv.py` (giữ một file mới nhất, bản cũ trong git) |
 | Bai_cach-chon-den-led-nha-xuong.md | Bài viết lại "cách chọn đèn LED nhà xưởng" (phần A, B, C) |
 | tools/wp_draft.py | Script đưa bản nháp lên WordPress qua REST API |
 | tools/HUONG_DAN_DANG_NHAP.md | Hướng dẫn tạo Application Password, cách đánh dấu bản nháp |
@@ -115,7 +115,7 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 
 ## 6. Phát hiện trên website cần người dùng xử lý
 
-- 47 model dòng cao cấp (B1, B2, B3, B5, B11 và phần lớn B4) có bảng thông số trống.
+- ~~47 model dòng cao cấp có bảng thông số trống~~: sai do cách đọc cũ (26/10/2026). Các trang này ghi nhãn khác ("Quang thông" thay vì "Quang thông (lm)"), `lam_moi_csv.py` đọc được đủ thông số cả 113 model.
 - BUFO1-200, BUFO3-200 ghi IP40, các model BUFO khác ghi IP54.
 - 4 model 150W của hãng khác cùng ghi 16.500 lm, PF 0,9, Ra 80, có thể dùng chung mẫu bảng.
 - Tất cả sản phẩm Philips ghi "Bảo hành 24 tháng", trong khi Philips bảo hành theo từng model.

@@ -2,6 +2,8 @@
 
 Quy trình viết bài, giọng văn và quy tắc dữ liệu nằm ở `1_Project_Instructions_Auto_Blog_HLB.md` và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Trạng thái và việc còn dở nằm ở `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`. Đọc ba file này trước khi làm việc với bài viết.
 
+**Một nguồn quy tắc (người dùng chốt 26/10/2026):** file `1_Project_Instructions_Auto_Blog_HLB.md` trên repo là bản gốc. Project settings chỉ giữ bản ngắn trỏ về file này. Đổi quy tắc thì sửa file repo (và `quy_tac_cham.md` nếu quy tắc chấm đổi), không sửa Project settings.
+
 ## Nhóm từ khóa (người dùng chốt 22/10/2026)
 
 Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc trong chat) là một bài. Từ đứng đầu là **từ khóa chính** (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng.
@@ -88,4 +90,5 @@ Người dùng duyệt ảnh ở tab **Duyệt ảnh** của **Bảng điều ph
 - Chỉ chạy `python tools/wp_draft.py <file_bai.md> ... --post` khi người dùng đã đồng ý đăng và bài có phiếu ĐẠT.
 - Hook trong `.claude/settings.json` chặn lệnh đăng nếu thiếu phiếu ĐẠT, phiếu không khớp nội dung hiện tại (bài bị sửa sau lần chấm), hoặc `kiem_tra_bai.py` còn lỗi. Kiểm tra trước bằng `python tools/phieu_duyet.py xem <file_bai.md>`.
 - **Không tự chạy `tools/phieu_duyet.py ghi`.** Phiếu chỉ do agent `danh-gia-noi-dung` ghi sau khi chấm. Khi bị hook chặn, chạy lại vòng duyệt, không tìm cách vượt hook.
+- Hook cũng chặn khi phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng chốt 26/10/2026): gửi người dùng danh sách dữ liệu cần bổ sung thay vì đăng.
 - Người dùng muốn đăng khi bài chưa đạt 95 thì người dùng tự chạy lệnh trong terminal của họ.

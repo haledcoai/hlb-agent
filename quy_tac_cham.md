@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
 Phiên bản: 26/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
-Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 4bb08759c5be; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 1f2d873fdf0a
+Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md f85e162eeb6d; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 1f2d873fdf0a
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
 
@@ -39,6 +39,7 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 - Thông số là của một model, không áp cho cả dòng hoặc cả mức công suất. Hiệu suất lm/W được tính từ quang thông chia công suất nếu ghi "tính từ thông số công bố".
 - Số suy ra không được trình bày như số công bố. Ước tính trong ví dụ phải ghi "ước tính".
 - Giá: giá đang bán ở khối đầu trang của chính sản phẩm (hoặc API `wc/store/v1/products?slug=`), ghi "giá tham khảo tại thời điểm [ngày]", nhắc giá đổi theo số lượng, thời điểm. Không lấy giá ở "Sản phẩm liên quan". Không nhắc % giảm giá.
+- Philips, Rạng Đông, Điện Quang (26/10/2026): thông số theo hãng công bố được (có nguồn), giá ghi khoảng giá thị trường có nguồn và ngày ở phần C. Dòng cao cấp HLB phân phối: giá, thông số đúng trang sản phẩm.
 - Mã tiêu chuẩn (TCVN, QCVN, IEC), giá trị độ rọi theo tiêu chuẩn, giá điện, số liệu thị trường: phải có nguồn hoặc `[CẦN KIỂM TRA]`.
 - Kiến thức chung được viết không cần nguồn nhưng phải đúng: IP theo IEC 60529 (số đầu chống bụi, số sau chống nước; IP54 nước bắn tóe, IP65 tia nước, IP66 tia nước mạnh); Ra trên 70 cho kho, xưởng thô, trên 80 khi cần phân biệt màu; PF càng gần 1 càng ít tổn hao; tuổi thọ là giờ tới khi quang thông giảm tới mức quy định; góc chiếu theo chiều cao chỉ nêu là kinh nghiệm phổ biến.
 - Ví dụ tính: ghi đủ giả định; N = (E x S) / (Φ x UF x MF); UF giả định 0,5-0,7, MF 0,7-0,8, xưởng nhiều bụi lấy thấp; làm tròn lên; ưu tiên quang thông của một model cụ thể; kết bằng lưu ý cần mô phỏng DIALux theo mặt bằng thật. Đơn giá điện có nguồn và ngày hoặc ghi giả định.

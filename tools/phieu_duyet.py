@@ -42,6 +42,7 @@ import sys
 
 NGUONG = 95
 THANG_CHAM = "v2"  # v1: nguong 80 (21/10/2026), v2: nguong 95, diem cho nguoi dung
+MAX_CHO_TRONG = 5  # qua so cho [CAN BO SUNG] nay thi khong tu dang nhap, cho nguoi dung bo sung du lieu
 MAX_NHAC = 3  # so lan Stop hook chan toi da cho mot file, tranh vong lap khi khong cham duoc
 AGENT_DANH_GIA = "danh-gia-noi-dung"
 AGENT_DU_PHONG = "general-purpose"  # dung khi phien khong nap duoc .claude/agents (CLAUDE.md)
@@ -299,6 +300,14 @@ def nhan(_args):
         print("- %s (%s): %d lần" % (n, tc, c))
 
 
+def dem_cho_trong(article):
+    """So cho [CAN BO SUNG] trong phan B (tu dong '# B.' toi '# C.')."""
+    with open(article, encoding="utf-8") as f:
+        text = f.read()
+    m = re.search(r"^# B\..*?(?=^# C\.|\Z)", text, re.M | re.S)
+    return len(re.findall(r"\[CẦN BỔ SUNG", m.group(0) if m else ""))
+
+
 def kiem(article):
     """Tra ve danh sach ly do chua duoc dang. Rong = duoc dang."""
     if not os.path.isfile(article):
@@ -314,6 +323,11 @@ def kiem(article):
     if phieu.get("ket_luan") != "DAT" or phieu.get("diem_tinh", 0) < NGUONG or phieu.get("loi_bat_buoc", 1):
         reasons.append("Phiếu chưa ĐẠT: điểm tính ngưỡng %s/100, cần từ %d; lỗi bắt buộc %s."
                        % (phieu.get("diem_tinh"), NGUONG, phieu.get("loi_bat_buoc")))
+    n_bs = dem_cho_trong(article)
+    if n_bs > MAX_CHO_TRONG:
+        reasons.append("Phần B còn %d chỗ [CẦN BỔ SUNG], tối đa %d để tự đăng nháp (người dùng chốt 26/10/2026). "
+                       "Gửi người dùng danh sách dữ liệu cần bổ sung; người dùng muốn đăng ngay thì tự chạy lệnh."
+                       % (n_bs, MAX_CHO_TRONG))
     check = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "kiem_tra_bai.py"), article],
                            capture_output=True, text=True, encoding="utf-8")
     if check.returncode != 0:
