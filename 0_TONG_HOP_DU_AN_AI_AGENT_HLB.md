@@ -53,7 +53,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 - Không em dash, en dash, emoji, từ tuyệt đối.
 
 **Chính sách**
-- Dòng cao cấp bảo hành 2 năm (driver, chip LED). Hãng khác theo chính sách hãng: Rạng Đông 24 tháng, Điện Quang 24 tháng, Philips theo từng model trên signify.com.
+- Dòng cao cấp bảo hành 2 năm (driver, chip LED). HALEDCO 2 năm; các hãng khác thường 2 năm (26/10). Sai thời hạn là lỗi bắt buộc, thêm điều kiện ngoài nguồn là nên sửa. Hãng khác theo chính sách hãng: Rạng Đông 24 tháng, Điện Quang 24 tháng, Philips theo từng model trên signify.com.
 - Đổi trả theo nhu cầu: khách chịu phí 10% giá trị hàng.
 - Miễn phí giao hàng khi đơn trên 5 triệu đồng, trong bán kính 10 km.
 - Chiết khấu: được nhắc là có, không nêu mức.

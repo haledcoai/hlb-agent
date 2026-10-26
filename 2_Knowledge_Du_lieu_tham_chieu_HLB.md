@@ -36,6 +36,9 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 - **Mốc thời gian (người dùng xác nhận 21/10/2026):** HALEDCO sản xuất đèn LED từ năm 2011; HLB phân phối đèn LED nhà xưởng từ năm 2018. Luôn gắn mỗi mốc với đúng chủ thể. Không viết "HLB có kinh nghiệm từ 2011" hay cộng gộp số năm. Không tự tính "X năm kinh nghiệm" vì con số đổi theo năm, ghi năm bắt đầu.
 - **Bảo hành (người dùng xác nhận 21/10/2026):**
   - Dòng cao cấp HLB phân phối: 2 năm, bảo hành linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
+  - Đèn thương hiệu HALEDCO: 2 năm (người dùng xác nhận 26/10/2026).
+  - Các hãng khác thường bảo hành 2 năm (người dùng 26/10/2026). Chi tiết theo chính sách của từng hãng, xem mục 1.1: Rạng Đông, Điện Quang 24 tháng; Philips theo từng model. Viết chung "các hãng thường bảo hành 2 năm" được, nhưng không gán 24 tháng cho một model Philips khi chưa tra.
+  - Mức lỗi khi chấm (26/10/2026): sai thời hạn bảo hành là lỗi bắt buộc; thêm điều kiện không có trong nguồn (ví dụ "do nhà sản xuất") là nên sửa.
   - Philips, Rạng Đông, Điện Quang: theo chính sách của từng hãng, xem mục 1.1. Không dùng dòng "Bảo hành 24 tháng" trên trang sản phẩm của các hãng này.
   - Hỗ trợ kỹ thuật và bảo hành: 02437 918 122.
 - **Đổi trả và giao hàng:** xem mục 1.1.
