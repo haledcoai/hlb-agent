@@ -34,7 +34,7 @@ Agent đánh giá tách riêng với agent viết vì nó không biết agent vi
 5. **Chấm điểm** theo phần 5, viết báo cáo theo phần 6.
 6. **Ghi phiếu duyệt** (chỉ ở Claude Code, kể cả khi bài chưa đạt). Xem phần 9.
 
-**Chế độ kiểm lại** (người dùng chốt 24/10/2026, thay "chấm phần" ngày 22/10): vòng 2, 3 sau lần chấm CẦN SỬA, và lần sửa theo góp ý người dùng của bài đã ĐẠT. Agent lấy vấn đề lần trước (`phieu_duyet.py lan-truoc`), phần đã sửa (`phieu_duyet.py khac`), kiểm từng vấn đề đã sửa đúng chưa, chỉ đọc kỹ mục bị sửa, đối chiếu số liệu mới, giữ điểm phần không đổi. Tự chuyển sang chấm đủ khi lần trước KHÔNG ĐẠT, heading hoặc phần A đổi, hoặc phần sửa quá 40% số dòng. Chi tiết ở `.claude/agents/danh-gia-noi-dung.md`.
+**Luôn chấm đủ cả bài** (người dùng chốt 26/10/2026, thay chế độ "kiểm lại" 24/10 và "chấm phần" 22/10): mỗi lần bài bị sửa, agent chấm lại toàn bài. Từ vòng 2 agent đối chiếu thêm với lần chấm trước (`phieu_duyet.py lan-truoc`, `khac`): vấn đề cũ đã sửa hay chưa, vấn đề mới thấy ở phần không đổi ghi rõ là "mới phát hiện", kèm một dòng giải thích điểm đổi so với lần trước. Chi tiết ở `.claude/agents/danh-gia-noi-dung.md`.
 
 ## 4. Kiểm tra cơ học (script `kiem_tra_bai.py` làm tự động)
 
@@ -149,14 +149,14 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 | `.claude/agents/danh-gia-noi-dung.md` | Định nghĩa sub agent (công cụ: Read, Grep, Glob, PowerShell, Bash, WebFetch) |
 | `quy_tac_cham.md` | Bản rút gọn quy tắc chấm, có dòng "Mã nguồn" để phát hiện lệch với file gốc |
 | `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4, kiểm đoạn trả lời nhanh 40-60 từ. `--gon` in gọn, `--tra` tra và đếm trên CSV, `--cap-nhat-quy-tac`. Thoát mã 1 khi còn LỖI |
-| `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, các hook. `lan-truoc`, `khac` cho chế độ kiểm lại |
+| `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, các hook. `lan-truoc`, `khac` để đối chiếu với lần chấm trước |
 | `.claude/settings.json` | Cho phép lệnh `phieu_duyet.py ghi`, `nhan` chạy không hỏi. 5 hook: chặn đăng khi chưa có phiếu ĐẠT và chặn ghi phiếu khi không phải agent đánh giá; đánh dấu đang chấm khi gọi agent đánh giá; bỏ đánh dấu khi sub agent kết thúc; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt (bỏ qua khi đang có lượt chấm) |
 | `CLAUDE.md` | Vòng duyệt tự động ở phần 8, cách cập nhật trang theo dõi |
 | `.danh_gia/` | Phiếu từng bài (`<bài>.json`, có mã SHA-256 nội dung lúc chấm), bản bài lúc chấm `ban_cham/`, nhật ký `nhat_ky.jsonl`, dữ liệu xuất `xuat/` |
 
 **Phiếu duyệt:** agent đánh giá ghi phiếu bằng lệnh dưới đây:
 
-`python tools/phieu_duyet.py ghi <bài> --che-do <du|kiem-lai> --diem <x> --diem-cho <y> --loi-bat-buoc <n> --vong <v> --tieu-chi "intent=..,du_lieu=..,eeat=..,thuong_hieu=..,giong_van=..,cau_truc=.." --van-de "<nhãn>|<bat_buoc|nen_sua|cho_nguoi_dung>|<mã tiêu chí>|<mô tả>"`
+`python tools/phieu_duyet.py ghi <bài> --che-do du --diem <x> --diem-cho <y> --loi-bat-buoc <n> --vong <v> --tieu-chi "intent=..,du_lieu=..,eeat=..,thuong_hieu=..,giong_van=..,cau_truc=.." --van-de "<nhãn>|<bat_buoc|nen_sua|cho_nguoi_dung>|<mã tiêu chí>|<mô tả>"`
 
 - Phiếu gắn với mã nội dung bài: sửa bài sau khi chấm thì phiếu hết hiệu lực, phải chấm lại.
 - Lệnh `ghi` chỉ chạy khi `kiem_tra_bai.py` đã chạy trên đúng nội dung bài trong 2 giờ gần nhất (thêm 24/10/2026, sau hai phiếu ngày 23/10 ghi cách nhau 32 giây mà không có dấu hiệu chấm lại).
@@ -222,7 +222,7 @@ Lần chấm 98/100 sau đó không được ghi phiếu (bị chặn), và bả
 
 1. **Lệnh ghi phiếu bị chặn:** đã xử lý (23/10/2026). `.claude/settings.json` cho phép đúng lệnh `phieu_duyet.py ghi`, đồng thời hook chỉ cho agent đánh giá (hoặc agent `general-purpose` đang chấm thay theo CLAUDE.md) chạy lệnh này.
 2. **Hook nhắc chấm lại khi đang chấm nền:** đã xử lý (23/10/2026). Gọi agent đánh giá thì hook đánh dấu "đang chấm", Stop hook không nhắc cho tới khi sub agent kết thúc hoặc quá 30 phút.
-3. **Rút gọn để chạy nhanh, ít token:** đã xử lý (24/10/2026): bản quy tắc rút gọn, chế độ kiểm lại cho vòng 2-3, script đếm và tra CSV, in gọn. Sửa luôn mẫu vai trò thương hiệu theo câu chuẩn 23/10 (trước đó script sót 6/8 câu sai trong bài thử) và bỏ cảnh báo giá cho đơn giá theo m², kWh.
+3. **Rút gọn để chạy nhanh, ít token:** đã xử lý (24/10/2026; chế độ kiểm lại vòng 2-3 bỏ ngày 26/10 theo yêu cầu người dùng, luôn chấm đủ): bản quy tắc rút gọn, script đếm và tra CSV, in gọn. Sửa luôn mẫu vai trò thương hiệu theo câu chuẩn 23/10 (trước đó script sót 6/8 câu sai trong bài thử) và bỏ cảnh báo giá cho đơn giá theo m², kWh.
 4. **Tiêu chí nên bổ sung:**
    - so với bài top SERP
    - chất lượng ảnh: khớp đoạn văn, alt, kích thước

@@ -18,7 +18,7 @@ Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc 
 
 Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`), tự chạy vòng sau, không chờ người dùng nhắc:
 
-1. **Chấm:** gọi sub agent `danh-gia-noi-dung`. Truyền: đường dẫn file bài, số vòng (bắt đầu từ 1), chế độ (vòng 1 luôn là "chấm đủ"; vòng sau xem "Chế độ kiểm lại" bên dưới), outline đã chốt (nếu có), các điểm người dùng đã nói để sau.
+1. **Chấm:** gọi sub agent `danh-gia-noi-dung`. Truyền: đường dẫn file bài, số vòng (bắt đầu từ 1), outline đã chốt (nếu có), các điểm người dùng đã nói để sau.
 2. **Đọc kết luận** ở đầu báo cáo:
    - **ĐẠT** (điểm tính ngưỡng từ 95, không còn lỗi bắt buộc): dừng vòng, gọi agent `tao-anh` (mục Ảnh), rồi báo người dùng.
    - **CẦN SỬA** hoặc **KHÔNG ĐẠT**: sang bước 3.
@@ -35,11 +35,7 @@ Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`)
    - Những điểm agent đánh giá nói sai và đã bỏ qua.
    - Câu hỏi cho người dùng (mục 2b), đánh số để trả lời một lần.
 
-**Chế độ kiểm lại** (người dùng chốt 24/10/2026 để chạy nhanh, ít token; thay "chấm phần" ngày 22/10): ở bước 1 truyền "Chế độ: kiểm lại" thay cho chấm đủ trong hai trường hợp:
-- Vòng 2, 3 sau một lần chấm CẦN SỬA (agent viết vừa sửa theo báo cáo).
-- Bài đã có phiếu ĐẠT, chỉ sửa theo góp ý của người dùng.
-
-Agent đánh giá tự lấy vấn đề lần trước (`phieu_duyet.py lan-truoc`) và phần đã sửa (`phieu_duyet.py khac`), nên chỉ cần truyền thêm góp ý của người dùng nếu có. Chấm đủ thay cho kiểm lại khi: lần chấm trước là KHÔNG ĐẠT; `khac` báo heading hoặc phần A đã đổi; phần đã sửa quá 40% số dòng; lần chấm trước ghi trước 24/10/2026 (chưa có bản lưu để so). Agent đánh giá tự chuyển sang chấm đủ khi gặp các trường hợp này.
+**Luôn chấm đủ cả bài** (người dùng chốt 26/10/2026, thay chế độ "kiểm lại" 24/10 và "chấm phần" 22/10): mỗi lần bài bị sửa, kể cả vòng 2, 3 và sửa theo góp ý người dùng, agent đánh giá chấm lại toàn bài theo đủ 6 tiêu chí. Từ vòng 2, agent còn đối chiếu với lần chấm trước (`phieu_duyet.py lan-truoc`, `phieu_duyet.py khac`) để giữ điểm nhất quán: ghi rõ từng vấn đề cũ đã sửa hay chưa, và vấn đề nào mới thấy ở phần không đổi.
 
 Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh giá" hoặc "chấm" một bài.
 

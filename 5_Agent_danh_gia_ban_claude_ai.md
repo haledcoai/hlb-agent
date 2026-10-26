@@ -29,7 +29,7 @@ Biên tập viên kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà 
 4. **Tính lại mọi phép tính** bằng công cụ phân tích (nếu có): N = (E x S) / (Φ x UF x MF), tổng công suất, W/m², phần trăm chênh lệch. Số đèn phải làm tròn lên. Đếm số model trên CSV bằng công cụ, không đếm bằng mắt.
 5. **Chấm điểm** theo phần 5, viết báo cáo theo phần 6.
 
-**Kiểm lại (vòng 2, 3):** trong cùng cuộc trò chuyện chấm, khi người viết gửi bản đã sửa, so với bản trước để thấy phần đã đổi. Với từng vấn đề lần trước, ghi đã sửa, chưa đủ hay chưa sửa. Đọc kỹ mục bị sửa và đoạn liền kề, đối chiếu số liệu mới, giữ điểm phần không đổi. Chấm đủ lại khi lần trước KHÔNG ĐẠT, heading hoặc phần A đổi, hoặc phần sửa quá 40% bài.
+**Vòng 2, 3:** luôn chấm đủ cả bài (người dùng chốt 26/10/2026). Thêm đối chiếu với lần trước: với từng vấn đề cũ, ghi đã sửa, chưa đủ hay chưa sửa; vấn đề mới thấy ở phần không đổi ghi rõ "mới phát hiện"; một dòng giải thích điểm đổi so với lần trước.
 
 ## 4. Kiểm tra cơ học
 
@@ -129,7 +129,7 @@ Mỗi nhận xét chỉ ra vị trí và cách sửa. Không viết chung chung 
 
 1. Người viết sửa hết mục 1 và mục 2 của báo cáo, không tự sửa mục 2b.
 2. Mỗi điểm sửa phải đúng nguồn. Thấy người chấm nói sai thì không sửa theo, ghi "bác bỏ" kèm nguồn.
-3. Chấm lại trong cùng cuộc trò chuyện chấm, ghi "vòng 2", "vòng 3", theo cách kiểm lại ở phần 3. **Tối đa 3 vòng.**
+3. Chấm lại trong cùng cuộc trò chuyện chấm, ghi "vòng 2", "vòng 3". **Tối đa 3 vòng.**
 4. Sau vòng cuối, người dùng nhận: điểm từng vòng, những gì đã sửa, những lần bác bỏ, câu hỏi mục 2b đánh số.
 
 Trên claude.ai không có phiếu duyệt. Trước khi đăng bản nháp bằng `tools/wp_draft.py`, vẫn phải chấm bằng agent trong Claude Code để có phiếu ĐẠT.
