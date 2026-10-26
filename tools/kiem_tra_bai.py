@@ -8,7 +8,8 @@ Cach dung:
   python tools/kiem_tra_bai.py --cap-nhat-quy-tac       # ghi lai ma file goc vao quy_tac_cham.md sau khi da cap nhat file nay
 
 Chi bat loi may kiem tra duoc: dau gach, emoji, tu cam, link, do dai SEO, dinh dang so,
-doi chieu so lieu voi file CSV san pham. Chat luong noi dung do agent danh-gia-noi-dung danh gia.
+doi chieu so lieu voi file CSV san pham, ma tieu chuan voi tieu_chuan_da_kiem.csv,
+heading voi outline da chot va doan trung voi bai top SERP (tools/nghien_cuu.py). Chat luong noi dung do agent danh-gia-noi-dung danh gia.
 Ma thoat: 0 = khong co LOI, 1 = co LOI can sua, 2 = file sai cau truc.
 """
 import argparse
@@ -21,6 +22,9 @@ import os
 import re
 import sys
 import unicodedata
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import nghien_cuu  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUY_TAC = os.path.join(ROOT, "quy_tac_cham.md")
@@ -548,7 +552,34 @@ CERTS = ["UL", "cUL", "DLC", "ENEC", "TÜV", "TUV", "SASO", "ETL", "CB", "GS", "
          "ISO", "CE", "RoHS", "FCC", "ERP", "LM-80", "TM-21"]
 # Ma tieu chuan da kiem tra nguon (Knowledge muc 6). Ma khac phai ghi nguon o phan C hoac dat trong [CAN KIEM TRA]
 STANDARD = re.compile(r"\b(TCVN|QCVN|IEC|EN|ISO|CIE)\s?\d[\d.\-]*(?:-\d+)?(?::\d{4})?")
-VERIFIED_STANDARDS = {"IEC 60529"}
+TIEU_CHUAN = os.path.join(ROOT, "tieu_chuan_da_kiem.csv")
+
+
+def load_tieu_chuan():
+    """Danh sach tieu chuan da tra nguon chinh thuc (tieu_chuan_da_kiem.csv): ma (bo hau to /BYT, /BXD) -> dong."""
+    try:
+        rows = list(csv.DictReader(open(TIEU_CHUAN, encoding="utf-8-sig")))
+    except OSError:
+        return {}
+    return {re.sub(r"/\w+$", "", r["ma"].strip()): r for r in rows if r.get("ma")}
+
+
+def check_standard(rep, no, code, verified, notes_text):
+    base = code.split(":")[0]
+    row = verified.get(code)
+    if row:
+        if row.get("tinh_trang", "").startswith("đã thay thế"):
+            rep.warn(no, "%s đã bị thay thế bởi %s (tieu_chuan_da_kiem.csv), dùng bản mới" % (code, row.get("thay_the_boi")))
+        return
+    cung_so = [k for k in verified if k.split(":")[0] == base]
+    if cung_so and ":" not in code:
+        return  # viet ma khong kem nam, vi du "IEC 60529"
+    if cung_so:
+        rep.warn(no, "%s: năm ban hành khác danh sách đã kiểm tra (%s)" % (code, ", ".join(cung_so)))
+        return
+    if code not in notes_text and base not in notes_text:
+        rep.warn(no, "Mã tiêu chuẩn %s chưa có trong tieu_chuan_da_kiem.csv và phần C không ghi nguồn. "
+                     "Tra nguồn chính thức rồi thêm vào danh sách, hoặc để [CẦN KIỂM TRA]" % code)
 
 
 def nums(pattern, text):
@@ -557,6 +588,7 @@ def nums(pattern, text):
 
 def check_against_csv(rep, body, models, csv_name, notes_text=""):
     prices = {to_int(r["price"]) for r in models.values() if r["price"].strip("0 ")}
+    verified = load_tieu_chuan()
     certs_csv = set()
     for r in models.values():
         for tok in re.split(r"[,.;\s]+", "%s %s" % (r.get("cert", ""), r.get("ip", ""))):
@@ -588,11 +620,7 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
                               "chưa có nguồn thì để [CẦN KIỂM TRA]" % (c, csv_name))
         # Ma tieu chuan chua co nguon
         for m in STANDARD.finditer(text):
-            code = re.sub(r"\s+", " ", m.group(0))
-            base = code.split(":")[0]
-            if base not in VERIFIED_STANDARDS and code not in notes_text and base not in notes_text:
-                rep.warn(no, "Mã tiêu chuẩn %s chưa có trong danh sách đã kiểm tra (Knowledge mục 6) và phần C "
-                             "không ghi nguồn. Ghi nguồn hoặc để [CẦN KIỂM TRA]" % code)
+            check_standard(rep, no, re.sub(r"\s+", " ", m.group(0)), verified, notes_text)
         # Ten du an, khach hang (Knowledge muc 1: chi dung khi nguoi dung cung cap)
         if re.search(r"(dự án|công trình|nhà máy|khách hàng|tập đoàn|công ty)\s+(của\s+)?[A-ZĐ][\wÀ-ỹ]*\s+[A-ZĐ]", text) \
                 or re.search(r"\bđã (lắp|cung cấp|thi công|lắp đặt)( đặt)? (cho|tại)\b", text, re.I):
@@ -650,6 +678,30 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
         if eff and calc and not any(abs(e - c) <= 1 for e in eff for c in calc):
             rep.warn(no, "%s: hiệu suất trong bài %s lm/W, tính từ CSV %s lm/W" % (
                 names, ", ".join("%g" % e for e in eff), ", ".join("%.0f" % c for c in calc)))
+
+
+def check_outline(rep, article, body):
+    """Heading bai phai dung outline da chot (Instructions buoc 3), luu o nghien_cuu/<bai>/outline.md."""
+    outline = nghien_cuu.doc_outline(article)
+    if outline is None:
+        rep.info(None, "Chưa lưu outline đã chốt (tools/nghien_cuu.py luu-outline), chưa so heading với outline")
+        return
+    heads = [(no, len(m.group(1)), m.group(2)) for no, l in body for m in [re.match(r"^(#{1,4}) (.+?)\s*$", l)] if m]
+    for level, j, msg in nghien_cuu.so_outline([(l, t) for _, l, t in heads], outline):
+        rep.add(level, heads[j][0] if j is not None else None, msg)
+
+
+def check_chep_bai(rep, article, body):
+    """Doan trung dai voi bai top SERP da luu (nghien_cuu/<bai>/serp/)."""
+    nguon = nghien_cuu.doc_serp(article)
+    if not nguon:
+        rep.info(None, "Chưa lưu văn bản bài top SERP (tools/nghien_cuu.py luu-serp), chưa kiểm tra chép bài")
+        return
+    lines = [(no, strip_markup(l)) for no, l in body if not IMAGE.search(l)]
+    for no, n, doan, url in nghien_cuu.doan_trung(lines, nguon):
+        msg = "%d từ liền nhau trùng bài %s: \"%s\". Viết lại bằng ý và lời của mình" % (n, url, short(doan, 90))
+        (rep.error if n >= nghien_cuu.N_LOI else rep.warn)(no, msg)
+    rep.info(None, "Đã so với %d bài top SERP" % len(nguon))
 
 
 # ---------- File quy tac cham rut gon ----------
@@ -771,6 +823,8 @@ def main():
     check_quick_answer(rep, b)
     check_price_note(rep, b)
     check_placeholders(rep, b, c)
+    check_outline(rep, args.article, b)
+    check_chep_bai(rep, args.article, b)
     check_quy_tac(rep)
 
     csv_path = args.csv or tim_csv(os.path.dirname(os.path.abspath(args.article)))

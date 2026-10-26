@@ -233,7 +233,7 @@ Website hiện có một số câu quảng cáo và điểm chưa thống nhất
 - **Kiểu dáng:** đèn UFO (tròn, gọn, phổ biến cho xưởng cao vừa), đèn highbay dạng chuông, đèn dạng module. "Highbay" và "UFO" chỉ dùng khi nói kiểu dáng.
 
 **Phải có nguồn hoặc đánh dấu `[CẦN KIỂM TRA]`:**
-- Mã số và năm ban hành tiêu chuẩn (TCVN, QCVN, IEC).
+- Mã số và năm ban hành tiêu chuẩn (TCVN, QCVN, IEC). Mã đã tra nguồn nằm ở `tieu_chuan_da_kiem.csv` (26/10/2026: TCVN 7114-1:2008, QCVN 22:2016/BYT, TCVN 4255:2025 thay bản 2008, TCVN 7722-1:2017, QCVN 19:2019/BKHCN, TCVN 10885-1, 10885-2-1:2015, QCVN 09:2017/BXD chỉ cho công trình dân dụng). Mã mới thêm vào file đó kèm nguồn.
 - Giá trị độ rọi yêu cầu theo tiêu chuẩn cho từng loại không gian.
 - Biểu giá điện, chính sách nhà nước.
 - Mọi số liệu thị trường, thống kê.

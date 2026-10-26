@@ -83,7 +83,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 **Chưa trả lời:** nhóm 3 (dịch vụ) đến nhóm 8 (người duyệt, ảnh) trong file 3.
 
 **Placeholder còn trong bài 8514** (5 chỗ, kiểm tra 22/10/2026)
-- `[CẦN KIỂM TRA]` Đối chiếu bảng độ rọi với TCVN 7114-1:2008, kèm `[LINK]` trang tra cứu (Agent tự làm).
+- `[CẦN KIỂM TRA]` Đối chiếu bảng độ rọi với TCVN 7114-1:2008, kèm `[LINK]` trang tra cứu (Agent tự làm). 26/10/2026: mã và tên TCVN 7114-1:2008 đã tra nguồn (có trong `tieu_chuan_da_kiem.csv`, link bản PDF thư viện Rạng Đông); giá trị lux trong bảng chưa đối chiếu vì mạng cloud chặn trang văn bản, lần sửa bài tới đọc bản PDF bằng WebFetch.
 - `[CẦN KIỂM TRA]` Website có bán đèn dạng dài không.
 - `[CẦN BỔ SUNG]` Phần xưởng bụi: dòng cao cấp chưa có model từ IP65; có gợi ý đèn IP65/IP66 của hãng khác đang bán (Philips BY239P, BPLCE-200, BPLCE-250, Rạng Đông BD HB03L 390/250W) hay để trung lập.
 - `[CẦN BỔ SUNG]` Dải nhiệt độ làm việc của dòng BUFO (trang BUFO4-150 không ghi).
@@ -112,6 +112,8 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 - Nếu còn dùng Claude Project trên claude.ai: tải lại file 1 và file 2 bản mới (đã đổi chuẩn ảnh, thẻ ảnh có chú thích, ngưỡng 95), và file 4 nếu muốn chấm bài ở đó.
 - Canva: thiết kế `DAHYnysKTTQ` ("HLB anh bai - cach-chon-den-led-nha-xuong") có trang 1 là mẫu quảng cáo Canva tự sinh, không dùng, có thể xóa trang đó.
 - Việc còn mở của agent đánh giá: xem file 4 mục 11 (lệnh ghi phiếu từng bị chế độ tự động chặn, hook nhắc khi đang chấm nền, tiêu chí nên bổ sung).
+
+**Công cụ chống lỗi thêm ngày 26/10/2026:** `tieu_chuan_da_kiem.csv` (12 mã tiêu chuẩn đã tra nguồn, có bản thay thế), `tools/nghien_cuu.py` lưu outline đã chốt và văn bản bài top SERP; `kiem_tra_bai.py` báo LỖI khi heading lệch outline hoặc có đoạn 25 từ liền nhau trùng bài top. Hai bài cũ chưa có file outline, SERP nên chưa được so.
 
 ## 6. Phát hiện trên website cần người dùng xử lý
 
