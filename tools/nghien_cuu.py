@@ -199,7 +199,10 @@ def luu_serp(args):
 
 
 # Trang danh muc, san pham, san TMDT: khong phai bai blog, khong luu van ban (Instructions buoc 1)
-KHONG_PHAI_BAI = re.compile(r"/(product|san-pham|danh-muc|category|shop|cua-hang)/|shopee\.|lazada\.|tiki\.|youtube\.|facebook\.", re.I)
+KHONG_PHAI_BAI = re.compile(r"/(products?|san-pham|danh-muc[^/]*|product-category|categor(y|ies)|collections?|shop|cua-hang)(/|$)|"
+                            r"-c\d+(\.html?)?/?$|shopee\.|lazada\.|tiki\.|youtube\.|facebook\.", re.I)
+# Duong dan kieu bai viet. Con lai la "chua ro": mo trang de xac nhan truoc khi ket luan dinh dang
+LA_BAI = re.compile(r"/(tin-tuc|blog|tu-van|kien-thuc|bai-viet|news|huong-dan|cam-nang)/", re.I)
 
 
 def khong_dau(text):
@@ -226,21 +229,23 @@ def serp(args):
           "top": [{k: r.get(k) for k in ("position", "title", "link", "snippet")} for r in data.get("organic_results", [])[:10]],
           "hoi": [r.get("question") for r in data.get("related_questions", [])],
           "lien_quan": [r.get("query") for r in data.get("related_searches", [])]}
-    with open(os.path.join(folder, "_ket_qua_%s.json" % khong_dau(args.tu_khoa)), "w", encoding="utf-8") as f:
-        json.dump(kq, f, ensure_ascii=False, indent=1)
     print("Top Google VN cho \"%s\" (%s):" % (args.tu_khoa, kq["luc"]))
     bai = []
     for r in kq["top"]:
-        loai = "khác" if KHONG_PHAI_BAI.search(r["link"] or "") else "bài"
-        if loai == "bài":
-            bai.append(r["link"])
-        print("%2s. [%s] %s\n    %s\n    %s" % (r["position"], loai, r["title"], r["link"], (r["snippet"] or "")[:200]))
+        link = r["link"] or ""
+        r["loai"] = "danh mục/SP" if KHONG_PHAI_BAI.search(link) else "bài" if LA_BAI.search(link) else "chưa rõ"
+        if r["loai"] != "danh mục/SP":
+            bai.append(link)
+        print("%2s. [%s] %s\n    %s\n    %s" % (r["position"], r["loai"], r["title"], link, (r["snippet"] or "")[:200]))
+    with open(os.path.join(folder, "_ket_qua_%s.json" % khong_dau(args.tu_khoa)), "w", encoding="utf-8") as f:
+        json.dump(kq, f, ensure_ascii=False, indent=1)
     if kq["hoi"]:
         print("\nMọi người cũng hỏi (gợi ý FAQ):\n" + "\n".join("- " + x for x in kq["hoi"] if x))
     if kq["lien_quan"]:
         print("\nTìm kiếm liên quan (gợi ý từ khóa phụ):\n" + "\n".join("- " + x for x in kq["lien_quan"] if x))
-    print("\n%d/%d kết quả là trang danh mục, sản phẩm hoặc sàn: đếm khi xác định định dạng nội dung (Instructions bước 1)."
-          % (len(kq["top"]) - len(bai), len(kq["top"])))
+    dem = {k: sum(1 for r in kq["top"] if r["loai"] == k) for k in ("bài", "danh mục/SP", "chưa rõ")}
+    print("\nPhân loại theo đường dẫn, chỉ là gợi ý: %d bài, %d danh mục/sản phẩm, %d chưa rõ. Mở trang \"chưa rõ\" "
+          "để xác định trước khi kết luận định dạng nội dung (Instructions bước 1)." % (dem["bài"], dem["danh mục/SP"], dem["chưa rõ"]))
     if args.luu and bai:
         print("\nLưu văn bản bài top:")
         args.url, args.tu_file = bai, None

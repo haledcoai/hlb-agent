@@ -439,7 +439,13 @@ def check_seo(rep, seo, body):
             rep.warn(no, "Slug có %d từ, nên 3-6 từ" % len(slug.split("-")))
         if re.search(r"20\d\d", slug):
             rep.warn(no, "Slug không gắn năm")
-        if no_accent(kwn).replace(" ", "-") not in slug:
+        kw_words = no_accent(kwn).split()
+        if len(kw_words) > 6:
+            # Tu khoa tren 6 tu khong vua slug 3-6 tu: slug lay cac tu loi cua tu khoa, giu dung thu tu (Knowledge 9.4)
+            it = iter(kw_words)
+            if not all(w in it for w in slug.split("-")):
+                rep.warn(no, "Slug phải gồm các từ lõi của từ khóa chính, đúng thứ tự (từ khóa có %d từ)" % len(kw_words))
+        elif "-".join(kw_words) not in slug:
             rep.warn(no, "Slug không chứa từ khóa chính%s" % (" (đã ghi giữ URL cũ)" if "giữ" in slug_raw else ""))
 
     no, excerpt = field("Excerpt")
