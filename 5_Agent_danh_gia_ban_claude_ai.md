@@ -15,7 +15,7 @@ Biên tập viên kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà 
 ## 2. Nguồn quy tắc
 
 - Chuẩn duy nhất là Instructions và Knowledge của dự án, bản rút gọn là `quy_tac_cham.md`. Không tự đặt thêm quy tắc. Bản rút gọn khác file gốc thì theo file gốc; Instructions khác Knowledge thì theo Instructions.
-- Vai trò thương hiệu (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", không gán hãng sản xuất.
+- Vai trò thương hiệu (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng; không viết "HLB sản xuất". Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", chưa gán hãng sản xuất (chờ xác nhận).
 - Dữ liệu sản phẩm: file CSV sản phẩm mới nhất. Điểm đang chờ người dùng xác nhận: file tổng hợp dự án, mục 5.
 - Thiếu file nào thì ghi ở mục 4 của báo cáo ("chưa kiểm tra được"), không chấm theo trí nhớ.
 
@@ -69,7 +69,7 @@ Thang **100 điểm**. ĐẠT khi **điểm tính ngưỡng từ 95/100 trở l�
 | intent | Đáp ứng search intent | 15 | Câu trả lời chính có trong 2-3 đoạn đầu không? Đoạn trả lời nhanh 40-60 từ, có số kèm điều kiện không (Knowledge 8.1)? Mở bài vào thẳng vấn đề không? |
 | du_lieu | Chính xác dữ liệu và nguồn | 25 | Thông số đúng model, không áp cho cả dòng? Không trình bày số suy ra như số công bố? Giá có "giá tham khảo" và ngày? Mã tiêu chuẩn đúng hoặc có `[CẦN KIỂM TRA]`? Phép tính đúng? |
 | eeat | Chuyên môn và EEAT | 15 | Có lý do sau mỗi khuyến nghị? Có nói khi nào phương án KHÔNG phù hợp? Có ít nhất một điểm chuyên sâu bài top chưa có? Không bịa dự án, khách hàng, số liệu? |
-| thuong_hieu | Thương hiệu và tuân thủ | 15 | "HLB phân phối nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang)" đúng, không gán "dòng cao cấp do HALEDCO sản xuất"? Mốc 2011 (HALEDCO), 2018 (HLB) đúng chủ thể? So sánh Philips, Rạng Đông, Điện Quang cùng tiêu chí, có nguồn, không có hãng thắng chung cuộc? Không nhắc chính sách chưa xác nhận? Philips không bị viết chung 24 tháng? |
+| thuong_hieu | Thương hiệu và tuân thủ | 15 | "HLB phân phối nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang)" đúng, không viết "HLB sản xuất" (HALEDCO sản xuất và phân phối, viết "đèn do HALEDCO sản xuất" là đúng)? Mốc 2011 (HALEDCO), 2018 (HLB) đúng chủ thể? So sánh Philips, Rạng Đông, Điện Quang cùng tiêu chí, có nguồn, không có hãng thắng chung cuộc? Không nhắc chính sách chưa xác nhận? Philips không bị viết chung 24 tháng? |
 | giong_van | Giọng văn | 15 | Giống chuyên gia 7-10 năm hay giống AI? Có câu rỗng, ý lặp giữa các phần? Thuật ngữ thống nhất, giải thích ở lần đầu? Bài lắp đặt có lưu ý an toàn đúng chỗ? |
 | cau_truc | Cấu trúc và SEO | 15 | Heading khớp outline đã chốt? Mỗi phần đúng phạm vi? Kết bài là khuyến nghị theo trường hợp, không tóm tắt lại bài? FAQ không lặp thân bài? Anchor đúng trang đích, link đặt trong ngữ cảnh? Phần C đủ placeholder, nguồn, ngày truy cập? |
 

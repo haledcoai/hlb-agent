@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
 Phiên bản: 24/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
-Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 56d9f88a19ba; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 42dacec854c4
+Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md dd2883c3db7e; 2_Knowledge_Du_lieu_tham_chieu_HLB.md b25371169125
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
 
@@ -16,7 +16,7 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 
 ## 2. Thông tin HLB được phép dùng (Knowledge mục 1, 1.1)
 
-- Vai trò (chốt 23/10/2026): **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", không gán hãng sản xuất. Sai: "HLB sản xuất", "HLB lắp ráp", "nhà máy/xưởng của chúng tôi", "dòng cao cấp do HALEDCO sản xuất", giới thiệu dài về HALEDCO.
+- Vai trò (chốt 23/10/2026): **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026): "đèn do HALEDCO sản xuất" cho sản phẩm HALEDCO là đúng, không bắt lỗi. Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", chưa gán hãng sản xuất (chờ xác nhận; gặp câu gán thì ghi "nên sửa", không tính bắt buộc). Sai: "HLB sản xuất", "HLB lắp ráp", "nhà máy/xưởng của chúng tôi", giới thiệu dài về HALEDCO.
 - Mốc: HALEDCO sản xuất đèn LED từ 2011; HLB phân phối đèn LED nhà xưởng từ 2018. Không cộng gộp, không tự tính "X năm kinh nghiệm".
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
 - Liên hệ: hotline bán hàng, Zalo 0967569588 (dùng trong bài, CTA); kỹ thuật, bảo hành 02437 918 122 (phần bảo hành, sự cố); email denlednhaxuongcaocap@gmail.com. Số khác là lỗi.

@@ -70,18 +70,17 @@ BRAND_ROLE = {
     r"(do|của)\s+(hlb|chúng tôi)\s+(tự\s+)?(sản xuất|lắp ráp)": "HLB là đơn vị phân phối, không sản xuất, không lắp ráp",
     r"(xưởng|nhà máy)\s+(sản xuất\s+)?(của|thuộc)\s+(hlb|chúng tôi)": "HLB là đơn vị phân phối, không có xưởng, nhà máy",
     r"nhà máy của (chúng tôi|hlb)": "HLB là đơn vị phân phối, không có nhà máy",
-    r"(do|của)\s+haledco\s+(sản xuất|lắp ráp)|haledco\s+sản xuất\s*(và lắp ráp)?\s*,\s*hlb": "không gán dòng cao cấp cho HALEDCO sản xuất; viết \"HLB phân phối\" (HALEDCO là một thương hiệu HLB phân phối)",
     r"chúng tôi (tự\s+)?(sản xuất|lắp ráp)": "HLB là đơn vị phân phối, không sản xuất, không lắp ráp",
-    r"(dòng|đèn)[^.;:]{0,40}\bhaledco\s+(sản xuất|lắp ráp)|\bhaledco\s+(sản xuất|lắp ráp)\s+(dòng|đèn)(?![^.;]{0,40}2011)":
-        "không gán dòng cao cấp cho HALEDCO sản xuất; chỉ dùng câu mốc \"HALEDCO sản xuất đèn LED từ năm 2011\"",
     r"hlb.{0,40}(từ|năm|thành lập|ra đời)\s*(năm\s*)?2011": "mốc 2011 là của HALEDCO, HLB phân phối từ 2018",
     r"\d+\s+năm kinh nghiệm": "không tự tính số năm kinh nghiệm, ghi năm bắt đầu",
     r"haledco\.com": "không nhắc hoặc link haledco.com",
 }
 
-# Cach goi dong cao cap (Knowledge muc 1, chot 23/10/2026): canh bao de nguoi cham xem lai ngu canh
+# HALEDCO la don vi san xuat va phan phoi (nhac lai 26/10/2026): "den do HALEDCO san xuat" la dung.
+# Chi canh bao khi gan hang san xuat cho dong cao cap (chua xac nhan).
 BRAND_ROLE_WARN = {
-    r"dòng[^.;:]{0,40}\b(của|do)\s+haledco\b": "dòng cao cấp gọi là \"dòng đèn cao cấp HLB phân phối\", không gán cho HALEDCO",
+    r"cao cấp[^.;:]{0,40}\b(của|do)?\s*haledco\s+(sản xuất|lắp ráp)|cao cấp[^.;:]{0,20}\b(của|do)\s+haledco\b":
+        "dòng cao cấp gọi là \"dòng đèn cao cấp HLB phân phối\", chưa gán hãng sản xuất (chờ người dùng xác nhận)",
 }
 
 # Thuat ngu thong nhat (Knowledge muc 7)
