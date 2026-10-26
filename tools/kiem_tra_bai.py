@@ -207,6 +207,15 @@ def check_text(rep, lines):
         for bad, good in TERMS.items():
             if bad in text:
                 rep.warn(no, "Thuật ngữ \"%s\" nên thống nhất thành \"%s\"" % (bad, good))
+        # Thoi han bao hanh da xac nhan: 2 nam (24 thang). Philips theo tung model tren signify.com (Knowledge muc 1)
+        for m in re.finditer(r"(bảo hành|bh)\D{0,20}?(\d+)\s*(năm|tháng)", text):
+            months = int(m.group(2)) * (12 if m.group(3) == "năm" else 1)
+            if months != 24:
+                msg = "Thời hạn bảo hành \"%s\" khác 2 năm đã xác nhận (Knowledge mục 1)" % m.group(0)
+                if "philips" in text:
+                    rep.warn(no, msg + ", Philips thì kiểm tra theo model trên signify.com")
+                else:
+                    rep.error(no, msg)
         if "philips" in text and re.search(r"(bảo hành|bh).{0,20}24 tháng", text):
             rep.warn(no, "Philips bảo hành theo từng model, không viết chung 24 tháng")
         for m in re.finditer(r"(?<![\d,.])0[\d .]{8,13}\d(?![\d,])", line):
@@ -311,6 +320,14 @@ def check_links(rep, body):
             else:
                 external.append(url)
 
+    for url in sorted(set(external)):
+        host = re.sub(r"^https?://(www\.)?", "", url).split("/")[0].lower()
+        if not re.search(r"\.(gov|gov\.vn|edu|edu\.vn|int|org)$|(^|\.)(iec\.ch|iso\.org|tcvn\.gov\.vn|cie\.co\.at)$", host):
+            rep.warn(None, "Link ngoài %s không phải nguồn có thẩm quyền (cơ quan nhà nước, tổ chức tiêu chuẩn, hiệp hội), "
+                           "kiểm tra lại hoặc bỏ (Knowledge 9.3)" % host)
+    if MANG:
+        check_urls_live(rep, sorted(set(internal) | set(external)))
+
     content = [u for u in set(internal) if "/lien-he/" not in u]
     category = [u for u in content if re.search(r"/den-led-nha-xuong-\d+w/", u)]
     if not 3 <= len(content) <= 5:
@@ -321,6 +338,33 @@ def check_links(rep, body):
         rep.error(None, "Link ngoài: %d, tối đa 3" % len(set(external)))
     rep.info(None, "Link nội bộ %d (danh mục %d), link ngoài %d, link CTA Liên hệ %d"
              % (len(content), len(category), len(set(external)), len(set(internal)) - len(content)))
+
+
+MANG = True  # tat bang --khong-mang
+
+
+def check_urls_live(rep, urls):
+    """Mo tung link: 404/410 la LOI (link doan, bai da xoa), chuyen huong sang trang khac la CANH BAO."""
+    import urllib.error
+    import urllib.request
+    loi_mang = []
+    for url in urls:
+        req = urllib.request.Request(url, headers={"User-Agent": "HLB-kiem-tra/1.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=5) as r:
+                final = r.geturl()
+            if final.rstrip("/") != url.rstrip("/"):
+                rep.warn(None, "Link %s chuyển hướng sang %s, dùng URL đích" % (url, final))
+        except urllib.error.HTTPError as e:
+            if e.code in (404, 410):
+                rep.error(None, "Link không tồn tại (HTTP %d): %s. Không tự ghép URL, dùng URL đã mở được "
+                                "hoặc [LINK: tên trang]" % (e.code, url))
+            else:
+                loi_mang.append("%s (HTTP %d)" % (url, e.code))
+        except (urllib.error.URLError, OSError) as e:
+            loi_mang.append(url)
+    if loi_mang:
+        rep.info(None, "Chưa mở được để kiểm tra link: " + ", ".join(loi_mang))
 
 
 def check_images(rep, body, slug=""):
@@ -355,6 +399,9 @@ def check_seo(rep, seo, body):
         rep.error(None, "Phần A thiếu Focus keyword")
         return
     kwn = norm(kw)
+    if re.fullmatch(r"đèn led nhà xưởng( [a-zà-ỹđ ]+)? \d+\s?w", kwn):
+        rep.warn(kw_no, "Từ khóa chính \"%s\" trùng kiểu từ khóa của trang danh mục công suất, bài blog dễ cạnh tranh "
+                        "với trang danh mục (Knowledge 9.1). Chỉ viết khi intent khác rõ (giá, cách chọn, so sánh)" % kw)
 
     no, title = field("SEO title")
     if not title:
@@ -495,34 +542,101 @@ def load_csv(path):
     return models
 
 
-def check_against_csv(rep, body, models, csv_name):
+PRICE = re.compile(r"(\d{1,3}(?:\.\d{3})+)\s*(đồng|đ\b|vnđ)(\s*/\s*(m²|m2|m³|m\b|kwh|tháng|năm|giờ))?", re.I)
+# Chung nhan hay bi bia: chi duoc neu khi co trong cot cert/ip cua CSV (Instructions muc 2, quy tac 1)
+CERTS = ["UL", "cUL", "DLC", "ENEC", "TÜV", "TUV", "SASO", "ETL", "CB", "GS", "SAA", "PSE", "KC", "BIS",
+         "ISO", "CE", "RoHS", "FCC", "ERP", "LM-80", "TM-21"]
+# Ma tieu chuan da kiem tra nguon (Knowledge muc 6). Ma khac phai ghi nguon o phan C hoac dat trong [CAN KIEM TRA]
+STANDARD = re.compile(r"\b(TCVN|QCVN|IEC|EN|ISO|CIE)\s?\d[\d.\-]*(?:-\d+)?(?::\d{4})?")
+VERIFIED_STANDARDS = {"IEC 60529"}
+
+
+def nums(pattern, text):
+    return [to_int(x) for x in re.findall(pattern, text)]
+
+
+def check_against_csv(rep, body, models, csv_name, notes_text=""):
     prices = {to_int(r["price"]) for r in models.values() if r["price"].strip("0 ")}
+    certs_csv = set()
+    for r in models.values():
+        for tok in re.split(r"[,.;\s]+", "%s %s" % (r.get("cert", ""), r.get("ip", ""))):
+            if tok:
+                certs_csv.add(tok.lower())
     for no, line in body:
         text = PLACEHOLDER.sub(" ", line)
-        for m in re.finditer(r"(\d{1,3}(?:\.\d{3})+)\s*(đồng|đ\b|vnđ)(\s*/\s*(m²|m2|m³|m\b|kwh|tháng|năm|giờ))?", text, re.I):
+        if re.match(r"^#{1,4} ", line):
+            heading = True
+        else:
+            heading = False
+        line_prices = []
+        for m in PRICE.finditer(text):
             if m.group(3):
                 continue  # don gia xay dung, gia dien... khong phai gia den
+            line_prices.append(to_int(m.group(1)))
             if to_int(m.group(1)) not in prices:
                 rep.warn(no, "Giá %s không khớp sản phẩm nào trong %s" % (m.group(0), csv_name))
-        codes = set(MODEL.findall(text))
-        if len(codes) != 1:
+
+        # Chung nhan khong co trong du lieu san pham
+        for c in CERTS:
+            if re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(c), text) and c.lower() not in certs_csv:
+                rep.error(no, "Chứng nhận \"%s\" không có trong %s. Chỉ nêu chứng nhận trang sản phẩm công bố, "
+                              "chưa có nguồn thì để [CẦN KIỂM TRA]" % (c, csv_name))
+        # Ma tieu chuan chua co nguon
+        for m in STANDARD.finditer(text):
+            code = re.sub(r"\s+", " ", m.group(0))
+            base = code.split(":")[0]
+            if base not in VERIFIED_STANDARDS and code not in notes_text and base not in notes_text:
+                rep.warn(no, "Mã tiêu chuẩn %s chưa có trong danh sách đã kiểm tra (Knowledge mục 6) và phần C "
+                             "không ghi nguồn. Ghi nguồn hoặc để [CẦN KIỂM TRA]" % code)
+        # Ten du an, khach hang (Knowledge muc 1: chi dung khi nguoi dung cung cap)
+        if re.search(r"(dự án|công trình|nhà máy|khách hàng|tập đoàn|công ty)\s+(của\s+)?[A-ZĐ][\wÀ-ỹ]*\s+[A-ZĐ]", text) \
+                or re.search(r"\bđã (lắp|cung cấp|thi công|lắp đặt)( đặt)? (cho|tại)\b", text, re.I):
+            rep.warn(no, "Nêu dự án, khách hàng cụ thể: chỉ dùng khi người dùng đã cung cấp (Knowledge mục 1)")
+
+        codes = sorted(set(MODEL.findall(text)))
+        if not codes:
             continue
-        code = codes.pop()
-        row = models.get(code)
-        if not row:
-            rep.warn(no, "Model %s không có trong %s, kiểm tra lại tên model" % (code, csv_name))
+        known = {}
+        for code in codes:
+            if code in models:
+                known[code] = models[code]
+            else:
+                rep.warn(no, "Model %s không có trong %s, kiểm tra lại tên model" % (code, csv_name))
+        if not known:
             continue
-        lms = [to_int(x) for x in re.findall(r"(\d{1,3}(?:\.\d{3})+|\d{4,})\s*lm\b", text)]
-        if lms and row["lm"] and to_int(row["lm"]) not in lms:
-            rep.error(no, "%s: quang thông trong bài %s lm, CSV ghi %s lm" % (code, lms, row["lm"]))
-        # Mot dong co the co nhieu gia tri (vi du "PF tu 0,9 tro len. BUFO4-150 cong bo PF 0,98"),
-        # chi bao loi khi khong gia tri nao khop CSV
-        pfs = [x.replace(",", ".") for x in re.findall(r"PF\D{0,10}(\d[,.]\d+)", text)]
-        if pfs and row["pf"] and row["pf"] not in pfs:
-            rep.error(no, "%s: PF trong bài %s, CSV ghi %s" % (code, ", ".join(pfs), row["pf"]))
-        ras = re.findall(r"\bRa\D{0,10}(\d{2})\b", text)
-        if ras and row["ra"] and row["ra"] not in ras:
-            rep.error(no, "%s: Ra trong bài %s, CSV ghi %s" % (code, ", ".join(ras), row["ra"]))
+        names = ", ".join(known)
+        # Mot dong co the co nhieu gia tri va nhieu model: bao loi khi khong gia tri nao khop model nao trong dong
+        def cmp(label, found, values, error=True, fmt=str):
+            values = {v for v in values if v not in (None, "")}
+            if found and values and not set(found) & values:
+                msg = "%s: %s trong bài %s, CSV ghi %s" % (names, label, ", ".join(fmt(x) for x in found),
+                                                           ", ".join(sorted(fmt(v) for v in values)))
+                (rep.error if error else rep.warn)(no, msg)
+
+        cmp("quang thông (lm)", nums(r"(\d{1,3}(?:\.\d{3})+|\d{4,})\s*lm\b", text),
+            {to_int(r["lm"]) for r in known.values() if r["lm"]})
+        cmp("PF", [x.replace(",", ".") for x in re.findall(r"PF\D{0,10}(\d[,.]\d+)", text)],
+            {r["pf"] for r in known.values()})
+        cmp("Ra", re.findall(r"\bRa\D{0,10}(\d{2})\b", text), {r["ra"] for r in known.values()})
+        cmp("cấp bảo vệ", re.findall(r"\bIP\s?(\d{2})\b", text),
+            {x for r in known.values() for x in re.findall(r"IP(\d{2})", r["ip"])}, fmt=lambda x: "IP" + x)
+        if line_prices:
+            listed = {to_int(r["price"]) for r in known.values() if r["price"].strip("0 ")}
+            if not listed:
+                rep.error(no, "%s: trang sản phẩm ghi giá Liên hệ (CSV giá 0), bài không được nêu giá" % names)
+            else:
+                cmp("giá (đồng)", line_prices, listed, fmt=lambda x: "{:,}".format(x).replace(",", "."))
+        # Cong suat, tuoi tho: dong co the nhac den den cu (cao ap 250W, 10.000 gio) nen chi canh bao
+        no_codes = MODEL.sub(" ", text)
+        cmp("công suất (W)", [int(x) for x in re.findall(r"(?<![\d.,/])(\d{2,3})\s?W\b(?!/)", no_codes)],
+            {to_int(r["w"]) for r in known.values() if r["w"].strip()}, error=False)
+        cmp("tuổi thọ (giờ)", [x for x in nums(r"(\d{1,3}(?:\.\d{3})+|\d{5,})\s*giờ", text) if x >= 10000],
+            {to_int(r["life"]) for r in known.values() if r["life"].strip()}, error=False)
+        eff = [float(x.replace(",", ".")) for x in re.findall(r"(\d{2,3}(?:,\d+)?)\s*lm/W", text)]
+        calc = [to_int(r["lm"]) / to_int(r["w"]) for r in known.values() if r["lm"] and r["w"].strip()]
+        if eff and calc and not any(abs(e - c) <= 1 for e in eff for c in calc):
+            rep.warn(no, "%s: hiệu suất trong bài %s lm/W, tính từ CSV %s lm/W" % (
+                names, ", ".join("%g" % e for e in eff), ", ".join("%.0f" % c for c in calc)))
 
 
 # ---------- File quy tac cham rut gon ----------
@@ -609,6 +723,7 @@ def main():
     ap.add_argument("--gon", action="store_true", help="chi in LOI, CANH BAO va dong tom tat")
     ap.add_argument("--tra", help="tra CSV theo ma model hoac so")
     ap.add_argument("--cap-nhat-quy-tac", action="store_true")
+    ap.add_argument("--khong-mang", action="store_true", help="khong mo link de kiem tra (khi khong co mang)")
     args = ap.parse_args()
     if args.cap_nhat_quy_tac:
         return cap_nhat_quy_tac()
@@ -619,6 +734,8 @@ def main():
         return tra(args.tra, csv_path)
     if not args.article:
         ap.error("cần file bài")
+    global MANG
+    MANG = not args.khong_mang
 
     sections = parse(args.article)
     missing = [k for k in "AB" if k not in sections]
@@ -644,7 +761,7 @@ def main():
 
     csv_path = args.csv or tim_csv(os.path.dirname(os.path.abspath(args.article)))
     if csv_path:
-        check_against_csv(rep, b, load_csv(csv_path), os.path.basename(csv_path))
+        check_against_csv(rep, b, load_csv(csv_path), os.path.basename(csv_path), " ".join(l for _, l in c))
     else:
         rep.info(None, "Không tìm thấy file CSV sản phẩm, bỏ qua đối chiếu thông số và giá")
 
