@@ -53,6 +53,8 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 
 **Hook nhắc (Stop):** mỗi file `Bai_*.md` bị sửa bằng Edit/Write được ghi nhận. Khi kết thúc lượt mà file đó chưa có phiếu duyệt khớp nội dung (chưa được chấm lại sau lần sửa cuối), hook không cho dừng và yêu cầu chạy vòng duyệt. Hook nhắc tối đa 3 lần cho một file, sau đó cho dừng kèm cảnh báo. Khi agent `danh-gia-noi-dung` đang chấm (kể cả chạy nền), hook không nhắc; dấu "đang chấm" xóa khi agent ghi phiếu hoặc kết thúc, quá 30 phút thì tự hết hạn. Gặp nhắc này thì chấm lại bài, không kết thúc lượt bằng cách khác.
 
+**File nghiên cứu (người dùng chốt 26/10/2026):** `nghien_cuu/<tên bài>/outline.md` (outline đã chốt) và `nghien_cuu/<tên bài>/serp/` (văn bản bài top), lưu bằng `tools/nghien_cuu.py`. `kiem_tra_bai.py` báo LỖI khi heading lệch outline hoặc có đoạn từ 25 từ liền nhau trùng bài top (từ 10 từ là cảnh báo). Mã tiêu chuẩn đối chiếu `tieu_chuan_da_kiem.csv`.
+
 **Lệnh cho agent đánh giá:** `python tools/kiem_tra_bai.py <bài> --gon` (bản in gọn), `python tools/kiem_tra_bai.py --tra <model hoặc số>` (tra và đếm trên CSV). `phieu_duyet.py ghi` chỉ chạy khi `kiem_tra_bai.py` vừa chạy trên đúng nội dung bài.
 
 **Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `tao-anh`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
