@@ -1,6 +1,6 @@
 # Agent điều phối HLB
 
-Cập nhật: 22/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi người dùng bấm "Chạy Agent ngay") trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
+Cập nhật: 26/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi người dùng bấm "Chạy Agent ngay") trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
 
 Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc bảng, gọi đúng Agent cho từng bước và ghi kết quả về bảng. Quy tắc của từng Agent giữ nguyên:
 
@@ -38,7 +38,7 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 | `diem_vong` | Agent | Mảng `{vong, diem, ket_luan}` (`DAT`, `CAN_SUA`, `KHONG_DAT`) |
 | `bao_cao`, `cau_hoi` | Agent | Báo cáo chấm vòng cuối (markdown), câu hỏi mục 2b và placeholder còn lại, đánh số |
 | `draft_id`, `link_nhap`, `link_xem` | Agent | ID bản nháp, `https://denlednhaxuongcaocap.com/wp-admin/post.php?post=<ID>&action=edit`, link xem trước |
-| `nhap_khop` | Agent | `{luc, vong}`: bản nháp WP đã được ghi đè bằng bài vòng `vong` lúc `luc` và đã kiểm tra qua REST API. Xóa trường này ngay khi file bài thay đổi mà chưa đẩy |
+| `nhap_khop` | Agent | `{luc, vong, sha}`: bản nháp WP đã được ghi đè bằng bài vòng `vong` lúc `luc` và đã kiểm tra qua REST API. `sha` là mã nội dung file bài lúc đẩy (trường `sha` mà `bai_len_bang.py` ghi ra). Xóa trường này ngay khi file bài thay đổi mà chưa đẩy |
 | `gop_y_bai`, `ghi_chu_duyet_bai` | Người dùng | Góp ý chung, trả lời câu hỏi theo số |
 | `gop_y_muc` | Người dùng | Mảng `{muc, gop_y}`: góp ý gắn với từng mục H2 ("Mở bài" là phần trước H2 đầu tiên) |
 | `anh_tong`, `anh_duyet` | Agent | Số ảnh cần và đã duyệt |
@@ -46,9 +46,12 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 | `tra_loi` | Người dùng | Trả lời cho `ly_do` |
 | `lich_su` | Cả hai | Mảng `{luc, ai: "agent" or "ban", viec}`, chỉ thêm vào cuối |
 | `khoa_luc` | Agent | Giờ bắt đầu xử lý (chống chạy trùng) |
+| `thu_nghiem` | Người dùng | `true`: chạy thử. Agent làm đủ mọi bước nhưng không chạy `wp_draft.py --post`, không tải ảnh lên WordPress. Ghi `tien_do` "Chạy thử: dừng trước bước đăng nháp" thay cho `nhap_khop` |
 | `cap_nhat` | Cả hai | Giờ ISO |
 
-Collection `bai_viet`, tài liệu cùng id với từ khóa: `tieu_de`, `noi_dung` (phần B markdown, bỏ H1), `vong`, `file_bai`, `thay_doi` (markdown: đã sửa gì so với bản trước), `cap_nhat`. Tạo bằng `python dieu_phoi/bai_len_bang.py Bai_<slug>.md --thay-doi "..."` rồi `ArtifactData set` với `file_path`. Bảng hiện bài này để người dùng đọc và góp ý theo mục, không cần mở wp-admin.
+Collection `bai_viet`, tài liệu cùng id với từ khóa: `tieu_de`, `noi_dung` (phần B markdown, bỏ H1), `ghi_chu` (phần C), `vong`, `diem`, `ket_luan`, `sha`, `file_bai`, `thay_doi` (markdown: đã sửa gì so với bản trước), `cap_nhat`. Script dừng khi bài chưa có phiếu hoặc phiếu không khớp nội dung, nên bảng không hiện bài chưa chấm. Tạo bằng `python dieu_phoi/bai_len_bang.py Bai_<slug>.md --thay-doi "..."` rồi `ArtifactData set` với `file_path`. Bảng hiện bài này để người dùng đọc và góp ý theo mục, không cần mở wp-admin.
+
+Giờ ghi lên bảng (`luc`, `cap_nhat`, `khoa_luc`) dùng giờ Việt Nam có múi giờ, ví dụ `2026-10-26T14:05:00+07:00`.
 
 Tài liệu `cau_hinh/chung`: `trigger_id` (lịch chạy để nút "Chạy Agent ngay" gọi), `lan_chay_cuoi`, `link_duyet_anh`, `link_lich_su_cham`.
 
@@ -71,10 +74,12 @@ Bài ĐẠT mà phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng c
 
 Người dùng đã giao (22/10/2026): bài ĐẠT thì tự cập nhật bản nháp và hiện bài lên bảng, không hỏi lại.
 
-1. `wp_draft.py --post` (bài mới) hoặc `--post --draft-id <draft_id>` (bài đã có bản nháp).
-2. Kiểm tra qua REST API (`context=edit`): `status` vẫn `draft`, `modified` mới hơn lúc bắt đầu, nội dung có một câu chỉ có ở bản mới. Đạt thì ghi `nhap_khop: {luc, vong}`, `draft_id`, `link_nhap`, `link_xem`.
+1. `wp_draft.py --post` (bài mới; script tự kiểm phiếu ĐẠT khớp nội dung, kể cả khi phiên không nạp hook) hoặc `--post --draft-id <draft_id>` (bài đã có bản nháp).
+2. Kiểm tra qua REST API (`context=edit`): `status` vẫn `draft`, `modified` mới hơn lúc bắt đầu, nội dung có một câu chỉ có ở bản mới. Đạt thì ghi `nhap_khop: {luc, vong, sha}`, `draft_id`, `link_nhap`, `link_xem`.
 3. Ghi `bai_viet/<id>` bằng `bai_len_bang.py`.
-4. Ghi `diem_vong`, `bao_cao`, `cau_hoi`, rồi mới chuyển `cho_duyet_bai`.
+4. Ghi `diem_vong`, `bao_cao`, `cau_hoi`, rồi mới chuyển `cho_duyet_bai`. Bài ĐẠT mà báo cáo vẫn còn điểm "nên sửa" chưa sửa hoặc mục 2b: ghi vào `cau_hoi` (đánh số) để người dùng thấy, không bỏ lặng.
+
+Từ khóa có `thu_nghiem: true`: bỏ bước 1, 2, vẫn làm bước 3, 4.
 
 Bước 1 hoặc 2 lỗi (mạng, đăng nhập, quyền chạy lệnh bị chặn): vẫn làm bước 3, 4 để người dùng đọc được bài, nhưng không ghi `nhap_khop` và ghi rõ trong `cau_hoi` dòng đầu: "Bản nháp WP chưa cập nhật: <lý do>". Lượt chạy sau thấy từ khóa `cho_duyet_bai` không có `nhap_khop` mà phiếu vẫn ĐẠT và khớp file thì thử đẩy lại (việc ngắn, không tính vào giới hạn).
 
@@ -82,8 +87,10 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 ## 4. Mỗi lượt chạy
 
-1. Kiểm tra môi trường, không in giá trị mật khẩu: có biến `WP_USER` và `WP_APP_PASSWORD` không; `https://denlednhaxuongcaocap.com/wp-json/` trả về 200 không; repo push được không. Ghi `cau_hinh/chung.lan_chay_cuoi` (giờ ISO) và `cau_hinh/chung.moi_truong` (một câu, ví dụ "Đủ mật khẩu, website kết nối được, repo push được" hoặc nói rõ phần nào thiếu). Thiếu mật khẩu hoặc không vào được website thì chỉ làm các việc không cần đăng bản nháp (nghiên cứu, outline), các bước cần đăng chuyển `can_xu_ly` với lý do. **Làm mới dữ liệu sản phẩm** (26/10/2026): file `du_lieu_san_pham_HLB_*.csv` mới nhất cũ hơn 1 ngày thì chạy `python tools/lam_moi_csv.py` (khoảng 2 phút), commit file mới. Thay đổi giá, thông số in ra mà đụng tới model trong bài đã viết (`grep` tên model trong `Bai_*.md`) thì ghi vào `tien_do` của từ khóa đó để lần sửa bài sau cập nhật.
-2. **Làm tiếp việc dở trước** (người dùng chốt 23/10/2026: lượt trước dừng giữa chừng, ví dụ hết hạn mức token, thì lượt sau phải tự làm tiếp, không chờ người dùng nhắc). `list` collection `tu_khoa`, rồi:
+1. **Đọc bảng trước.** `list` collection `tu_khoa`, `anh`, `yeu_cau`. Không có từ khóa ở trạng thái chờ Agent hoặc `dang_*` quá 1 giờ, không có ảnh `lam_lai`, không có yêu cầu `moi`, và `doi_chieu_bang.py` (bước 2) báo khớp: ghi `cau_hinh/chung.lan_chay_cuoi` rồi kết thúc lượt ngay, không kiểm tra môi trường, không làm mới CSV, để tiết kiệm token.
+   Có việc thì kiểm tra môi trường, không in giá trị mật khẩu: có biến `WP_USER` và `WP_APP_PASSWORD` không; `https://denlednhaxuongcaocap.com/wp-json/` trả về 200 không; repo push được không. Ghi `cau_hinh/chung.lan_chay_cuoi` (giờ ISO) và `cau_hinh/chung.moi_truong` (một câu, ví dụ "Đủ mật khẩu, website kết nối được, repo push được" hoặc nói rõ phần nào thiếu). Thiếu mật khẩu hoặc không vào được website thì chỉ làm các việc không cần đăng bản nháp (nghiên cứu, outline), các bước cần đăng chuyển `can_xu_ly` với lý do. **Làm mới dữ liệu sản phẩm** (26/10/2026): file `du_lieu_san_pham_HLB_*.csv` mới nhất cũ hơn 1 ngày thì chạy `python tools/lam_moi_csv.py` (khoảng 2 phút), commit file mới. Thay đổi giá, thông số in ra mà đụng tới model trong bài đã viết (`grep` tên model trong `Bai_*.md`) thì ghi vào `tien_do` của từ khóa đó để lần sửa bài sau cập nhật.
+2. **Làm tiếp việc dở trước** (người dùng chốt 23/10/2026: lượt trước dừng giữa chừng, ví dụ hết hạn mức token, thì lượt sau phải tự làm tiếp, không chờ người dùng nhắc). `list` collection `tu_khoa` (và `bai_viet`) với `out_dir`, rồi:
+   - Chạy `python dieu_phoi/doi_chieu_bang.py <out_dir>`. Script so từng dòng với file bài và phiếu trên repo (bản nháp cũ, điểm cũ, bài trên bảng là bản cũ, bài có trên repo mà chưa có dòng) và in việc cần làm. Làm hết các việc đó trong lượt này (việc ngắn): cập nhật `diem_vong`, `bao_cao`, `bai_viet`, xóa `nhap_khop` sai, đẩy lại nháp theo mục 3a khi phiếu ĐẠT. Bài có trên repo mà chưa có dòng: tạo dòng `tu_khoa` ở `cho_duyet_bai` (đã có phiếu ĐẠT) hoặc `sua_bai`.
    - Từ khóa ở `dang_*` có `khoa_luc` quá 1 giờ: lượt trước bị ngắt. Đưa về trạng thái chờ tương ứng (`dang_nghien_cuu` về `moi` hoặc `sua_outline`, `dang_viet` về `cho_viet` hoặc `sua_bai`, `dang_tao_anh` về `cho_tao_anh`, `dang_hoan_thien` về `cho_hoan_thien`), ghi lịch sử "Lượt trước bị ngắt, làm tiếp từ <tien_do>".
    - Kiểm tra theo file trên repo, không làm lại phần đã xong: bài đã có file và phiếu ĐẠT khớp nội dung thì không viết, không chấm lại; `cho_duyet_bai` chưa có `nhap_khop` thì đẩy nháp (mục 3a); `cho_tao_anh` thì chạy `python tools/tao_anh.py kiem <file_bai>` và chỉ gọi `tao-anh` cho ảnh còn thiếu; ảnh đã có trong `anh/<bài>/` mà chưa có dòng trong collection `anh` thì đưa lên bảng ngay.
    - **Ảnh bị yêu cầu làm lại** (người dùng chốt 23/10/2026): `list` collection `anh` và `yeu_cau`. Ảnh `lam_lai` hoặc yêu cầu `moi` thì làm ngay trong lượt này, dù từ khóa đang ở `cho_duyet_anh` hay trạng thái nào, không chờ người dùng bấm "Đã duyệt ảnh xong". Gọi `tao-anh` cho đúng ảnh đó kèm `ghi_chu` của người dùng, rồi đưa lên bảng như CLAUDE.md mục "Đưa ảnh lên trang" (ảnh làm lại). Nút "Làm lại" trên bảng gọi Agent chạy ngay; nếu không gọi được thì lượt định kỳ kế tiếp làm.
@@ -96,6 +103,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 ## 5. Ranh giới
 
-- Không đăng công khai. Không chạy `phieu_duyet.py ghi` bằng tay. Không vượt hook.
+- Không đăng công khai. Không chạy `phieu_duyet.py ghi` bằng tay. Không vượt hook. Không dùng `wp_draft.py --bo-qua-phieu` (chỉ người dùng dùng).
+- Phiên chạy theo lịch và phiên thread trên cloud có thể không nạp hook trong `.claude/settings.json` (đã thấy 26/10/2026). Quy tắc hook vẫn áp dụng: tự chạy vòng duyệt sau mỗi lần sửa bài. Các chặn quan trọng đã nằm trong script (`wp_draft.py --post` tự kiểm phiếu, `bai_len_bang.py` dừng khi phiếu không khớp).
 - Không đưa mật khẩu, token vào bảng hay file.
 - Không tự đổi quy tắc của các Agent con. Người dùng muốn đổi tiêu chuẩn thì sửa file quy tắc tương ứng.
