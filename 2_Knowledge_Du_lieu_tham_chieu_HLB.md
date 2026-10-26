@@ -297,17 +297,17 @@ N = (E x S) / (Φ x UF x MF)
 - E: độ rọi trung bình cần đạt (lux)
 - S: diện tích cần chiếu sáng (m²)
 - Φ: quang thông một đèn (lm)
-- UF: hệ số sử dụng, phụ thuộc chiều cao, kích thước phòng, màu tường trần. Khi ước tính thường giả định 0,5-0,7.
-- MF: hệ số duy trì, tính tới bụi bẩn và suy giảm quang thông. Khi ước tính thường giả định 0,7-0,8. Xưởng nhiều bụi (gỗ, xi măng, dệt) nên lấy thấp.
+- UF: hệ số sử dụng, phụ thuộc chiều cao, kích thước phòng, màu tường trần. Khi ước tính thường giả định khoảng 0,8 (người dùng chốt 26/10/2026).
+- MF: hệ số duy trì, tính tới bụi bẩn và suy giảm quang thông. Khi ước tính thường giả định khoảng 0,8 (người dùng chốt 26/10/2026). Xưởng nhiều bụi (gỗ, xi măng, dệt) nên lấy thấp.
 
 **Ví dụ mẫu:**
 
 Nhà kho 400 m², trần cao 5 m, giả sử cần độ rọi trung bình 200 lux, dùng đèn BUFO4-50 (quang thông công bố 6.500 lm).
 
-1. Giả định UF = 0,6, MF = 0,8
-2. N = (200 x 400) / (6.500 x 0,6 x 0,8) = 80.000 / 3.120 = 25,64
-3. Làm tròn lên: 26 đèn. Bố trí theo lưới đều, ví dụ 4 hàng x 7 đèn = 28 đèn.
-4. Tổng công suất: 28 x 50W = 1.400W, tương đương 3,5 W/m².
+1. Giả định UF = 0,8, MF = 0,8
+2. N = (200 x 400) / (6.500 x 0,8 x 0,8) = 80.000 / 4.160 = 19,23
+3. Làm tròn lên: 20 đèn. Bố trí theo lưới đều, ví dụ 4 hàng x 5 đèn = 20 đèn.
+4. Tổng công suất: 20 x 50W = 1.000W, tương đương 2,5 W/m².
 
 **Ví dụ tính tiền điện:**
 

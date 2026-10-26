@@ -758,5 +758,25 @@
   "bai": "mau-nha-xuong-200m2",
   "vong": 2,
   "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 190 ket bai: phuong an gon va tiet kiem nhat chua co can cu so sanh",
+  "ma": "L017",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "placeholder-chua-goi-y",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Xuong bui: goi y IP65/IP66 hang khac hay trung lap, khong tru diem",
+  "ma": "L017",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
  }
 ]
