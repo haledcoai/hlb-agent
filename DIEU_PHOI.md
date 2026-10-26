@@ -71,7 +71,7 @@ Bài ĐẠT mà phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng c
 
 Người dùng đã giao (22/10/2026): bài ĐẠT thì tự cập nhật bản nháp và hiện bài lên bảng, không hỏi lại.
 
-1. `wp_draft.py` xem trước, rồi `--post` (bài mới) hoặc `--post --draft-id <draft_id>` (bài đã có bản nháp).
+1. `wp_draft.py --post` (bài mới) hoặc `--post --draft-id <draft_id>` (bài đã có bản nháp).
 2. Kiểm tra qua REST API (`context=edit`): `status` vẫn `draft`, `modified` mới hơn lúc bắt đầu, nội dung có một câu chỉ có ở bản mới. Đạt thì ghi `nhap_khop: {luc, vong}`, `draft_id`, `link_nhap`, `link_xem`.
 3. Ghi `bai_viet/<id>` bằng `bai_len_bang.py`.
 4. Ghi `diem_vong`, `bao_cao`, `cau_hoi`, rồi mới chuyển `cho_duyet_bai`.

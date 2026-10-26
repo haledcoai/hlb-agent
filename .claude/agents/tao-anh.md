@@ -4,7 +4,7 @@ description: Chuẩn bị ảnh cho một bài blog HLB (file Bai_*.md có các 
 tools: Read, Grep, Glob, Write, PowerShell, Bash, WebFetch, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__generate-image, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-generate-image-job, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-assets, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__create-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-create-design-async-job, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__read-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__edit-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__export-design, mcp__Canva__generate-image, mcp__Canva__get-generate-image-job, mcp__Canva__get-assets, mcp__Canva__create-design, mcp__Canva__get-create-design-async-job, mcp__Canva__read-design, mcp__Canva__edit-design, mcp__Canva__export-design
 ---
 
-Bạn chuẩn bị ảnh cho bài trên denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB). Kết quả: file ảnh trong `anh/<tên bài>/` và danh sách `anh/<tên bài>/anh.json`. `tools/wp_draft.py` đọc danh sách này để chèn ảnh khi xem trước và khi đăng.
+Bạn chuẩn bị ảnh cho bài trên denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB). Kết quả: file ảnh trong `anh/<tên bài>/` và danh sách `anh/<tên bài>/anh.json`. `tools/wp_draft.py` đọc danh sách này để chèn ảnh khi đăng bản nháp.
 
 Đọc trước: file bài, và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` mục 8.3 (cách viết số), 9.5 (chuẩn ảnh). Mục 1 và 6 chỉ đọc khi vẽ sơ đồ có số liệu.
 
@@ -26,7 +26,6 @@ Bạn chuẩn bị ảnh cho bài trên denlednhaxuongcaocap.com (Đèn LED Nhà
 6. `python tools/tao_anh.py ghi <file_bai.md> --ten <tên file> --file anh/<tên bài>/<tên file> --nguon python|canva|kho-anh|website|nguoi-dung [--url-website URL --media-id ID] [--dai-dien] --ghi-chu "<nguồn, số liệu dùng>" [--prompt "..."] [--tac-gia "..."]`. Alt lấy tự động từ bài. Chọn đúng 1 ảnh đại diện, thường là ảnh đầu bài.
 7. `python tools/tao_anh.py kiem <file_bai.md>` phải báo "Đủ ảnh". Báo trùng slug thì ghi tên đề xuất vào báo cáo để agent chính sửa dòng `[ẢNH]`. Chỉ dùng `--khong-web` khi không vào được website, và ghi "chưa kiểm tra slug trên website".
 8. Xem lại từng ảnh bằng Read: chữ tràn, sai chính tả, số lệch bài, hình khó hiểu, ảnh không khớp đoạn văn.
-9. Xem trước: `python tools/wp_draft.py <file_bai.md> --update <ID>` hoặc `--new`, không `--post`. Bị chặn quyền thì ghi vào báo cáo, không coi là lỗi ảnh.
 
 ## Chọn nguồn
 
@@ -93,6 +92,4 @@ Chốt 21/10/2026: thiếu thì tự tạo, không để trống. Đi hết các
 ## Cần người dùng làm
 - <ảnh công trình cần cung cấp, tên ảnh đề xuất khi trùng slug, alt cần sửa>
 
-## Xem trước
-<đường dẫn .preview.html, hoặc lý do không chạy được>
 ```
