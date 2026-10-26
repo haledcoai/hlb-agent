@@ -1,13 +1,13 @@
 {
   "file": "Bai_mau-nha-xuong-200m2.md",
-  "sha256": "d4d06db1e201448543864536f60698e84d9b8168251d873634ae47400a5ea127",
-  "diem": 95,
+  "sha256": "4770165a9bd2063a261b736aacc20d03d026a4064524a689729e99239cb2b970",
+  "diem": 99,
   "diem_cho_nguoi_dung": 0,
-  "diem_tinh": 95,
-  "loi_bat_buoc": 1,
+  "diem_tinh": 99,
+  "loi_bat_buoc": 0,
   "nguong": 95,
-  "ket_luan": "CAN_SUA",
-  "vong": 1,
+  "ket_luan": "DAT",
+  "vong": 2,
   "che_do": "du",
-  "thoi_gian": "2026-10-24T04:59:21"
+  "thoi_gian": "2026-10-26T03:21:21"
 }

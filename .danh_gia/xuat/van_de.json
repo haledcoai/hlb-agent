@@ -558,5 +558,205 @@
   "bai": "cach-chon-den-led-nha-xuong",
   "vong": 1,
   "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "gia-tri-tieu-chuan-chua-khop",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Dong 84 van phong 300 lux theo QCVN 22:2016, hang muc viet doc xu ly du lieu la 500 lux",
+  "ma": "L012",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 304 may moc moi la phan chinh: chua co can cu, khong dung voi kho hang",
+  "ma": "L012",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ chia cong tac dong 306-308 lap y dong 159 va dong 84",
+  "ma": "L012",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "phan-c-sai-so-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan C dong 328 ghi nam cho da dien, thieu placeholder dong 308",
+  "ma": "L012",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "bao-hanh-them-dieu-kien",
+  "muc": "bat_buoc",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "Dong 140 them dieu kien loi do nha san xuat, quy tac 24/10 cam ro cum nay",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "tra-loi-nhanh-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Doan tra loi nhanh 63 tu va 6 y, can 40-60 tu, 3-5 y",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "tra-loi-nhanh-thieu-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "Y kieu den, IP, driver chua co dieu kien cu the",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 117 toi uu, 123 135 166 nhieu nhat, 163 chung toi gap chua co can cu",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "UF dong 149 va metal halide dong 173 chua giai thich",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "ket-bai-lap-bang-buoc-2",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Ket bai chep lai bang chon nhanh Buoc 2, cau dau 3 ve",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "ket-bai-thieu-truong-hop",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Ket bai thieu truong hop xuong nong da co o Buoc 5",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Chua H2 nao chua nguyen cum cach chon den LED nha xuong",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 la muc cao cho xuong co khi bui trung binh",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "placeholder-chua-goi-y",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Xuong bui: goi y IP65/IP66 hang khac hay trung lap, khong tru diem",
+  "ma": "L013",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 190 ket bai: phuong an gon va tiet kiem nhat chua co can cu so sanh",
+  "ma": "L015",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "h2-thieu-tu-khoa",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Chua H2 nao chua nguyen cum cach chon den LED nha xuong",
+  "ma": "L015",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "he-so-tinh-chua-hop-ly",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "MF 0,8 la muc cao cho xuong co khi bui trung binh",
+  "ma": "L015",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "placeholder-chua-goi-y",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Xuong bui: goi y IP65/IP66 hang khac hay trung lap, khong tru diem",
+  "ma": "L015",
+  "bai": "cach-chon-den-led-nha-xuong",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "phan-c-sai-so-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan C muc 5 Anh can chuan bi con ghi viec can lam, dong 338 da noi du anh va da duyet",
+  "ma": "L016",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "faq-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ giay phep dong 316 khoang 86 tu khong tinh placeholder, chuan 40-80",
+  "ma": "L016",
+  "bai": "mau-nha-xuong-200m2",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
  }
 ]

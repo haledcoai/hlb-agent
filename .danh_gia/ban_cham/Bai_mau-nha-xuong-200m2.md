@@ -81,7 +81,7 @@ Lưu ý chiếu sáng: khu dưới gác trần thấp, chỉ khoảng 2,5-3 m, k
 
 Khối văn phòng 1-2 tầng đặt ở mặt trước, phía sau là xưởng. Hợp với doanh nghiệp nhỏ cần tiếp khách, làm hồ sơ ngay tại xưởng. Cần ngăn bụi và tiếng ồn giữa hai khu.
 
-Lưu ý chiếu sáng: văn phòng cần độ rọi 300 lux cho phòng làm việc chung theo QCVN 22:2016/BYT, ánh sáng nên dịu, ít chói. Tách mạch điện chiếu sáng văn phòng và xưởng để tắt riêng từng khu.
+Lưu ý chiếu sáng: theo QCVN 22:2016/BYT, phòng làm việc chung cần độ rọi duy trì tối thiểu 300 lux, phòng đánh máy, xử lý dữ liệu cần 500 lux. Ánh sáng văn phòng nên dịu, ít chói. Tách mạch điện chiếu sáng văn phòng và xưởng để tắt riêng từng khu.
 
 [ẢNH: nhà xưởng có khối văn phòng phía trước | alt: mẫu nhà xưởng 200m2 kết hợp văn phòng | tên file: nha-xuong-200m2-ket-hop-van-phong.jpg]
 
@@ -301,11 +301,11 @@ Bản vẽ mặt bằng, mặt cắt cho từng kích thước có trong bài [b
 
 ### Chiếu sáng cho xưởng 200m2 tốn bao nhiêu điện?
 
-Theo ví dụ trong bài, xưởng 10 x 20 m trần 5 m dùng 21 đèn 50W, tổng khoảng 1.050W. Nếu bật 8 giờ mỗi ngày, mức tiêu thụ là khoảng 8,4 kWh mỗi ngày (ước tính). Kho trần 7-8 m dùng 6 đèn 100W, tổng 600W, khoảng 4,8 kWh cho 8 giờ (ước tính). Khi tính tải điện cho cả xưởng, phần chiếu sáng chỉ là một phần nhỏ, máy móc mới là phần chính.
+Theo ví dụ trong bài, xưởng 10 x 20 m trần 5 m dùng 21 đèn 50W, tổng khoảng 1.050W. Nếu bật 8 giờ mỗi ngày, mức tiêu thụ là khoảng 8,4 kWh mỗi ngày (ước tính). Kho trần 7-8 m dùng 6 đèn 100W, tổng 600W, khoảng 4,8 kWh cho 8 giờ (ước tính). Khi tính tải điện cho cả xưởng, cộng thêm công suất máy móc và quạt hút theo thực tế từng xưởng.
 
 ### Xưởng nhỏ có nên chia nhiều công tắc cho hệ đèn không?
 
-Có. Với xưởng 200m2, nên chia ít nhất theo khu: dãy đèn gần cửa và tấm lấy sáng một mạch, khu thao tác một mạch, kho hoặc gác lửng một mạch. Ban ngày có thể tắt dãy gần nguồn sáng tự nhiên, chỉ bật khu cần. Chi phí thêm chủ yếu là dây và công tắc, nên làm ngay từ lúc đi dây sẽ rẻ hơn sửa sau. [CẦN KIỂM TRA: dòng đèn đang bán có hỗ trợ dimming hoặc cảm biến không, nếu có thì nhắc thêm.]
+Có, và nên quyết định ngay từ lúc đi dây. Thêm mạch sau khi đã hoàn thiện thường phải đục tường, đi lại dây, tốn hơn nhiều so với làm từ đầu. Nên đặt công tắc theo đường đi của người làm: khu thao tác ở cạnh cửa chính, kho hoặc gác lửng ở cạnh lối vào khu đó, để người cuối ca tắt đúng khu không dùng. [CẦN KIỂM TRA: dòng đèn đang bán có hỗ trợ dimming hoặc cảm biến không, nếu có thì nhắc thêm.]
 
 ### Xây nhà xưởng 200m2 mất bao lâu?
 
@@ -325,7 +325,7 @@ Gửi kích thước nhà xưởng, chiều cao trần và loại công việc, 
 
 **1. Placeholder còn lại**
 
-Năm chỗ **[CẦN KIỂM TRA]** / **[CẦN BỔ SUNG]** đã được điền ngày 21/10/2026, cách xử lý từng chỗ:
+Năm chỗ **[CẦN KIỂM TRA]** / **[CẦN BỔ SUNG]** của bản đầu đã xử lý ngày 21/10/2026 như bảng dưới. Bài còn 2 placeholder: FAQ "chia nhiều công tắc" (dòng đèn có hỗ trợ dimming, cảm biến không) và FAQ "giấy phép xây dựng" (điều, khoản miễn giấy phép).
 
 | Vị trí | Đã điền | Mức chắc chắn |
 |---|---|---|
@@ -335,11 +335,11 @@ Năm chỗ **[CẦN KIỂM TRA]** / **[CẦN BỔ SUNG]** đã được điền 
 | FAQ "Xây nhà xưởng 200m2 mất bao lâu?" | 2-3 tuần cho nhà tiền chế 200m2, theo công bố của Wedo | Số liệu doanh nghiệp, đã ghi tên nguồn |
 | FAQ "giấy phép xây dựng" | Đã bỏ số khoản vì nguồn ghi ở mục 2 không khớp khoản 2 Điều 43, chèn [CẦN KIỂM TRA] | Chưa chắc chắn, cần đối chiếu bản gốc Luật 135/2025/QH15 |
 
-Còn lại: 10 vị trí **[ẢNH]** (1 ảnh tổng hợp, 8 ảnh mẫu, 1 sơ đồ), bạn gửi ảnh sau (xem mục 5).
+Ảnh: 10 vị trí **[ẢNH]** (1 ảnh tổng hợp, 8 ảnh mẫu, 1 sơ đồ) đã có đủ ảnh, người dùng đã duyệt.
 
 **2. Nguồn đã dùng (truy cập 21/10/2026)**
 
-- Độ rọi: QCVN 22:2016/BYT ban hành kèm Thông tư 22/2016/TT-BYT, hiệu lực từ 01/12/2016. Bản đọc tại https://www.atld.vn/law/473/content. Nên đối chiếu thêm với bản trên cổng văn bản chính phủ trước khi đăng.
+- Độ rọi: QCVN 22:2016/BYT ban hành kèm Thông tư 22/2016/TT-BYT, hiệu lực từ 01/12/2016. Bản đọc tại https://www.atld.vn/law/473/content (mở lại 26/10/2026: mục 2.22 Văn phòng, công sở ghi phòng làm việc chung 300 lux, phòng đánh máy, xử lý dữ liệu 500 lux). Nên đối chiếu thêm với bản trên cổng văn bản chính phủ trước khi đăng.
 
 - BUFO4-50: https://denlednhaxuongcaocap.com/den-led-nha-xuong-50w/cao-cap-50w/bufo4-50/. Quang thông 6.500 lm, Ra 90, IP54, giá 2.550.000 đồng (API giá cửa hàng).
 
