@@ -12,6 +12,7 @@ import glob
 import hashlib
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,7 +68,10 @@ def main():
                 if nk.get("sha"):
                     nhap_cu = nk["sha"] != sha
                 else:  # nhap_khop cu chua ghi sha: so gio day nhap voi gio cham cuoi
-                    t_nk, t_ph = gio(nk.get("luc")), gio(phieu.get("thoi_gian", "") + ("" if "+" in phieu.get("thoi_gian", "") else "+07:00"))
+                    # phieu cu ghi gio may khong mui gio (Windows: gio VN, cloud: UTC). Coi la UTC: neu sai thi
+                    # phieu hien muon hon 7 gio, chi lam bao "nhap cu" thua (an toan), khong bo sot.
+                    tg = phieu.get("thoi_gian", "")
+                    t_nk, t_ph = gio(nk.get("luc")), gio(tg if re.search(r"[+-]\d\d:\d\d$|Z$", tg) else tg + "+00:00")
                     nhap_cu = bool(t_nk and t_ph and t_ph > t_nk)
                 if nhap_cu:
                     viec.append("bản nháp WP %s là bản cũ nhưng bảng ghi đã cập nhật: xóa nhap_khop, đẩy lại nháp khi phiếu ĐẠT"
