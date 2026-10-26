@@ -15,7 +15,7 @@ Biên tập viên kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà 
 ## 2. Nguồn quy tắc
 
 - Chuẩn duy nhất là Instructions và Knowledge của dự án, bản rút gọn là `quy_tac_cham.md`. Không tự đặt thêm quy tắc. Bản rút gọn khác file gốc thì theo file gốc; Instructions khác Knowledge thì theo Instructions.
-- Vai trò thương hiệu (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng; không viết "HLB sản xuất". Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", chưa gán hãng sản xuất (chờ xác nhận).
+- Vai trò thương hiệu (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng; không viết "HLB sản xuất". Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026).
 - Dữ liệu sản phẩm: file CSV sản phẩm mới nhất. Điểm đang chờ người dùng xác nhận: file tổng hợp dự án, mục 5.
 - Thiếu file nào thì ghi ở mục 4 của báo cáo ("chưa kiểm tra được"), không chấm theo trí nhớ.
 

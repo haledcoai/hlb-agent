@@ -80,7 +80,7 @@ BRAND_ROLE = {
 # Chi canh bao khi gan hang san xuat cho dong cao cap (chua xac nhan).
 BRAND_ROLE_WARN = {
     r"cao cấp[^.;:]{0,40}\b(của|do)?\s*haledco\s+(sản xuất|lắp ráp)|cao cấp[^.;:]{0,20}\b(của|do)\s+haledco\b":
-        "dòng cao cấp gọi là \"dòng đèn cao cấp HLB phân phối\", chưa gán hãng sản xuất (chờ người dùng xác nhận)",
+        "dòng cao cấp gọi là \"dòng đèn cao cấp HLB phân phối\", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026)",
 }
 
 # Thuat ngu thong nhat (Knowledge muc 7)
