@@ -191,9 +191,15 @@ def upload_media(path, alt, title, description, auth):
     return media["id"], media["source_url"]
 
 
+def hoa_dau(text):
+    """Viet hoa chu dau (mo ta, alt trong dong [ANH] co the viet thuong, vi du bai 8524), giu nguyen phan con lai."""
+    text = text.strip()
+    return text[:1].upper() + text[1:]
+
+
 def media_description(a):
     """Mo ta anh trong thu vien Media: noi dung anh theo [ANH], ghi ro anh minh hoa neu tao bang AI."""
-    desc = a["mo_ta"].rstrip(".") + "."
+    desc = hoa_dau(a["mo_ta"]).rstrip(".") + "."
     if a["nguon"] in ("canva", "kho-anh"):
         desc += " Ảnh minh họa."
     if a.get("tac_gia"):
@@ -228,7 +234,7 @@ def mark_images(body_lines, images):
 
 def image_caption(a):
     """Chu thich hien duoi anh: noi dung anh theo [ANH]; anh tao bang AI ghi ro la anh minh hoa."""
-    cap = a["mo_ta"].rstrip(".")
+    cap = hoa_dau(a["mo_ta"]).rstrip(".")
     # Ten tac gia anh kho (Unsplash) chi ghi trong mo ta Media, chu thich chi ghi "anh minh hoa" (nguoi dung chot 23/10/2026)
     return cap + " (ảnh minh họa)" if a["nguon"] in ("canva", "kho-anh") else cap
 
@@ -250,10 +256,10 @@ def insert_images(content, images, src_of, preview=False):
         cap = html.escape(image_caption(a))
         if preview:
             return ('<figure class="aligncenter"><img src="%s" alt="%s"%s><figcaption>%s</figcaption></figure>'
-                    % (html.escape(src_of(a)), html.escape(a["alt"]), size, cap))
+                    % (html.escape(src_of(a)), html.escape(hoa_dau(a["alt"])), size, cap))
         mid = a.get("media_id")
         img = '<img class="size-full%s" src="%s" alt="%s"%s>' % (
-            " wp-image-%d" % mid if mid else "", html.escape(src_of(a)), html.escape(a["alt"]), size)
+            " wp-image-%d" % mid if mid else "", html.escape(src_of(a)), html.escape(hoa_dau(a["alt"])), size)
         return '[caption id="%s" align="aligncenter" width="%d"]%s %s[/caption]' % (
             "attachment_%d" % mid if mid else "", w or 820, img, cap)
     return re.sub(r"<p>@@ANH:([^@]+)@@</p>", repl, content)
@@ -418,12 +424,15 @@ def main():
                 if a.get("media_id") and a.get("url_da_tai") and a.get("sha_da_tai") == digest:
                     print("Dung lai anh da tai:", a["url_da_tai"])
                 else:
-                    a["media_id"], a["url_da_tai"] = upload_media(path, a["alt"], a["alt"], media_description(a), auth)
+                    a["media_id"], a["url_da_tai"] = upload_media(path, hoa_dau(a["alt"]), hoa_dau(a["alt"]),
+                                                                  media_description(a), auth)
                     a["sha_da_tai"] = digest
                     print("Da tai anh len Media ID %d: %s" % (a["media_id"], a["url_da_tai"]))
                 # Anh dung lai tu bai khac: media dung chung, khong ghi de chu thich cua bai goc
                 if not a.get("dung_lai_tu") and a.get("chu_thich_da_ghi") != image_caption(a):
-                    call("POST", "/wp/v2/media/%d" % a["media_id"], {"caption": image_caption(a)}, auth=auth)
+                    call("POST", "/wp/v2/media/%d" % a["media_id"], {
+                        "caption": image_caption(a), "alt_text": hoa_dau(a["alt"]), "title": hoa_dau(a["alt"]),
+                        "description": media_description(a)}, auth=auth)
                     a["chu_thich_da_ghi"] = image_caption(a)
             if a.get("dai_dien"):
                 featured = a.get("media_id")

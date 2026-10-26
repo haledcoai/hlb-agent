@@ -385,6 +385,9 @@ def check_images(rep, body, slug=""):
                 rep.error(no, "Ảnh thiếu alt text")
             elif len(alt) > 125:
                 rep.error(no, "Alt text dài %d ký tự, tối đa 125" % len(alt))
+            mo_ta = m.group(1).split("|")[0].strip()
+            if any(t[:1].islower() for t in (mo_ta, alt) if t):
+                rep.warn(no, "Mô tả hoặc alt ảnh viết thường chữ đầu, nên viết hoa như câu chú thích (Knowledge 9.5)")
             if not name:
                 rep.warn(no, "Ảnh thiếu tên file gợi ý")
             elif not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*\.jpg", name):
