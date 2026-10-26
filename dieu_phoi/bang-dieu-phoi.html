@@ -104,7 +104,9 @@ code, .mono { font-family: var(--mono); font-size: 13px; }
 .bai .mgy[open] summary, .bai .mgy.has summary { background: var(--you_surface); border-color: var(--color_primary); color: var(--color_body); }
 .bai .mgy textarea { margin-top: 6px; min-height: 70px; }
 .sync { font-size: 14px; font-weight: 700; }
-.sync.ok { color: var(--ok); } .sync.bad { color: var(--danger); }
+.sync.ok { color: var(--ok); } .sync.bad { color: var(--danger); } .sync.test { color: var(--muted); }
+label.check { display: flex; gap: 8px; align-items: flex-start; font-weight: 500; }
+label.check input { margin-top: 4px; flex: none; }
 details.sec { border-top: 1px solid var(--gray_200); padding-top: 10px; }
 details.sec > summary { cursor: pointer; font-weight: 700; padding: 4px 0; font-size: 14px; color: var(--color_body); }
 details.sec > summary:hover { color: var(--color_main); }
@@ -257,6 +259,7 @@ select { width: auto; min-width: 220px; max-width: 100%; }
       <textarea id="kwInput" name="kw" required placeholder="đèn pha bảng hiệu&#10;đèn hắt biển quảng cáo"></textarea>
       <label for="kwNote">Ghi chú chung cho Agent (không bắt buộc)</label>
       <input type="text" id="kwNote" name="note" placeholder="Ví dụ: ưu tiên khách là chủ xưởng cơ khí">
+      <label class="check" for="kwTest"><input type="checkbox" id="kwTest" name="test"> Chạy thử: Agent làm đủ các bước nhưng không đăng nháp, không tải ảnh lên WordPress</label>
       <div class="actions"><button class="btn ok" type="submit" id="addBtn">Nạp và giao Agent</button><span class="msg" id="addMsg" role="status"></span></div>
     </form>
   </details>
@@ -357,7 +360,7 @@ function renderList() {
     const s = st(r);
     return `<button type="button" class="item" data-id="${esc(r.id)}" aria-current="${r.id === selId}">
       <span class="kw">${esc(r.tu_khoa)}</span>
-      <span class="meta"><span class="pill ${s.c}">${esc(s.t)}</span>${r.id_bai_cu ? `<span>Viết lại #${esc(r.id_bai_cu)}</span>` : ""}<span>${fmt(r.cap_nhat)}</span></span>
+      <span class="meta"><span class="pill ${s.c}">${esc(s.t)}</span>${r.thu_nghiem ? `<span class="pill off">Chạy thử</span>` : ""}${r.id_bai_cu ? `<span>Viết lại #${esc(r.id_bai_cu)}</span>` : ""}<span>${fmt(r.cap_nhat)}</span></span>
     </button>`;
   }).join("");
 }
@@ -386,7 +389,7 @@ function baiHtml(r, canNote) {
   if (b === undefined) return r.file_bai ? `<p class="hint">Đang tải bài...</p>` : "";
   if (!b || !b.noi_dung) return `<p class="hint">Agent chưa đưa bài lên bảng.</p>`;
   const dis = readOnly ? "disabled" : "";
-  const head = `<p class="hint">Bản vòng ${esc(b.vong ?? "")}, cập nhật ${fmt(b.cap_nhat)}.${canNote ? " Góp ý thẳng vào mục cần sửa, Agent chỉ sửa đúng các mục đó." : ""}</p>`
+  const head = `<p class="hint">Bản vòng ${esc(b.vong ?? "")}${b.diem ? `, ${esc(b.diem)} điểm` : ""}, cập nhật ${fmt(b.cap_nhat)}.${canNote ? " Góp ý thẳng vào mục cần sửa, Agent chỉ sửa đúng các mục đó." : ""}</p>`
     + (b.thay_doi ? `<details class="sec"><summary>Thay đổi so với bản trước</summary><div class="md">${md(b.thay_doi)}</div></details>` : "");
   const body = splitMuc(b.noi_dung).map((m, i) => {
     const key = r.id + "#" + i, v = drafts[key] ?? "";
@@ -394,7 +397,8 @@ function baiHtml(r, canNote) {
       <textarea id="muc-${esc(key)}" data-muc="${esc(key)}" data-h="${esc(m.h)}" aria-label="Góp ý mục ${esc(m.h)}" placeholder="Ví dụ: đoạn này dài, rút còn 3 câu; thêm ví dụ trần 8 m" ${dis}>${esc(v)}</textarea></details>` : "";
     return `<div class="muc"><div class="md">${md(m.lines.join("\n"))}</div>${box}</div>`;
   }).join("");
-  return head + `<div class="bai">${body}</div>`;
+  const ghiChu = b.ghi_chu ? `<details class="sec"><summary>Ghi chú cho người duyệt (phần C)</summary><div class="md">${md(b.ghi_chu)}</div></details>` : "";
+  return head + `<div class="bai">${body}</div>` + ghiChu;
 }
 
 function watchBai() {
@@ -471,13 +475,21 @@ function actionHtml(r) {
   return "";
 }
 
+function nhapHtml(r) {
+  if (r.thu_nghiem) return `<span class="sync test">Chạy thử: không đăng hay ghi đè bản nháp</span>`;
+  const nk = r.nhap_khop, b = bai[r.id];
+  if (!nk) return `<span class="sync bad">Chưa cập nhật bản mới nhất. Agent đẩy lại ở lượt chạy kế tiếp</span>`;
+  if (nk.sha && b && b.sha && nk.sha !== b.sha) return `<span class="sync bad">Bản nháp là bản cũ (vòng ${esc(nk.vong ?? "")}), bài trên bảng đã sửa sau đó</span>`;
+  return `<span class="sync ok">Khớp bài trên bảng: bản vòng ${esc(nk.vong ?? "")}, cập nhật ${fmt(nk.luc)}</span>`;
+}
+
 function renderDetail() {
   const r = rows.find(x => x.id === selId);
   if (!r) { $("#detail").innerHTML = `<div class="empty">Chọn một từ khóa ở danh sách để xem SERP, outline, bài viết và các nút duyệt.</div>`; return; }
   const s = st(r);
   const links = [
     r.link_nhap ? `<dt>Bản nháp</dt><dd><a href="${esc(r.link_nhap)}" target="_blank" rel="noopener">Mở trong wp-admin${r.draft_id ? ` (ID ${esc(r.draft_id)})` : ""}</a></dd>` : "",
-    r.draft_id ? `<dt>Bản nháp WP</dt><dd>${r.nhap_khop ? `<span class="sync ok">Đã cập nhật bản vòng ${esc(r.nhap_khop.vong ?? "")} lúc ${fmt(r.nhap_khop.luc)}</span>` : `<span class="sync bad">Chưa cập nhật bản mới nhất</span>`}</dd>` : "",
+    r.draft_id || r.thu_nghiem ? `<dt>Bản nháp WP</dt><dd>${nhapHtml(r)}</dd>` : "",
     r.link_xem ? `<dt>Xem trước</dt><dd><a href="${esc(r.link_xem)}" target="_blank" rel="noopener">Xem bản nháp</a></dd>` : "",
     r.file_bai ? `<dt>File bài</dt><dd class="mono">${esc(r.file_bai)}</dd>` : "",
     r.tieu_de ? `<dt>Tiêu đề</dt><dd>${esc(r.tieu_de)}</dd>` : "",
@@ -489,7 +501,7 @@ function renderDetail() {
   $("#detail").innerHTML = `
     <div class="dhead">
       <h2>${esc(r.tu_khoa)}</h2>
-      <div class="sub"><span class="pill ${s.c}">${esc(s.t)}</span>${r.id_bai_cu ? `<span>Viết lại bài #${esc(r.id_bai_cu)}</span>` : `<span>Bài mới</span>`}<span>Cập nhật ${fmt(r.cap_nhat)}</span>${r.outline_lan > 1 ? `<span>Outline lần ${esc(r.outline_lan)}</span>` : ""}</div>
+      <div class="sub"><span class="pill ${s.c}">${esc(s.t)}</span>${r.thu_nghiem ? `<span class="pill off">Chạy thử, không đăng nháp</span>` : ""}${r.id_bai_cu ? `<span>Viết lại bài #${esc(r.id_bai_cu)}</span>` : `<span>Bài mới</span>`}<span>Cập nhật ${fmt(r.cap_nhat)}</span>${r.outline_lan > 1 ? `<span>Outline lần ${esc(r.outline_lan)}</span>` : ""}</div>
     </div>
     ${actionHtml(r)}
     ${scoresHtml(r)}
@@ -753,7 +765,7 @@ $("#addForm").addEventListener("submit", async e => {
   if (!db) return;
   const lines = $("#kwInput").value.split(/\n+/).map(s => s.trim()).filter(Boolean);
   if (!lines.length) return;
-  const note = $("#kwNote").value.trim(), btn = $("#addBtn"), msg = $("#addMsg");
+  const note = $("#kwNote").value.trim(), test = $("#kwTest").checked, btn = $("#addBtn"), msg = $("#addMsg");
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Đang nạp...";
   let ok = 0, trung = [];
   for (const line of lines) {
@@ -766,12 +778,13 @@ $("#addForm").addEventListener("submit", async e => {
     const id = (slug(chinh) || "tu-khoa") + "-" + Math.random().toString(36).slice(2, 6);
     try {
       await db.doc("tu_khoa/" + id).set({ tu_khoa: chinh, tu_khoa_phu: parts.slice(1), id_bai_cu: idCu, ghi_chu: note,
-        trang_thai: "moi", tao_luc: t, cap_nhat: t, outline_lan: 0, lich_su: [{ luc: t, ai: "ban", viec: "Nạp từ khóa" }] });
+        trang_thai: "moi", tao_luc: t, cap_nhat: t, outline_lan: 0, ...(test ? { thu_nghiem: true } : {}),
+        lich_su: [{ luc: t, ai: "ban", viec: test ? "Nạp từ khóa (chạy thử)" : "Nạp từ khóa" }] });
       ok++;
     } catch (err) { msg.className = "msg err"; msg.textContent = "Chưa lưu được, thử lại sau ít giây."; btn.disabled = false; return; }
   }
   btn.disabled = false;
-  if (ok) { $("#kwInput").value = ""; filter = "agent"; stageSel = 0; }
+  if (ok) { $("#kwInput").value = ""; $("#kwTest").checked = false; filter = "agent"; stageSel = 0; }
   msg.className = "msg good";
   msg.textContent = `Đã nạp ${ok} từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} từ khóa đã có: ${trung.join(", ")}.` : "");
   if (ok) flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`));
