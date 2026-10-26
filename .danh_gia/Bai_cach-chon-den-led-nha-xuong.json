@@ -1,12 +1,13 @@
 {
   "file": "Bai_cach-chon-den-led-nha-xuong.md",
   "sha256": "a259b329f1aec1f9b0bd99f681c93d2afb44f9f817e39920010ab63db6db064b",
-  "diem": 93,
+  "diem": 90,
   "diem_cho_nguoi_dung": 2,
-  "diem_tinh": 95,
-  "loi_bat_buoc": 0,
+  "diem_tinh": 92,
+  "loi_bat_buoc": 1,
   "nguong": 95,
-  "ket_luan": "DAT",
+  "ket_luan": "CAN_SUA",
   "vong": 1,
-  "thoi_gian": "2026-10-23T03:37:26"
+  "che_do": "du",
+  "thoi_gian": "2026-10-24T04:59:53"
 }

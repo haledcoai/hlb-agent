@@ -35,7 +35,7 @@ Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`)
    - Những điểm agent đánh giá nói sai và đã bỏ qua.
    - Câu hỏi cho người dùng (mục 2b), đánh số để trả lời một lần.
 
-**Chấm phần sau góp ý của người dùng** (người dùng chốt 22/10/2026 để tiết kiệm token): khi bài đã có phiếu ĐẠT và chỉ sửa theo góp ý của người dùng, ở bước 1 truyền thêm "Chế độ: chấm phần" và danh sách mục H2 đã sửa, nếu đủ cả ba điều kiện: sửa không quá 3 mục H2; không đổi heading, không thêm hoặc đổi số liệu, thông số, giá, bảo hành; không đổi phần A. Thiếu một điều kiện thì chấm đủ như thường. Vòng sửa do agent đánh giá yêu cầu (không phải góp ý người dùng) luôn chấm đủ.
+**Luôn chấm đủ cả bài** (người dùng chốt 26/10/2026, thay chế độ "kiểm lại" 24/10 và "chấm phần" 22/10): mỗi lần bài bị sửa, kể cả vòng 2, 3 và sửa theo góp ý người dùng, agent đánh giá chấm lại toàn bài theo đủ 6 tiêu chí. Từ vòng 2, agent còn đối chiếu với lần chấm trước (`phieu_duyet.py lan-truoc`, `phieu_duyet.py khac`) để giữ điểm nhất quán: ghi rõ từng vấn đề cũ đã sửa hay chưa, và vấn đề nào mới thấy ở phần không đổi.
 
 Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh giá" hoặc "chấm" một bài.
 
@@ -50,6 +50,8 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 `tieu_chi.json` chỉ đổi khi thang chấm đổi. Khi đổi tiêu chí, điểm tối đa hoặc ngưỡng trong `.claude/agents/danh-gia-noi-dung.md`, sửa luôn `TIEU_CHI`, `NGUONG` và tăng `THANG_CHAM` trong `tools/phieu_duyet.py`, để trang không so lẫn điểm của hai thang.
 
 **Hook nhắc (Stop):** mỗi file `Bai_*.md` bị sửa bằng Edit/Write được ghi nhận. Khi kết thúc lượt mà file đó chưa có phiếu duyệt khớp nội dung (chưa được chấm lại sau lần sửa cuối), hook không cho dừng và yêu cầu chạy vòng duyệt. Hook nhắc tối đa 3 lần cho một file, sau đó cho dừng kèm cảnh báo. Khi agent `danh-gia-noi-dung` đang chấm (kể cả chạy nền), hook không nhắc; dấu "đang chấm" xóa khi agent ghi phiếu hoặc kết thúc, quá 30 phút thì tự hết hạn. Gặp nhắc này thì chấm lại bài, không kết thúc lượt bằng cách khác.
+
+**Lệnh cho agent đánh giá:** `python tools/kiem_tra_bai.py <bài> --gon` (bản in gọn), `python tools/kiem_tra_bai.py --tra <model hoặc số>` (tra và đếm trên CSV). `phieu_duyet.py ghi` chỉ chạy khi `kiem_tra_bai.py` vừa chạy trên đúng nội dung bài.
 
 **Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `tao-anh`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
 

@@ -38,7 +38,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 
 **Thương hiệu và vai trò**
 - Website vệ tinh xưng "Đèn LED Nhà Xưởng HLB" (gọi tắt HLB), thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- Vai trò (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không viết "HLB sản xuất", không viết "dòng cao cấp do HALEDCO sản xuất".
+- Vai trò (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng. Không viết "HLB sản xuất". Dòng cao cấp gọi "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026).
 - Mốc thời gian: HALEDCO sản xuất từ 2011, HLB phân phối từ 2018. Không cộng gộp số năm.
 
 **Liên hệ**
@@ -53,7 +53,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 - Không em dash, en dash, emoji, từ tuyệt đối.
 
 **Chính sách**
-- Dòng cao cấp bảo hành 2 năm (driver, chip LED). Hãng khác theo chính sách hãng: Rạng Đông 24 tháng, Điện Quang 24 tháng, Philips theo từng model trên signify.com.
+- Dòng cao cấp bảo hành 2 năm (driver, chip LED). HALEDCO 2 năm; các hãng khác thường 2 năm (26/10). Sai thời hạn là lỗi bắt buộc, thêm điều kiện ngoài nguồn là nên sửa. Hãng khác theo chính sách hãng: Rạng Đông 24 tháng, Điện Quang 24 tháng, Philips theo từng model trên signify.com.
 - Đổi trả theo nhu cầu: khách chịu phí 10% giá trị hàng.
 - Miễn phí giao hàng khi đơn trên 5 triệu đồng, trong bán kính 10 km.
 - Chiết khấu: được nhắc là có, không nêu mức.
