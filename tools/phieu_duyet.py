@@ -41,7 +41,7 @@ import subprocess
 import sys
 
 NGUONG = 95
-THANG_CHAM = "v2"  # v1: nguong 80 (21/10/2026), v2: nguong 95, diem cho nguoi dung
+THANG_CHAM = "v3"  # v1: nguong 80 (21/10/2026), v2: nguong 95, diem cho nguoi dung, v3: checklist_cham_bai.md, cham khat khe (27/10/2026)
 MAX_CHO_TRONG = 5  # qua so cho [CAN BO SUNG] nay thi khong tu dang nhap, cho nguoi dung bo sung du lieu
 MAX_NHAC = 3  # so lan Stop hook chan toi da cho mot file, tranh vong lap khi khong cham duoc
 AGENT_DANH_GIA = "danh-gia-noi-dung"

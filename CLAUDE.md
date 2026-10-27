@@ -55,6 +55,8 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 
 **File nghiên cứu (người dùng chốt 26/10/2026):** `nghien_cuu/<tên bài>/outline.md` (outline đã chốt) và `nghien_cuu/<tên bài>/serp/` (văn bản bài top), lưu bằng `tools/nghien_cuu.py`. `kiem_tra_bai.py` báo LỖI khi heading lệch outline hoặc có đoạn từ 25 từ liền nhau trùng bài top (từ 10 từ là cảnh báo). Mã tiêu chuẩn đối chiếu `tieu_chuan_da_kiem.csv`.
 
+**Agent đánh giá là Leader Content, chỉ chấm bài blog** (người dùng chốt 27/10/2026): rà đủ `checklist_cham_bai.md` mỗi lần chấm, chấm khắt khe theo quy tắc trong file đó. Nội dung danh mục có agent chấm riêng.
+
 **Lệnh cho agent đánh giá:** `python tools/kiem_tra_bai.py <bài> --gon` (bản in gọn), `python tools/kiem_tra_bai.py --tra <model hoặc số>` (tra và đếm trên CSV). `phieu_duyet.py ghi` chỉ chạy khi `kiem_tra_bai.py` vừa chạy trên đúng nội dung bài.
 
 **Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `tao-anh`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
