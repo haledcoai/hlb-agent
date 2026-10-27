@@ -19,6 +19,12 @@ Dùng chung với Agent Blog, giữ nguyên: bốn quy tắc cốt lõi, giọng
 
 ## 2. Quy trình
 
+### Bước 0: Chọn đúng danh mục (người dùng chốt 27/10/2026)
+
+- **Danh mục cha hay danh mục con theo hãng:** Agent tự phân tích, không hỏi lại. Người dùng đưa link danh mục thì làm đúng danh mục đó. Không có link thì theo từ khóa chính: có tên hãng (Philips, Rạng Đông, Điện Quang, HALEDCO...) thì danh mục con của hãng đó; không có tên hãng thì danh mục cha cùng công suất, loại đèn. SERP cho thấy intent khác (ví dụ người tìm từ khóa chung nhưng top toàn trang một hãng) thì vẫn làm theo quy tắc trên, ghi nhận xét vào `serp`.
+- Chỉ viết danh mục được giao. Thấy danh mục con khác có lượng tìm kiếm, intent riêng mà nội dung đang trống hoặc yếu thì ghi đề xuất ở phần C, không tự viết.
+- **Website chưa có danh mục** (`danh_muc.py tim` không KHỚP, không có danh mục GẦN đúng loại đèn): dừng, báo người dùng đúng câu "Danh mục chưa có sẵn trên website, bạn cần tạo danh mục để Agent viết bài.", kèm đề xuất theo SEO: tên danh mục, slug (không dấu, 2-5 từ, có từ khóa chính), danh mục cha. Không tự tạo danh mục, không chuyển sang viết blog khi người dùng không yêu cầu.
+
 ### Bước 1: Đọc danh mục và SERP (gộp duyệt với Bước 2 trên Bảng điều phối)
 
 1. `python tools/danh_muc.py doc <slug hoặc link danh mục>`: lưu vào `nghien_cuu/DM_<slug>/`:
@@ -37,7 +43,7 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 1. **Từ khóa:** từ khóa chính (không tự đổi, CLAUDE.md mục "Nhóm từ khóa"), từ khóa phụ giữ/tách/bỏ, tối đa 4 cụm giữ.
 2. **Phân tích trang top:** ý bắt buộc, 1-2 góc khác biệt (ví dụ bảng chọn nhanh model theo chiều cao trần, so sánh các hãng trong danh mục theo cùng tiêu chí).
 3. **Khối trên:** 1 dòng nội dung chính cần nói.
-4. **Khối dưới:** các H2, H3 (không có H1, theme tự hiện tên danh mục làm H1), dưới mỗi heading 1 dòng nội dung. Gợi ý khung, chọn theo SERP, không bắt buộc đủ:
+4. **Khối dưới:** các H2, H3 (không có H1, theme tự hiện tên danh mục làm H1), dưới mỗi heading 1 dòng nội dung. Cách trình bày do Agent quyết theo search intent và các trang danh mục đang lên top, như một người làm SEO 10 năm: người tìm muốn chọn mua thì ưu tiên bảng chọn model, giá, cách đặt hàng; muốn so sánh hãng thì ưu tiên bảng so sánh cùng tiêu chí. Không đưa phần không phục vụ intent chỉ để đủ khung. Gợi ý khung, không bắt buộc đủ:
    - Chọn công suất, model theo chiều cao trần và diện tích
    - So sánh các dòng đèn đang có trong danh mục (bảng tối đa 5 cột)
    - Giá tham khảo và cách nhận báo giá theo số lượng

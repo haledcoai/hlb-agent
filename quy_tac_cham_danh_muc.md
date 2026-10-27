@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM NỘI DUNG DANH MỤC HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
 Phiên bản: 27/10/2026. Dùng cho file `DM_<slug>.md` của Agent Danh mục. Rút từ `6_Agent_Danh_muc_HLB.md` (quy tắc riêng của danh mục) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Các quy tắc dùng chung với bài blog (bốn quy tắc cốt lõi, thông tin HLB, câu cấm, thương hiệu, giọng văn) giữ nguyên như `quy_tac_cham.md` mục 1, 2, 3, 5, 6: đọc các mục đó ở `quy_tac_cham.md`, file này chỉ ghi phần khác. Khi file này khác file gốc, file gốc đúng.
-Mã nguồn: 6_Agent_Danh_muc_HLB.md 111a24cf3406; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 02e0bcfb37e9
+Mã nguồn: 6_Agent_Danh_muc_HLB.md e614836a3f99; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 02e0bcfb37e9
 
 Ai sửa `6_Agent_Danh_muc_HLB.md` hoặc Knowledge thì sửa luôn file này nếu quy tắc chấm đổi, rồi chạy `python tools/kiem_tra_bai.py --cap-nhat-quy-tac --danh-muc`.
 
@@ -28,6 +28,8 @@ Ai sửa `6_Agent_Danh_muc_HLB.md` hoặc Knowledge thì sửa luôn file này n
 ## 4. Khối dưới
 
 - Mở bằng 1-2 câu dẫn, rồi các H2 đúng outline đã chốt (lệch là lỗi bắt buộc). Không nhảy cấp.
+- Cách trình bày phải phục vụ search intent (Agent quyết, không theo khung cứng): người tìm chọn mua thì có chỗ chọn model, giá, đặt hàng; phần chỉ để đủ khung mà không phục vụ intent là nên sửa (tiêu chí gon, chon_mua).
+- Đúng danh mục: danh mục cha hay con theo hãng chọn đúng `6_Agent_Danh_muc_HLB.md` Bước 0; từ khóa có tên hãng mà viết cho danh mục cha (hoặc ngược lại) là lỗi bắt buộc.
 - Ngắn hơn bài blog, mỗi phần đúng phạm vi. Phần giải thích dài (cách tính số đèn, tiêu chuẩn độ rọi) chỉ tóm 1-2 câu rồi link sang bài blog. Chép lại cả đoạn bài blog là nên sửa.
 - Phương án hợp trường hợp phổ biến nói trước. Bảng so sánh dùng đúng sản phẩm trong danh mục, tối đa 5 cột, ô thiếu ghi "không công bố".
 - FAQ (nếu có) 3-5 câu, không lặp phần trên.
