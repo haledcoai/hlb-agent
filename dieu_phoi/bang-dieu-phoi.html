@@ -36,6 +36,9 @@ button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 15px; background: var(--color_main); border-radius: var(--radius-lg); padding: 11px 17px; color: #fff; }
 .bar h2 { font-size: 17px; color: #fff; }
 .bar .side { font-size: 13px; color: #fff; }
+/* Thanh phụ (Danh sách bài): nền trắng, vạch trái xanh tím, để không trùng màu với khối Nạp từ khóa ngay trên */
+.bar.sub { background: var(--surface); border: 1px solid var(--gray_300); box-shadow: inset 4px 0 0 var(--color_main); color: var(--color_body); }
+.bar.sub h2 { color: var(--color_body); }
 
 /* Chặng */
 .stages { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
@@ -266,7 +269,7 @@ select { width: auto; min-width: 220px; max-width: 100%; }
 
   <div class="main">
     <section class="col" aria-label="Danh sách từ khóa">
-      <div class="bar"><h2>Từ khóa</h2></div>
+      <div class="bar sub"><h2>Danh sách bài</h2></div>
       <div class="filters" id="filters"></div>
       <div class="list" id="list"><div class="empty">Đang tải danh sách từ khóa.</div></div>
     </section>
