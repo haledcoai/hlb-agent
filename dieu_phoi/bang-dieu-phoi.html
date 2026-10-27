@@ -158,6 +158,9 @@ a.btn.main:hover { color: var(--color_body); }
 @media (max-width: 640px) { .run .row { justify-content: flex-start; } }
 .btn.danger { background: var(--danger); color: #fff; }
 .btn.danger:hover { background: #a82424; color: #fff; }
+/* Nút chạy màu xanh (.main, .ok), nút tạm dừng màu đỏ */
+.btn.stop { background: var(--danger); color: #fff; }
+.btn.stop:hover { background: #a82424; color: #fff; }
 .delbox ul { margin: 4px 0; padding-left: 20px; font-size: 14px; }
 .empty { color: var(--muted); padding: 22px; border: 1px dashed var(--line_strong); border-radius: var(--radius-lg); background: var(--surface); line-height: 1.6; }
 .working { display: flex; gap: 10px; align-items: center; color: var(--color_main); font-weight: 700; }
@@ -241,7 +244,7 @@ select { width: auto; min-width: 220px; max-width: 100%; }
       </div>
     </div>
     <div class="run">
-      <div class="row"><button class="btn main" type="button" id="runNow">Chạy Agent ngay</button><button class="btn ghost" type="button" id="pauseAll">Tạm dừng toàn bộ</button></div>
+      <div class="row"><button class="btn main" type="button" id="runNow">Chạy Agent ngay</button><button class="btn stop" type="button" id="pauseAll">Tạm dừng toàn bộ</button></div>
       <small id="runInfo">Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.</small>
     </div>
   </div>
@@ -444,7 +447,7 @@ function anhTienDo(r) {
     ${rs.length ? ` <button class="btn ghost" type="button" data-go="anh" data-bai="${esc(key)}">Mở tab Duyệt ảnh</button>` : ""}</p>`;
 }
 
-const DUNG_BTN = dis => `<button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
+const DUNG_BTN = dis => `<button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
 const tenBai = r => (r.file_bai || "").replace(/\.md$/, "");
 
 function dungHtml(r, dis) {
@@ -469,13 +472,13 @@ function actionHtml(r) {
   const t = r.trang_thai, dis = readOnly ? "disabled" : "";
   const note = drafts[r.id] ?? "";
   if (t === "dang_dung" && !ketDung(r)) return `<div class="panel"><div class="working"><span class="dot"></span>Đang dừng: Agent làm xong bước nhỏ đang chạy, lưu lại rồi dừng, thường vài phút.</div>
-    <div class="actions" style="margin-top:10px"><button class="btn ghost" type="button" data-act="huy_dung" ${dis}>Không dừng nữa</button></div><div class="msg err" data-err hidden></div></div>`;
+    <div class="actions" style="margin-top:10px"><button class="btn main" type="button" data-act="huy_dung" ${dis}>Không dừng nữa</button></div><div class="msg err" data-err hidden></div></div>`;
   if (isOff(r)) return dungHtml(r, dis);
   if (st(r).run) return `<div class="panel"><div class="working"><span class="dot"></span>Agent đang làm bước này${r.tien_do ? `: ${esc(r.tien_do)}` : ""}. Trang tự cập nhật khi xong.</div>
     <div class="actions" style="margin-top:10px">${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
   const anhBox = anhTienDo(r);
   if (["moi", "sua_outline", "cho_viet", "sua_bai", "cho_tao_anh", "cho_hoan_thien"].includes(t))
-    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn ghost" type="button" data-run ${dis}>Chạy Agent ngay</button>${DUNG_BTN(dis)}</div>${anhBox}<div class="msg err" data-err hidden></div></div>`;
+    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn main" type="button" data-run ${dis}>Chạy Agent ngay</button>${DUNG_BTN(dis)}</div>${anhBox}<div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_outline") return `<div class="panel act box">
       <h3>Duyệt outline</h3>
       <label for="note-${esc(r.id)}">Góp ý cho Agent</label>
@@ -485,7 +488,7 @@ function actionHtml(r) {
         <button class="btn ok" type="button" data-act="duyet_outline" ${dis}>Duyệt outline, cho viết bài</button>
         <button class="btn redo" type="button" data-act="gop_y_outline" ${dis}>Gửi góp ý, làm lại outline</button>
         <button class="btn ghost" type="button" data-act="sua_tay" ${dis}>${editOutline ? "Thôi sửa trực tiếp" : "Sửa outline trực tiếp"}</button>
-        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
+        <button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_bai") return `<div class="panel act box">
       <h3>Duyệt bài</h3>
@@ -495,7 +498,7 @@ function actionHtml(r) {
       <div class="actions">
         <button class="btn ok" type="button" data-act="duyet_bai" ${dis}>Duyệt bài, cho tạo ảnh</button>
         <button class="btn redo" type="button" data-act="gop_y_bai" ${dis}>Gửi góp ý, sửa bài</button>
-        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
+        <button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_anh") return `<div class="panel act box">
       <h3>Duyệt ảnh</h3>
@@ -503,7 +506,7 @@ function actionHtml(r) {
       <div class="actions">
         <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Duyệt ảnh</button>
         <button class="btn ok" type="button" data-act="anh_xong" ${dis}>Đã duyệt ảnh xong</button>
-        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
+        <button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "can_xu_ly") return `<div class="panel stopbox box">
       <h3>Agent dừng lại, cần bạn xử lý</h3>
@@ -512,7 +515,7 @@ function actionHtml(r) {
       <textarea id="note-${esc(r.id)}" data-note="${esc(r.id)}" placeholder="Trả lời từng câu hỏi theo số thứ tự" ${dis}>${esc(note)}</textarea>
       <div class="actions">
         <button class="btn ok" type="button" data-act="tra_loi" ${dis}>Gửi trả lời, cho Agent làm tiếp</button>
-        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
+        <button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "san_sang_dang") return `<div class="panel"><p>Bản nháp đã đủ bài và ảnh. Mở wp-admin, xóa khối GHI CHÚ BIÊN TẬP rồi tự bấm đăng.</p><div class="actions">${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
   return "";
