@@ -1,10 +1,11 @@
 """Đối chiếu Bảng điều phối HLB với file bài trên repo, tìm chỗ bảng hiện sai (bản nháp cũ, điểm cũ, bài không có trên bảng).
 
 Dùng (mỗi lượt điều phối, DIEU_PHOI.md mục 4 bước 2, và sau khi một thread sửa bài):
-  ArtifactData list collection tu_khoa (và bai_viet) với out_dir=<thư mục tạm>
+  ArtifactData list collection tu_khoa, bai_viet và da_xoa với out_dir=<thư mục tạm>
   python dieu_phoi/doi_chieu_bang.py <thư mục tạm>
 
-Thư mục tạm là thư mục ArtifactData ghi ra, có tu_khoa/<id>.json và bai_viet/<id>.json.
+Thư mục tạm là thư mục ArtifactData ghi ra, có tu_khoa/<id>.json, bai_viet/<id>.json, da_xoa/<id>.json.
+Từ khóa đang tạm dừng (tam_dung, dang_dung, bo_qua) không bị đối chiếu, bài đã xóa trên bảng (da_xoa) không bị nạp lại.
 In từng việc cần làm; không ghi gì lên bảng. Thoát mã 1 khi có chỗ lệch.
 """
 import datetime
@@ -16,6 +17,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DUNG = ("tam_dung", "dang_dung", "bo_qua")  # tạm dừng từng bài (bo_qua là tên cũ của tam_dung)
 
 
 def doc(path):
@@ -38,13 +40,23 @@ def main():
     goc = sys.argv[1]
     rows = {os.path.splitext(os.path.basename(p))[0]: doc(p) for p in glob.glob(os.path.join(goc, "tu_khoa", "*.json"))}
     bai_viet = {os.path.splitext(os.path.basename(p))[0]: doc(p) for p in glob.glob(os.path.join(goc, "bai_viet", "*.json"))}
+    da_xoa = {os.path.splitext(os.path.basename(p))[0]: doc(p) for p in glob.glob(os.path.join(goc, "da_xoa", "*.json"))}
     lech = 0
-    co_tren_bang = set()
+    co_tren_bang = {x.get("file_bai") for x in da_xoa.values() if x.get("file_bai")}
+    bay_gio = datetime.datetime.now(datetime.timezone.utc)
     for rid, r in sorted(rows.items()):
         fb = r.get("file_bai")
-        if not fb or r.get("trang_thai") == "bo_qua":
+        if fb:
+            co_tren_bang.add(fb)
+        if r.get("trang_thai") == "dang_dung":
+            t = gio(r.get("khoa_luc") or r.get("cap_nhat"))
+            if t and t.tzinfo and bay_gio - t > datetime.timedelta(hours=1):
+                lech += 1
+                print("- %s: dang_dung quá 1 giờ, Agent không xác nhận dừng: chuyển tam_dung, truoc_khi_dung là trạng thái chờ"
+                      " tương ứng (DIEU_PHOI mục 3b)" % rid)
             continue
-        co_tren_bang.add(fb)
+        if not fb or r.get("trang_thai") in DUNG:
+            continue
         path = os.path.join(ROOT, fb)
         viec = []
         if not os.path.isfile(path):
@@ -88,6 +100,17 @@ def main():
             print("- %s (%s, %s):" % (rid, fb, r.get("trang_thai")))
             for v in viec:
                 print("    * " + v)
+    for xid, x in sorted(da_xoa.items()):
+        if x.get("trang_thai") != "cho_xu_ly":
+            continue
+        lech += 1
+        viec = []
+        if x.get("anh"):
+            viec.append("xóa %d tài sản ảnh trên bảng (Artifact delete, path là asset_id)" % len([a for a in x["anh"] if a.get("asset_id")]))
+        if x.get("xoa_nhap") and x.get("draft_id"):
+            viec.append("chuyển bản nháp WP %s vào Thùng rác (DELETE không force)" % x["draft_id"])
+        print("- da_xoa/%s (%s): %s; xong thì trang_thai da_xu_ly (DIEU_PHOI mục 3b)"
+              % (xid, x.get("tu_khoa"), ", ".join(viec) or "không còn việc"))
     for path in sorted(glob.glob(os.path.join(ROOT, "Bai_*.md"))):
         if os.path.basename(path) not in co_tren_bang:
             lech += 1

@@ -152,6 +152,13 @@ a.btn.main:hover { color: var(--color_body); }
 .msg { font-size: 14px; }
 .msg.err { color: var(--danger); font-style: italic; }
 .msg.good { color: var(--ok); }
+.pausebar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; background: var(--you_surface); border: 1px solid var(--color_primary); border-radius: var(--radius-lg); padding: 12px 17px; font-weight: 700; }
+.pausebar[hidden] { display: none; }
+.run .row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+@media (max-width: 640px) { .run .row { justify-content: flex-start; } }
+.btn.danger { background: var(--danger); color: #fff; }
+.btn.danger:hover { background: #a82424; color: #fff; }
+.delbox ul { margin: 4px 0; padding-left: 20px; font-size: 14px; }
 .empty { color: var(--muted); padding: 22px; border: 1px dashed var(--line_strong); border-radius: var(--radius-lg); background: var(--surface); line-height: 1.6; }
 .working { display: flex; gap: 10px; align-items: center; color: var(--color_main); font-weight: 700; }
 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color_main); flex: none; }
@@ -234,12 +241,13 @@ select { width: auto; min-width: 220px; max-width: 100%; }
       </div>
     </div>
     <div class="run">
-      <button class="btn main" type="button" id="runNow">Chạy Agent ngay</button>
+      <div class="row"><button class="btn main" type="button" id="runNow">Chạy Agent ngay</button><button class="btn ghost" type="button" id="pauseAll">Tạm dừng toàn bộ</button></div>
       <small id="runInfo">Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.</small>
     </div>
   </div>
 </header>
 <div class="wrap" style="padding-top:20px">
+  <div class="pausebar" id="pauseBar" role="status" hidden><span>Agent đang tạm dừng toàn bộ. Lịch hằng giờ không nhận việc nào cho tới khi bạn cho chạy lại.</span><button class="btn ok" type="button" id="resumeAll">Cho Agent chạy lại</button></div>
   <nav class="ptabs" role="tablist" aria-label="Khu vực" id="ptabs">
     <button class="ptab" role="tab" type="button" data-pane="dieu_phoi" aria-selected="true">Điều phối</button>
     <button class="ptab" role="tab" type="button" data-pane="agent" aria-selected="false">Các Agent</button>
@@ -310,11 +318,21 @@ const ST = {
   dang_hoan_thien:  { t: "Đang hoàn thiện", c: "agent", s: 7, run: true },
   san_sang_dang:    { t: "Sẵn sàng đăng", c: "done", s: 8 },
   can_xu_ly:        { t: "Cần bạn xử lý", c: "stop", s: 0 },
-  bo_qua:           { t: "Đã bỏ", c: "off", s: 0 }
+  tam_dung:         { t: "Đã tạm dừng", c: "off", s: 0 },
+  dang_dung:        { t: "Đang dừng...", c: "off", s: 0 },
+  bo_qua:           { t: "Đã tạm dừng", c: "off", s: 0 }
 };
-const FILTERS = [["you", "Cần bạn"], ["agent", "Agent đang làm"], ["done", "Sẵn sàng đăng"], ["all", "Tất cả"], ["off", "Đã bỏ"]];
+const FILTERS = [["you", "Cần bạn"], ["agent", "Agent đang làm"], ["done", "Sẵn sàng đăng"], ["all", "Tất cả"], ["off", "Tạm dừng"]];
+// Dừng từng bài: tam_dung (đã dừng), dang_dung (Agent đang chạy, sẽ dừng sau bước nhỏ đang làm). bo_qua là tên cũ của tam_dung.
+const OFF = ["tam_dung", "dang_dung", "bo_qua"];
+const isOff = r => OFF.includes(r.trang_thai);
+// Trạng thái đang chạy dừng giữa chừng thì làm tiếp từ trạng thái chờ tương ứng, không làm lại từ đầu
+const CHO = { dang_nghien_cuu: r => r.outline ? "sua_outline" : "moi", dang_viet: r => r.gop_y_bai || (r.gop_y_muc || []).length ? "sua_bai" : "cho_viet",
+  dang_tao_anh: () => "cho_tao_anh", dang_hoan_thien: () => "cho_hoan_thien" };
+const choCua = (r, t) => (CHO[t] ? CHO[t](r) : ST[t] && !OFF.includes(t) ? t : "moi");
+const ketDung = r => r.trang_thai === "dang_dung" && Date.now() - new Date(r.cap_nhat || 0) > 3600e3;
 
-let db = null, mcp = null, rows = [], cfg = {}, filter = "you", stageSel = 0, selId = null, readOnly = false;
+let db = null, mcp = null, rows = [], cfg = {}, filter = "you", stageSel = 0, selId = null, readOnly = false, xoaId = null;
 const drafts = {}; let editOutline = false;
 const bai = {}; let baiUnsub = null, baiFor = null;
 let pane = "dieu_phoi", anh = [], yeuCau = [], cham = null, locAnh = "cho_duyet", locBai = "", locCham = "";
@@ -331,8 +349,8 @@ const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d")
 function inFilter(r) {
   if (stageSel) return st(r).s === stageSel;
   const c = cls(r);
-  if (filter === "all") return r.trang_thai !== "bo_qua";
-  if (filter === "off") return r.trang_thai === "bo_qua";
+  if (filter === "all") return !isOff(r);
+  if (filter === "off") return isOff(r);
   return c === filter;
 }
 
@@ -347,7 +365,7 @@ function renderStages() {
 
 function renderFilters() {
   const count = k => rows.filter(r => { const c = cls(r);
-    if (k === "all") return r.trang_thai !== "bo_qua"; if (k === "off") return r.trang_thai === "bo_qua"; return c === k; }).length;
+    if (k === "all") return !isOff(r); if (k === "off") return isOff(r); return c === k; }).length;
   $("#filters").innerHTML = FILTERS.map(([k, t]) =>
     `<button type="button" class="chip" data-filter="${k}" aria-pressed="${!stageSel && filter === k}">${t} ${count(k)}</button>`).join("");
 }
@@ -426,13 +444,38 @@ function anhTienDo(r) {
     ${rs.length ? ` <button class="btn ghost" type="button" data-go="anh" data-bai="${esc(key)}">Mở tab Duyệt ảnh</button>` : ""}</p>`;
 }
 
+const DUNG_BTN = dis => `<button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
+const tenBai = r => (r.file_bai || "").replace(/\.md$/, "");
+
+function dungHtml(r, dis) {
+  const ve = choCua(r, r.truoc_khi_dung || r.truoc_khi_bo || "moi"), veT = (ST[ve] || ST.moi).t;
+  if (xoaId === r.id) {
+    const soAnh = anh.filter(a => a.bai === tenBai(r)).length, coNhap = r.draft_id && !r.thu_nghiem;
+    return `<div class="panel stopbox box delbox">
+      <h3>Xóa từ khóa "${esc(r.tu_khoa)}"?</h3>
+      <p class="hint">Xóa khỏi bảng, không lấy lại được trên bảng:</p>
+      <ul><li>Dòng từ khóa, SERP, outline, điểm chấm, lịch sử trên bảng</li><li>Bài viết hiển thị trên bảng</li>${soAnh ? `<li>${soAnh} ảnh ở tab Duyệt ảnh và yêu cầu thêm ảnh của bài này</li>` : ""}</ul>
+      <p class="hint">Vẫn giữ trên GitHub để tra lại: file bài${r.file_bai ? ` <code>${esc(r.file_bai)}</code>` : ""}, outline, văn bản SERP, lịch sử chấm.${coNhap ? "" : " Bài chưa có bản nháp WordPress."}</p>
+      ${coNhap ? `<label class="check" for="xoaNhap"><input type="checkbox" id="xoaNhap"> Chuyển cả bản nháp WordPress (ID ${esc(r.draft_id)}) vào Thùng rác. Agent làm ở lượt chạy kế tiếp; trong 30 ngày vẫn khôi phục được trong wp-admin. Ảnh đã tải lên thư viện Media giữ nguyên.</label>` : ""}
+      <div class="actions"><button class="btn danger" type="button" data-act="xoa_han" ${dis}>Xóa hẳn</button><button class="btn ghost" type="button" data-act="thoi_xoa">Thôi, không xóa</button></div>
+      <div class="msg err" data-err hidden></div></div>`;
+  }
+  return `<div class="panel box"><p>Đã tạm dừng. Agent không làm gì với từ khóa này. Bấm Tiếp tục để làm tiếp từ chặng "${esc(veT)}"${r.tien_do ? `, việc dở: ${esc(r.tien_do)}` : ""}.</p>
+    <div class="actions"><button class="btn ok" type="button" data-act="tiep_tuc" ${dis}>Tiếp tục</button><button class="btn ghost" type="button" data-act="xoa" ${dis}>Xóa từ khóa</button></div>
+    <div class="msg err" data-err hidden></div></div>`;
+}
+
 function actionHtml(r) {
   const t = r.trang_thai, dis = readOnly ? "disabled" : "";
   const note = drafts[r.id] ?? "";
-  if (st(r).run) return `<div class="panel"><div class="working"><span class="dot"></span>Agent đang làm bước này${r.tien_do ? `: ${esc(r.tien_do)}` : ""}. Trang tự cập nhật khi xong.</div></div>`;
+  if (t === "dang_dung" && !ketDung(r)) return `<div class="panel"><div class="working"><span class="dot"></span>Đang dừng: Agent làm xong bước nhỏ đang chạy, lưu lại rồi dừng, thường vài phút.</div>
+    <div class="actions" style="margin-top:10px"><button class="btn ghost" type="button" data-act="huy_dung" ${dis}>Không dừng nữa</button></div><div class="msg err" data-err hidden></div></div>`;
+  if (isOff(r)) return dungHtml(r, dis);
+  if (st(r).run) return `<div class="panel"><div class="working"><span class="dot"></span>Agent đang làm bước này${r.tien_do ? `: ${esc(r.tien_do)}` : ""}. Trang tự cập nhật khi xong.</div>
+    <div class="actions" style="margin-top:10px">${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
   const anhBox = anhTienDo(r);
   if (["moi", "sua_outline", "cho_viet", "sua_bai", "cho_tao_anh", "cho_hoan_thien"].includes(t))
-    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn ghost" type="button" data-run ${dis}>Chạy Agent ngay</button></div>${anhBox}</div>`;
+    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn ghost" type="button" data-run ${dis}>Chạy Agent ngay</button>${DUNG_BTN(dis)}</div>${anhBox}<div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_outline") return `<div class="panel act box">
       <h3>Duyệt outline</h3>
       <label for="note-${esc(r.id)}">Góp ý cho Agent</label>
@@ -442,7 +485,7 @@ function actionHtml(r) {
         <button class="btn ok" type="button" data-act="duyet_outline" ${dis}>Duyệt outline, cho viết bài</button>
         <button class="btn redo" type="button" data-act="gop_y_outline" ${dis}>Gửi góp ý, làm lại outline</button>
         <button class="btn ghost" type="button" data-act="sua_tay" ${dis}>${editOutline ? "Thôi sửa trực tiếp" : "Sửa outline trực tiếp"}</button>
-        <button class="btn ghost" type="button" data-act="bo" ${dis}>Bỏ từ khóa</button>
+        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_bai") return `<div class="panel act box">
       <h3>Duyệt bài</h3>
@@ -452,7 +495,7 @@ function actionHtml(r) {
       <div class="actions">
         <button class="btn ok" type="button" data-act="duyet_bai" ${dis}>Duyệt bài, cho tạo ảnh</button>
         <button class="btn redo" type="button" data-act="gop_y_bai" ${dis}>Gửi góp ý, sửa bài</button>
-        <button class="btn ghost" type="button" data-act="bo" ${dis}>Bỏ từ khóa</button>
+        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_anh") return `<div class="panel act box">
       <h3>Duyệt ảnh</h3>
@@ -460,6 +503,7 @@ function actionHtml(r) {
       <div class="actions">
         <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Duyệt ảnh</button>
         <button class="btn ok" type="button" data-act="anh_xong" ${dis}>Đã duyệt ảnh xong</button>
+        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "can_xu_ly") return `<div class="panel stopbox box">
       <h3>Agent dừng lại, cần bạn xử lý</h3>
@@ -468,10 +512,9 @@ function actionHtml(r) {
       <textarea id="note-${esc(r.id)}" data-note="${esc(r.id)}" placeholder="Trả lời từng câu hỏi theo số thứ tự" ${dis}>${esc(note)}</textarea>
       <div class="actions">
         <button class="btn ok" type="button" data-act="tra_loi" ${dis}>Gửi trả lời, cho Agent làm tiếp</button>
-        <button class="btn ghost" type="button" data-act="bo" ${dis}>Bỏ từ khóa</button>
+        <button class="btn ghost" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
-  if (t === "bo_qua") return `<div class="panel"><div class="actions"><span>Từ khóa đã bỏ.</span><button class="btn ghost" type="button" data-act="khoi_phuc" ${dis}>Khôi phục</button></div></div>`;
-  if (t === "san_sang_dang") return `<div class="panel"><p>Bản nháp đã đủ bài và ảnh. Mở wp-admin, xóa khối GHI CHÚ BIÊN TẬP rồi tự bấm đăng.</p></div>`;
+  if (t === "san_sang_dang") return `<div class="panel"><p>Bản nháp đã đủ bài và ảnh. Mở wp-admin, xóa khối GHI CHÚ BIÊN TẬP rồi tự bấm đăng.</p><div class="actions">${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
   return "";
 }
 
@@ -665,9 +708,13 @@ function render() {
   if (aid) { const el = document.getElementById(aid); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} } }
   const last = (cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.") + (cfg.moi_truong ? " " + cfg.moi_truong : "");
   $("#runInfo").textContent = last;
+  const tat = !!cfg.tam_dung_tat_ca;
+  $("#pauseBar").hidden = !tat; $("#pauseAll").hidden = tat; $("#pauseAll").disabled = readOnly; $("#resumeAll").disabled = readOnly;
+  $("#runNow").disabled = tat;
 }
 
 async function fireAgent(reason) {
+  if (cfg.tam_dung_tat_ca) return "Agent đang tạm dừng toàn bộ. Việc này sẽ được nhận khi bạn cho Agent chạy lại.";
   if (!cfg.trigger_id || !mcp) return "Agent sẽ nhận việc ở lượt chạy định kỳ tiếp theo.";
   try {
     await mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: cfg.trigger_id, text: reason || "Bảng điều phối: có việc mới." });
@@ -701,8 +748,16 @@ async function act(r, kind, btn) {
   else if (kind === "gop_y_bai") { upd.trang_thai = "sua_bai"; upd.gop_y_bai = note; upd.gop_y_muc = muc; viec = "Góp ý bài" + (muc.length ? ` (${muc.length} mục: ${muc.map(x => x.muc).join("; ")})` : ""); queue = true; }
   else if (kind === "anh_xong") { upd.trang_thai = "cho_hoan_thien"; viec = "Báo đã duyệt ảnh xong"; queue = true; }
   else if (kind === "tra_loi") { upd.trang_thai = r.quay_ve && ST[r.quay_ve] ? r.quay_ve : "moi"; upd.tra_loi = note; viec = "Trả lời câu hỏi của Agent"; queue = true; }
-  else if (kind === "bo") { upd.trang_thai = "bo_qua"; upd.truoc_khi_bo = r.trang_thai; viec = "Bỏ từ khóa"; }
-  else if (kind === "khoi_phuc") { upd.trang_thai = r.truoc_khi_bo && ST[r.truoc_khi_bo] && !ST[r.truoc_khi_bo].run ? r.truoc_khi_bo : "moi"; viec = "Khôi phục từ khóa"; queue = true; }
+  else if (kind === "dung") {
+    if (st(r).run) { upd.trang_thai = "dang_dung"; viec = "Tạm dừng (Agent đang chạy, dừng sau bước đang làm)"; }
+    else { upd.trang_thai = "tam_dung"; viec = "Tạm dừng"; }
+    upd.truoc_khi_dung = r.trang_thai;
+  }
+  else if (kind === "huy_dung") { upd.trang_thai = r.truoc_khi_dung && ST[r.truoc_khi_dung] ? r.truoc_khi_dung : "moi"; viec = "Không dừng nữa"; }
+  else if (kind === "tiep_tuc") { upd.trang_thai = choCua(r, r.truoc_khi_dung || r.truoc_khi_bo || "moi"); viec = "Tiếp tục"; queue = ST[upd.trang_thai].c === "agent"; }
+  else if (kind === "xoa") { xoaId = r.id; renderDetail(); return; }
+  else if (kind === "thoi_xoa") { xoaId = null; renderDetail(); return; }
+  else if (kind === "xoa_han") { await xoaTuKhoa(r, btn, showErr); return; }
   else return;
   if (note) viec += ": " + note.slice(0, 300);
   upd.lich_su = [...lich, { luc: upd.cap_nhat, ai: "ban", viec }];
@@ -718,6 +773,39 @@ async function act(r, kind, btn) {
 }
 
 function flash(m) { $("#runInfo").textContent = m; }
+
+// Xóa: bảng xóa ngay các dòng của bài; phần bảng không tự làm được (xóa file ảnh trên bảng, chuyển nháp WP vào Thùng rác)
+// ghi vào da_xoa/<id> để Agent làm ở lượt sau. Ghi da_xoa trước để lượt chạy không nạp lại bài từ repo.
+async function xoaTuKhoa(r, btn, showErr) {
+  if (!isOff(r) || (r.trang_thai === "dang_dung" && !ketDung(r))) { showErr("Chỉ xóa được khi từ khóa đã tạm dừng hẳn."); return; }
+  const key = tenBai(r), rsAnh = key ? anh.filter(a => a.bai === key) : [], rsYc = key ? yeuCau.filter(y => y.bai === key) : [];
+  const xoaNhap = !!(document.getElementById("xoaNhap") || {}).checked;
+  btn.disabled = true;
+  try {
+    await db.doc("da_xoa/" + r.id).set({ tu_khoa: r.tu_khoa, file_bai: r.file_bai || "", draft_id: r.draft_id || "", thu_nghiem: !!r.thu_nghiem,
+      xoa_nhap: xoaNhap && !!r.draft_id && !r.thu_nghiem, anh: rsAnh.map(a => ({ id: a.id, ten: a.ten || "", asset_id: a.asset_id || "" })).slice(0, 200),
+      trang_thai: "cho_xu_ly", luc: now() });
+    for (const a of rsAnh) await db.doc("anh/" + a.id).delete();
+    for (const y of rsYc) await db.doc("yeu_cau/" + y.id).delete();
+    try { await db.doc("bai_viet/" + r.id).delete(); } catch (e) {}
+    await db.doc("tu_khoa/" + r.id).delete();
+    xoaId = null; selId = null; flash(`Đã xóa từ khóa "${r.tu_khoa}" khỏi bảng.` + (xoaNhap ? " Agent chuyển bản nháp vào Thùng rác ở lượt chạy kế tiếp." : ""));
+    render();
+  } catch (e) {
+    btn.disabled = false;
+    showErr(e && e.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này, không xóa được." : "Chưa xóa xong, bấm Xóa hẳn lần nữa để xóa nốt.");
+  }
+}
+
+async function datDungTatCa(bat, btn) {
+  if (!db) return;
+  btn.disabled = true;
+  try {
+    await db.doc("cau_hinh/chung").update({ tam_dung_tat_ca: bat, tam_dung_luc: now() });
+    if (!bat) flash(await fireAgent("Bảng điều phối: bạn cho Agent chạy lại."));
+  } catch (e) { flash(e && e.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này." : "Chưa lưu được, thử lại sau ít giây."); }
+  btn.disabled = false;
+}
 
 document.addEventListener("input", e => { const d = e.target.dataset || {}; if (d.note) drafts[d.note] = e.target.value; if (d.anote) drafts["anh:" + d.anote] = e.target.value; if (d.muc) { drafts[d.muc] = e.target.value; e.target.closest(".mgy")?.classList.toggle("has", !!e.target.value); } });
 
@@ -738,7 +826,9 @@ document.addEventListener("click", async e => {
   if (b.dataset.rdel && db) { b.disabled = true; try { await db.doc("yeu_cau/" + b.dataset.rdel).delete(); } catch (err) { b.disabled = false; } return; }
   if (b.dataset.stage) { const k = +b.dataset.stage; stageSel = stageSel === k ? 0 : k; render(); return; }
   if (b.dataset.filter) { filter = b.dataset.filter; stageSel = 0; render(); return; }
-  if (b.dataset.id) { selId = b.dataset.id; editOutline = false; render(); if (window.innerWidth < 900) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  if (b.dataset.id) { selId = b.dataset.id; editOutline = false; xoaId = null; render(); if (window.innerWidth < 900) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  if (b.id === "pauseAll") { datDungTatCa(true, b); return; }
+  if (b.id === "resumeAll") { datDungTatCa(false, b); return; }
   if (b.id === "runNow" || b.hasAttribute("data-run")) { b.disabled = true; flash(await fireAgent("Bảng điều phối: bạn bấm Chạy Agent ngay.")); b.disabled = false; return; }
   if (b.dataset.act && db) { const r = rows.find(x => x.id === selId); if (r) act(r, b.dataset.act, b); }
 });
@@ -773,7 +863,7 @@ $("#addForm").addEventListener("submit", async e => {
     const parts = line.replace(/#\s*\d+/, "").split(",").map(s => s.trim()).filter(Boolean);
     if (!parts.length) continue;
     const chinh = parts[0];
-    if (rows.some(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase() && r.trang_thai !== "bo_qua")) { trung.push(chinh); continue; }
+    if (rows.some(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase())) { trung.push(chinh); continue; }
     const t = now();
     const id = (slug(chinh) || "tu-khoa") + "-" + Math.random().toString(36).slice(2, 6);
     try {
@@ -786,7 +876,7 @@ $("#addForm").addEventListener("submit", async e => {
   btn.disabled = false;
   if (ok) { $("#kwInput").value = ""; $("#kwTest").checked = false; filter = "agent"; stageSel = 0; }
   msg.className = "msg good";
-  msg.textContent = `Đã nạp ${ok} từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} từ khóa đã có: ${trung.join(", ")}.` : "");
+  msg.textContent = `Đã nạp ${ok} từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} từ khóa đã có (kể cả đang tạm dừng, bấm Tiếp tục ở từ khóa đó): ${trung.join(", ")}.` : "");
   if (ok) flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`));
   render();
 });
