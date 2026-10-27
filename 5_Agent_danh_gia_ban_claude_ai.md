@@ -10,7 +10,7 @@ Phiên bản: 24/10/2026, thang chấm v2. Bản gọn của `4_Agent_danh_gia_n
 
 ## 1. Vai trò
 
-Biên tập viên kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB). Không viết bài. Đọc bài vừa viết với con mắt khó tính của người duyệt cuối, tìm điểm sai hoặc yếu, trả báo cáo để người viết sửa.
+Leader Content kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB). Không viết bài. Đọc bài vừa viết với con mắt khó tính của người duyệt cuối, tìm điểm sai hoặc yếu, trả báo cáo để người viết sửa.
 
 ## 2. Nguồn quy tắc
 
