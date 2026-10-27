@@ -2,31 +2,73 @@
  {
   "ma": "intent",
   "ten": "Đáp ứng search intent",
-  "toi_da": 15
+  "toi_da": 15,
+  "loai": "blog"
  },
  {
   "ma": "du_lieu",
   "ten": "Chính xác dữ liệu và nguồn",
-  "toi_da": 25
+  "toi_da": 25,
+  "loai": "blog"
  },
  {
   "ma": "eeat",
   "ten": "Chuyên môn và EEAT",
-  "toi_da": 15
+  "toi_da": 15,
+  "loai": "blog"
  },
  {
   "ma": "thuong_hieu",
   "ten": "Thương hiệu và tuân thủ",
-  "toi_da": 15
+  "toi_da": 15,
+  "loai": "blog"
  },
  {
   "ma": "giong_van",
   "ten": "Giọng văn",
-  "toi_da": 15
+  "toi_da": 15,
+  "loai": "blog"
  },
  {
   "ma": "cau_truc",
   "ten": "Cấu trúc và SEO",
-  "toi_da": 15
+  "toi_da": 15,
+  "loai": "blog"
+ },
+ {
+  "ma": "du_lieu",
+  "ten": "Đúng dữ liệu sản phẩm",
+  "toi_da": 25,
+  "loai": "danh_muc"
+ },
+ {
+  "ma": "chon_mua",
+  "ten": "Giúp chọn mua",
+  "toi_da": 20,
+  "loai": "danh_muc"
+ },
+ {
+  "ma": "seo",
+  "ten": "SEO danh mục",
+  "toi_da": 15,
+  "loai": "danh_muc"
+ },
+ {
+  "ma": "gon",
+  "ten": "Ngắn gọn, không trùng blog",
+  "toi_da": 10,
+  "loai": "danh_muc"
+ },
+ {
+  "ma": "thuong_hieu",
+  "ten": "Thương hiệu và giọng văn",
+  "toi_da": 15,
+  "loai": "danh_muc"
+ },
+ {
+  "ma": "cta",
+  "ten": "CTA và chuyển đổi",
+  "toi_da": 15,
+  "loai": "danh_muc"
  }
 ]

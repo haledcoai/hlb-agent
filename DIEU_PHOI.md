@@ -7,6 +7,7 @@ Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc b�
 | Bước | Agent và quy tắc |
 |---|---|
 | Agent Blog: nghiên cứu SERP, outline, viết bài blog | `1_Project_Instructions_Auto_Blog_HLB.md` + `2_Knowledge_Du_lieu_tham_chieu_HLB.md` + CSV sản phẩm |
+| Agent Danh mục: viết lại nội dung danh mục sản phẩm đã có (từ 27/10/2026) | `6_Agent_Danh_muc_HLB.md` + Knowledge + `tools/danh_muc.py`; luồng trên bảng ở mục 3c |
 | Chấm và vòng sửa | `CLAUDE.md` mục "Vòng duyệt tự động", sub agent `danh-gia-noi-dung`, `tools/kiem_tra_bai.py`, `tools/phieu_duyet.py` |
 | Đăng bản nháp | `tools/wp_draft.py`, Project Instructions mục 10, CLAUDE.md mục "Đăng bản nháp" |
 | Tạo ảnh | sub agent `tao-anh`, `tools/tao_anh.py`, CLAUDE.md mục "Ảnh" và "Trang duyệt ảnh" |
@@ -15,7 +16,7 @@ Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc b�
 
 ## 1. Quyết định người dùng đã giao cho bảng điều phối (22/10/2026)
 
-- Duyệt SERP và outline gộp làm một lần trên bảng. Riêng khi SERP cho thấy nên tối ưu trang danh mục/sản phẩm thay vì viết blog, trùng bài cũ, hoặc ngoài phạm vi chiếu sáng nhà xưởng: dừng ở SERP, chuyển `can_xu_ly`.
+- Duyệt SERP và outline gộp làm một lần trên bảng. Riêng khi SERP cho thấy trùng bài cũ, nên làm trang sản phẩm, hoặc ngoài phạm vi chiếu sáng nhà xưởng: dừng ở SERP, chuyển `can_xu_ly`. Từ khóa danh mục có danh mục khớp trên website thì không dừng, chuyển sang Agent Danh mục (mục 3c, người dùng chốt 27/10/2026).
 - Người dùng bấm "Duyệt outline" là đồng ý cho viết bài và **đăng bản nháp** khi bài có phiếu ĐẠT. Không cần hỏi lại trước `--post`. Bài chưa ĐẠT sau 3 vòng thì không đăng, chuyển `can_xu_ly`.
 - Người dùng bấm "Duyệt bài" thì mới tạo ảnh. Ảnh duyệt ở tab Duyệt ảnh trên chính bảng này.
 - Bước 7 "Hoàn thiện bản nháp": đẩy lại bản nháp kèm ảnh đã duyệt, kiểm tra lần cuối, chuyển `san_sang_dang`. Không bao giờ đăng công khai.
@@ -48,6 +49,10 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 | `khoa_luc` | Agent | Giờ bắt đầu xử lý (chống chạy trùng) |
 | `truoc_khi_dung` | Bảng, Agent | Trạng thái lúc người dùng bấm Tạm dừng. Agent xác nhận dừng thì đổi thành trạng thái chờ tương ứng (mục 3b). Dòng cũ `bo_qua` dùng `truoc_khi_bo` |
 | `thu_nghiem` | Người dùng | `true`: chạy thử. Agent làm đủ mọi bước nhưng không chạy `wp_draft.py --post`, không tải ảnh lên WordPress. Ghi `tien_do` "Chạy thử: dừng trước bước đăng nháp" thay cho `nhap_khop` |
+| `loai` | Người dùng khi nạp, Agent | `tu_dong` (mặc định, Agent tự nhận diện), `blog`, `danh_muc`. Agent ghi lại `blog` hoặc `danh_muc` sau khi nhận diện (mục 3c) |
+| `link_danh_muc` | Người dùng khi nạp (không bắt buộc), Agent | Link hoặc slug danh mục cần viết lại. Có giá trị thì `loai` là `danh_muc` |
+| `duyet_ap_dung_luc` | Bảng | Giờ người dùng bấm "Duyệt, cập nhật lên danh mục". Agent chỉ chạy `danh_muc.py ap-dung --post` khi có trường này |
+| `ap_dung` | Agent | `{luc, sao_luu, khoi_tren}` sau khi ghi lên danh mục; `khoi_tren_html` khi khối trên phải dán tay |
 | `cap_nhat` | Cả hai | Giờ ISO |
 
 Collection `bai_viet`, tài liệu cùng id với từ khóa: `tieu_de`, `noi_dung` (phần B markdown, bỏ H1), `ghi_chu` (phần C), `vong`, `diem`, `ket_luan`, `sha`, `file_bai`, `thay_doi` (markdown: đã sửa gì so với bản trước), `cap_nhat`. Script dừng khi bài chưa có phiếu hoặc phiếu không khớp nội dung, nên bảng không hiện bài chưa chấm. Tạo bằng `python dieu_phoi/bai_len_bang.py Bai_<slug>.md --thay-doi "..."` rồi `ArtifactData set` với `file_path`. Bảng hiện bài này để người dùng đọc và góp ý theo mục, không cần mở wp-admin.
@@ -71,6 +76,30 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 | `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên tab Duyệt ảnh của bảng (CLAUDE.md) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
 | `cho_hoan_thien` | `dang_hoan_thien` | Đọc collection `anh`, `yeu_cau` trên bảng, xử lý như "xử lý ảnh đã duyệt". Còn ảnh `lam_lai` hoặc yêu cầu mới: làm lại, quay về `cho_duyet_anh`. Đủ ảnh duyệt: `--post --draft-id <draft_id>` để chèn ảnh, kiểm tra thẻ ảnh, alt, link, Rank Math | `san_sang_dang` |
 
+### 3c. Từ khóa danh mục: nhận diện và luồng riêng (người dùng chốt 27/10/2026)
+
+**Nhận diện** khi nhận từ khóa `moi` (trước SERP):
+1. `loai: "blog"`: Agent Blog như cũ. `loai: "danh_muc"` hoặc có `link_danh_muc`: Agent Danh mục, dùng `link_danh_muc` (không có thì bước 2 để tìm).
+2. `loai` trống hoặc `tu_dong`: chạy `python tools/danh_muc.py tim "<từ khóa chính>"`. Mã thoát 0 (KHỚP một danh mục, điểm từ 0,9) và `ghi_chu` không yêu cầu viết blog: Agent Danh mục với danh mục đó.
+3. Không khớp: làm SERP như blog. SERP cho thấy Google xếp trang danh mục ở top (intent mua hàng) và `tim` có danh mục GẦN (0,5-0,9): chuyển Agent Danh mục với danh mục gần nhất, ghi rõ trong `serp` vì sao chọn danh mục đó. Không có danh mục nào gần: chuyển `can_xu_ly` (`quay_ve: "moi"`), `ly_do` nêu phương án: viết bài blog nhắm từ khóa này, viết lại bài blog cũ cùng chủ đề (ghi URL), hoặc người dùng tạo danh mục mới rồi nạp lại kèm link.
+4. Ghi `loai`, `link_danh_muc` lên từ khóa, thêm `lich_su` "Nhận diện: từ khóa danh mục <link>" để người dùng thấy.
+
+**Luồng Agent Danh mục** (cùng nút, cùng trạng thái với blog đến `cho_duyet_bai`, khác ở bước làm và sau đó):
+
+| Nhận khi | Việc | Kết thúc |
+|---|---|---|
+| `moi`, `sua_outline` | `danh_muc.py doc <link>`, chia ý Giữ/Bỏ nội dung cũ, SERP, kiểm tra trùng bài blog, outline 7 mục (`6_Agent_Danh_muc_HLB.md` Bước 1, 2). Ghi vào `serp`, `outline`; `file_bai: "DM_<slug>.md"`, `tieu_de: "Danh mục: <tên>"` | `cho_duyet_outline` |
+| `cho_viet`, `sua_bai` | Viết hoặc sửa `DM_<slug>.md`, vòng duyệt CLAUDE.md (thang danh mục). ĐẠT thì làm mục 3a, thay bước 1, 2 bằng `danh_muc.py nhap DM_<slug>.md --post` (Trang nháp, ghi `draft_id` là ID trang, `link_nhap`, `link_xem`, `nhap_khop`) | `cho_duyet_bai` |
+| `cho_tao_anh`, `cho_hoan_thien` | Chỉ khi bài có `[ẢNH]`, như blog. Hoàn thiện thì `danh_muc.py nhap --post` để chèn ảnh đã duyệt vào Trang nháp | `san_sang_ap_dung` |
+| `cho_ap_dung` (bảng đặt khi người dùng bấm "Duyệt, cập nhật lên danh mục", kèm `duyet_ap_dung_luc`) | Đổi `dang_ap_dung`. Kiểm tra phiếu ĐẠT khớp file, rồi `danh_muc.py ap-dung DM_<slug>.md --duyet-luc <duyet_ap_dung_luc> --post`. Commit `danh_muc/` (bản sao lưu, trạng thái). Ghi `ap_dung` | `da_ap_dung`; hoặc `cho_dan_khoi_tren` khi khối trên phải dán tay (ghi `ap_dung.khoi_tren_html` là nội dung file `danh_muc/DM_<slug>.khoi_tren.html`) |
+| `cho_kiem_trang` (bảng đặt khi người dùng bấm "Đã dán khối trên") | `danh_muc.py kiem-trang DM_<slug>.md`. Khớp: `da_ap_dung`. Chưa khớp: giữ `cho_dan_khoi_tren`, `tien_do` nói phần nào chưa khớp | `da_ap_dung` |
+
+Trên bảng, bài danh mục không có ảnh thì ở `cho_duyet_bai` hiện nút "Duyệt, cập nhật lên danh mục" thay cho "Duyệt bài"; có ảnh thì nút này hiện ở `san_sang_ap_dung`. Agent không tự đặt `cho_ap_dung`, không tự điền `duyet_ap_dung_luc`.
+
+Lỗi khi ghi (403, mạng): `danh_muc.py` dừng trước khi ghi nếu sao lưu lỗi; ghi được một phần thì chuyển `can_xu_ly` với `ly_do` nói rõ phần nào đã ghi và lệnh khôi phục (`danh_muc.py khoi-phuc <slug> --post`), không tự khôi phục. Người dùng yêu cầu khôi phục thì chạy lệnh đó.
+
+Giới hạn mỗi lượt: việc danh mục tính chung suất với blog (nghiên cứu, viết). `cho_ap_dung`, `cho_kiem_trang` là việc ngắn, làm trước mọi việc khác ở bước 3 mục 4.
+
 ### 3b. Tạm dừng, tiếp tục, xóa (người dùng chốt 27/10/2026)
 
 Chỉ áp dụng cho từng bài. Bài khác và từ khóa mới vẫn chạy bình thường theo giới hạn mục 4 bước 5; bài đang dừng không giữ suất.
@@ -92,7 +121,7 @@ Chỉ áp dụng cho từng bài. Bài khác và từ khóa mới vẫn chạy b
 
 **Xóa** (chỉ bấm được khi đã `tam_dung`): bảng tự xóa `tu_khoa/<id>`, `bai_viet/<id>`, các dòng `anh` và `yeu_cau` của bài, và ghi `da_xoa/<id>`. Agent xử lý `da_xoa` có `trang_thai: "cho_xu_ly"` ở lượt kế tiếp (việc ngắn):
 1. Xóa từng tài sản ảnh trên bảng: Artifact `action: "delete"`, `url` bảng, `path` là `asset_id`.
-2. `xoa_nhap: true` và không `thu_nghiem`: chuyển bản nháp `draft_id` vào Thùng rác bằng `DELETE /wp-json/wp/v2/posts/<draft_id>` không kèm `force` (khôi phục được 30 ngày). Kiểm tra trước: bài vẫn là `draft`; đã `publish` thì không xóa, ghi `ket_qua` báo người dùng. Phiên thiếu mật khẩu WP thì giao thread "Kiểm tra môi trường cloud HLB". Không xóa ảnh trong thư viện Media.
+2. `xoa_nhap: true` và không `thu_nghiem`: chuyển bản nháp `draft_id` vào Thùng rác bằng `DELETE /wp-json/wp/v2/posts/<draft_id>` không kèm `force` (khôi phục được 30 ngày; bài danh mục `DM_*` thì `draft_id` là Trang nháp: `DELETE /wp-json/wp/v2/pages/<draft_id>`, không bao giờ đụng vào danh mục). Kiểm tra trước: bài vẫn là `draft`; đã `publish` thì không xóa, ghi `ket_qua` báo người dùng. Phiên thiếu mật khẩu WP thì giao thread "Kiểm tra môi trường cloud HLB". Không xóa ảnh trong thư viện Media.
 3. Giữ trên repo file bài, `nghien_cuu/<bài>/`, `anh/<bài>/`, `.danh_gia/`: không xóa file nào.
 4. Ghi `trang_thai: "da_xu_ly"`, `ket_qua` (một câu). `doi_chieu_bang.py` đọc `da_xoa` để không nạp lại bài đã xóa lên bảng.
 
@@ -127,7 +156,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
    - `da_xoa` `cho_xu_ly` và `dang_dung` quá 1 giờ: xử lý theo mục 3b.
    - **Ảnh bị yêu cầu làm lại** (người dùng chốt 23/10/2026): `list` collection `anh` và `yeu_cau`. Ảnh `lam_lai` hoặc yêu cầu `moi` thì làm ngay trong lượt này, dù từ khóa đang ở `cho_duyet_anh` hay trạng thái nào (trừ khi từ khóa đang tạm dừng), không chờ người dùng bấm "Đã duyệt ảnh xong". Gọi `tao-anh` cho đúng ảnh đó kèm `ghi_chu` của người dùng, rồi đưa lên bảng như CLAUDE.md mục "Đưa ảnh lên trang" (ảnh làm lại). Nút "Làm lại" trên bảng gọi Agent chạy ngay; nếu không gọi được thì lượt định kỳ kế tiếp làm.
    - Việc dở làm trước mọi việc mới ở bước 3.
-3. Chọn việc theo thứ tự: `cho_hoan_thien`, `sua_bai`, `sua_outline`, `cho_tao_anh`, `cho_viet`, `moi` (việc gần xong và việc người dùng vừa góp ý làm trước). Cùng loại thì `cap_nhat` cũ trước.
+3. Chọn việc theo thứ tự: `cho_ap_dung`, `cho_kiem_trang`, `cho_hoan_thien`, `sua_bai`, `sua_outline`, `cho_tao_anh`, `cho_viet`, `moi` (việc gần xong và việc người dùng vừa góp ý làm trước). Cùng loại thì `cap_nhat` cũ trước.
 4. Với mỗi việc: `update` trạng thái `dang_*`, `khoa_luc`, `tien_do` (kèm `if_version`; lỗi phiên bản thì bỏ qua từ khóa đó). Trong lúc làm, kiểm tra trạng thái ở từng điểm kiểm tra mục 3b. Làm xong ghi kết quả, trạng thái kết thúc, thêm một dòng `lich_su`, xóa `khoa_luc`.
 5. Giới hạn mỗi lượt: tối đa 3 việc nghiên cứu (`moi`, `sua_outline`) và 1 việc viết bài (`cho_viet`, `sua_bai`), không giới hạn việc ngắn. Còn việc thì lượt sau làm tiếp. Bài đang tạm dừng không tính suất; một bài dừng giữa chừng thì suất đó dùng cho bài kế tiếp trong hàng chờ. Bài vừa bấm Tiếp tục vào lại hàng chờ như bài khác, không chen ngang bài đang chạy.
 6. Lỗi không tự xử lý được (mạng, đăng nhập WordPress, thiếu dữ liệu bắt buộc): chuyển `can_xu_ly`, `ly_do` nói rõ lỗi gì và người dùng cần làm gì, `quay_ve` là trạng thái chờ trước đó.
@@ -135,7 +164,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 ## 5. Ranh giới
 
-- Không đăng công khai. Không chạy `phieu_duyet.py ghi` bằng tay. Không vượt hook. Không dùng `wp_draft.py --bo-qua-phieu` (chỉ người dùng dùng).
+- Không đăng công khai. Ngoại lệ duy nhất: ghi nội dung danh mục khi người dùng đã bấm "Duyệt, cập nhật lên danh mục" (mục 3c). Không chạy `phieu_duyet.py ghi` bằng tay. Không vượt hook. Không dùng `wp_draft.py --bo-qua-phieu` (chỉ người dùng dùng).
 - Phiên chạy theo lịch và phiên thread trên cloud có thể không nạp hook trong `.claude/settings.json` (đã thấy 26/10/2026). Quy tắc hook vẫn áp dụng: tự chạy vòng duyệt sau mỗi lần sửa bài. Các chặn quan trọng đã nằm trong script (`wp_draft.py --post` tự kiểm phiếu, `bai_len_bang.py` dừng khi phiếu không khớp).
 - Không đưa mật khẩu, token vào bảng hay file.
 - Không tự đổi quy tắc của các Agent con. Người dùng muốn đổi tiêu chuẩn thì sửa file quy tắc tương ứng.

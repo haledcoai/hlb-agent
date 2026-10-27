@@ -12,6 +12,8 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 |---|---|
 | 1_Project_Instructions_Auto_Blog_HLB.md | Quy trình 4 bước, giọng văn, quy tắc dữ liệu, cách viết về thương hiệu, quy tắc đăng bản nháp. Dán vào ô Instructions của Claude Project |
 | 2_Knowledge_Du_lieu_tham_chieu_HLB.md | Thông tin HLB đã xác nhận, URL danh mục và bài Tư vấn, cách đọc trang sản phẩm, chuẩn SEO, checklist. Tải lên Project Knowledge |
+| 6_Agent_Danh_muc_HLB.md | Quy tắc Agent Danh mục (27/10/2026): viết lại nội dung danh mục sản phẩm đã có, file `DM_<slug>.md`, Trang nháp xem trước, chỉ ghi lên danh mục khi người dùng duyệt. Chấm theo `quy_tac_cham_danh_muc.md` |
+| tools/danh_muc.py | Công cụ Agent Danh mục: `ds`, `tim` (nhận diện từ khóa danh mục), `doc` (lưu danh mục, sản phẩm, nội dung cũ vào `nghien_cuu/DM_<slug>/`), `nhap` (Trang nháp), `ap-dung` (sao lưu rồi ghi mô tả, Rank Math), `kiem-trang`, `khoi-phuc` |
 | 4_Agent_danh_gia_noi_dung_HLB.md | Tóm tắt agent đánh giá chất lượng: vai trò, kiểm tra cơ học (làm tay được khi không có script), thang 100 điểm cần từ 95, mẫu báo cáo, vòng duyệt, phiếu và nhật ký, bài học, việc còn mở. Dùng được cả trong Claude Project trên claude.ai |
 | 3_Bang_hoi_thong_tin_co_dinh_HLB.md | Bảng hỏi thông tin cố định (8 nhóm). Đã trả lời nhóm 1 và phần lớn nhóm 2 |
 | du_lieu_san_pham_HLB_<ngày>.csv | Thông số và giá 113 sản phẩm đọc từ website. Làm mới bằng `python tools/lam_moi_csv.py` (giữ một file mới nhất, bản cũ trong git) |
@@ -73,6 +75,11 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | Bảng hỏi thông tin cố định | Xong nhóm 1. Nhóm 2 còn 4 điểm chờ xác nhận. Nhóm 3 đến 8 chưa trả lời |
 
 ## 5. Việc còn dở
+
+**Agent Danh mục (27/10/2026, đã xây xong, chưa chạy thử theo yêu cầu người dùng)**
+- Khối trên lưới sản phẩm nằm ở trường riêng của theme, REST chưa mở: cần tên trường (hoặc nhờ người làm web mở `show_in_rest`) để ghi `khoi_tren_meta` vào `danh_muc/cau_hinh.json`. Chưa có thì người dùng dán tay.
+- Chờ trả lời: có viết nội dung cho danh mục con theo hãng (Philips 150W...) không; từ khóa "đèn chống cháy nổ 20w" (không có danh mục) chuyển viết lại bài blog ID 4069?
+- Chạy thử đầu tiên khi người dùng yêu cầu (đề xuất danh mục đèn LED nhà xưởng 150W).
 
 **Chờ người dùng xác nhận (nhóm 2)**
 1. 15 ngày đầu: sản phẩm lỗi, còn mới, còn tem thì được đổi mới 1 đổi 1?

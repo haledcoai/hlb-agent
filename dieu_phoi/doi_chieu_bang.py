@@ -18,6 +18,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DUNG = ("tam_dung", "dang_dung", "bo_qua")  # tạm dừng từng bài (bo_qua là tên cũ của tam_dung)
+# Noi dung danh muc da ghi len website: Trang nhap da vao Thung rac, khong doi chieu nhap nua (DIEU_PHOI muc 3c)
+DM_DA_AP_DUNG = ("cho_ap_dung", "dang_ap_dung", "cho_dan_khoi_tren", "cho_kiem_trang", "da_ap_dung")
 
 
 def doc(path):
@@ -75,7 +77,18 @@ def main():
             if khop and (not dv or dv[-1].get("diem") != phieu.get("diem_tinh") or dv[-1].get("vong") != phieu.get("vong")):
                 viec.append("diem_vong trên bảng (%s) khác phiếu mới nhất (vòng %s, %s điểm): thêm vòng mới, cập nhật bao_cao"
                             % (dv[-1] if dv else "trống", phieu.get("vong"), phieu.get("diem_tinh")))
-            nk = r.get("nhap_khop")
+            dm = fb.startswith("DM_")
+            lenh_nhap = "danh_muc.py nhap --post" if dm else "wp_draft.py --post --draft-id"
+            if dm and r.get("trang_thai") in DM_DA_AP_DUNG:
+                try:
+                    ap = doc(os.path.join(ROOT, "danh_muc", os.path.splitext(fb)[0] + ".json")).get("ap_dung") or {}
+                except OSError:
+                    ap = {}
+                if r.get("trang_thai") == "da_ap_dung" and ap.get("sha") and ap["sha"] != sha:
+                    viec.append("file sửa sau khi đã ghi lên danh mục: chấm lại, tạo Trang nháp mới, chờ người dùng duyệt áp dụng lại")
+                nk = None
+            else:
+                nk = r.get("nhap_khop")
             if nk:
                 if nk.get("sha"):
                     nhap_cu = nk["sha"] != sha
@@ -86,10 +99,11 @@ def main():
                     t_nk, t_ph = gio(nk.get("luc")), gio(tg if re.search(r"[+-]\d\d:\d\d$|Z$", tg) else tg + "+00:00")
                     nhap_cu = bool(t_nk and t_ph and t_ph > t_nk)
                 if nhap_cu:
-                    viec.append("bản nháp WP %s là bản cũ nhưng bảng ghi đã cập nhật: xóa nhap_khop, đẩy lại nháp khi phiếu ĐẠT"
-                                % r.get("draft_id"))
-            elif r.get("draft_id") and khop and phieu.get("ket_luan") == "DAT":
-                viec.append("phiếu ĐẠT nhưng bản nháp %s chưa cập nhật: đẩy lại nháp (DIEU_PHOI mục 3a)" % r.get("draft_id"))
+                    viec.append("bản nháp WP %s là bản cũ nhưng bảng ghi đã cập nhật: xóa nhap_khop, đẩy lại nháp (%s) khi phiếu ĐẠT"
+                                % (r.get("draft_id"), lenh_nhap))
+            elif r.get("draft_id") and khop and phieu.get("ket_luan") == "DAT" and not (dm and r.get("trang_thai") in DM_DA_AP_DUNG):
+                viec.append("phiếu ĐẠT nhưng bản nháp %s chưa cập nhật: đẩy lại nháp bằng %s (DIEU_PHOI mục 3a)"
+                            % (r.get("draft_id"), lenh_nhap))
             bv = bai_viet.get(rid)
             if bv and bv.get("sha") != sha and khop:
                 viec.append("bài trên bảng (bai_viet) là bản cũ: chạy bai_len_bang.py rồi set bai_viet/%s" % rid)
@@ -111,7 +125,7 @@ def main():
             viec.append("chuyển bản nháp WP %s vào Thùng rác (DELETE không force)" % x["draft_id"])
         print("- da_xoa/%s (%s): %s; xong thì trang_thai da_xu_ly (DIEU_PHOI mục 3b)"
               % (xid, x.get("tu_khoa"), ", ".join(viec) or "không còn việc"))
-    for path in sorted(glob.glob(os.path.join(ROOT, "Bai_*.md"))):
+    for path in sorted(glob.glob(os.path.join(ROOT, "Bai_*.md")) + glob.glob(os.path.join(ROOT, "DM_*.md"))):
         if os.path.basename(path) not in co_tren_bang:
             lech += 1
             print("- %s: có trên repo, không có dòng tu_khoa trên bảng. Nạp lên bảng (DIEU_PHOI mục 2) để duyệt và theo dõi"

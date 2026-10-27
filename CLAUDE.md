@@ -18,7 +18,7 @@ Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc 
 
 ## Vòng duyệt tự động (bắt buộc)
 
-Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`), tự chạy vòng sau, không chờ người dùng nhắc:
+Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`) hoặc file nội dung danh mục (`DM_*.md`, chấm theo thang danh mục ở `quy_tac_cham_danh_muc.md`), tự chạy vòng sau, không chờ người dùng nhắc:
 
 1. **Chấm:** gọi sub agent `danh-gia-noi-dung`. Truyền: đường dẫn file bài, số vòng (bắt đầu từ 1), outline đã chốt (nếu có), các điểm người dùng đã nói để sau.
 2. **Đọc kết luận** ở đầu báo cáo:
@@ -98,3 +98,11 @@ Người dùng duyệt ảnh ở tab **Duyệt ảnh** của **Bảng điều ph
 - **Không tự chạy `tools/phieu_duyet.py ghi`.** Phiếu chỉ do agent `danh-gia-noi-dung` ghi sau khi chấm. Khi bị hook chặn, chạy lại vòng duyệt, không tìm cách vượt hook.
 - Lệnh đăng cũng bị chặn khi phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng chốt 26/10/2026): gửi người dùng danh sách dữ liệu cần bổ sung thay vì đăng.
 - `wp_draft.py --post` tự kiểm tra phiếu như hook (26/10/2026: phiên cloud có thể không nạp hook). Người dùng muốn đăng khi bài chưa đạt 95 thì người dùng tự chạy lệnh trong terminal của họ, thêm `--bo-qua-phieu`. Agent không bao giờ dùng cờ này.
+
+## Nội dung danh mục sản phẩm (Agent Danh mục, người dùng chốt 27/10/2026)
+
+- Agent viết bài blog gọi là **Agent Blog** (quy tắc ở file 1). Nội dung danh mục sản phẩm đã có trên website do **Agent Danh mục** viết, quy tắc ở `6_Agent_Danh_muc_HLB.md`, công cụ `tools/danh_muc.py`, file `DM_<slug danh mục>.md`. Điều phối tự nhận diện từ khóa danh mục (`DIEU_PHOI.md` mục 3c).
+- Danh mục không có bản nháp. Xem trước bằng Trang nháp (`danh_muc.py nhap --post`, như đăng bản nháp bài blog, cần phiếu ĐẠT).
+- **Ghi lên danh mục là công khai ngay.** Chỉ chạy `danh_muc.py ap-dung ... --post` khi người dùng đã bấm "Duyệt, cập nhật lên danh mục" trên bảng (trường `duyet_ap_dung_luc`) hoặc đồng ý trong chat. Không tự điền `--duyet-luc`. Script tự sao lưu bản cũ vào `danh_muc/sao_luu/` (commit lên repo), khôi phục bằng `danh_muc.py khoi-phuc <slug> --post` khi người dùng yêu cầu.
+- Khối trên lưới sản phẩm nằm ở trường riêng của theme, REST API chưa mở: khi `danh_muc/cau_hinh.json` chưa có `khoi_tren_meta`, người dùng dán tay khối trên rồi bấm "Đã dán khối trên", Agent chạy `danh_muc.py kiem-trang`.
+- Tài khoản WordPress cần quyền Quản lý cửa hàng (`quoc-viet` đã được nâng 27/10/2026).
