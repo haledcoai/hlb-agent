@@ -8,7 +8,7 @@ Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc b�
 |---|---|
 | Agent Blog: nghiên cứu SERP, outline, viết bài blog | `1_Project_Instructions_Auto_Blog_HLB.md` + `2_Knowledge_Du_lieu_tham_chieu_HLB.md` + CSV sản phẩm |
 | Agent Danh mục: viết lại nội dung danh mục sản phẩm đã có (từ 27/10/2026) | `6_Agent_Danh_muc_HLB.md` + Knowledge + `tools/danh_muc.py`; luồng trên bảng ở mục 3c |
-| Chấm và vòng sửa | `CLAUDE.md` mục "Vòng duyệt tự động", sub agent `danh-gia-noi-dung`, `tools/kiem_tra_bai.py`, `tools/phieu_duyet.py` |
+| Chấm và vòng sửa | `CLAUDE.md` mục "Vòng duyệt tự động", sub agent `danh-gia-noi-dung` (bài blog), `danh-gia-danh-muc` (nội dung danh mục), `tools/kiem_tra_bai.py`, `tools/phieu_duyet.py` |
 | Đăng bản nháp | `tools/wp_draft.py`, Project Instructions mục 10, CLAUDE.md mục "Đăng bản nháp" |
 | Tạo ảnh | sub agent `tao-anh`, `tools/tao_anh.py`, CLAUDE.md mục "Ảnh" và "Trang duyệt ảnh" |
 

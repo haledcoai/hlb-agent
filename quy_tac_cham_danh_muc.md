@@ -1,7 +1,7 @@
-# QUY TẮC CHẤM NỘI DUNG DANH MỤC HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
+# QUY TẮC CHẤM NỘI DUNG DANH MỤC HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ DANH MỤC)
 
-Phiên bản: 27/10/2026. Dùng cho file `DM_<slug>.md` của Agent Danh mục. Rút từ `6_Agent_Danh_muc_HLB.md` (quy tắc riêng của danh mục) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Các quy tắc dùng chung với bài blog (bốn quy tắc cốt lõi, thông tin HLB, câu cấm, thương hiệu, giọng văn) giữ nguyên như `quy_tac_cham.md` mục 1, 2, 3, 5, 6: đọc các mục đó ở `quy_tac_cham.md`, file này chỉ ghi phần khác. Khi file này khác file gốc, file gốc đúng.
-Mã nguồn: 6_Agent_Danh_muc_HLB.md 9deb775cda9a; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 02e0bcfb37e9
+Phiên bản: 27/10/2026. Dùng cho file `DM_<slug>.md` của Agent Danh mục, do agent `danh-gia-danh-muc` chấm. Rút từ `6_Agent_Danh_muc_HLB.md` (quy tắc riêng của danh mục) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Các quy tắc dùng chung với bài blog (bốn quy tắc cốt lõi, thông tin HLB, câu cấm, thương hiệu, giọng văn) giữ nguyên như `quy_tac_cham.md` mục 1, 2, 3, 5, 6: đọc các mục đó ở `quy_tac_cham.md`, file này chỉ ghi phần khác. Khi file này khác file gốc, file gốc đúng.
+Mã nguồn: 6_Agent_Danh_muc_HLB.md 40993b35d8f1; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 7b9908a891ff
 
 Ai sửa `6_Agent_Danh_muc_HLB.md` hoặc Knowledge thì sửa luôn file này nếu quy tắc chấm đổi, rồi chạy `python tools/kiem_tra_bai.py --cap-nhat-quy-tac --danh-muc`.
 

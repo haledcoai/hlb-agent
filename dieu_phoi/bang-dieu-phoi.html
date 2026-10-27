@@ -609,8 +609,10 @@ const AGENTS = [
     files: ["1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md", "tools/wp_draft.py"] },
   { k: "dm", t: "Agent Danh mục", role: "Viết lại nội dung danh mục sản phẩm đã có (khối trên, khối dưới lưới sản phẩm, SEO title, meta). Xem trước bằng Trang nháp, chỉ ghi lên danh mục khi bạn bấm duyệt, bản cũ được sao lưu.",
     files: ["6_Agent_Danh_muc_HLB.md", "tools/danh_muc.py", "quy_tac_cham_danh_muc.md"] },
-  { k: "cham", t: "Agent đánh giá", role: "Chấm bài blog và nội dung danh mục 100 điểm (ngưỡng ĐẠT 95, mỗi loại một thang), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
+  { k: "cham", t: "Agent đánh giá", role: "Leader Content chấm bài blog 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
     files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
+  { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content duyệt riêng nội dung danh mục theo thang danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
+    files: [".claude/agents/danh-gia-danh-muc.md", "quy_tac_cham_danh_muc.md", "tools/phieu_duyet.py"] },
   { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Duyệt ảnh, chèn ảnh đã duyệt vào bản nháp.",
     files: [".claude/agents/tao-anh.md", "tools/tao_anh.py"] }
 ];
@@ -632,8 +634,12 @@ function renderAgent() {
   const blog = rows.filter(r => !laDm(r)), dms = rows.filter(laDm);
   const by = k => blog.filter(r => r.trang_thai === k).length, byDm = (...ks) => dms.filter(r => ks.includes(r.trang_thai)).length;
   const nhap = blog.filter(r => r.draft_id).length;
-  const ls = lastScores(), dat = ls.filter(x => x.ket_luan === "DAT").length;
-  const tb = ls.length ? Math.round(ls.reduce((a, x) => a + (x.diem_tinh ?? x.diem ?? 0), 0) / ls.length) : "-";
+  const isDm = x => x.loai === "danh_muc";
+  const luot = ((cham && cham.cham) || []), all = lastScores();
+  const tb = l => l.length ? Math.round(l.reduce((a, x) => a + (x.diem_tinh ?? x.diem ?? 0), 0) / l.length) : "-";
+  const chamStats = dm => { const ls = all.filter(x => isDm(x) === dm);
+    return stat(luot.filter(x => isDm(x) === dm).length, "Lượt chấm") + stat(ls.length, dm ? "Danh mục đã chấm" : "Bài đã chấm")
+      + stat(ls.filter(x => x.ket_luan === "DAT").length, dm ? "Danh mục ĐẠT ở lần cuối" : "Bài ĐẠT ở lần cuối") + stat(tb(ls), "Điểm TB lần cuối"); };
   const ac = k => anh.filter(a => (a.trang_thai || "cho_duyet") === k).length;
   const body = {
     viet: stat(by("moi") + by("sua_outline") + by("cho_viet") + by("sua_bai"), "Đang chờ Agent")
@@ -645,8 +651,8 @@ function renderAgent() {
       + stat(byDm("dang_nghien_cuu", "dang_viet", "dang_ap_dung"), "Đang làm")
       + stat(byDm("cho_duyet_outline", "cho_duyet_bai", "san_sang_ap_dung", "cho_dan_khoi_tren"), "Chờ bạn", true)
       + stat(byDm("da_ap_dung"), "Đã cập nhật lên web"),
-    cham: stat(((cham && cham.cham) || []).length, "Lượt chấm") + stat(ls.length, "Bài đã chấm")
-      + stat(dat, "Bài ĐẠT ở lần cuối") + stat(tb, "Điểm TB lần cuối"),
+    cham: chamStats(false),
+    chamdm: chamStats(true),
     anh: stat(ac("cho_duyet"), "Chờ bạn duyệt", true) + stat(ac("lam_lai"), "Chờ làm lại") + stat(ac("duyet"), "Đã duyệt")
       + stat(yeuCau.filter(y => y.trang_thai !== "da_xu_ly").length, "Yêu cầu thêm ảnh")
   };
@@ -654,12 +660,13 @@ function renderAgent() {
     viet: "", dm: "",
     cham: (() => { const t = topIssues(3); return t.length ? `<div><label>Lỗi hay gặp</label><ul class="feed">${t.map(x => `<li><span class="t">${x.so} lần, ${x.bai.size} bài</span><span>${esc(x.mo_ta)}</span></li>`).join("")}</ul></div>` : ""; })()
       + `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
+    chamdm: `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
     anh: `<div class="actions"><button class="btn redo" type="button" data-go="anh">Mở tab Duyệt ảnh</button></div>`
   };
   const feed = rows.flatMap(r => (Array.isArray(r.lich_su) ? r.lich_su : []).map(h => ({ ...h, kw: r.tu_khoa, id: r.id })))
     .sort((a, b) => (b.luc || "").localeCompare(a.luc || "")).slice(0, 15);
   $("#pane-agent").innerHTML = `
-    <div class="bar"><h2>Bốn Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
+    <div class="bar"><h2>Năm Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
     <div class="agents">${AGENTS.map(a => `<article class="acard">
       <h3>${esc(a.t)}</h3><p class="role">${esc(a.role)}</p>
       <div class="stats">${body[a.k]}</div>${extra[a.k]}

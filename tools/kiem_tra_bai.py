@@ -10,7 +10,7 @@ Cach dung:
 
 Chi bat loi may kiem tra duoc: dau gach, emoji, tu cam, link, do dai SEO, dinh dang so,
 doi chieu so lieu voi file CSV san pham, ma tieu chuan voi tieu_chuan_da_kiem.csv,
-heading voi outline da chot va doan trung voi bai top SERP (tools/nghien_cuu.py). Chat luong noi dung do agent danh-gia-noi-dung danh gia.
+heading voi outline da chot va doan trung voi bai top SERP (tools/nghien_cuu.py). Chat luong noi dung do agent danh-gia-noi-dung (bai blog) hoac danh-gia-danh-muc (DM_*.md) danh gia.
 Ma thoat: 0 = khong co LOI, 1 = co LOI can sua, 2 = file sai cau truc.
 
 File DM_<slug>.md (noi dung danh muc, Agent Danh muc, 6_Agent_Danh_muc_HLB.md) kiem theo che do danh muc: khong co H1,

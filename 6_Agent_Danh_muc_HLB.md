@@ -66,7 +66,7 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 
 ### Bước 4: Tự kiểm tra và chấm
 
-`python tools/kiem_tra_bai.py DM_<slug>.md` (tự chạy chế độ danh mục) tới khi 0 lỗi, rồi vòng duyệt CLAUDE.md: agent `danh-gia-noi-dung` chấm theo thang danh mục (`quy_tac_cham_danh_muc.md`), ngưỡng 95, tối đa 3 vòng.
+`python tools/kiem_tra_bai.py DM_<slug>.md` (tự chạy chế độ danh mục) tới khi 0 lỗi, rồi vòng duyệt CLAUDE.md: agent `danh-gia-danh-muc` (Leader Content duyệt riêng nội dung danh mục) chấm theo thang danh mục (`quy_tac_cham_danh_muc.md`), ngưỡng 95, tối đa 3 vòng.
 
 ## 3. File `DM_<slug>.md`
 
