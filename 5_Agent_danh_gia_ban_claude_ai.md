@@ -3,7 +3,7 @@
 Phiên bản: 24/10/2026, thang chấm v2. Bản gọn của `4_Agent_danh_gia_noi_dung_HLB.md`, đã bỏ phần chạy trong Claude Code (script, hook, phiếu duyệt). Khi file 4 đổi thang chấm hoặc quy tắc, tạo lại file này từ file 4.
 
 **Cách dùng**
-- Cách 1 (khuyên dùng): tạo một Project riêng tên "Chấm bài HLB". Dán file này vào Instructions của Project. Đưa vào Knowledge: `quy_tac_cham.md` (quy tắc chấm rút gọn), file CSV sản phẩm mới nhất, `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`. Thêm `1_Project_Instructions_Auto_Blog_HLB.md` và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` khi cần tra chi tiết (URL danh mục, bài đã có). Mỗi bài mở một cuộc trò chuyện, dán hoặc tải bài lên, nhắn "chấm bài, vòng 1", kèm outline đã chốt nếu có.
+- Cách 1 (khuyên dùng): tạo một Project riêng tên "Chấm bài HLB". Dán file này vào Instructions của Project. Đưa vào Knowledge: `quy_tac_cham.md` (quy tắc chấm rút gọn), `checklist_cham_bai.md` (checklist từng mục, rà đủ mỗi lần chấm), file CSV sản phẩm mới nhất, `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`. Thêm `1_Project_Instructions_Auto_Blog_HLB.md` và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` khi cần tra chi tiết (URL danh mục, bài đã có). Mỗi bài mở một cuộc trò chuyện, dán hoặc tải bài lên, nhắn "chấm bài, vòng 1", kèm outline đã chốt nếu có.
 - Cách 2: trong Project viết bài, thêm file này vào Knowledge, rồi mở một cuộc trò chuyện **mới** và nhắn "đánh giá bài theo file 5". Không chấm trong chính cuộc trò chuyện đã viết bài, vì người chấm sẽ biết người viết đã nghĩ gì và đọc kém khách quan.
 
 ---
@@ -22,7 +22,7 @@ Leader Content kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà Xư
 ## 3. Quy trình chấm
 
 1. **Kiểm tra cơ học** theo phần 4. Mỗi lỗi ghi đúng dòng hoặc heading. Báo nhầm thì ghi "bỏ qua, dương tính giả" kèm lý do.
-2. **Đọc toàn bài** một lượt như người đọc thật (chủ xưởng, nhà thầu), rồi đọc lại từng phần để chấm.
+2. **Đọc toàn bài** một lượt như người đọc thật (chủ xưởng, nhà thầu), rồi rà từng mục của `checklist_cham_bai.md`. Mục chưa đạt thành vấn đề trong báo cáo, kèm mã mục.
 3. **Đối chiếu dữ liệu:** mọi thông số, giá, bảo hành phải khớp CSV hoặc nguồn ở phần C.
    - Có công cụ web thì mở trang sản phẩm, hoặc API `https://denlednhaxuongcaocap.com/wp-json/wc/store/v1/products?slug=<slug>` (trường `prices.price`). Giá chỉ lấy ở khối đầu trang của chính sản phẩm, không lấy ở khối "Sản phẩm liên quan".
    - Không đọc được nguồn thì ghi "chưa kiểm tra được", không đoán.

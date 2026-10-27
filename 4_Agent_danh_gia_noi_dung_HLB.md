@@ -1,6 +1,6 @@
 # AGENT ĐÁNH GIÁ CHẤT LƯỢNG NỘI DUNG (HLB)
 
-Phiên bản: 24/10/2026, thang chấm v2. Dùng kèm `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge).
+Phiên bản: 27/10/2026, thang chấm v3 (checklist, chấm khắt khe). Dùng kèm `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge).
 
 File này gom mọi thứ cần giữ về agent đánh giá: vai trò, cách chấm, cách báo cáo, cách nối vào quy trình viết bài và những bài học sau các lần chấm đầu tiên. Dùng được ở hai nơi:
 - **Claude Code (thư mục dự án):** agent chạy từ `.claude/agents/danh-gia-noi-dung.md`, có script hỗ trợ ở `tools/`. Phần 9 mô tả phần này.
@@ -10,9 +10,16 @@ File này gom mọi thứ cần giữ về agent đánh giá: vai trò, cách ch
 
 ## 1. Vai trò
 
-Leader Content kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB). Không viết bài. Đọc bài vừa viết với con mắt khó tính của người duyệt cuối, tìm điểm sai hoặc yếu, trả báo cáo để agent viết bài sửa.
+Leader Content của denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB): người duyệt cuối, khắt khe và chi tiết (người dùng chốt 27/10/2026). Không viết bài. Rà bài vừa viết theo checklist từng mục, đối chiếu mọi con số với nguồn, tìm điểm sai hoặc yếu, trả báo cáo để agent viết bài sửa. Chỉ cho ĐẠT khi bài đăng được mà người dùng không phải sửa thêm câu chữ hay số liệu.
 
 Agent đánh giá tách riêng với agent viết vì nó không biết agent viết đã nghĩ gì, nên đọc khách quan hơn việc tự soát lại.
+
+**Nhiệm vụ**
+- **Phạm vi:** chỉ chấm bài blog `Bai_*.md` của Agent Blog (bài mới và bài viết lại). Nội dung danh mục sản phẩm có agent chấm riêng (người dùng chốt 27/10/2026).
+- **Đầu vào:** file bài, số vòng, outline đã chốt (`nghien_cuu/<bài>/outline.md`), văn bản bài top (`nghien_cuu/<bài>/serp/`), các điểm người dùng đã để sau.
+- **Việc làm mỗi lần chấm:** kiểm tra cơ học bằng script, rà đủ `checklist_cham_bai.md`, đối chiếu số liệu với nguồn, tính lại mọi phép tính, chấm 6 tiêu chí, từ vòng 2 so với lần chấm trước, ghi phiếu duyệt.
+- **Đầu ra:** báo cáo theo phần 6 và phiếu duyệt. Phiếu ĐẠT là điều kiện để đưa bản nháp lên WordPress.
+- **Không làm:** sửa bài, đăng bài, tạo ảnh, đổi outline.
 
 ## 2. Nguồn quy tắc
 
@@ -25,12 +32,12 @@ Agent đánh giá tách riêng với agent viết vì nó không biết agent vi
 ## 3. Quy trình chấm
 
 1. **Kiểm tra cơ học:** chạy `python tools/kiem_tra_bai.py <file_bai.md> --gon`, hoặc làm tay theo phần 4 khi không có script. Mỗi LỖI phải mở đúng dòng xác nhận lại. Báo nhầm thì ghi "bỏ qua, dương tính giả" kèm lý do.
-2. **Đọc toàn bài** một lượt như người đọc thật (chủ xưởng, nhà thầu), rồi đọc lại từng phần để chấm.
+2. **Đọc toàn bài** một lượt như người đọc thật (chủ xưởng, nhà thầu), rồi rà từng mục của `checklist_cham_bai.md` (xem phần 4b).
 3. **Đối chiếu dữ liệu:** mọi thông số, giá, bảo hành phải khớp CSV hoặc nguồn ở phần C.
    - Nghi vấn thì mở trang sản phẩm, hoặc API `https://denlednhaxuongcaocap.com/wp-json/wc/store/v1/products?slug=<slug>` (trường `prices.price`).
    - Giá chỉ lấy ở khối đầu trang của chính sản phẩm, không lấy ở khối "Sản phẩm liên quan".
    - Không đọc được nguồn thì ghi "chưa kiểm tra được", không đoán.
-4. **Tính lại mọi phép tính** bằng Python: N = (E x S) / (Φ x UF x MF), tổng công suất, W/m², phần trăm chênh lệch. Số đèn phải làm tròn lên.
+4. **Tính lại mọi phép tính** bằng Python: N = (E x S) / (Φ x UF x MF), tổng công suất, W/m², phần trăm chênh lệch. UF, MF thường khoảng 0,8, xưởng bụi MF thấp hơn. Số đèn phải làm tròn lên.
 5. **Chấm điểm** theo phần 5, viết báo cáo theo phần 6.
 6. **Ghi phiếu duyệt** (chỉ ở Claude Code, kể cả khi bài chưa đạt). Xem phần 9.
 
@@ -64,6 +71,20 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Đoạn văn quá 4 câu. H3 chỉ có 1 H4.
 - Meta không chứa nguyên cụm từ khóa. Không H2 nào chứa từ khóa. Slug không chứa từ khóa, sai 3-6 từ, có năm. Tag ngoài 3-5.
 - Giá không khớp sản phẩm nào trong CSV. Tên model không có trong CSV.
+
+## 4b. Checklist đọc bài (`checklist_cham_bai.md`, từ 27/10/2026)
+
+Script ở phần 4 chỉ bắt lỗi máy đếm được. Phần còn lại cần người đọc: câu trả lời có đúng intent không, phép tính đúng không, bảo hành, lặp ý, kết bài, FAQ. Checklist gom các quy tắc đó thành 44 mục có mã theo 6 tiêu chí (I intent, D dữ liệu, E EEAT, T thương hiệu, G giọng văn, S cấu trúc và SEO), mỗi mục ghi mức lỗi.
+
+- Mỗi lần chấm rà đủ mọi mục, kể cả vòng 2, 3. Mỗi mục ghi Đạt, Chưa đạt, Không áp dụng hoặc Chưa kiểm tra.
+- Mục Chưa đạt thành một vấn đề ở báo cáo, kèm mã mục. Báo cáo có thêm bảng Checklist ngay sau bảng điểm.
+- Checklist không đặt quy tắc mới: mỗi mục trỏ về quy tắc ở Instructions, Knowledge. Đổi quy tắc gốc thì sửa luôn mục tương ứng.
+
+**Quy tắc chấm khắt khe** (người dùng chốt vai trò Leader Content 27/10/2026):
+1. Tiêu chí chỉ được điểm tối đa khi mọi mục của tiêu chí đó Đạt hoặc Không áp dụng.
+2. Nên sửa trừ ít nhất 1 điểm, bắt buộc trừ ít nhất 2 điểm, ở đúng tiêu chí của mục.
+3. Lỗi lặp nhiều chỗ ghi một vấn đề, liệt kê đủ vị trí.
+4. Còn nghi ngờ về một con số thì kiểm tra cho xong hoặc xếp vấn đề, không cho qua.
 
 ## 5. Thang chấm
 
@@ -102,8 +123,11 @@ Kết luận: ĐẠT / CẦN SỬA / KHÔNG ĐẠT. Tổng điểm: <x>/100. Đi
 |---|---|---|
 | ... | x/15 | ... |
 
+## Checklist (mục đạt / mục áp dụng)
+- <tiêu chí>: <đạt>/<áp dụng>, chưa đạt <mã>; chưa kiểm tra <mã>
+
 ## 1. Lỗi bắt buộc sửa
-- [dòng 83, Bước 3] <lỗi>. Sửa: <cách sửa cụ thể, có câu thay thế nếu là lỗi câu chữ>
+- [D4, dòng 83, Bước 3] <lỗi>. Sửa: <cách sửa cụ thể, có câu thay thế nếu là lỗi câu chữ>
 
 ## 2. Nên sửa (agent viết tự sửa)
 - [vị trí] <vấn đề>. Gợi ý: <cách sửa>. (-<điểm> ở tiêu chí <tên>)
@@ -148,6 +172,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 |---|---|
 | `.claude/agents/danh-gia-noi-dung.md` | Định nghĩa sub agent (công cụ: Read, Grep, Glob, PowerShell, Bash, WebFetch) |
 | `quy_tac_cham.md` | Bản rút gọn quy tắc chấm, có dòng "Mã nguồn" để phát hiện lệch với file gốc |
+| `checklist_cham_bai.md` | Checklist 44 mục có mã theo 6 tiêu chí, mức lỗi, quy tắc chấm khắt khe (27/10/2026) |
 | `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4, kiểm đoạn trả lời nhanh 40-60 từ. `--gon` in gọn, `--tra` tra và đếm trên CSV, `--cap-nhat-quy-tac`. Thoát mã 1 khi còn LỖI |
 | `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, các hook. `lan-truoc`, `khac` để đối chiếu với lần chấm trước |
 | `.claude/settings.json` | Cho phép lệnh `phieu_duyet.py ghi`, `nhan` chạy không hỏi. 5 hook: chặn đăng khi chưa có phiếu ĐẠT và chặn ghi phiếu khi không phải agent đánh giá; đánh dấu đang chấm khi gọi agent đánh giá; bỏ đánh dấu khi sub agent kết thúc; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt (bỏ qua khi đang có lượt chấm) |
@@ -185,9 +210,11 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 
 Cập nhật ở cuối mỗi vòng duyệt: `python tools/phieu_duyet.py xuat`, rồi tải các file JSON lên trang. Các bước chi tiết ở `CLAUDE.md`.
 
-**Đổi thang chấm:** sửa đồng thời file agent, và `TIEU_CHI`, `NGUONG` trong `phieu_duyet.py`, rồi tăng `THANG_CHAM` (hiện là v2). Như vậy điểm của hai thang không bị so lẫn.
+**Đổi thang chấm:** sửa đồng thời file agent, và `TIEU_CHI`, `NGUONG` trong `phieu_duyet.py`, rồi tăng `THANG_CHAM` (hiện là v3). Như vậy điểm của hai thang không bị so lẫn.
 
 ## 10. Lịch sử và bài học
+
+Các bài viết trước khi hoàn thiện Agent sẽ được chấm lại theo thang v3 (người dùng chốt 27/10/2026). Lịch sử dưới đây là thang cũ, giữ lại để tham khảo bài học.
 
 **Lịch sử chấm bài "cách chọn đèn LED nhà xưởng"**
 
@@ -223,14 +250,11 @@ Lần chấm 98/100 sau đó không được ghi phiếu (bị chặn), và bả
 1. **Lệnh ghi phiếu bị chặn:** đã xử lý (23/10/2026). `.claude/settings.json` cho phép đúng lệnh `phieu_duyet.py ghi`, đồng thời hook chỉ cho agent đánh giá (hoặc agent `general-purpose` đang chấm thay theo CLAUDE.md) chạy lệnh này.
 2. **Hook nhắc chấm lại khi đang chấm nền:** đã xử lý (23/10/2026). Gọi agent đánh giá thì hook đánh dấu "đang chấm", Stop hook không nhắc cho tới khi sub agent kết thúc hoặc quá 30 phút.
 3. **Rút gọn để chạy nhanh, ít token:** đã xử lý (24/10/2026; chế độ kiểm lại vòng 2-3 bỏ ngày 26/10 theo yêu cầu người dùng, luôn chấm đủ): bản quy tắc rút gọn, script đếm và tra CSV, in gọn. Sửa luôn mẫu vai trò thương hiệu theo câu chuẩn 23/10 (trước đó script sót 6/8 câu sai trong bài thử) và bỏ cảnh báo giá cho đơn giá theo m², kWh.
-4. **Tiêu chí nên bổ sung:**
+4. **Tiêu chí nên bổ sung:** từ 27/10/2026 checklist đã có mục cho phần lớn ý dưới đây (so với bài top: E3, D10; ảnh: S7; đoạn đứng riêng vẫn hiểu: I3, S8), nhưng chưa có điểm riêng.
    - so với bài top SERP
    - chất lượng ảnh: khớp đoạn văn, alt, kích thước
    - khả năng được AI trích dẫn: đoạn trả lời nhanh và FAQ đứng riêng vẫn hiểu
    - độ mới của giá và thông số
 
-   Thêm khi đã có khoảng 5-10 bài trong nhật ký. Mỗi lần đổi thì tăng phiên bản thang chấm.
-5. **Câu hỏi chờ người dùng cho bài "cách chọn đèn":**
-   - đổi H2 kết bài để chứa từ khóa chính?
-   - hệ số MF trong ví dụ: 0,8 hay thấp hơn?
-   - phần xưởng bụi: gợi ý đèn IP65/IP66 của hãng khác hay để trung lập?
+   Tách thành tiêu chí có điểm riêng khi đã có khoảng 5-10 bài chấm theo v3. Mỗi lần đổi thì tăng phiên bản thang chấm.
+5. **Câu hỏi chờ người dùng cho bài "cách chọn đèn":** đổi H2 kết bài và MF 0,8 đã chốt 26/10/2026. Còn: phần xưởng bụi gợi ý đèn IP65/IP66 của hãng khác hay để trung lập?
