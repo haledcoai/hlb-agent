@@ -36,6 +36,9 @@ button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 15px; background: var(--color_main); border-radius: var(--radius-lg); padding: 11px 17px; color: #fff; }
 .bar h2 { font-size: 17px; color: #fff; }
 .bar .side { font-size: 13px; color: #fff; }
+/* Thanh phụ (Danh sách bài): nền tím nhạt, vạch trái xanh tím, để không trùng màu với khối Nạp từ khóa ngay trên */
+.bar.sub { background: #e3e6ff; border: 1px solid #c9cdfb; box-shadow: inset 4px 0 0 var(--color_main); color: var(--color_body); }
+.bar.sub h2 { color: var(--color_body); }
 
 /* Chặng */
 .stages { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
@@ -52,13 +55,18 @@ button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-
 @media (max-width: 520px) { .stages { gap: 6px; } .stage { padding: 8px; } .stage .who { font-size: 10px; letter-spacing: 0; } .stage .n { font-size: 20px; } .stage .t { font-size: 12px; line-height: 1.3; } }
 
 /* Nạp từ khóa */
-details.add { background: var(--surface); border: 1px solid var(--gray_300); border-radius: var(--radius-lg); padding: 0; overflow: hidden; }
-details.add summary { cursor: pointer; font-weight: 700; font-size: 15px; color: var(--color_main); padding: 14px 17px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+/* Khối nổi: thanh tiêu đề xanh tím như .bar, nền form trắng, ô nhập nền tím nhạt, ví dụ (#ID, link) chữ đỏ */
+details.add { background: var(--surface); border: 1px solid var(--color_main); border-radius: var(--radius-lg); padding: 0; overflow: hidden; box-shadow: 0 2px 10px rgba(82,92,252,.15); }
+details.add summary { cursor: pointer; font-weight: 700; font-size: 17px; color: #fff; background: var(--color_main); padding: 11px 17px; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background .3s; }
+details.add summary:hover { background: #3f49e8; }
 details.add summary::-webkit-details-marker { display: none; }
-details.add summary::after { content: "+"; font-size: 22px; line-height: 1; }
+details.add summary::after { content: "+"; font-size: 24px; line-height: 1; }
 details.add[open] summary::after { content: "\2212"; }
-details.add[open] summary { border-bottom: 1px solid var(--gray_200); }
-.add form { display: grid; gap: 10px; padding: 15px 17px 17px; }
+details.add summary:focus-visible { outline: 2px solid var(--color_primary); outline-offset: -4px; }
+.add form { display: grid; gap: 10px; padding: 16px 17px 18px; }
+.add .hint code { background: var(--danger_surface); border-color: #f3c2c2; color: var(--danger); }
+.add textarea, .add input[type="text"], .add select { background: #f3f4ff; border-color: #b9befa; }
+.add textarea:focus, .add input[type="text"]:focus, .add select:focus { background: var(--surface); }
 .hint { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
 code, .mono { font-family: var(--mono); font-size: 13px; }
 .hint code { background: var(--gray_100); border: 1px solid var(--gray_200); padding: 0 4px; border-radius: 3px; }
@@ -281,7 +289,7 @@ select { width: auto; min-width: 220px; max-width: 100%; }
 
   <div class="main">
     <section class="col" aria-label="Danh sách từ khóa">
-      <div class="bar"><h2>Từ khóa</h2></div>
+      <div class="bar sub"><h2>Danh sách bài</h2></div>
       <div class="filters" id="filters"></div>
       <div class="list" id="list"><div class="empty">Đang tải danh sách từ khóa.</div></div>
     </section>

@@ -50,12 +50,12 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 
 **Dòng cao cấp HLB (người dùng xác nhận 21/10/2026):**
 - Thời hạn: 2 năm. Phạm vi: linh kiện driver (bộ nguồn) và chip LED.
-- Trong 15 ngày đầu: sản phẩm lỗi, còn mới 100%, chưa qua sử dụng, còn nguyên tem nhãn thì được xử lý theo điều kiện 15 ngày `[CHỜ XÁC NHẬN: đổi sản phẩm mới hay hình thức khác]`.
+- Trong 15 ngày đầu: sản phẩm lỗi, còn mới 100%, chưa qua sử dụng, còn nguyên tem nhãn thì được đổi mới.
 - Sau 15 ngày, trong thời hạn bảo hành: thay thế linh kiện bị lỗi, hư hỏng.
 
-**Đổi trả theo nhu cầu khách hàng:** khách chịu phí đổi trả 10% giá trị hàng hóa. `[CHỜ XÁC NHẬN: thời hạn đổi trả bao nhiêu ngày; đổi trả do lỗi sản phẩm có mất phí không]`
+**Đổi trả theo nhu cầu khách hàng:** khách chịu phí đổi trả 10% giá trị hàng hóa. Thời gian hỗ trợ đổi trả hàng theo yêu cầu khách hàng ví dụ như đổi công suất, model, đổi linh kiện,... trong vòng 15 ngày
 
-**Giao hàng:** giao toàn quốc, thời gian tùy khu vực (không nêu số ngày cụ thể trong bài). Miễn phí giao hàng khi đơn hàng trên 5 triệu đồng và trong bán kính 10 km tính từ công ty `[CHỜ XÁC NHẬN: tính từ văn phòng Xuân Đỉnh hay trụ sở Sơn Tây]`.
+**Giao hàng:** giao toàn quốc, thời gian tùy khu vực (không nêu số ngày cụ thể trong bài). Miễn phí giao hàng khi đơn hàng trên 5 triệu đồng và trong bán kính 10 km tính từ văn phòng Xuân Đỉnh.
 
 **Thương hiệu khác: bảo hành theo chính sách của hãng (đã tra ngày 21/10/2026):**
 
