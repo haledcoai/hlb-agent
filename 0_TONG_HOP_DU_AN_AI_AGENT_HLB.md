@@ -12,6 +12,8 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 |---|---|
 | 1_Project_Instructions_Auto_Blog_HLB.md | Quy trình 4 bước, giọng văn, quy tắc dữ liệu, cách viết về thương hiệu, quy tắc đăng bản nháp. Dán vào ô Instructions của Claude Project |
 | 2_Knowledge_Du_lieu_tham_chieu_HLB.md | Thông tin HLB đã xác nhận, URL danh mục và bài Tư vấn, cách đọc trang sản phẩm, chuẩn SEO, checklist. Tải lên Project Knowledge |
+| 6_Agent_Danh_muc_HLB.md | Quy tắc Agent Danh mục (27/10/2026): viết lại nội dung danh mục sản phẩm đã có, file `DM_<slug>.md`, Trang nháp xem trước, chỉ ghi lên danh mục khi người dùng duyệt. Agent `danh-gia-danh-muc` chấm theo `quy_tac_cham_danh_muc.md` |
+| tools/danh_muc.py | Công cụ Agent Danh mục: `ds`, `tim` (nhận diện từ khóa danh mục), `doc` (lưu danh mục, sản phẩm, nội dung cũ vào `nghien_cuu/DM_<slug>/`), `nhap` (Trang nháp), `ap-dung` (sao lưu rồi ghi mô tả, Rank Math), `kiem-trang`, `khoi-phuc` |
 | 4_Agent_danh_gia_noi_dung_HLB.md | Tóm tắt agent đánh giá chất lượng: vai trò, kiểm tra cơ học (làm tay được khi không có script), thang 100 điểm cần từ 95, mẫu báo cáo, vòng duyệt, phiếu và nhật ký, bài học, việc còn mở. Dùng được cả trong Claude Project trên claude.ai |
 | 3_Bang_hoi_thong_tin_co_dinh_HLB.md | Bảng hỏi thông tin cố định (8 nhóm). Đã trả lời nhóm 1 và phần lớn nhóm 2 |
 | du_lieu_san_pham_HLB_<ngày>.csv | Thông số và giá 113 sản phẩm đọc từ website. Làm mới bằng `python tools/lam_moi_csv.py` (giữ một file mới nhất, bản cũ trong git) |
@@ -19,7 +21,10 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | tools/wp_draft.py | Script đưa bản nháp lên WordPress qua REST API |
 | tools/HUONG_DAN_DANG_NHAP.md | Hướng dẫn tạo Application Password, cách đánh dấu bản nháp |
 | tools/kiem_tra_bai.py | Kiểm tra lỗi cơ học của bài (dấu gạch, từ cấm, link, độ dài SEO, định dạng số, thông số so với CSV). Thoát mã 1 khi còn LỖI |
-| .claude/agents/danh-gia-noi-dung.md | Sub agent đánh giá chất lượng bài: chạy script trên, đối chiếu dữ liệu, chấm 100 điểm (ĐẠT từ 95), ghi phiếu duyệt, trả báo cáo. Không sửa bài |
+| .claude/agents/danh-gia-danh-muc.md | Sub agent đánh giá nội dung danh mục (27/10/2026, tách khỏi agent chấm blog): Leader Content 7 năm kinh nghiệm duyệt file `DM_*.md` theo `quy_tac_cham_danh_muc.md` và `checklist_cham_danh_muc.md`, ghi phiếu, không sửa bài |
+| quy_tac_cham_danh_muc.md, checklist_cham_danh_muc.md | Quy tắc, thang chấm và checklist có mã mục cho nội dung danh mục (agent `danh-gia-danh-muc`) |
+| quy_tac_cham.md, checklist_cham_bai.md | Bản rút gọn quy tắc và checklist chấm bài blog (agent `danh-gia-noi-dung`) |
+| .claude/agents/danh-gia-noi-dung.md | Sub agent đánh giá chất lượng bài blog: chạy script trên, đối chiếu dữ liệu, chấm 100 điểm (ĐẠT từ 95), ghi phiếu duyệt, trả báo cáo. Không sửa bài |
 | CLAUDE.md | Vòng duyệt tự động: viết hoặc sửa bài xong thì gọi agent đánh giá, chưa đạt 95 thì agent chính tự sửa và chấm lại, tối đa 3 vòng |
 | tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; chỉ agent đánh giá được chạy `ghi`; đánh dấu đang chấm khi gọi agent đánh giá; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại (trừ khi đang có lượt chấm) |
 | .claude/agents/tao-anh.md | Sub agent chuẩn bị ảnh: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Không sửa bài, không tải lên website |
@@ -73,6 +78,11 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | Bảng hỏi thông tin cố định | Xong nhóm 1. Nhóm 2 còn 4 điểm chờ xác nhận. Nhóm 3 đến 8 chưa trả lời |
 
 ## 5. Việc còn dở
+
+**Agent Danh mục (27/10/2026, đã xây xong, chưa chạy thử theo yêu cầu người dùng)**
+- Khối trên lưới sản phẩm nằm ở trường riêng của theme, REST chưa mở: cần tên trường (hoặc nhờ người làm web mở `show_in_rest`) để ghi `khoi_tren_meta` vào `danh_muc/cau_hinh.json`. Chưa có thì người dùng dán tay.
+- Chờ trả lời: có viết nội dung cho danh mục con theo hãng (Philips 150W...) không; từ khóa "đèn chống cháy nổ 20w" (không có danh mục) chuyển viết lại bài blog ID 4069?
+- Chạy thử đầu tiên khi người dùng yêu cầu (đề xuất danh mục đèn LED nhà xưởng 150W).
 
 **Chờ người dùng xác nhận (nhóm 2)**
 1. 15 ngày đầu: sản phẩm lỗi, còn mới, còn tem thì được đổi mới 1 đổi 1?

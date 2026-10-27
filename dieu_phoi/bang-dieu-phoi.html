@@ -113,6 +113,7 @@ code, .mono { font-family: var(--mono); font-size: 13px; }
 .bai .mgy textarea { margin-top: 6px; min-height: 70px; }
 .sync { font-size: 14px; font-weight: 700; }
 .sync.ok { color: var(--ok); } .sync.bad { color: var(--danger); } .sync.test { color: var(--muted); }
+.tsub { font-size: 14px; margin: 14px 0 6px; }
 label.check { display: flex; gap: 8px; align-items: flex-start; font-weight: 500; }
 label.check input { margin-top: 4px; flex: none; }
 details.sec { border-top: 1px solid var(--gray_200); padding-top: 10px; }
@@ -248,7 +249,7 @@ select { width: auto; min-width: 220px; max-width: 100%; }
       <img src="/_blob/c92dc3c831753633c28613cbcabceed9" alt="HALEDCO" width="56" height="56">
       <div>
         <h1>Bảng điều phối HLB</h1>
-        <p>Nạp từ khóa, duyệt outline, duyệt bài, duyệt ảnh và theo dõi ba Agent ở một chỗ. Bấm Duyệt hoặc Gửi góp ý là Agent nhận việc bước tiếp theo.</p>
+        <p>Nạp từ khóa, duyệt outline, duyệt bài, duyệt ảnh và theo dõi các Agent ở một chỗ. Bấm Duyệt hoặc Gửi góp ý là Agent nhận việc bước tiếp theo.</p>
       </div>
     </div>
     <div class="run">
@@ -276,6 +277,9 @@ select { width: auto; min-width: 220px; max-width: 100%; }
       <p class="hint">Mỗi dòng là một bài. Từ đầu dòng là từ khóa chính (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng của bài đó. Chỉ ghi từ khóa chính cũng được, Agent tự tìm thêm từ khóa phụ. Viết lại bài cũ thì thêm <code>#ID</code> ở cuối dòng, ví dụ <code>đèn led nhà xưởng 150w, đèn ufo 150w #2410</code>.</p>
       <label for="kwInput">Danh sách từ khóa</label>
       <textarea id="kwInput" name="kw" required placeholder="đèn pha bảng hiệu&#10;đèn hắt biển quảng cáo"></textarea>
+      <label for="kwLoai">Loại nội dung</label>
+      <select id="kwLoai" name="loai"><option value="tu_dong">Agent tự nhận diện (blog hoặc danh mục)</option><option value="blog">Bài blog (Agent Blog)</option><option value="danh_muc">Nội dung danh mục sản phẩm (Agent Danh mục)</option></select>
+      <p class="hint">Danh mục: dán link danh mục cần viết lại vào cuối dòng nếu biết, ví dụ <code>đèn led nhà xưởng 150w https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/</code>. Không có link thì Agent tự tìm danh mục khớp trên website.</p>
       <label for="kwNote">Ghi chú chung cho Agent (không bắt buộc)</label>
       <input type="text" id="kwNote" name="note" placeholder="Ví dụ: ưu tiên khách là chủ xưởng cơ khí">
       <label class="check" for="kwTest"><input type="checkbox" id="kwTest" name="test"> Chạy thử: Agent làm đủ các bước nhưng không đăng nháp, không tải ảnh lên WordPress</label>
@@ -310,8 +314,8 @@ const STAGES = [
   { k: 4, t: "Duyệt bài", who: "you" },
   { k: 5, t: "Tạo ảnh", who: "agent" },
   { k: 6, t: "Duyệt ảnh", who: "you" },
-  { k: 7, t: "Hoàn thiện bản nháp", who: "agent" },
-  { k: 8, t: "Sẵn sàng đăng", who: "done" }
+  { k: 7, t: "Hoàn thiện nháp, cập nhật danh mục", who: "agent" },
+  { k: 8, t: "Sẵn sàng đăng, đã cập nhật", who: "done" }
 ];
 const ST = {
   moi:              { t: "Chờ nghiên cứu", c: "agent", s: 1 },
@@ -328,18 +332,25 @@ const ST = {
   cho_hoan_thien:   { t: "Chờ hoàn thiện", c: "agent", s: 7 },
   dang_hoan_thien:  { t: "Đang hoàn thiện", c: "agent", s: 7, run: true },
   san_sang_dang:    { t: "Sẵn sàng đăng", c: "done", s: 8 },
+  // Nội dung danh mục (Agent Danh mục, DIEU_PHOI.md mục 3c): ghi lên danh mục chỉ sau khi bạn bấm duyệt
+  san_sang_ap_dung: { t: "Chờ bạn duyệt cập nhật danh mục", c: "you", s: 6 },
+  cho_ap_dung:      { t: "Chờ cập nhật lên danh mục", c: "agent", s: 7 },
+  dang_ap_dung:     { t: "Đang cập nhật danh mục", c: "agent", s: 7, run: true },
+  cho_dan_khoi_tren:{ t: "Chờ bạn dán khối trên", c: "you", s: 7 },
+  cho_kiem_trang:   { t: "Chờ kiểm tra trang danh mục", c: "agent", s: 7 },
+  da_ap_dung:       { t: "Đã cập nhật lên danh mục", c: "done", s: 8 },
   can_xu_ly:        { t: "Cần bạn xử lý", c: "stop", s: 0 },
   tam_dung:         { t: "Đã tạm dừng", c: "off", s: 0 },
   dang_dung:        { t: "Đang dừng...", c: "off", s: 0 },
   bo_qua:           { t: "Đã tạm dừng", c: "off", s: 0 }
 };
-const FILTERS = [["you", "Cần bạn"], ["agent", "Agent đang làm"], ["done", "Sẵn sàng đăng"], ["all", "Tất cả"], ["off", "Tạm dừng"]];
+const FILTERS = [["you", "Cần bạn"], ["agent", "Agent đang làm"], ["done", "Xong"], ["all", "Tất cả"], ["off", "Tạm dừng"]];
 // Dừng từng bài: tam_dung (đã dừng), dang_dung (Agent đang chạy, sẽ dừng sau bước nhỏ đang làm). bo_qua là tên cũ của tam_dung.
 const OFF = ["tam_dung", "dang_dung", "bo_qua"];
 const isOff = r => OFF.includes(r.trang_thai);
 // Trạng thái đang chạy dừng giữa chừng thì làm tiếp từ trạng thái chờ tương ứng, không làm lại từ đầu
 const CHO = { dang_nghien_cuu: r => r.outline ? "sua_outline" : "moi", dang_viet: r => r.gop_y_bai || (r.gop_y_muc || []).length ? "sua_bai" : "cho_viet",
-  dang_tao_anh: () => "cho_tao_anh", dang_hoan_thien: () => "cho_hoan_thien" };
+  dang_tao_anh: () => "cho_tao_anh", dang_hoan_thien: () => "cho_hoan_thien", dang_ap_dung: () => "cho_ap_dung" };
 const choCua = (r, t) => (CHO[t] ? CHO[t](r) : ST[t] && !OFF.includes(t) ? t : "moi");
 const ketDung = r => r.trang_thai === "dang_dung" && Date.now() - new Date(r.cap_nhat || 0) > 3600e3;
 
@@ -389,7 +400,7 @@ function renderList() {
     const s = st(r);
     return `<button type="button" class="item" data-id="${esc(r.id)}" aria-current="${r.id === selId}">
       <span class="kw">${esc(r.tu_khoa)}</span>
-      <span class="meta"><span class="pill ${s.c}">${esc(s.t)}</span>${r.thu_nghiem ? `<span class="pill off">Chạy thử</span>` : ""}${r.id_bai_cu ? `<span>Viết lại #${esc(r.id_bai_cu)}</span>` : ""}<span>${fmt(r.cap_nhat)}</span></span>
+      <span class="meta"><span class="pill ${s.c}">${esc(s.t)}</span>${loaiPill(r)}${r.thu_nghiem ? `<span class="pill off">Chạy thử</span>` : ""}${r.id_bai_cu ? `<span>Viết lại #${esc(r.id_bai_cu)}</span>` : ""}<span>${fmt(r.cap_nhat)}</span></span>
     </button>`;
   }).join("");
 }
@@ -457,6 +468,13 @@ function anhTienDo(r) {
 
 const DUNG_BTN = dis => `<button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
 const tenBai = r => (r.file_bai || "").replace(/\.md$/, "");
+const laDm = r => r.loai === "danh_muc" || /^DM_/.test(r.file_bai || "");
+const loaiPill = r => laDm(r) ? `<span class="pill agent">Danh mục</span>` : r.loai === "blog" || r.file_bai ? `<span class="pill off">Blog</span>` : "";
+const AP_DUNG_BOX = (r, dis) => `<div class="panel act box">
+      <h3>Cập nhật lên danh mục</h3>
+      <p class="hint">Bấm duyệt thì Agent ghi nội dung mới vào danh mục${r.link_danh_muc ? ` <a href="${esc(r.link_danh_muc)}" target="_blank" rel="noopener">${esc(r.link_danh_muc)}</a>` : ""}, SEO title và meta description. Khách thấy ngay, vì danh mục không có bản nháp. Bản cũ được sao lưu trên GitHub, nhắn trong chat để khôi phục khi cần.${r.link_xem ? ` Xem trước ở <a href="${esc(r.link_xem)}" target="_blank" rel="noopener">Trang nháp</a> (cần đăng nhập wp-admin).` : ""}</p>
+      <label class="check" for="apOk-${esc(r.id)}"><input type="checkbox" id="apOk-${esc(r.id)}" data-apok> Tôi đã xem bài và Trang nháp, đồng ý cập nhật lên danh mục</label>
+      <div class="actions"><button class="btn ok" type="button" data-act="ap_dung" ${dis}>Duyệt, cập nhật lên danh mục</button>${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
 
 function dungHtml(r, dis) {
   const ve = choCua(r, r.truoc_khi_dung || r.truoc_khi_bo || "moi"), veT = (ST[ve] || ST.moi).t;
@@ -485,7 +503,7 @@ function actionHtml(r) {
   if (st(r).run) return `<div class="panel"><div class="working"><span class="dot"></span>Agent đang làm bước này${r.tien_do ? `: ${esc(r.tien_do)}` : ""}. Trang tự cập nhật khi xong.</div>
     <div class="actions" style="margin-top:10px">${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
   const anhBox = anhTienDo(r);
-  if (["moi", "sua_outline", "cho_viet", "sua_bai", "cho_tao_anh", "cho_hoan_thien"].includes(t))
+  if (["moi", "sua_outline", "cho_viet", "sua_bai", "cho_tao_anh", "cho_hoan_thien", "cho_ap_dung", "cho_kiem_trang"].includes(t))
     return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn main" type="button" data-run ${dis}>Chạy Agent ngay</button>${DUNG_BTN(dis)}</div>${anhBox}<div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_outline") return `<div class="panel act box">
       <h3>Duyệt outline</h3>
@@ -498,6 +516,20 @@ function actionHtml(r) {
         <button class="btn ghost" type="button" data-act="sua_tay" ${dis}>${editOutline ? "Thôi sửa trực tiếp" : "Sửa outline trực tiếp"}</button>
         <button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
+  if (t === "cho_duyet_bai" && laDm(r) && !(r.anh_tong > 0)) return `<div class="panel act box">
+      <h3>Duyệt nội dung danh mục</h3>
+      <p class="hint">Đọc bài ngay bên dưới, góp ý thẳng vào từng mục. Chưa ưng thì gửi góp ý, Agent sửa và chấm lại.</p>
+      <label for="note-${esc(r.id)}">Nhận xét, góp ý thêm</label>
+      <textarea id="note-${esc(r.id)}" data-note="${esc(r.id)}" placeholder="Ví dụ: câu hỏi 1 giữ bảng so sánh 4 hãng; khối trên nói rõ hơn xưởng trần 8-10 m" ${dis}>${esc(note)}</textarea>
+      <div class="actions"><button class="btn redo" type="button" data-act="gop_y_bai" ${dis}>Gửi góp ý, sửa bài</button></div><div class="msg err" data-err hidden></div></div>
+    ${AP_DUNG_BOX(r, dis)}`;
+  if (t === "san_sang_ap_dung") return AP_DUNG_BOX(r, dis);
+  if (t === "cho_dan_khoi_tren") { const kt = (r.ap_dung && r.ap_dung.khoi_tren_html) || ""; return `<div class="panel act box">
+      <h3>Dán khối trên vào danh mục</h3>
+      <p class="hint">Agent đã ghi khối dưới, SEO title, meta description. Khối trên lưới sản phẩm nằm ở ô riêng của theme, chưa ghi được qua API. Chép đoạn HTML dưới đây, mở danh mục trong wp-admin (Sản phẩm, Danh mục), dán vào ô mô tả phía trên (chế độ Văn bản/Text), lưu lại rồi bấm "Đã dán khối trên".</p>
+      <textarea class="big" readonly id="kt-${esc(r.id)}" aria-label="HTML khối trên">${esc(kt)}</textarea>
+      <div class="actions"><button class="btn main" type="button" data-copy="kt-${esc(r.id)}">Chép HTML</button><button class="btn ok" type="button" data-act="da_dan" ${dis}>Đã dán khối trên</button></div><div class="msg err" data-err hidden></div></div>`; }
+  if (t === "da_ap_dung") return `<div class="panel"><p>Đã cập nhật lên danh mục${r.ap_dung && r.ap_dung.luc ? ` lúc ${fmt(r.ap_dung.luc)}` : ""}.${r.link_danh_muc ? ` <a href="${esc(r.link_danh_muc)}" target="_blank" rel="noopener">Mở trang danh mục</a>.` : ""} Bản cũ lưu ở <code>${esc((r.ap_dung && r.ap_dung.sao_luu) || "danh_muc/sao_luu/")}</code>; muốn khôi phục thì nhắn trong chat.</p></div>`;
   if (t === "cho_duyet_bai") return `<div class="panel act box">
       <h3>Duyệt bài</h3>
       <p class="hint">Đọc bài ngay bên dưới, góp ý thẳng vào từng mục. Ô này dành cho nhận xét chung và trả lời câu hỏi của Agent theo số.</p>
@@ -542,9 +574,10 @@ function renderDetail() {
   if (!r) { $("#detail").innerHTML = `<div class="empty">Chọn một từ khóa ở danh sách để xem SERP, outline, bài viết và các nút duyệt.</div>`; return; }
   const s = st(r);
   const links = [
-    r.link_nhap ? `<dt>Bản nháp</dt><dd><a href="${esc(r.link_nhap)}" target="_blank" rel="noopener">Mở trong wp-admin${r.draft_id ? ` (ID ${esc(r.draft_id)})` : ""}</a></dd>` : "",
+    r.link_danh_muc ? `<dt>Danh mục</dt><dd><a href="${esc(r.link_danh_muc)}" target="_blank" rel="noopener">${esc(r.link_danh_muc)}</a></dd>` : "",
+    r.link_nhap ? `<dt>${laDm(r) ? "Trang nháp" : "Bản nháp"}</dt><dd><a href="${esc(r.link_nhap)}" target="_blank" rel="noopener">Mở trong wp-admin${r.draft_id ? ` (ID ${esc(r.draft_id)})` : ""}</a></dd>` : "",
     r.draft_id || r.thu_nghiem ? `<dt>Bản nháp WP</dt><dd>${nhapHtml(r)}</dd>` : "",
-    r.link_xem ? `<dt>Xem trước</dt><dd><a href="${esc(r.link_xem)}" target="_blank" rel="noopener">Xem bản nháp</a></dd>` : "",
+    r.link_xem ? `<dt>Xem trước</dt><dd><a href="${esc(r.link_xem)}" target="_blank" rel="noopener">${laDm(r) ? "Xem Trang nháp (khối trên, lưới sản phẩm, khối dưới)" : "Xem bản nháp"}</a></dd>` : "",
     r.file_bai ? `<dt>File bài</dt><dd class="mono">${esc(r.file_bai)}</dd>` : "",
     r.tieu_de ? `<dt>Tiêu đề</dt><dd>${esc(r.tieu_de)}</dd>` : "",
     (r.tu_khoa_phu || []).length ? `<dt>Từ khóa phụ</dt><dd>${esc(r.tu_khoa_phu.join(", "))}</dd>` : "",
@@ -555,7 +588,7 @@ function renderDetail() {
   $("#detail").innerHTML = `
     <div class="dhead">
       <h2>${esc(r.tu_khoa)}</h2>
-      <div class="sub"><span class="pill ${s.c}">${esc(s.t)}</span>${r.thu_nghiem ? `<span class="pill off">Chạy thử, không đăng nháp</span>` : ""}${r.id_bai_cu ? `<span>Viết lại bài #${esc(r.id_bai_cu)}</span>` : `<span>Bài mới</span>`}<span>Cập nhật ${fmt(r.cap_nhat)}</span>${r.outline_lan > 1 ? `<span>Outline lần ${esc(r.outline_lan)}</span>` : ""}</div>
+      <div class="sub"><span class="pill ${s.c}">${esc(s.t)}</span>${r.thu_nghiem ? `<span class="pill off">Chạy thử, không đăng nháp</span>` : ""}${loaiPill(r)}${laDm(r) ? "" : r.id_bai_cu ? `<span>Viết lại bài #${esc(r.id_bai_cu)}</span>` : `<span>Bài mới</span>`}<span>Cập nhật ${fmt(r.cap_nhat)}</span>${r.outline_lan > 1 ? `<span>Outline lần ${esc(r.outline_lan)}</span>` : ""}</div>
     </div>
     ${actionHtml(r)}
     ${scoresHtml(r)}
@@ -572,10 +605,14 @@ function renderDetail() {
 }
 
 const AGENTS = [
-  { k: "viet", t: "Agent viết bài", role: "Nghiên cứu SERP, lập outline, viết bài, đăng và cập nhật bản nháp WordPress.",
+  { k: "viet", t: "Agent Blog", role: "Nghiên cứu SERP, lập outline, viết bài blog (mục Tư vấn), đăng và cập nhật bản nháp WordPress.",
     files: ["1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md", "tools/wp_draft.py"] },
-  { k: "cham", t: "Agent đánh giá", role: "Chấm bài 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
+  { k: "dm", t: "Agent Danh mục", role: "Viết lại nội dung danh mục sản phẩm đã có (khối trên, khối dưới lưới sản phẩm, SEO title, meta). Xem trước bằng Trang nháp, chỉ ghi lên danh mục khi bạn bấm duyệt, bản cũ được sao lưu.",
+    files: ["6_Agent_Danh_muc_HLB.md", "tools/danh_muc.py", "quy_tac_cham_danh_muc.md"] },
+  { k: "cham", t: "Agent đánh giá", role: "Leader Content chấm bài blog 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
     files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
+  { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và cách viết nội dung bán hàng. Rà checklist từng mục, chấm khắt khe nội dung danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
+    files: [".claude/agents/danh-gia-danh-muc.md", "checklist_cham_danh_muc.md", "quy_tac_cham_danh_muc.md"] },
   { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Duyệt ảnh, chèn ảnh đã duyệt vào bản nháp.",
     files: [".claude/agents/tao-anh.md", "tools/tao_anh.py"] }
 ];
@@ -594,10 +631,15 @@ function topIssues(n) {
 }
 
 function renderAgent() {
-  const by = k => rows.filter(r => r.trang_thai === k).length;
-  const nhap = rows.filter(r => r.draft_id).length;
-  const ls = lastScores(), dat = ls.filter(x => x.ket_luan === "DAT").length;
-  const tb = ls.length ? Math.round(ls.reduce((a, x) => a + (x.diem_tinh ?? x.diem ?? 0), 0) / ls.length) : "-";
+  const blog = rows.filter(r => !laDm(r)), dms = rows.filter(laDm);
+  const by = k => blog.filter(r => r.trang_thai === k).length, byDm = (...ks) => dms.filter(r => ks.includes(r.trang_thai)).length;
+  const nhap = blog.filter(r => r.draft_id).length;
+  const isDm = x => x.loai === "danh_muc";
+  const luot = ((cham && cham.cham) || []), all = lastScores();
+  const tb = l => l.length ? Math.round(l.reduce((a, x) => a + (x.diem_tinh ?? x.diem ?? 0), 0) / l.length) : "-";
+  const chamStats = dm => { const ls = all.filter(x => isDm(x) === dm);
+    return stat(luot.filter(x => isDm(x) === dm).length, "Lượt chấm") + stat(ls.length, dm ? "Danh mục đã chấm" : "Bài đã chấm")
+      + stat(ls.filter(x => x.ket_luan === "DAT").length, dm ? "Danh mục ĐẠT ở lần cuối" : "Bài ĐẠT ở lần cuối") + stat(tb(ls), "Điểm TB lần cuối"); };
   const ac = k => anh.filter(a => (a.trang_thai || "cho_duyet") === k).length;
   const body = {
     viet: stat(by("moi") + by("sua_outline") + by("cho_viet") + by("sua_bai"), "Đang chờ Agent")
@@ -605,21 +647,26 @@ function renderAgent() {
       + stat(by("cho_duyet_outline"), "Chờ bạn duyệt outline", true)
       + stat(by("cho_duyet_bai"), "Chờ bạn duyệt bài", true)
       + stat(nhap, "Bài có bản nháp"),
-    cham: stat(((cham && cham.cham) || []).length, "Lượt chấm") + stat(ls.length, "Bài đã chấm")
-      + stat(dat, "Bài ĐẠT ở lần cuối") + stat(tb, "Điểm TB lần cuối"),
+    dm: stat(byDm("moi", "sua_outline", "cho_viet", "sua_bai", "cho_ap_dung", "cho_kiem_trang"), "Đang chờ Agent")
+      + stat(byDm("dang_nghien_cuu", "dang_viet", "dang_ap_dung"), "Đang làm")
+      + stat(byDm("cho_duyet_outline", "cho_duyet_bai", "san_sang_ap_dung", "cho_dan_khoi_tren"), "Chờ bạn", true)
+      + stat(byDm("da_ap_dung"), "Đã cập nhật lên web"),
+    cham: chamStats(false),
+    chamdm: chamStats(true),
     anh: stat(ac("cho_duyet"), "Chờ bạn duyệt", true) + stat(ac("lam_lai"), "Chờ làm lại") + stat(ac("duyet"), "Đã duyệt")
       + stat(yeuCau.filter(y => y.trang_thai !== "da_xu_ly").length, "Yêu cầu thêm ảnh")
   };
   const extra = {
-    viet: "",
+    viet: "", dm: "",
     cham: (() => { const t = topIssues(3); return t.length ? `<div><label>Lỗi hay gặp</label><ul class="feed">${t.map(x => `<li><span class="t">${x.so} lần, ${x.bai.size} bài</span><span>${esc(x.mo_ta)}</span></li>`).join("")}</ul></div>` : ""; })()
       + `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
+    chamdm: `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
     anh: `<div class="actions"><button class="btn redo" type="button" data-go="anh">Mở tab Duyệt ảnh</button></div>`
   };
   const feed = rows.flatMap(r => (Array.isArray(r.lich_su) ? r.lich_su : []).map(h => ({ ...h, kw: r.tu_khoa, id: r.id })))
     .sort((a, b) => (b.luc || "").localeCompare(a.luc || "")).slice(0, 15);
   $("#pane-agent").innerHTML = `
-    <div class="bar"><h2>Ba Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
+    <div class="bar"><h2>Năm Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
     <div class="agents">${AGENTS.map(a => `<article class="acard">
       <h3>${esc(a.t)}</h3><p class="role">${esc(a.role)}</p>
       <div class="stats">${body[a.k]}</div>${extra[a.k]}
@@ -693,9 +740,13 @@ function renderCham() {
   $("#pane-cham").innerHTML = `
     <div class="bar"><h2>Lịch sử chấm bài</h2><span class="side">Cập nhật ${fmt(cham.cap_nhat)}. Ngưỡng ĐẠT hiện tại 95/100.</span></div>
     ${bais.length > 1 ? `<div class="filters"><select aria-label="Lọc theo bài" data-cbai><option value="">Tất cả bài</option>${bais.map(b => `<option value="${esc(b)}" ${b === locCham ? "selected" : ""}>${esc(b)}</option>`).join("")}</select></div>` : ""}
-    <div class="panelw tscroll"><table class="tbl"><thead><tr><th>Bài</th><th class="n">Vòng</th><th class="nd">Ngày</th><th class="n">Điểm</th><th>Kết luận</th>${tc.map(t => `<th class="n tc" title="${esc(t.ten)}">${esc(t.ten)} /${esc(t.toi_da)}</th>`).join("")}</tr></thead>
-      <tbody>${list.map(x => `<tr><td>${esc(x.bai)}</td><td class="n">${esc(x.vong)}</td><td class="nw nd">${esc(x.ngay)}</td><td class="n"><b>${esc(x.diem_tinh ?? x.diem)}</b>${x.thang_cham && x.thang_cham !== "v2" ? ` <small>(thang ${esc(x.thang_cham)}, ngưỡng ${esc(x.nguong)})</small>` : ""}</td>
-        <td><span class="pill ${x.ket_luan === "DAT" ? "done" : x.ket_luan === "CAN_SUA" ? "you" : "stop"}">${esc(KL[x.ket_luan] || x.ket_luan)}</span></td>${tc.map(t => `<td class="n tc">${esc(x[t.ma] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+    ${[["blog", "Bài blog"], ["danh_muc", "Nội dung danh mục"]].map(([lo, ten]) => {
+      const ds = list.filter(x => (x.loai || "blog") === lo), tl = tc.filter(t => (t.loai || "blog") === lo);
+      if (!ds.length) return "";
+      return `<h3 class="tsub">${ten}</h3><div class="panelw tscroll"><table class="tbl"><thead><tr><th>Bài</th><th class="n">Vòng</th><th class="nd">Ngày</th><th class="n">Điểm</th><th>Kết luận</th>${tl.map(t => `<th class="n tc" title="${esc(t.ten)}">${esc(t.ten)} /${esc(t.toi_da)}</th>`).join("")}</tr></thead>
+      <tbody>${ds.map(x => `<tr><td>${esc(x.bai)}</td><td class="n">${esc(x.vong)}</td><td class="nw nd">${esc(x.ngay)}</td><td class="n"><b>${esc(x.diem_tinh ?? x.diem)}</b>${x.thang_cham && !["v3", "dm1"].includes(x.thang_cham) ? ` <small>(thang ${esc(x.thang_cham)}, ngưỡng ${esc(x.nguong)})</small>` : ""}</td>
+        <td><span class="pill ${x.ket_luan === "DAT" ? "done" : x.ket_luan === "CAN_SUA" ? "you" : "stop"}">${esc(KL[x.ket_luan] || x.ket_luan)}</span></td>${tl.map(t => `<td class="n tc">${esc(x[t.ma] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }).join("")}
     <div class="bar"><h2>Lỗi hay gặp</h2><span class="side">Đếm theo nhãn qua mọi lần chấm.</span></div>
     <div class="panelw tscroll">${iss.length ? `<table class="tbl"><thead><tr><th>Vấn đề</th><th>Tiêu chí</th><th class="n">Số lần</th><th class="n">Số bài</th></tr></thead>
       <tbody>${iss.map(x => `<tr><td>${esc(x.mo_ta)}<br><small class="mono">${esc(x.nhan)}${x.muc === "bat_buoc" ? ", từng là lỗi bắt buộc" : ""}</small></td><td>${esc(x.tc)}</td><td class="n">${x.so}</td><td class="n">${x.bai.size}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">Chưa có vấn đề nào.</div>`}</div>
@@ -743,7 +794,8 @@ async function act(r, kind, btn) {
   const errEl = btn.closest(".panel")?.querySelector("[data-err]");
   const showErr = m => { if (errEl) { errEl.textContent = m; errEl.hidden = false; } };
   const muc = r.trang_thai === "cho_duyet_bai" ? mucNotes(r) : [];
-  if (kind === "duyet_bai" && muc.length) { showErr(`Bạn đang có góp ý ở ${muc.length} mục. Bấm "Gửi góp ý, sửa bài", hoặc xóa góp ý mục rồi mới duyệt.`); return; }
+  if (kind === "ap_dung" && !btn.closest(".panel")?.querySelector("[data-apok]")?.checked) { showErr("Đánh dấu ô đồng ý trước: nội dung sẽ hiện công khai ngay trên trang danh mục."); return; }
+  if (["duyet_bai", "ap_dung"].includes(kind) && muc.length) { showErr(`Bạn đang có góp ý ở ${muc.length} mục. Bấm "Gửi góp ý, sửa bài", hoặc xóa góp ý mục rồi mới duyệt.`); return; }
   const need = ["gop_y_outline", "tra_loi"].concat(muc.length ? [] : ["gop_y_bai"]);
   if (need.includes(kind) && !note) { showErr("Ghi nội dung góp ý hoặc trả lời để Agent biết cần làm gì."); noteEl && noteEl.focus(); return; }
   if (kind === "sua_tay") { editOutline = !editOutline; renderDetail(); return; }
@@ -757,6 +809,8 @@ async function act(r, kind, btn) {
   } else if (kind === "gop_y_outline") { upd.trang_thai = "sua_outline"; upd.gop_y_outline = note; viec = "Góp ý outline"; queue = true; }
   else if (kind === "duyet_bai") { upd.trang_thai = "cho_tao_anh"; upd.ghi_chu_duyet_bai = note; viec = "Duyệt bài"; queue = true; }
   else if (kind === "gop_y_bai") { upd.trang_thai = "sua_bai"; upd.gop_y_bai = note; upd.gop_y_muc = muc; viec = "Góp ý bài" + (muc.length ? ` (${muc.length} mục: ${muc.map(x => x.muc).join("; ")})` : ""); queue = true; }
+  else if (kind === "ap_dung") { upd.trang_thai = "cho_ap_dung"; upd.duyet_ap_dung_luc = upd.cap_nhat; viec = "Duyệt, cập nhật lên danh mục"; queue = true; }
+  else if (kind === "da_dan") { upd.trang_thai = "cho_kiem_trang"; viec = "Đã dán khối trên"; queue = true; }
   else if (kind === "anh_xong") { upd.trang_thai = "cho_hoan_thien"; viec = "Báo đã duyệt ảnh xong"; queue = true; }
   else if (kind === "tra_loi") { upd.trang_thai = r.quay_ve && ST[r.quay_ve] ? r.quay_ve : "moi"; upd.tra_loi = note; viec = "Trả lời câu hỏi của Agent"; queue = true; }
   else if (kind === "dung") {
@@ -834,6 +888,7 @@ document.addEventListener("click", async e => {
     catch (err) { errEl.textContent = err && err.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này." : "Chưa lưu được, thử lại sau ít giây."; errEl.hidden = false; b.disabled = false; }
     return;
   }
+  if (b.dataset.copy) { const ta = document.getElementById(b.dataset.copy); if (ta) { ta.select(); try { await navigator.clipboard.writeText(ta.value); b.textContent = "Đã chép"; } catch (err) { try { document.execCommand("copy"); b.textContent = "Đã chép"; } catch (e2) { b.textContent = "Bôi đen rồi Ctrl+C"; } } } return; }
   if (b.dataset.rdel && db) { b.disabled = true; try { await db.doc("yeu_cau/" + b.dataset.rdel).delete(); } catch (err) { b.disabled = false; } return; }
   if (b.dataset.stage) { const k = +b.dataset.stage; stageSel = stageSel === k ? 0 : k; render(); return; }
   if (b.dataset.filter) { filter = b.dataset.filter; stageSel = 0; render(); return; }
@@ -866,19 +921,22 @@ $("#addForm").addEventListener("submit", async e => {
   if (!db) return;
   const lines = $("#kwInput").value.split(/\n+/).map(s => s.trim()).filter(Boolean);
   if (!lines.length) return;
+  const loaiChon = $("#kwLoai").value || "tu_dong";
   const note = $("#kwNote").value.trim(), test = $("#kwTest").checked, btn = $("#addBtn"), msg = $("#addMsg");
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Đang nạp...";
   let ok = 0, trung = [];
   for (const line of lines) {
-    const m = line.match(/#\s*(\d+)/); const idCu = m ? m[1] : "";
-    const parts = line.replace(/#\s*\d+/, "").split(",").map(s => s.trim()).filter(Boolean);
+    const lk = line.match(/https?:\/\/\S+/); const linkDm = lk ? lk[0] : "";
+    const m = line.replace(/https?:\/\/\S+/, "").match(/#\s*(\d+)/); const idCu = m ? m[1] : "";
+    const parts = line.replace(/https?:\/\/\S+/, "").replace(/#\s*\d+/, "").split(",").map(s => s.trim()).filter(Boolean);
     if (!parts.length) continue;
     const chinh = parts[0];
     if (rows.some(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase())) { trung.push(chinh); continue; }
     const t = now();
     const id = (slug(chinh) || "tu-khoa") + "-" + Math.random().toString(36).slice(2, 6);
     try {
-      await db.doc("tu_khoa/" + id).set({ tu_khoa: chinh, tu_khoa_phu: parts.slice(1), id_bai_cu: idCu, ghi_chu: note,
+      const loai = linkDm ? "danh_muc" : loaiChon;
+      await db.doc("tu_khoa/" + id).set({ tu_khoa: chinh, tu_khoa_phu: parts.slice(1), id_bai_cu: idCu, ghi_chu: note, loai, ...(linkDm ? { link_danh_muc: linkDm } : {}),
         trang_thai: "moi", tao_luc: t, cap_nhat: t, outline_lan: 0, ...(test ? { thu_nghiem: true } : {}),
         lich_su: [{ luc: t, ai: "ban", viec: test ? "Nạp từ khóa (chạy thử)" : "Nạp từ khóa" }] });
       ok++;

@@ -11,3 +11,5 @@ Bốn quy tắc không bao giờ bỏ qua, kể cả khi chưa đọc được r
 4. Bám đúng outline đã chốt.
 
 Vai trò: HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không viết "HLB sản xuất". Mọi bài chỉ là bản nháp, không tự đăng công khai.
+
+Từ 27/10/2026 có hai Agent viết: **Agent Blog** (bài blog mục Tư vấn, theo file 1) và **Agent Danh mục** (viết lại nội dung danh mục sản phẩm đã có, theo `6_Agent_Danh_muc_HLB.md`). Nội dung danh mục chỉ ghi lên website khi người dùng bấm duyệt.

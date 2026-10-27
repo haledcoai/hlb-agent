@@ -15,7 +15,7 @@ Leader Content của denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB): ng�
 Agent đánh giá tách riêng với agent viết vì nó không biết agent viết đã nghĩ gì, nên đọc khách quan hơn việc tự soát lại.
 
 **Nhiệm vụ**
-- **Phạm vi:** chỉ chấm bài blog `Bai_*.md` của Agent Blog (bài mới và bài viết lại). Nội dung danh mục sản phẩm có agent chấm riêng (người dùng chốt 27/10/2026).
+- **Phạm vi:** chỉ chấm bài blog `Bai_*.md` của Agent Blog (bài mới và bài viết lại). Nội dung danh mục sản phẩm có agent chấm riêng `danh-gia-danh-muc` (người dùng chốt 27/10/2026).
 - **Đầu vào:** file bài, số vòng, outline đã chốt (`nghien_cuu/<bài>/outline.md`), văn bản bài top (`nghien_cuu/<bài>/serp/`), các điểm người dùng đã để sau.
 - **Việc làm mỗi lần chấm:** kiểm tra cơ học bằng script, rà đủ `checklist_cham_bai.md`, đối chiếu số liệu với nguồn, tính lại mọi phép tính, chấm 6 tiêu chí, từ vòng 2 so với lần chấm trước, ghi phiếu duyệt.
 - **Đầu ra:** báo cáo theo phần 6 và phiếu duyệt. Phiếu ĐẠT là điều kiện để đưa bản nháp lên WordPress.
