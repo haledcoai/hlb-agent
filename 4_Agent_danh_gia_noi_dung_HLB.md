@@ -67,6 +67,8 @@ Khi không có script, rà tay đủ các mục dưới đây.
 
 ## 5. Thang chấm
 
+Nội dung danh mục sản phẩm (`DM_*.md`, Agent Danh mục, từ 27/10/2026) chấm theo thang riêng ở `quy_tac_cham_danh_muc.md` mục 7: du_lieu 25, chon_mua 20, seo 15, gon 10, thuong_hieu 15, cta 15, ngưỡng vẫn 95. Phần dưới là thang của bài blog.
+
 Thang **100 điểm**. ĐẠT khi **điểm tính ngưỡng từ 95/100 trở lên** và không còn lỗi bắt buộc. Luôn ghi điểm dạng x/100 (ví dụ "95/100, cần từ 95"), không ghi "95/95".
 
 | Mã | Tiêu chí | Tối đa | Câu hỏi khi chấm |
@@ -148,6 +150,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 |---|---|
 | `.claude/agents/danh-gia-noi-dung.md` | Định nghĩa sub agent (công cụ: Read, Grep, Glob, PowerShell, Bash, WebFetch) |
 | `quy_tac_cham.md` | Bản rút gọn quy tắc chấm, có dòng "Mã nguồn" để phát hiện lệch với file gốc |
+| `quy_tac_cham_danh_muc.md` | Quy tắc và thang chấm riêng cho nội dung danh mục `DM_*.md` (27/10/2026), cập nhật mã nguồn bằng `--cap-nhat-quy-tac --danh-muc` |
 | `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4, kiểm đoạn trả lời nhanh 40-60 từ. `--gon` in gọn, `--tra` tra và đếm trên CSV, `--cap-nhat-quy-tac`. Thoát mã 1 khi còn LỖI |
 | `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, các hook. `lan-truoc`, `khac` để đối chiếu với lần chấm trước |
 | `.claude/settings.json` | Cho phép lệnh `phieu_duyet.py ghi`, `nhan` chạy không hỏi. 5 hook: chặn đăng khi chưa có phiếu ĐẠT và chặn ghi phiếu khi không phải agent đánh giá; đánh dấu đang chấm khi gọi agent đánh giá; bỏ đánh dấu khi sub agent kết thúc; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt (bỏ qua khi đang có lượt chấm) |

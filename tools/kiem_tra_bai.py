@@ -6,11 +6,16 @@ Cach dung:
   python tools/kiem_tra_bai.py <file_bai.md> --csv du_lieu_san_pham_HLB_26-10-2026.csv
   python tools/kiem_tra_bai.py --tra 16.500             # tra CSV: model, quang thong, gia, cong suat; dem so dong khop
   python tools/kiem_tra_bai.py --cap-nhat-quy-tac       # ghi lai ma file goc vao quy_tac_cham.md sau khi da cap nhat file nay
+  python tools/kiem_tra_bai.py --cap-nhat-quy-tac --danh-muc   # tuong tu cho quy_tac_cham_danh_muc.md
 
 Chi bat loi may kiem tra duoc: dau gach, emoji, tu cam, link, do dai SEO, dinh dang so,
 doi chieu so lieu voi file CSV san pham, ma tieu chuan voi tieu_chuan_da_kiem.csv,
 heading voi outline da chot va doan trung voi bai top SERP (tools/nghien_cuu.py). Chat luong noi dung do agent danh-gia-noi-dung danh gia.
 Ma thoat: 0 = khong co LOI, 1 = co LOI can sua, 2 = file sai cau truc.
+
+File DM_<slug>.md (noi dung danh muc, Agent Danh muc, 6_Agent_Danh_muc_HLB.md) kiem theo che do danh muc: khong co H1,
+phan B chia [KHỐI TRÊN] / [KHỐI DƯỚI], khoi tren 80-150 tu co tu khoa chinh, model nhac trong bai phai thuoc danh muc
+(nghien_cuu/DM_<slug>/san_pham.json do tools/danh_muc.py doc ghi), link noi bo 2-6, khong link ve chinh danh muc.
 """
 import argparse
 import csv
@@ -29,11 +34,15 @@ import nghien_cuu  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUY_TAC = os.path.join(ROOT, "quy_tac_cham.md")
 NGUON_QUY_TAC = ("1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md")
+QUY_TAC_DM = os.path.join(ROOT, "quy_tac_cham_danh_muc.md")
+NGUON_QUY_TAC_DM = ("6_Agent_Danh_muc_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md")
 DA_KIEM = os.path.join(ROOT, ".danh_gia", "_da_kiem.json")
 SITE_HOST = "denlednhaxuongcaocap.com"
 HOTLINES = {"0967569588", "02437918122"}
 
 LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
+KHOI_TREN, KHOI_DUOI = "[KHỐI TRÊN]", "[KHỐI DƯỚI]"
+DM = False  # file DM_*.md: che do danh muc (dat trong main)
 PLACEHOLDER = re.compile(r"\[(CẦN BỔ SUNG|CẦN KIỂM TRA|CHỜ XÁC NHẬN|LINK|ẢNH)[^\]]*\]")
 IMAGE = re.compile(r"\[ẢNH:([^\]]*)\]")
 EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿️‍]")
@@ -250,7 +259,10 @@ def check_numbers(rep, body):
 
 def check_structure(rep, body):
     h1 = [(no, l) for no, l in body if re.match(r"^# ", l)]
-    if len(h1) != 1:
+    if DM:
+        if h1:
+            rep.error(h1[0][0], "Nội dung danh mục không có H1 (theme tự hiện tên danh mục làm H1), heading bắt đầu từ H2")
+    elif len(h1) != 1:
         rep.error(h1[1][0] if len(h1) > 1 else None, "Phần B phải có đúng 1 H1, đang có %d" % len(h1))
     prev, h3_children, last_h3 = 1, {}, None
     for no, line in body:
@@ -293,7 +305,8 @@ def check_structure(rep, body):
             cells = s.strip("|").split("|")
             if len(cells) > 5 and not re.fullmatch(r"\|[\s:|-]+\|", s):
                 rep.error(no, "Bảng có %d cột, tối đa 5 cột để đọc được trên điện thoại" % len(cells))
-        elif not s or s == "---" or re.match(r"^(#{1,6} |- |\d+\. )", s) or PLACEHOLDER.fullmatch(s):
+        elif not s or s == "---" or re.match(r"^(#{1,6} |- |\d+\. )", s) or PLACEHOLDER.fullmatch(s) \
+                or s.strip("*") in (KHOI_TREN, KHOI_DUOI):
             flush()
         else:
             if not para:
@@ -333,6 +346,9 @@ def check_links(rep, body):
         check_urls_live(rep, sorted(set(internal) | set(external)))
 
     content = [u for u in set(internal) if "/lien-he/" not in u]
+    if DM:
+        check_links_dm(rep, content, external, internal)
+        return
     category = [u for u in content if re.search(r"/den-led-nha-xuong-\d+w/", u)]
     if not 3 <= len(content) <= 5:
         rep.error(None, "Link nội bộ (không tính trang Liên hệ ở CTA): %d, cần 3-5" % len(content))
@@ -342,6 +358,23 @@ def check_links(rep, body):
         rep.error(None, "Link ngoài: %d, tối đa 3" % len(set(external)))
     rep.info(None, "Link nội bộ %d (danh mục %d), link ngoài %d, link CTA Liên hệ %d"
              % (len(content), len(category), len(set(external)), len(set(internal)) - len(content)))
+
+
+LINK_DM = None  # link chinh danh muc cua bai DM (doc tu phan A)
+
+
+def check_links_dm(rep, content, external, internal):
+    """Danh muc: 2-6 link noi bo (bai blog lien quan, danh muc cong suat gan), khong link ve chinh danh muc."""
+    if LINK_DM:
+        tu_than = [u for u in content if u.rstrip("/") == LINK_DM.rstrip("/")]
+        if tu_than:
+            rep.error(None, "Link về chính danh mục này (%s), bỏ link" % tu_than[0])
+    if not 2 <= len(content) <= 6:
+        rep.error(None, "Link nội bộ (không tính trang Liên hệ): %d, nội dung danh mục cần 2-6" % len(content))
+    if len(set(external)) > 2:
+        rep.error(None, "Link ngoài: %d, nội dung danh mục tối đa 2" % len(set(external)))
+    rep.info(None, "Link nội bộ %d, link ngoài %d, link CTA Liên hệ %d"
+             % (len(content), len(set(external)), len(set(internal)) - len(content)))
 
 
 MANG = True  # tat bang --khong-mang
@@ -406,6 +439,8 @@ def check_seo(rep, seo, body):
         rep.error(None, "Phần A thiếu Focus keyword")
         return
     kwn = norm(kw)
+    if DM:
+        return check_seo_dm(rep, seo, body, kw, kwn)
     if re.fullmatch(r"đèn led nhà xưởng( [a-zà-ỹđ ]+)? \d+\s?w", kwn):
         rep.warn(kw_no, "Từ khóa chính \"%s\" trùng kiểu từ khóa của trang danh mục công suất, bài blog dễ cạnh tranh "
                         "với trang danh mục (Knowledge 9.1). Chỉ viết khi intent khác rõ (giá, cách chọn, so sánh)" % kw)
@@ -469,6 +504,88 @@ def check_seo(rep, seo, body):
     words = norm(strip_markup(" ".join(l for l in after if not re.match(r"^#", l)))).split()
     if kwn not in " ".join(words[:100]):
         rep.error(None, "Từ khóa chính không có trong 100 chữ đầu bài")
+
+
+def check_seo_dm(rep, seo, body, kw, kwn):
+    """Phan A cua noi dung danh muc: Danh muc/Term ID, SEO title, meta description; khong co slug, excerpt, tag."""
+    for name in ("Danh mục", "Term ID", "Link danh mục"):
+        if not seo.get(name, (None, ""))[1]:
+            rep.error(None, "Phần A thiếu dòng %s (lấy từ nghien_cuu/DM_<slug>/danh_muc.json)" % name)
+    no, title = seo.get("SEO title", (None, ""))
+    if not title:
+        rep.error(None, "Phần A thiếu SEO title")
+    else:
+        if len(title) >= 60:
+            rep.error(no, "SEO title dài %d ký tự, cần dưới 60" % len(title))
+        if kwn not in norm(title):
+            rep.error(no, "SEO title không chứa từ khóa chính \"%s\"" % kw)
+        if re.search(r"20\d\d", title):
+            rep.warn(no, "SEO title danh mục gắn năm sẽ cũ nhanh, chỉ giữ khi người dùng muốn")
+    no, meta = seo.get("Meta description", (None, ""))
+    if not meta:
+        rep.error(None, "Phần A thiếu Meta description")
+    else:
+        if not 120 <= len(meta) <= 160:
+            rep.error(no, "Meta description dài %d ký tự, cần 120-160" % len(meta))
+        if kwn not in norm(meta):
+            rep.warn(no, "Meta description không chứa nguyên cụm từ khóa chính")
+    tren = khoi(body)[0]
+    words = norm(strip_markup(" ".join(l for _, l in tren if not re.match(r"^#", l)))).split()
+    if kwn not in " ".join(words[:50]):
+        rep.error(tren[0][0] if tren else None, "Từ khóa chính không có trong 50 chữ đầu khối trên")
+    if not any(kwn in norm(l) for _, l in body if re.match(r"^## ", l)):
+        rep.warn(None, "Không có H2 nào ở khối dưới chứa nguyên cụm từ khóa chính")
+
+
+def khoi(body):
+    """Tach phan B thanh (khoi tren, khoi duoi) theo 2 dong danh dau."""
+    tren, duoi, cur = [], [], None
+    for no, line in body:
+        s = line.strip().strip("*")
+        if s == KHOI_TREN:
+            cur = tren
+        elif s == KHOI_DUOI:
+            cur = duoi
+        elif cur is not None:
+            cur.append((no, line))
+    return tren, duoi
+
+
+def check_khoi(rep, body):
+    marks = [(no, l.strip().strip("*")) for no, l in body if l.strip().strip("*") in (KHOI_TREN, KHOI_DUOI)]
+    if [m for _, m in marks] != [KHOI_TREN, KHOI_DUOI]:
+        rep.error(None, "Phần B cần đúng 2 dòng đánh dấu, theo thứ tự: %s rồi %s" % (KHOI_TREN, KHOI_DUOI))
+        return
+    if any(l.strip() for no, l in body if no < marks[0][0]):
+        rep.error(marks[0][0], "Có nội dung trước dòng %s, nội dung ngoài 2 khối sẽ không được ghi lên danh mục" % KHOI_TREN)
+    tren, duoi = khoi(body)
+    for no, l in tren:
+        if re.match(r"^#", l):
+            rep.error(no, "Khối trên không dùng heading, chỉ 1-2 đoạn văn ngắn")
+    n = len(norm(strip_markup(" ".join(l for _, l in tren if not IMAGE.search(l)))).split())
+    if not 80 <= n <= 150:
+        rep.error(tren[0][0] if tren else None, "Khối trên có %d từ, cần 80-150 (hiện trên lưới sản phẩm, dài quá đẩy sản phẩm xuống)" % n)
+    else:
+        rep.info(None, "Khối trên %d từ" % n)
+    n2 = len(norm(strip_markup(" ".join(l for _, l in duoi))).split())
+    rep.info(None, "Khối dưới %d từ" % n2)
+
+
+def check_san_pham_dm(rep, article, body):
+    """Model nhac trong bai phai dang ban trong chinh danh muc (nghien_cuu/DM_<slug>/san_pham.json)."""
+    path = os.path.join(nghien_cuu.thu_muc_bai(article), "san_pham.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            sp = json.load(f)
+    except (OSError, ValueError):
+        rep.error(None, "Chưa có danh sách sản phẩm của danh mục. Chạy python tools/danh_muc.py doc <slug> trước khi viết")
+        return
+    ten = " ".join(s["ten"] for s in sp)
+    for no, line in body:
+        for code in sorted(set(MODEL.findall(PLACEHOLDER.sub(" ", line)))):
+            if code not in ten:
+                rep.error(no, "Model %s không có trong danh mục này (%s), chỉ nêu sản phẩm đang bán trong danh mục"
+                          % (code, os.path.relpath(path, ROOT)))
 
 
 def check_faq(rep, body):
@@ -717,9 +834,9 @@ def check_chep_bai(rep, article, body):
 
 # ---------- File quy tac cham rut gon ----------
 
-def ma_nguon():
+def ma_nguon(dm=False):
     out = []
-    for name in NGUON_QUY_TAC:
+    for name in (NGUON_QUY_TAC_DM if dm else NGUON_QUY_TAC):
         with open(os.path.join(ROOT, name), "rb") as f:
             out.append("%s %s" % (name, hashlib.sha256(f.read()).hexdigest()[:12]))
     return out
@@ -727,24 +844,26 @@ def ma_nguon():
 
 def check_quy_tac(rep):
     """quy_tac_cham.md phai duoc lam tu dung ban Instructions, Knowledge hien tai (dong 'Ma nguon:')."""
-    if not os.path.isfile(QUY_TAC):
+    path = QUY_TAC_DM if DM else QUY_TAC
+    if not os.path.isfile(path):
         return
-    with open(QUY_TAC, encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         text = f.read()
     m = re.search(r"^Mã nguồn: (.*)$", text, re.M)
-    if not m or m.group(1).strip() != "; ".join(ma_nguon()):
-        rep.warn(None, "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ. Agent đánh giá đọc file gốc cho lần chấm này; "
-                       "cập nhật quy_tac_cham.md rồi chạy --cap-nhat-quy-tac")
+    if not m or m.group(1).strip() != "; ".join(ma_nguon(DM)):
+        rep.warn(None, "%s làm từ bản quy tắc/Knowledge cũ. Agent đánh giá đọc file gốc cho lần chấm này; "
+                       "cập nhật file rồi chạy --cap-nhat-quy-tac%s" % (os.path.basename(path), " --danh-muc" if DM else ""))
 
 
-def cap_nhat_quy_tac():
-    with open(QUY_TAC, encoding="utf-8") as f:
+def cap_nhat_quy_tac(dm=False):
+    path = QUY_TAC_DM if dm else QUY_TAC
+    with open(path, encoding="utf-8") as f:
         text = f.read()
-    line = "Mã nguồn: " + "; ".join(ma_nguon())
+    line = "Mã nguồn: " + "; ".join(ma_nguon(dm))
     text, n = re.subn(r"^Mã nguồn: .*$", line, text, flags=re.M)
     if not n:
-        sys.exit("quy_tac_cham.md thiếu dòng 'Mã nguồn: ...'")
-    with open(QUY_TAC, "w", encoding="utf-8") as f:
+        sys.exit("%s thiếu dòng 'Mã nguồn: ...'" % os.path.basename(path))
+    with open(path, "w", encoding="utf-8") as f:
         f.write(text)
     print("Đã ghi: " + line)
 
@@ -800,10 +919,11 @@ def main():
     ap.add_argument("--gon", action="store_true", help="chi in LOI, CANH BAO va dong tom tat")
     ap.add_argument("--tra", help="tra CSV theo ma model hoac so")
     ap.add_argument("--cap-nhat-quy-tac", action="store_true")
+    ap.add_argument("--danh-muc", action="store_true", help="voi --cap-nhat-quy-tac: cap nhat quy_tac_cham_danh_muc.md")
     ap.add_argument("--khong-mang", action="store_true", help="khong mo link de kiem tra (khi khong co mang)")
     args = ap.parse_args()
     if args.cap_nhat_quy_tac:
-        return cap_nhat_quy_tac()
+        return cap_nhat_quy_tac(args.danh_muc)
     if args.tra:
         csv_path = args.csv or tim_csv(ROOT)
         if not csv_path:
@@ -820,18 +940,25 @@ def main():
         print("File sai cấu trúc: thiếu phần %s (tiêu đề dạng \"# A.\", \"# B.\", \"# C.\")" % ", ".join(missing))
         sys.exit(2)
     a, b, c = sections["A"], sections["B"], sections.get("C", [])
+    global DM, LINK_DM
+    DM = os.path.basename(args.article).startswith("DM_")
 
     rep = Report()
+    seo = seo_fields(a)
+    if DM:
+        LINK_DM = seo.get("Link danh mục", (None, ""))[1].strip("` ")
+        check_khoi(rep, b)
+        check_san_pham_dm(rep, args.article, b)
     check_text(rep, a + b)
     check_connectors(rep, b)
     check_numbers(rep, b)
     check_structure(rep, b)
     check_links(rep, b)
-    seo = seo_fields(a)
     check_images(rep, b, (seo.get("Slug", (None, ""))[1] or " ").split(" ")[0])
     check_seo(rep, seo, b)
     check_faq(rep, b)
-    check_quick_answer(rep, b)
+    if not DM:
+        check_quick_answer(rep, b)
     check_price_note(rep, b)
     check_placeholders(rep, b, c)
     check_outline(rep, args.article, b)
