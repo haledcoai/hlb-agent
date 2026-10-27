@@ -15,7 +15,7 @@ Cach dung:
                                                                  # anh canva bat buoc --prompt (prompt da dung)
                                                                  # anh Unsplash bat buoc --tac-gia (ten tac gia, hien trong chu thich)
   python tools/tao_anh.py thu-vien "<tu khoa tieng Viet>"           # anh da duyet, da tai len o bai khac, dung lai duoc
-  python tools/tao_anh.py dung-lai <file_bai.md> --ten <ten> --tu <bai>--<ten file>  # dung lai media co san, khong tai lai
+  python tools/tao_anh.py dung-lai <file_bai.md> --ten <ten> --tu <bai>--<ten file> [--dai-dien]  # dung lai media co san, khong tai lai
   python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
   python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
@@ -55,7 +55,8 @@ ALT_CONG_TRINH = re.compile(r"công trình (của |do )?hlb|dự án (của |do 
 GOI_Y = (("nguoi-dung", re.compile(r"công trình|dự án|thực tế|khách hàng|lắp đặt tại|đội thi công", re.I)),
          ("python", re.compile(r"sơ đồ|bảng|biểu đồ|cách đọc|minh họa (ý nghĩa|cách)|so sánh|các bước|quy trình|mặt cắt|"
                                r"góc chiếu|thông số|công thức|lux|infographic", re.I)),
-         ("canva", re.compile(r"toàn cảnh|không gian|nhà xưởng|nhà kho|kho hàng|xưởng|nhà máy", re.I)))
+         # Anh khong gian chung: thu vien da duyet, roi kho anh (Unsplash, Pixabay), Canva sau cung (tao-anh.md, chot 23/10/2026)
+         ("thu-vien, kho-anh", re.compile(r"toàn cảnh|không gian|nhà xưởng|nhà kho|kho hàng|xưởng|nhà máy", re.I)))
 
 
 TEN_HOP_LE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*\.jpg$")
@@ -215,7 +216,7 @@ def phan_loai(args):
         if khop:
             nguon, ly_do = "website", "có model %s trong CSV" % ", ".join(sorted({x[2] for x in khop}))
         else:
-            nguon, ly_do = "canva", "không khớp mẫu nào, mặc định ảnh không gian chung"
+            nguon, ly_do = "thu-vien, kho-anh", "không khớp mẫu nào, mặc định ảnh không gian chung"
             for n, mau in GOI_Y:
                 m = mau.search(chu)
                 if m:
@@ -465,10 +466,13 @@ def dung_lai(args):
         sys.exit("%s chưa duyệt hoặc chưa tải lên website, không dùng lại được" % args.tu)
     m = doc_manifest(args.article)
     m["anh"] = [a for a in m["anh"] if a["ten"] != args.ten]
+    if args.dai_dien:
+        for a in m["anh"]:
+            a["dai_dien"] = False
     moi = {k: goc.get(k) for k in ("file", "nguon", "media_id", "url_da_tai", "sha_da_tai", "chu_thich_da_ghi",
                                    "ghi_chu", "prompt", "tac_gia")}
     moi.update(ten=args.ten, alt=cho[args.ten]["alt"], mo_ta=cho[args.ten]["mo_ta"], url_website=None,
-               dai_dien=False, dung_lai_tu=args.tu, trang_thai="cho_duyet")
+               dai_dien=bool(args.dai_dien), dung_lai_tu=args.tu, trang_thai="cho_duyet")
     m["anh"].append(moi)
     os.makedirs(thu_muc(args.article), exist_ok=True)
     with open(manifest_path(args.article), "w", encoding="utf-8") as f:
@@ -573,7 +577,8 @@ def main():
     p = sub.add_parser("thu-vien"); p.add_argument("tu_khoa"); p.add_argument("--so", type=int, default=6)
     p.set_defaults(func=thu_vien)
     p = sub.add_parser("dung-lai"); p.add_argument("article"); p.add_argument("--ten", required=True)
-    p.add_argument("--tu", required=True, help="<bai>--<ten file> lay tu lenh thu-vien"); p.set_defaults(func=dung_lai)
+    p.add_argument("--tu", required=True, help="<bai>--<ten file> lay tu lenh thu-vien")
+    p.add_argument("--dai-dien", action="store_true", help="dat lam anh dai dien"); p.set_defaults(func=dung_lai)
     p = sub.add_parser("kiem"); p.add_argument("article")
     p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")
     p.set_defaults(func=kiem)

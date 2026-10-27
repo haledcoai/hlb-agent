@@ -4,6 +4,8 @@ Cach dung:
   python tools/nghien_cuu.py luu-outline Bai_<slug>.md --tu <file>        # file .md/.txt chua outline, hoac file JSON
                                                                            # cua bang dieu phoi (lay truong "outline")
   python tools/nghien_cuu.py luu-outline Bai_<slug>.md --tu <file> --ly-do "nguoi dung doi H2 thu 3 ngay 27/10"
+  python tools/nghien_cuu.py serp Bai_<slug>.md "<tu khoa>" [--luu]       # top 10 Google VN qua SerpApi (bien SERPAPI_KEY),
+                                                                           # --luu tai luon van ban cac bai top
   python tools/nghien_cuu.py luu-serp Bai_<slug>.md <url> [<url> ...]     # tai va luu van ban bai top (may co mang)
   python tools/nghien_cuu.py luu-serp Bai_<slug>.md <url> --tu-file <file> # luu van ban da lay bang WebFetch
   python tools/nghien_cuu.py xem Bai_<slug>.md
@@ -196,6 +198,63 @@ def luu_serp(args):
         sys.exit(1)
 
 
+# Trang danh muc, san pham, san TMDT: khong phai bai blog, khong luu van ban (Instructions buoc 1)
+KHONG_PHAI_BAI = re.compile(r"/(products?|san-pham|danh-muc[^/]*|product-category|categor(y|ies)|collections?|shop|cua-hang)(/|$)|"
+                            r"-c\d+(\.html?)?/?$|shopee\.|lazada\.|tiki\.|youtube\.|facebook\.", re.I)
+# Duong dan kieu bai viet. Con lai la "chua ro": mo trang de xac nhan truoc khi ket luan dinh dang
+LA_BAI = re.compile(r"/(tin-tuc|blog|tu-van|kien-thuc|bai-viet|news|huong-dan|cam-nang)/", re.I)
+
+
+def khong_dau(text):
+    text = unicodedata.normalize("NFD", chuan(text).replace("đ", "d"))
+    return re.sub(r"[^a-z0-9]+", "-", "".join(c for c in text if not unicodedata.combining(c))).strip("-")
+
+
+def serp(args):
+    """Top 10 Google Viet Nam qua SerpApi: in vi tri, tieu de, link, doan trich, cau hoi 'Moi nguoi cung hoi', luu JSON."""
+    key = os.environ.get("SERPAPI_KEY")
+    if not key:
+        sys.exit("Chưa có biến SERPAPI_KEY. Người dùng thêm key vào cloud environment (không dán vào chat)")
+    q = urllib.parse.urlencode({"engine": "google", "q": args.tu_khoa, "google_domain": "google.com.vn", "gl": "vn",
+                                "hl": "vi", "num": 10, "api_key": key})
+    try:
+        data = json.loads(tai("https://serpapi.com/search.json?" + q))
+    except (OSError, ValueError) as e:
+        sys.exit("Không gọi được SerpApi (%s). Kiểm tra serpapi.com trong Allowed domains" % e)
+    if data.get("error"):
+        sys.exit("SerpApi báo lỗi: %s" % data["error"])
+    folder = os.path.join(thu_muc_bai(args.bai), "serp")
+    os.makedirs(folder, exist_ok=True)
+    kq = {"tu_khoa": args.tu_khoa, "luc": datetime.datetime.now().isoformat(timespec="minutes"),
+          "top": [{k: r.get(k) for k in ("position", "title", "link", "snippet")} for r in data.get("organic_results", [])[:10]],
+          "hoi": [r.get("question") for r in data.get("related_questions", [])],
+          "lien_quan": [r.get("query") for r in data.get("related_searches", [])]}
+    print("Top Google VN cho \"%s\" (%s):" % (args.tu_khoa, kq["luc"]))
+    bai = []
+    for r in kq["top"]:
+        link = r["link"] or ""
+        r["loai"] = "danh mục/SP" if KHONG_PHAI_BAI.search(link) else "bài" if LA_BAI.search(link) else "chưa rõ"
+        if r["loai"] != "danh mục/SP":
+            bai.append(link)
+        print("%2s. [%s] %s\n    %s\n    %s" % (r["position"], r["loai"], r["title"], link, (r["snippet"] or "")[:200]))
+    with open(os.path.join(folder, "_ket_qua_%s.json" % khong_dau(args.tu_khoa)), "w", encoding="utf-8") as f:
+        json.dump(kq, f, ensure_ascii=False, indent=1)
+    if kq["hoi"]:
+        print("\nMọi người cũng hỏi (gợi ý FAQ):\n" + "\n".join("- " + x for x in kq["hoi"] if x))
+    if kq["lien_quan"]:
+        print("\nTìm kiếm liên quan (gợi ý từ khóa phụ):\n" + "\n".join("- " + x for x in kq["lien_quan"] if x))
+    dem = {k: sum(1 for r in kq["top"] if r["loai"] == k) for k in ("bài", "danh mục/SP", "chưa rõ")}
+    print("\nPhân loại theo đường dẫn, chỉ là gợi ý: %d bài, %d danh mục/sản phẩm, %d chưa rõ. Mở trang \"chưa rõ\" "
+          "để xác định trước khi kết luận định dạng nội dung (Instructions bước 1)." % (dem["bài"], dem["danh mục/SP"], dem["chưa rõ"]))
+    if args.luu and bai:
+        print("\nLưu văn bản bài top:")
+        args.url, args.tu_file = bai, None
+        try:
+            luu_serp(args)
+        except SystemExit:
+            pass  # trang khong tai duoc da in huong dan WebFetch
+
+
 def doc_serp(article):
     """Danh sach (url, van ban) cac bai top da luu."""
     out = []
@@ -257,10 +316,14 @@ def main():
     p.add_argument("bai")
     p.add_argument("url", nargs="+")
     p.add_argument("--tu-file", help="văn bản đã lấy sẵn cho 1 URL")
+    p = sub.add_parser("serp")
+    p.add_argument("bai")
+    p.add_argument("tu_khoa")
+    p.add_argument("--luu", action="store_true", help="tải và lưu văn bản các bài blog trong top")
     p = sub.add_parser("xem")
     p.add_argument("bai")
     args = ap.parse_args()
-    {"luu-outline": luu_outline, "luu-serp": luu_serp, "xem": xem}[args.lenh](args)
+    {"luu-outline": luu_outline, "luu-serp": luu_serp, "serp": serp, "xem": xem}[args.lenh](args)
 
 
 if __name__ == "__main__":

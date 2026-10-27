@@ -439,7 +439,13 @@ def check_seo(rep, seo, body):
             rep.warn(no, "Slug có %d từ, nên 3-6 từ" % len(slug.split("-")))
         if re.search(r"20\d\d", slug):
             rep.warn(no, "Slug không gắn năm")
-        if no_accent(kwn).replace(" ", "-") not in slug:
+        kw_words = no_accent(kwn).split()
+        if len(kw_words) > 6:
+            # Tu khoa tren 6 tu khong vua slug 3-6 tu: slug lay cac tu loi cua tu khoa, giu dung thu tu (Knowledge 9.4)
+            it = iter(kw_words)
+            if not all(w in it for w in slug.split("-")):
+                rep.warn(no, "Slug phải gồm các từ lõi của từ khóa chính, đúng thứ tự (từ khóa có %d từ)" % len(kw_words))
+        elif "-".join(kw_words) not in slug:
             rep.warn(no, "Slug không chứa từ khóa chính%s" % (" (đã ghi giữ URL cũ)" if "giữ" in slug_raw else ""))
 
     no, excerpt = field("Excerpt")
@@ -607,6 +613,8 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
         for m in PRICE.finditer(text):
             if m.group(3):
                 continue  # don gia xay dung, gia dien... khong phai gia den
+            if text[:m.start()].rstrip().endswith("="):
+                continue  # ket qua phep tinh (tien dien, tong tien den), khong phai gia niem yet
             line_prices.append(to_int(m.group(1)))
             if to_int(m.group(1)) not in prices:
                 rep.warn(no, "Giá %s không khớp sản phẩm nào trong %s" % (m.group(0), csv_name))
@@ -760,7 +768,7 @@ def tra(value, csv_path):
                 hits.append(r)
         elif q.lower() in r["name"].lower():
             hits.append(r)
-    keys = [k for k in ("name", "w", "lm", "pf", "ra", "price") if k in (rows[0] if rows else {})]
+    keys = [k for k in ("name", "w", "lm", "pf", "ra", "ip", "goc", "price", "url") if k in (rows[0] if rows else {})]
     print("Tra \"%s\" trong %s: %d dòng khớp" % (q, os.path.basename(csv_path), len(hits)))
     for r in hits:
         print("- " + " | ".join("%s=%s" % (k, r.get(k, "")) for k in keys))

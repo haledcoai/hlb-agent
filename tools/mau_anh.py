@@ -24,7 +24,12 @@ import textwrap
 
 import logging
 
-import matplotlib
+try:
+    import matplotlib
+except ImportError:  # may cloud moi khong cai san matplotlib (setup script de trong)
+    print("Chua co matplotlib, dang cai: pip install matplotlib", file=sys.stderr)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "matplotlib"], check=True)
+    import matplotlib
 
 matplotlib.use("Agg")
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)  # may khong co Segoe UI thi dung font du phong

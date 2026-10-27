@@ -5,6 +5,7 @@ Cach dung:
   python tools/wp_draft.py <file_bai.md> --update 2323         # viet lai bai cu ID 2323, chi xem truoc
   them --post de gui len website (luon o trang thai draft, khong bao gio dang cong khai)
   them --khong-anh de bo qua anh trong anh/<ten bai>/anh.json (giu nguyen cho [ANH: ...])
+  --post chi chay khi bai co phieu DAT khop noi dung (tools/phieu_duyet.py kiem); --bo-qua-phieu chi nguoi dung tu dung
 
 Neu co anh/<ten bai>/anh.json (do tools/tao_anh.py ghi): xem truoc chen anh trong may;
 --post tai anh len thu vien Media (anh nguon website thi dung lai URL co san), dien alt,
@@ -363,7 +364,20 @@ def main():
     ap.add_argument("--force", action="store_true", help="van tao du da co ban nhap trung tieu de")
     ap.add_argument("--draft-id", type=int, help="ghi de noi dung len ban nhap da tao (chi ap dung cho ban nhap)")
     ap.add_argument("--khong-anh", action="store_true", help="bo qua anh trong anh/<ten bai>/anh.json")
+    ap.add_argument("--bo-qua-phieu", action="store_true",
+                    help="chi nguoi dung tu chay: dang du bai chua co phieu DAT (agent khong duoc dung)")
     args = ap.parse_args()
+
+    if args.post and not args.bo_qua_phieu:
+        # Kiem tra ngay trong script, khong chi dua vao hook PreToolUse: phien cloud co the khong nap hook
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import phieu_duyet
+        reasons = phieu_duyet.kiem(os.path.abspath(args.article))
+        if reasons:
+            print("Chua duoc dang ban nhap:", file=sys.stderr)
+            for r in reasons:
+                print("- " + r, file=sys.stderr)
+            sys.exit("Lam theo vong duyet trong CLAUDE.md. Nguoi dung muon dang khi bai chua dat thi tu chay lenh voi --bo-qua-phieu.")
 
     seo, title, body, notes = parse_article(args.article)
     images = {} if args.khong_anh else load_images(args.article)

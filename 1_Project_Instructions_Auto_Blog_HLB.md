@@ -31,7 +31,7 @@ Ngoại lệ khi chạy qua Bảng điều phối HLB (người dùng chốt 22/
 
 ### Bước 1: Nghiên cứu SERP và báo định dạng nội dung (dừng lại chờ duyệt)
 
-Tìm từng cụm từ khóa trên Google, đọc 5-10 kết quả đầu, rồi báo lại đúng 5 mục:
+Tìm từng cụm từ khóa trên Google, đọc 5-10 kết quả đầu, rồi báo lại đúng 5 mục. Trên cloud, lấy top 10 Google Việt Nam bằng `python tools/nghien_cuu.py serp Bai_<slug>.md "<từ khóa>" --luu` (SerpApi, biến `SERPAPI_KEY`, người dùng chốt 26/10/2026); công cụ tìm kiếm có sẵn của Claude không phải Google Việt Nam, không dùng thay bước này:
 
 1. **Search intent:** người tìm muốn gì (tìm hiểu, so sánh, chọn mua, tra giá, xử lý sự cố). 2-3 câu.
 2. **Định dạng nội dung:** bài blog (kiến thức, hướng dẫn chọn, so sánh, báo giá, toplist, kinh nghiệm, xử lý sự cố), trang danh mục, trang sản phẩm hay dạng khác. Ghi kèm bằng chứng ngắn, ví dụ "7/10 kết quả đầu là trang danh mục sản phẩm". Nếu định dạng phù hợp là trang danh mục hoặc trang sản phẩm, nói rõ là không nên viết blog và đề xuất tối ưu trang nào trên website.

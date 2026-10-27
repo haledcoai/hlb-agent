@@ -121,6 +121,11 @@ def doc_van_de(items):
     return out
 
 
+def gio_vn():
+    """Gio Viet Nam co mui gio. Truoc 26/10/2026 phieu ghi gio may khong mui gio (may Windows: gio VN, cloud: UTC)."""
+    return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=7))).isoformat(timespec="seconds")
+
+
 def da_kiem_co_hoc(article):
     """kiem_tra_bai.py da chay tren dung noi dung file nay, gan day, khong con LOI."""
     try:
@@ -158,7 +163,7 @@ def ghi(args):
         "ket_luan": "DAT" if dat else "CAN_SUA",
         "vong": args.vong,
         "che_do": args.che_do,
-        "thoi_gian": datetime.datetime.now().isoformat(timespec="seconds"),
+        "thoi_gian": gio_vn(),
     }
     os.makedirs(BAN_CHAM, exist_ok=True)
     shutil.copyfile(args.article, ban_cham_path(args.article))
@@ -250,7 +255,7 @@ def bac_bo(args):
         "nhan": args.nhan,
         "ly_do": args.ly_do,
         "thang_cham": THANG_CHAM,
-        "thoi_gian": datetime.datetime.now().isoformat(timespec="seconds"),
+        "thoi_gian": gio_vn(),
     })
     print("Đã ghi nhật ký: bác bỏ '%s' ở vòng %d của %s" % (args.nhan, args.vong, os.path.basename(args.article)))
 

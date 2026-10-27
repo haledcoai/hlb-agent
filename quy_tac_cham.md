@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
 Phiên bản: 26/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
-Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 501b849ae6fa; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 3fec711bb1a6
+Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 7129130d9a55; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 02e0bcfb37e9
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
 
@@ -69,7 +69,7 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 - Từ khóa chính ở SEO title, H1, 100 chữ đầu, ít nhất một H2, meta, slug. Từ khóa phụ tối đa 5, đặt tự nhiên.
 - Một H1, không nhảy cấp, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể.
 - Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3 tới nguồn có thẩm quyền. Anchor mô tả đúng trang đích, đặt trong câu có ngữ cảnh, một URL một lần. URL chưa kiểm tra dùng `[LINK: ...]`.
-- SEO title dưới 60 ký tự; meta 120-160 ký tự; slug không dấu, 3-6 từ, không năm; excerpt dưới 200 ký tự, không trùng meta; tag 3-5.
+- SEO title dưới 60 ký tự; meta 120-160 ký tự; slug không dấu, 3-6 từ, không năm (từ khóa chính trên 6 từ: slug lấy 3-6 từ lõi của từ khóa, đúng thứ tự); excerpt dưới 200 ký tự, không trùng meta; tag 3-5.
 - Ảnh: `[ẢNH: chú thích | alt | tên file]`, alt dưới 125 ký tự, tên file .jpg không trùng slug bài hoặc slug đã có trên website, mô tả khớp đoạn chứa ảnh.
 - FAQ 3-5 câu, trước kết bài, mỗi câu trả lời 40-80 từ, trả lời thẳng ở câu đầu, không lặp thân bài.
 - Phần C: placeholder còn lại kèm vị trí, nguồn (URL, ngày), link chưa xác minh, đề xuất link từ bài cũ, ảnh, schema, chênh lệch trên website, điểm cần người dùng quyết, (bài viết lại) ý bài gốc đã bỏ và lý do.

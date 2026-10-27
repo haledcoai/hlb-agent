@@ -414,7 +414,7 @@ Anchor text:
 ### 9.4 SEO title, meta description, slug
 - **SEO title:** dưới 60 ký tự, từ khóa chính càng gần đầu càng tốt. Có thể thêm "| HLB" nếu còn chỗ. Không dùng từ tuyệt đối.
 - **Meta description:** 120-160 ký tự, tóm tắt nội dung, có từ khóa chính hoặc từ khóa phụ liên quan nhất, nói rõ người đọc nhận được gì.
-- **Slug:** không dấu, chữ thường, nối bằng hyphen, 3-6 từ, chứa từ khóa chính. Ví dụ: `cach-tinh-so-luong-den-nha-xuong`. Không gắn năm vào slug.
+- **Slug:** không dấu, chữ thường, nối bằng hyphen, 3-6 từ, chứa từ khóa chính. Từ khóa chính dài hơn 6 từ thì slug lấy 3-6 từ lõi của từ khóa, giữ đúng thứ tự (ví dụ "thay đèn cao áp nhà xưởng bằng đèn LED" dùng `thay-den-cao-ap-nha-xuong`). Ví dụ: `cach-tinh-so-luong-den-nha-xuong`. Không gắn năm vào slug.
 
 ### 9.5 Ảnh
 - Đề xuất ảnh theo phần cần minh họa (bảng thông số, sơ đồ bố trí, ảnh công trình, ảnh sản phẩm).

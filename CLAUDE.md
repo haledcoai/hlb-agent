@@ -53,6 +53,10 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 
 **Hook nhắc (Stop):** mỗi file `Bai_*.md` bị sửa bằng Edit/Write được ghi nhận. Khi kết thúc lượt mà file đó chưa có phiếu duyệt khớp nội dung (chưa được chấm lại sau lần sửa cuối), hook không cho dừng và yêu cầu chạy vòng duyệt. Hook nhắc tối đa 3 lần cho một file, sau đó cho dừng kèm cảnh báo. Khi agent `danh-gia-noi-dung` đang chấm (kể cả chạy nền), hook không nhắc; dấu "đang chấm" xóa khi agent ghi phiếu hoặc kết thúc, quá 30 phút thì tự hết hạn. Gặp nhắc này thì chấm lại bài, không kết thúc lượt bằng cách khác.
 
+**Hook không chạy ở phiên cloud (đã kiểm chứng 26/10/2026):** phiên thread trong project và phiên chạy theo lịch trên cloud không nạp `.claude/settings.json` của repo, nên các hook nhắc và chặn ở đây không chạy. Quy tắc vẫn giữ nguyên: sửa `Bai_*.md` xong thì tự chạy vòng duyệt, không chờ hook nhắc. Các chặn quan trọng đã nằm trong script: `wp_draft.py --post` tự kiểm phiếu, `bai_len_bang.py` dừng khi phiếu không khớp. Hook chỉ chắc chạy khi người dùng mở Claude Code trên máy trong folder dự án.
+
+**Đồng bộ Bảng điều phối sau khi sửa bài (bắt buộc, 26/10/2026):** phiên nào sửa một `Bai_*.md` đã có dòng trên Bảng điều phối, khi kết thúc vòng duyệt phải `ArtifactData list` collection `tu_khoa`, `bai_viet` với `out_dir`, chạy `python dieu_phoi/doi_chieu_bang.py <out_dir>` và làm hết việc script in ra (thêm `diem_vong`, cập nhật `bao_cao`, `cau_hoi`, `bai_viet`, xóa `nhap_khop` cũ, đẩy lại nháp theo `DIEU_PHOI.md` mục 3a khi phiếu ĐẠT). Script báo khớp mới coi là xong. Không làm bước này thì bảng hiện điểm, bài và trạng thái bản nháp cũ.
+
 **File nghiên cứu (người dùng chốt 26/10/2026):** `nghien_cuu/<tên bài>/outline.md` (outline đã chốt) và `nghien_cuu/<tên bài>/serp/` (văn bản bài top), lưu bằng `tools/nghien_cuu.py`. `kiem_tra_bai.py` báo LỖI khi heading lệch outline hoặc có đoạn từ 25 từ liền nhau trùng bài top (từ 10 từ là cảnh báo). Mã tiêu chuẩn đối chiếu `tieu_chuan_da_kiem.csv`.
 
 **Agent đánh giá là Leader Content, chỉ chấm bài blog** (người dùng chốt 27/10/2026): rà đủ `checklist_cham_bai.md` mỗi lần chấm, chấm khắt khe theo quy tắc trong file đó. Nội dung danh mục có agent chấm riêng.
@@ -92,7 +96,7 @@ Người dùng duyệt ảnh ở tab **Duyệt ảnh** của **Bảng điều ph
 ## Đăng bản nháp
 
 - Chỉ chạy `python tools/wp_draft.py <file_bai.md> ... --post` khi người dùng đã đồng ý đăng và bài có phiếu ĐẠT.
-- Hook trong `.claude/settings.json` chặn lệnh đăng nếu thiếu phiếu ĐẠT, phiếu không khớp nội dung hiện tại (bài bị sửa sau lần chấm), hoặc `kiem_tra_bai.py` còn lỗi. Kiểm tra trước bằng `python tools/phieu_duyet.py xem <file_bai.md>`.
+- `wp_draft.py --post` và hook (khi có) chặn lệnh đăng nếu thiếu phiếu ĐẠT, phiếu không khớp nội dung hiện tại (bài bị sửa sau lần chấm), hoặc `kiem_tra_bai.py` còn lỗi. Kiểm tra trước bằng `python tools/phieu_duyet.py xem <file_bai.md>`.
 - **Không tự chạy `tools/phieu_duyet.py ghi`.** Phiếu chỉ do agent `danh-gia-noi-dung` ghi sau khi chấm. Khi bị hook chặn, chạy lại vòng duyệt, không tìm cách vượt hook.
-- Hook cũng chặn khi phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng chốt 26/10/2026): gửi người dùng danh sách dữ liệu cần bổ sung thay vì đăng.
-- Người dùng muốn đăng khi bài chưa đạt 95 thì người dùng tự chạy lệnh trong terminal của họ.
+- Lệnh đăng cũng bị chặn khi phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng chốt 26/10/2026): gửi người dùng danh sách dữ liệu cần bổ sung thay vì đăng.
+- `wp_draft.py --post` tự kiểm tra phiếu như hook (26/10/2026: phiên cloud có thể không nạp hook). Người dùng muốn đăng khi bài chưa đạt 95 thì người dùng tự chạy lệnh trong terminal của họ, thêm `--bo-qua-phieu`. Agent không bao giờ dùng cờ này.
