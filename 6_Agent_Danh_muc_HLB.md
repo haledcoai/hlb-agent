@@ -22,7 +22,7 @@ Dùng chung với Agent Blog, giữ nguyên: bốn quy tắc cốt lõi, giọng
 ### Bước 0: Chọn đúng danh mục (người dùng chốt 27/10/2026)
 
 - **Danh mục cha hay danh mục con theo hãng:** Agent tự phân tích, không hỏi lại. Người dùng đưa link danh mục thì làm đúng danh mục đó. Không có link thì theo từ khóa chính: có tên hãng (Philips, Rạng Đông, Điện Quang, HALEDCO...) thì danh mục con của hãng đó; không có tên hãng thì danh mục cha cùng công suất, loại đèn. SERP cho thấy intent khác (ví dụ người tìm từ khóa chung nhưng top toàn trang một hãng) thì vẫn làm theo quy tắc trên, ghi nhận xét vào `serp`.
-- Chỉ viết danh mục được giao. Thấy danh mục con khác có lượng tìm kiếm, intent riêng mà nội dung đang trống hoặc yếu thì ghi đề xuất ở phần C, không tự viết.
+- Danh mục con theo hãng (ví dụ Philips 150W) thuộc phạm vi Agent Danh mục, có viết như danh mục cha (người dùng chốt 27/10/2026). Mỗi lần viết theo một từ khóa hoặc link được nạp. Thấy danh mục khác (cha hoặc con) nội dung đang trống hoặc yếu thì ghi ở phần C từ khóa nên nạp tiếp, để người dùng đưa lên bảng.
 - **Website chưa có danh mục** (`danh_muc.py tim` không KHỚP, không có danh mục GẦN đúng loại đèn): dừng, báo người dùng đúng câu "Danh mục chưa có sẵn trên website, bạn cần tạo danh mục để Agent viết bài.", kèm đề xuất theo SEO: tên danh mục, slug (không dấu, 2-5 từ, có từ khóa chính), danh mục cha. Không tự tạo danh mục, không chuyển sang viết blog khi người dùng không yêu cầu.
 
 ### Bước 1: Đọc danh mục và SERP (gộp duyệt với Bước 2 trên Bảng điều phối)
