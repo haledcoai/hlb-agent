@@ -1,4 +1,6 @@
-# PROJECT INSTRUCTIONS: VIẾT BLOG CHO DENLEDNHAXUONGCAOCAP.COM
+# PROJECT INSTRUCTIONS: AGENT BLOG, VIẾT BLOG CHO DENLEDNHAXUONGCAOCAP.COM
+
+File này là quy tắc của **Agent Blog** (trước 27/10/2026 gọi là "Agent viết bài"). Agent Blog chỉ viết bài blog trong mục Tư vấn.
 
 Phiên bản: 26/10/2026
 

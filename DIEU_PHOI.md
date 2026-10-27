@@ -6,7 +6,7 @@ Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc b�
 
 | Bước | Agent và quy tắc |
 |---|---|
-| Nghiên cứu SERP, outline, viết bài | `1_Project_Instructions_Auto_Blog_HLB.md` + `2_Knowledge_Du_lieu_tham_chieu_HLB.md` + CSV sản phẩm |
+| Agent Blog: nghiên cứu SERP, outline, viết bài blog | `1_Project_Instructions_Auto_Blog_HLB.md` + `2_Knowledge_Du_lieu_tham_chieu_HLB.md` + CSV sản phẩm |
 | Chấm và vòng sửa | `CLAUDE.md` mục "Vòng duyệt tự động", sub agent `danh-gia-noi-dung`, `tools/kiem_tra_bai.py`, `tools/phieu_duyet.py` |
 | Đăng bản nháp | `tools/wp_draft.py`, Project Instructions mục 10, CLAUDE.md mục "Đăng bản nháp" |
 | Tạo ảnh | sub agent `tao-anh`, `tools/tao_anh.py`, CLAUDE.md mục "Ảnh" và "Trang duyệt ảnh" |
