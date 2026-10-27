@@ -21,7 +21,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | tools/wp_draft.py | Script đưa bản nháp lên WordPress qua REST API |
 | tools/HUONG_DAN_DANG_NHAP.md | Hướng dẫn tạo Application Password, cách đánh dấu bản nháp |
 | tools/kiem_tra_bai.py | Kiểm tra lỗi cơ học của bài (dấu gạch, từ cấm, link, độ dài SEO, định dạng số, thông số so với CSV). Thoát mã 1 khi còn LỖI |
-| .claude/agents/danh-gia-danh-muc.md | Sub agent đánh giá nội dung danh mục (27/10/2026, tách khỏi agent chấm blog): Leader Content duyệt file `DM_*.md` theo `quy_tac_cham_danh_muc.md`, ghi phiếu, không sửa bài |
+| .claude/agents/danh-gia-danh-muc.md | Sub agent đánh giá nội dung danh mục (27/10/2026, tách khỏi agent chấm blog): Leader Content 7 năm kinh nghiệm duyệt file `DM_*.md` theo `quy_tac_cham_danh_muc.md` và `checklist_cham_danh_muc.md`, ghi phiếu, không sửa bài |
 | .claude/agents/danh-gia-noi-dung.md | Sub agent đánh giá chất lượng bài blog: chạy script trên, đối chiếu dữ liệu, chấm 100 điểm (ĐẠT từ 95), ghi phiếu duyệt, trả báo cáo. Không sửa bài |
 | CLAUDE.md | Vòng duyệt tự động: viết hoặc sửa bài xong thì gọi agent đánh giá, chưa đạt 95 thì agent chính tự sửa và chấm lại, tối đa 3 vòng |
 | tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; chỉ agent đánh giá được chạy `ghi`; đánh dấu đang chấm khi gọi agent đánh giá; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại (trừ khi đang có lượt chấm) |

@@ -611,8 +611,8 @@ const AGENTS = [
     files: ["6_Agent_Danh_muc_HLB.md", "tools/danh_muc.py", "quy_tac_cham_danh_muc.md"] },
   { k: "cham", t: "Agent đánh giá", role: "Leader Content chấm bài blog 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
     files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
-  { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content duyệt riêng nội dung danh mục theo thang danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
-    files: [".claude/agents/danh-gia-danh-muc.md", "quy_tac_cham_danh_muc.md", "tools/phieu_duyet.py"] },
+  { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và cách viết nội dung bán hàng. Rà checklist từng mục, chấm khắt khe nội dung danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
+    files: [".claude/agents/danh-gia-danh-muc.md", "checklist_cham_danh_muc.md", "quy_tac_cham_danh_muc.md"] },
   { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Duyệt ảnh, chèn ảnh đã duyệt vào bản nháp.",
     files: [".claude/agents/tao-anh.md", "tools/tao_anh.py"] }
 ];
@@ -744,7 +744,7 @@ function renderCham() {
       const ds = list.filter(x => (x.loai || "blog") === lo), tl = tc.filter(t => (t.loai || "blog") === lo);
       if (!ds.length) return "";
       return `<h3 class="tsub">${ten}</h3><div class="panelw tscroll"><table class="tbl"><thead><tr><th>Bài</th><th class="n">Vòng</th><th class="nd">Ngày</th><th class="n">Điểm</th><th>Kết luận</th>${tl.map(t => `<th class="n tc" title="${esc(t.ten)}">${esc(t.ten)} /${esc(t.toi_da)}</th>`).join("")}</tr></thead>
-      <tbody>${ds.map(x => `<tr><td>${esc(x.bai)}</td><td class="n">${esc(x.vong)}</td><td class="nw nd">${esc(x.ngay)}</td><td class="n"><b>${esc(x.diem_tinh ?? x.diem)}</b>${x.thang_cham && !["v2", "dm1"].includes(x.thang_cham) ? ` <small>(thang ${esc(x.thang_cham)}, ngưỡng ${esc(x.nguong)})</small>` : ""}</td>
+      <tbody>${ds.map(x => `<tr><td>${esc(x.bai)}</td><td class="n">${esc(x.vong)}</td><td class="nw nd">${esc(x.ngay)}</td><td class="n"><b>${esc(x.diem_tinh ?? x.diem)}</b>${x.thang_cham && !["v3", "dm1"].includes(x.thang_cham) ? ` <small>(thang ${esc(x.thang_cham)}, ngưỡng ${esc(x.nguong)})</small>` : ""}</td>
         <td><span class="pill ${x.ket_luan === "DAT" ? "done" : x.ket_luan === "CAN_SUA" ? "you" : "stop"}">${esc(KL[x.ket_luan] || x.ket_luan)}</span></td>${tl.map(t => `<td class="n tc">${esc(x[t.ma] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
     }).join("")}
     <div class="bar"><h2>Lỗi hay gặp</h2><span class="side">Đếm theo nhãn qua mọi lần chấm.</span></div>

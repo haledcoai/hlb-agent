@@ -37,7 +37,7 @@
  },
  {
   "ma": "du_lieu",
-  "ten": "Đúng dữ liệu sản phẩm",
+  "ten": "Dữ liệu và kỹ thuật",
   "toi_da": 25,
   "loai": "danh_muc"
  },
@@ -49,7 +49,7 @@
  },
  {
   "ma": "seo",
-  "ten": "SEO danh mục",
+  "ten": "SEO và technical",
   "toi_da": 15,
   "loai": "danh_muc"
  },

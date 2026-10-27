@@ -72,9 +72,9 @@ TIEU_CHI = {
 }
 # Thang cham noi dung danh muc (quy_tac_cham_danh_muc.md, agent danh-gia-danh-muc)
 TIEU_CHI_DM = {
-    "du_lieu": ("Đúng dữ liệu sản phẩm", 25),
+    "du_lieu": ("Dữ liệu và kỹ thuật", 25),
     "chon_mua": ("Giúp chọn mua", 20),
-    "seo": ("SEO danh mục", 15),
+    "seo": ("SEO và technical", 15),
     "gon": ("Ngắn gọn, không trùng blog", 10),
     "thuong_hieu": ("Thương hiệu và giọng văn", 15),
     "cta": ("CTA và chuyển đổi", 15),
