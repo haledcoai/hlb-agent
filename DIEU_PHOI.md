@@ -2,6 +2,8 @@
 
 Cập nhật: 27/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi người dùng bấm "Chạy Agent ngay") trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
 
+**Từ 28/10/2026 mỗi lượt chạy là một phiên mới.** Đọc `dieu_phoi/TRANG_THAI.md` (quyết định đã chốt, trạng thái từ khóa, việc còn chờ) ngay sau file này. Phiên mới không nhắn được vào chat: báo người dùng qua bảng.
+
 Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc bảng, gọi đúng Agent cho từng bước và ghi kết quả về bảng. Quy tắc của từng Agent giữ nguyên:
 
 | Bước | Agent và quy tắc |
@@ -125,7 +127,7 @@ Chỉ áp dụng cho từng bài. Bài khác và từ khóa mới vẫn chạy b
 
 **Xóa** (chỉ bấm được khi đã `tam_dung`): bảng tự xóa `tu_khoa/<id>`, `bai_viet/<id>`, các dòng `anh` và `yeu_cau` của bài, và ghi `da_xoa/<id>`. Agent xử lý `da_xoa` có `trang_thai: "cho_xu_ly"` ở lượt kế tiếp (việc ngắn):
 1. Xóa từng tài sản ảnh trên bảng: Artifact `action: "delete"`, `url` bảng, `path` là `asset_id`.
-2. `xoa_nhap: true` và không `thu_nghiem`: chuyển bản nháp `draft_id` vào Thùng rác bằng `DELETE /wp-json/wp/v2/posts/<draft_id>` không kèm `force` (khôi phục được 30 ngày; bài danh mục `DM_*` thì `draft_id` là Trang nháp: `DELETE /wp-json/wp/v2/pages/<draft_id>`, không bao giờ đụng vào danh mục). Kiểm tra trước: bài vẫn là `draft`; đã `publish` thì không xóa, ghi `ket_qua` báo người dùng. Phiên thiếu mật khẩu WP thì giao thread "Kiểm tra môi trường cloud HLB". Không xóa ảnh trong thư viện Media.
+2. `xoa_nhap: true` và không `thu_nghiem`: chuyển bản nháp `draft_id` vào Thùng rác bằng `DELETE /wp-json/wp/v2/posts/<draft_id>` không kèm `force` (khôi phục được 30 ngày; bài danh mục `DM_*` thì `draft_id` là Trang nháp: `DELETE /wp-json/wp/v2/pages/<draft_id>`, không bao giờ đụng vào danh mục). Kiểm tra trước: bài vẫn là `draft`; đã `publish` thì không xóa, ghi `ket_qua` báo người dùng. Phiên thiếu mật khẩu WP thì ghi `ket_qua` nói rõ còn thiếu, để lượt sau làm. Không xóa ảnh trong thư viện Media.
 3. Giữ trên repo file bài, `nghien_cuu/<bài>/`, `anh/<bài>/`, `.danh_gia/`: không xóa file nào.
 4. Ghi `trang_thai: "da_xu_ly"`, `ket_qua` (một câu). `doi_chieu_bang.py` đọc `da_xoa` để không nạp lại bài đã xóa lên bảng.
 
