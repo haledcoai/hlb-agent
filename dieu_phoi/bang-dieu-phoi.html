@@ -173,6 +173,18 @@ a.btn.main:hover { color: var(--color_body); }
 .delbox ul { margin: 4px 0; padding-left: 20px; font-size: 14px; }
 .empty { color: var(--muted); padding: 22px; border: 1px dashed var(--line_strong); border-radius: var(--radius-lg); background: var(--surface); line-height: 1.6; }
 .working { display: flex; gap: 10px; align-items: center; color: var(--color_main); font-weight: 700; }
+/* Trạng thái nhận việc nằm trên, hàng nút nằm dưới cố định: nút chính bên trái, Tạm dừng luôn ở góc phải */
+.stt { margin: 0 0 12px; line-height: 1.55; font-size: 14px; }
+.stt .l1 { font-weight: 700; color: var(--color_body); display: flex; gap: 8px; align-items: center; }
+.stt .l2 { color: var(--muted); display: block; margin-top: 2px; }
+.stt .ok { color: var(--ok); }
+.stt .warn { color: var(--danger); }
+.actions .btn { min-width: 150px; text-align: center; }
+.actions > [data-act="dung"] { margin-left: auto; }
+.btn.main.muted { opacity: .45; cursor: help; }
+.btn.main.muted:hover { background: var(--color_main); color: #fff; }
+.msg.info { color: var(--color_main); background: var(--you_surface); border-radius: var(--radius-sm); padding: 8px 12px; margin-top: 10px; }
+.msg.info[hidden] { display: none; }
 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color_main); flex: none; }
 @media (prefers-reduced-motion: no-preference) { .dot { animation: pulse 1.6s ease-in-out infinite; } }
 @keyframes pulse { 50% { opacity: .25; } }
@@ -364,7 +376,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": 
 const md = s => { if (!s) return ""; try { return DOMPurify.sanitize(marked.parse(String(s))); } catch (e) { return `<pre>${esc(s)}</pre>`; } };
 const st = r => ST[r.trang_thai] || ST.moi;
 const cls = r => r.trang_thai === "can_xu_ly" ? "you" : st(r).c;
-const fmt = iso => { if (!iso) return ""; const d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }); };
+const fmt = iso => { if (!iso) return ""; const d = new Date(iso); if (isNaN(d)) return ""; return d.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh" }); };
 const now = () => new Date().toISOString();
 const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
 
@@ -467,6 +479,37 @@ function anhTienDo(r) {
 }
 
 const DUNG_BTN = dis => `<button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
+// Nhận việc: bảng ghi goi_agent_luc (và goi_agent_kq) mỗi lần giao việc cho Agent; Agent ghi agent_nhan_luc khi đọc thấy việc
+const HAN_NHAN = 65 * 60e3;
+const ms = iso => { const t = Date.parse(iso || ""); return isNaN(t) ? 0 : t; };
+const hm = iso => new Date(iso).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh" });
+const ngayGio = iso => new Date(ms(iso)).toDateString() === new Date().toDateString() ? hm(iso) : fmt(iso);
+function luotKe() {
+  const h = new Date(Date.now() + 7 * 3600e3).getUTCHours() + 1;
+  return h > 21 ? "8:00 sáng mai" : `${Math.max(h, 8)}:00`;
+}
+const goiLuc = r => r.goi_agent_luc || r.cap_nhat;
+const daNhan = r => ms(r.agent_nhan_luc) >= ms(goiLuc(r)) && !!r.agent_nhan_luc;
+const treNhan = r => !daNhan(r) && Date.now() - ms(goiLuc(r)) > HAN_NHAN;
+function nhanHtml(r) {
+  const td = r.tien_do ? `<span class="l2">${esc(r.tien_do)}</span>` : "";
+  if (daNhan(r)) return `<div class="stt"><span class="l1 ok">Agent đã nhận việc lúc ${ngayGio(r.agent_nhan_luc)}</span>${td}</div>`;
+  const goi = `Đã gửi lệnh cho Agent lúc ${ngayGio(goiLuc(r))}.`;
+  if (cfg.tam_dung_tat_ca) return `<div class="stt"><span class="l1">${goi}</span><span class="l2">Agent đang tạm dừng toàn bộ nên chưa nhận việc. Bỏ tạm dừng ở đầu trang để Agent làm.</span></div>`;
+  if (treNhan(r)) return `<div class="stt"><span class="l1 warn">${goi} Agent chưa xác nhận nhận việc sau hơn 1 giờ.</span><span class="l2">Bấm Chạy Agent ngay để gọi lại.</span></div>`;
+  const cho = r.goi_agent_kq === "ngay" ? "Agent đã được gọi chạy ngay, sẽ xác nhận nhận việc trong vài phút." : `Agent sẽ nhận việc ở lượt chạy kế tiếp lúc ${luotKe()}.`;
+  return `<div class="stt"><span class="l1">${goi} Chờ Agent xác nhận.</span><span class="l2">${cho}</span></div>`;
+}
+// Nút Chạy Agent ngay: mờ khi lệnh đã gửi và còn hạn (bấm vào thì báo), sáng lại khi quá 65 phút chưa nhận
+function runBtn(r, dis, dangLam) {
+  const mo = dangLam || !treNhan(r);
+  return `<button class="btn main${mo ? " muted" : ""}" type="button" data-run${mo ? ` data-da-goi="${dangLam ? "lam" : daNhan(r) ? "nhan" : "goi"}"` : ""} ${dis}>Chạy Agent ngay</button>`;
+}
+function baoDaGoi(r, kieu) {
+  if (kieu === "lam") return `Agent đang làm bước này${r.khoa_luc ? ` từ ${ngayGio(r.khoa_luc)}` : ""}, không cần gọi lại.`;
+  if (kieu === "nhan") return `Agent đã nhận việc lúc ${ngayGio(r.agent_nhan_luc)}. Việc đang trong hàng chờ, Agent làm theo thứ tự, không cần gọi lại.`;
+  return `Bạn đã gửi lệnh lúc ${ngayGio(goiLuc(r))}. ${r.goi_agent_kq === "ngay" ? "Agent đã được gọi chạy ngay" : `Agent sẽ nhận ở lượt chạy lúc ${luotKe()}`}, không cần bấm lại. Nếu quá 1 giờ chưa thấy xác nhận, nút này sẽ sáng lại để bạn gọi lại.`;
+}
 const tenBai = r => (r.file_bai || "").replace(/\.md$/, "");
 const laDm = r => r.loai === "danh_muc" || /^DM_/.test(r.file_bai || "");
 const loaiPill = r => laDm(r) ? `<span class="pill agent">Danh mục</span>` : r.loai === "blog" || r.file_bai ? `<span class="pill off">Blog</span>` : "";
@@ -500,11 +543,11 @@ function actionHtml(r) {
   if (t === "dang_dung" && !ketDung(r)) return `<div class="panel"><div class="working"><span class="dot"></span>Đang dừng: Agent làm xong bước nhỏ đang chạy, lưu lại rồi dừng, thường vài phút.</div>
     <div class="actions" style="margin-top:10px"><button class="btn main" type="button" data-act="huy_dung" ${dis}>Không dừng nữa</button></div><div class="msg err" data-err hidden></div></div>`;
   if (isOff(r)) return dungHtml(r, dis);
-  if (st(r).run) return `<div class="panel"><div class="working"><span class="dot"></span>Agent đang làm bước này${r.tien_do ? `: ${esc(r.tien_do)}` : ""}. Trang tự cập nhật khi xong.</div>
-    <div class="actions" style="margin-top:10px">${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
+  if (st(r).run) return `<div class="panel"><div class="stt"><span class="l1 working"><span class="dot"></span>Agent đang làm bước này${r.khoa_luc ? `, đã nhận lúc ${ngayGio(r.khoa_luc)}` : ""}</span><span class="l2">${r.tien_do ? esc(r.tien_do) + ". " : ""}Trang tự cập nhật khi xong.</span></div>
+    <div class="actions">${runBtn(r, dis, true)}${DUNG_BTN(dis)}</div><div class="msg info" data-info hidden></div><div class="msg err" data-err hidden></div></div>`;
   const anhBox = anhTienDo(r);
   if (["moi", "sua_outline", "cho_viet", "sua_bai", "cho_tao_anh", "cho_hoan_thien", "cho_ap_dung", "cho_kiem_trang"].includes(t))
-    return `<div class="panel"><div class="actions"><span>Đã giao Agent, đang chờ lượt chạy.${r.tien_do ? ` ${esc(r.tien_do)}.` : ""}</span><button class="btn main" type="button" data-run ${dis}>Chạy Agent ngay</button>${DUNG_BTN(dis)}</div>${anhBox}<div class="msg err" data-err hidden></div></div>`;
+    return `<div class="panel">${nhanHtml(r)}<div class="actions">${runBtn(r, dis, false)}${DUNG_BTN(dis)}</div><div class="msg info" data-info hidden></div>${anhBox}<div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_outline") return `<div class="panel act box">
       <h3>Duyệt outline</h3>
       <label for="note-${esc(r.id)}">Góp ý cho Agent</label>
@@ -775,11 +818,14 @@ function render() {
   $("#runNow").disabled = tat;
 }
 
+let fireOk = false;
 async function fireAgent(reason) {
+  fireOk = false;
   if (cfg.tam_dung_tat_ca) return "Agent đang tạm dừng toàn bộ. Việc này sẽ được nhận khi bạn cho Agent chạy lại.";
   if (!cfg.trigger_id || !mcp) return "Agent sẽ nhận việc ở lượt chạy định kỳ tiếp theo.";
   try {
     await mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: cfg.trigger_id, text: reason || "Bảng điều phối: có việc mới." });
+    fireOk = true;
     return "Đã gọi Agent chạy ngay.";
   } catch (e) {
     if (e && (e.code === "approval_required" || e.code === "not_in_manifest")) return "Chưa được phép gọi Agent ngay. Agent sẽ nhận việc ở lượt chạy định kỳ.";
@@ -825,12 +871,13 @@ async function act(r, kind, btn) {
   else if (kind === "xoa_han") { await xoaTuKhoa(r, btn, showErr); return; }
   else return;
   if (note) viec += ": " + note.slice(0, 300);
+  if (queue) upd.goi_agent_luc = upd.cap_nhat;
   upd.lich_su = [...lich, { luc: upd.cap_nhat, ai: "ban", viec }];
   btn.disabled = true;
   try {
     await db.doc("tu_khoa/" + r.id).update(upd);
     delete drafts[r.id]; Object.keys(drafts).filter(k => k.startsWith(r.id + "#")).forEach(k => delete drafts[k]); editOutline = false;
-    if (queue) { const m = await fireAgent(`Bảng điều phối: ${viec.split(":")[0]} cho từ khóa "${r.tu_khoa}" (${r.id}).`); flash(m); }
+    if (queue) { const m = await fireAgent(`Bảng điều phối: ${viec.split(":")[0]} cho từ khóa "${r.tu_khoa}" (${r.id}).`); flash(m); ghiKetQuaGoi([r.id]); }
   } catch (e) {
     btn.disabled = false;
     showErr(e && e.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này, không lưu được." : "Chưa lưu được, thử lại sau ít giây.");
@@ -838,6 +885,14 @@ async function act(r, kind, btn) {
 }
 
 function flash(m) { $("#runInfo").textContent = m; }
+async function ghiKetQuaGoi(ids) { for (const id of ids) { try { await db.doc("tu_khoa/" + id).update({ goi_agent_kq: fireOk ? "ngay" : "dinh_ky" }); } catch (e) {} } }
+async function goiLai(r, b) {
+  const t = now(), lich = Array.isArray(r.lich_su) ? r.lich_su.slice(-60) : [];
+  b.disabled = true;
+  try { await db.doc("tu_khoa/" + r.id).update({ goi_agent_luc: t, cap_nhat: t, lich_su: [...lich, { luc: t, ai: "ban", viec: "Bấm Chạy Agent ngay (gọi lại)" }] }); } catch (e) {}
+  flash(await fireAgent(`Bảng điều phối: bạn gọi lại Agent cho từ khóa "${r.tu_khoa}" (${r.id}).`));
+  ghiKetQuaGoi([r.id]); b.disabled = false;
+}
 
 // Xóa: bảng xóa ngay các dòng của bài; phần bảng không tự làm được (xóa file ảnh trên bảng, chuyển nháp WP vào Thùng rác)
 // ghi vào da_xoa/<id> để Agent làm ở lượt sau. Ghi da_xoa trước để lượt chạy không nạp lại bài từ repo.
@@ -895,7 +950,13 @@ document.addEventListener("click", async e => {
   if (b.dataset.id) { selId = b.dataset.id; editOutline = false; xoaId = null; render(); if (window.innerWidth < 900) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
   if (b.id === "pauseAll") { datDungTatCa(true, b); return; }
   if (b.id === "resumeAll") { datDungTatCa(false, b); return; }
-  if (b.id === "runNow" || b.hasAttribute("data-run")) { b.disabled = true; flash(await fireAgent("Bảng điều phối: bạn bấm Chạy Agent ngay.")); b.disabled = false; return; }
+  if (b.hasAttribute("data-run")) {
+    const r = rows.find(x => x.id === selId); if (!r) return;
+    const info = b.closest(".panel")?.querySelector("[data-info]");
+    if (b.dataset.daGoi) { if (info) { info.textContent = baoDaGoi(r, b.dataset.daGoi); info.hidden = false; } return; }
+    if (db) await goiLai(r, b); return;
+  }
+  if (b.id === "runNow") { b.disabled = true; flash(await fireAgent("Bảng điều phối: bạn bấm Chạy Agent ngay.")); b.disabled = false; return; }
   if (b.dataset.act && db) { const r = rows.find(x => x.id === selId); if (r) act(r, b.dataset.act, b); }
 });
 
@@ -924,7 +985,7 @@ $("#addForm").addEventListener("submit", async e => {
   const loaiChon = $("#kwLoai").value || "tu_dong";
   const note = $("#kwNote").value.trim(), test = $("#kwTest").checked, btn = $("#addBtn"), msg = $("#addMsg");
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Đang nạp...";
-  let ok = 0, trung = [];
+  let ok = 0, trung = [], moiIds = [];
   for (const line of lines) {
     const lk = line.match(/https?:\/\/\S+/); const linkDm = lk ? lk[0] : "";
     const m = line.replace(/https?:\/\/\S+/, "").match(/#\s*(\d+)/); const idCu = m ? m[1] : "";
@@ -937,16 +998,16 @@ $("#addForm").addEventListener("submit", async e => {
     try {
       const loai = linkDm ? "danh_muc" : loaiChon;
       await db.doc("tu_khoa/" + id).set({ tu_khoa: chinh, tu_khoa_phu: parts.slice(1), id_bai_cu: idCu, ghi_chu: note, loai, ...(linkDm ? { link_danh_muc: linkDm } : {}),
-        trang_thai: "moi", tao_luc: t, cap_nhat: t, outline_lan: 0, ...(test ? { thu_nghiem: true } : {}),
+        trang_thai: "moi", tao_luc: t, cap_nhat: t, goi_agent_luc: t, outline_lan: 0, ...(test ? { thu_nghiem: true } : {}),
         lich_su: [{ luc: t, ai: "ban", viec: test ? "Nạp từ khóa (chạy thử)" : "Nạp từ khóa" }] });
-      ok++;
+      ok++; moiIds.push(id);
     } catch (err) { msg.className = "msg err"; msg.textContent = "Chưa lưu được, thử lại sau ít giây."; btn.disabled = false; return; }
   }
   btn.disabled = false;
   if (ok) { $("#kwInput").value = ""; $("#kwTest").checked = false; filter = "agent"; stageSel = 0; }
   msg.className = "msg good";
   msg.textContent = `Đã nạp ${ok} từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} từ khóa đã có (kể cả đang tạm dừng, bấm Tiếp tục ở từ khóa đó): ${trung.join(", ")}.` : "");
-  if (ok) flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`));
+  if (ok) { flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`)); ghiKetQuaGoi(moiIds); }
   render();
 });
 
