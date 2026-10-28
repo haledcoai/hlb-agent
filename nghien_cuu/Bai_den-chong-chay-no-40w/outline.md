@@ -1,4 +1,4 @@
-<!-- Lưu 2026-10-28T02:53. Sửa outline đã chốt thì lưu lại bằng tools/nghien_cuu.py luu-outline --ly-do -->
+<!-- Lưu 2026-10-28T03:42; lý do: H1 rút về 55-65 ký tự theo quy tắc 28/10. Sửa outline đã chốt thì lưu lại bằng tools/nghien_cuu.py luu-outline --ly-do -->
 
 **Bước 2: Outline**
 
@@ -14,7 +14,8 @@
 - Bỏ: "đèn năng lượng mặt trời 400w" (xuất hiện trong gợi ý Google, lệch chủ đề).
 
 **4. Outline**
-- H1: Đèn chống cháy nổ 40W: loại nào, dùng cho khu nào và cách chọn đúng chuẩn
+- H1: Đèn chống cháy nổ 40W: chọn loại nào, dùng cho khu vực nào (58 ký tự)
+  - SEO title đề xuất: Đèn chống cháy nổ 40W: chọn loại nào, dùng cho khu vực nào | HLB (64 ký tự)
   - Mở bài: trả lời nhanh 40W hợp với khu nào, 2 dạng phổ biến, điều phải kiểm tra trước khi mua (nhãn Ex).
   - H2: Đèn chống cháy nổ 40W thường có những dạng nào
     - H3: Đèn thẳng 1,2 m kiểu tuýp: chiếu sáng dải dài, hợp hành lang, dãy kệ, phòng kỹ thuật.

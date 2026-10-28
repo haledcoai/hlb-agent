@@ -53,9 +53,13 @@ def chuan(text):
 
 # ---------- Outline ----------
 
+# ghi chu "(63 ky tu)" canh heading trong outline, khong phai chu cua heading
+SO_KY_TU = re.compile(r"\s*\(\d+ ký tự\)\s*$")
+
+
 def heading_outline(text):
     """Danh sach (cap, chu) tu outline. Uu tien dang 'H2: ...'; khong co thi doc heading markdown."""
-    out = [(int(m.group(1)), m.group(2).strip("* ")) for m in map(HEADING_OUTLINE.match, text.splitlines()) if m]
+    out = [(int(m.group(1)), SO_KY_TU.sub("", m.group(2)).strip("* ")) for m in map(HEADING_OUTLINE.match, text.splitlines()) if m]
     if not out:
         out = [(len(m.group(1)), m.group(2).strip()) for m in map(HEADING_MD.match, text.splitlines()) if m]
     return out
@@ -140,7 +144,11 @@ def luu_outline(args):
     if cu and not args.ly_do and cu != heads:
         sys.exit("Đã có outline khác cho bài này. Lưu đè phải có --ly-do (ví dụ người dùng duyệt đổi heading ngày nào)")
     with open(path, "w", encoding="utf-8") as f:
-        f.write(dau + text.strip() + "\n")
+        # bo dong ghi lan luu cu khi luu lai tu chinh file outline.md
+        f.write(dau + re.sub(r"\A\s*<!-- Lưu .*?-->\s*", "", text.strip()) + "\n")
+    for level, text in heads:
+        if level == 1 and not 55 <= len(text) <= 65:
+            print("CẢNH BÁO: H1 dài %d ký tự, cần 55-65 (người dùng chốt 28/10/2026): %s" % (len(text), text))
     print("Đã lưu %s: %d heading (%s)" % (os.path.relpath(path, ROOT), len(heads),
                                           ", ".join("H%d %d" % (l, sum(1 for x, _ in heads if x == l)) for l in (1, 2, 3, 4)
                                                     if any(x == l for x, _ in heads))))

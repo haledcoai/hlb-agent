@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM NỘI DUNG DANH MỤC HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ DANH MỤC)
 
 Phiên bản: 28/10/2026. Dùng cho file `DM_<slug>.md` của Agent Danh mục, do agent `danh-gia-danh-muc` chấm. Agent này là Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và kỹ thuật viết nội dung bán hàng (người dùng chốt 27/10/2026), rà từng mục của `checklist_cham_danh_muc.md` và chấm khắt khe theo quy tắc trong file đó. Rút từ `6_Agent_Danh_muc_HLB.md` (quy tắc riêng của danh mục) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Các quy tắc dùng chung với bài blog (bốn quy tắc cốt lõi, thông tin HLB, câu cấm, thương hiệu, giọng văn) giữ nguyên như `quy_tac_cham.md` mục 1, 2, 3, 5, 6: đọc các mục đó ở `quy_tac_cham.md`, file này chỉ ghi phần khác. Khi file này khác file gốc, file gốc đúng.
-Mã nguồn: 6_Agent_Danh_muc_HLB.md 743d066ee47e; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 01e77e07c9e1
+Mã nguồn: 6_Agent_Danh_muc_HLB.md 323af74f5cce; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 0bc54e5a7b40
 
 Ai sửa `6_Agent_Danh_muc_HLB.md` hoặc Knowledge thì sửa luôn file này nếu quy tắc chấm đổi, rồi chạy `python tools/kiem_tra_bai.py --cap-nhat-quy-tac --danh-muc`.
 
@@ -38,7 +38,7 @@ Ai sửa `6_Agent_Danh_muc_HLB.md` hoặc Knowledge thì sửa luôn file này n
 
 ## 5. SEO, link
 
-- SEO title dưới 60 ký tự, có từ khóa chính. Meta 150-155 ký tự, từ khóa chính trong 30 ký tự đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động. Ít nhất một H2 có từ khóa chính hoặc biến thể gần.
+- SEO title 55-65 ký tự, có từ khóa chính. Meta 150-155 ký tự, từ khóa chính trong 30 ký tự đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động. Ít nhất một H2 có từ khóa chính hoặc biến thể gần.
 - Link nội bộ 2-6: bài blog liên quan, danh mục cha, con hoặc công suất gần. Không link về chính danh mục. Link ngoài tối đa 2. Không link haledco.com, không link website hãng.
 - Có bài blog cùng intent trên website thì phần C phải ghi URL và cách phân vai (danh mục giữ từ khóa mua hàng, bài blog giữ từ khóa tìm hiểu, hai bên link qua lại).
 

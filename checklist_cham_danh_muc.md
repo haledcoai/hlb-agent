@@ -53,7 +53,7 @@ Phần lớn các mục lấy từ quy tắc đã có. Số trong ngoặc là m�
 | Mã | Kiểm tra | Mức |
 |---|---|---|
 | S1 | Phần A khớp `danh_muc.json` (Danh mục, Term ID, Link); chọn đúng danh mục cha hay con theo hãng theo `6_Agent_Danh_muc_HLB.md` Bước 0 (4) | BB |
-| S2 | SEO title dưới 60 ký tự, có từ khóa chính, đọc như tên trang bán hàng; meta 150-155 ký tự, từ khóa chính ở phần đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động và lý do để bấm (5) | Theo script; thiếu từ khóa hoặc không ở đầu BB |
+| S2 | SEO title 55-65 ký tự, có từ khóa chính, đọc như tên trang bán hàng; meta 150-155 ký tự, từ khóa chính ở phần đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động và lý do để bấm (5) | Theo script; thiếu từ khóa hoặc không ở đầu BB |
 | S3 | Không H1 trong phần B; H2, H3 đúng outline đã chốt, không nhảy cấp; ít nhất một H2 có từ khóa chính hoặc biến thể gần (1, 4, 5) | Lệch outline BB, còn lại NS |
 | S4 | Link nội bộ 2-6: bài blog liên quan, danh mục cha, con hoặc công suất gần; không link về chính danh mục; anchor mô tả đúng trang đích, đặt trong câu có ngữ cảnh; link ngoài tối đa 2; không haledco.com, không website hãng (5) | BB |
 | S5 | (Leader Content) Không ăn thịt từ khóa với bài blog: có bài blog cùng intent thì phần C ghi URL và phân vai, danh mục giữ từ khóa mua hàng, hai bên link qua lại (5) | NS |
