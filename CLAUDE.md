@@ -24,7 +24,7 @@ Mỗi khi viết xong một bài mới hoặc sửa một file bài (`Bai_*.md`)
 2. **Đọc kết luận** ở đầu báo cáo:
    - **ĐẠT** (điểm tính ngưỡng từ 95, không còn lỗi bắt buộc): dừng vòng, gọi agent `tao-anh` (mục Ảnh), rồi báo người dùng.
    - **CẦN SỬA** hoặc **KHÔNG ĐẠT**: sang bước 3.
-3. **Tự sửa** file bài theo báo cáo:
+3. **Tự sửa** file bài theo báo cáo (phiên Agent điều phối giao bước này cho `agent-blog` hoặc `agent-danh-muc` chế độ `sua`, người dùng chốt 28/10/2026; trưởng phòng vẫn ghi `bac-bo` và chạy lại `kiem_tra_bai.py` để kiểm):
    - Sửa hết mục 1 (lỗi bắt buộc) và mục 2 (nên sửa).
    - Không tự sửa mục 2b (cần người dùng quyết định). Gom lại để hỏi ở bước 5.
    - Mỗi điểm sửa phải đúng nguồn: số liệu mới thì kiểm tra lại CSV hoặc trang sản phẩm, phép tính mới thì tính lại bằng Python. Không bịa để lấy điểm.
@@ -63,7 +63,7 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm điểm** của **Bảng 
 
 **Lệnh cho agent đánh giá:** `python tools/kiem_tra_bai.py <bài> --gon` (bản in gọn), `python tools/kiem_tra_bai.py --tra <model hoặc số>` (tra và đếm trên CSV). `phieu_duyet.py ghi` chỉ chạy khi `kiem_tra_bai.py` vừa chạy trên đúng nội dung bài.
 
-**Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `danh-gia-danh-muc`, `tao-anh`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
+**Khi không gọi được sub agent theo tên** (phiên thread trên cloud có thể không nạp `.claude/agents/`, danh sách agent không có `danh-gia-noi-dung`, `danh-gia-danh-muc`, `tao-anh`, `agent-blog`, `agent-danh-muc`): gọi agent `general-purpose`, trong lời gọi yêu cầu agent đọc và làm đúng theo file `.claude/agents/<tên>.md`, kèm các thông tin cần truyền như thường. Ghi trong báo cáo cho người dùng là đã dùng cách này.
 
 ## Ảnh
 
@@ -100,6 +100,10 @@ Người dùng duyệt ảnh ở tab **Kiểm duyệt hình ảnh** của **Bả
 - **Không tự chạy `tools/phieu_duyet.py ghi`.** Phiếu chỉ do agent đánh giá (`danh-gia-noi-dung` hoặc `danh-gia-danh-muc`) ghi sau khi chấm. Khi bị hook chặn, chạy lại vòng duyệt, không tìm cách vượt hook.
 - Lệnh đăng cũng bị chặn khi phần B còn quá 5 chỗ `[CẦN BỔ SUNG]` (người dùng chốt 26/10/2026): gửi người dùng danh sách dữ liệu cần bổ sung thay vì đăng.
 - `wp_draft.py --post` tự kiểm tra phiếu như hook (26/10/2026: phiên cloud có thể không nạp hook). Người dùng muốn đăng khi bài chưa đạt 95 thì người dùng tự chạy lệnh trong terminal của họ, thêm `--bo-qua-phieu`. Agent không bao giờ dùng cờ này.
+
+## Agent điều phối và Agent con (người dùng chốt 28/10/2026)
+
+Mô hình phòng ban: người dùng giao việc qua Bảng điều phối, Agent điều phối là trưởng phòng, giao việc cho Agent con và không tự viết bài. Agent con: `agent-blog` (nghiên cứu, viết, sửa bài blog), `agent-danh-muc` (nghiên cứu, viết, sửa nội dung danh mục), `danh-gia-noi-dung`, `danh-gia-danh-muc` (chấm), `tao-anh` (ảnh). Chi tiết ở `DIEU_PHOI.md` đầu file. Khi người dùng giao việc viết bài trực tiếp trong thread chat, phiên chat cũng đóng vai trưởng phòng và giao cho Agent con như trên.
 
 ## Nội dung danh mục sản phẩm (Agent Danh mục, người dùng chốt 27/10/2026)
 

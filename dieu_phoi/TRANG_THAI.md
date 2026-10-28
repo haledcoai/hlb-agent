@@ -10,6 +10,8 @@ Cập nhật: 28/10/2026 13:15 giờ VN. Mỗi lượt chạy đọc file này s
 - Giờ ghi lên bảng luôn lấy bằng `TZ=Asia/Ho_Chi_Minh date -Iseconds` ngay trước khi ghi (người dùng bắt lỗi giờ ước lượng 28/10).
 - Mỗi lượt có việc: ghi `agent_nhan_luc` + `tien_do` cho mọi dòng chờ Agent trước (DIEU_PHOI mục 4 bước 3a). Bảng sáng lại nút sau 10 phút (gọi ngay) hoặc 65 phút (chờ lượt) nếu chưa xác nhận.
 - Chỉ một phiên ghi lên một từ khóa tại một thời điểm (`khoa_luc`).
+- Lịch hiện dùng: "Điều phối HLB (phiên riêng)" `trig_01SZCoQZmxvcGUWbHodVv2Fx` (tạo 28/10). Lịch cũ `trig_01SNtA1v6Q62TrgSaCBvidMU` đã tắt.
+- **Mô hình phòng ban (người dùng chốt 28/10):** phiên điều phối là trưởng phòng, không tự viết bài. Nghiên cứu, viết, sửa giao `agent-blog` hoặc `agent-danh-muc`; chấm giao `danh-gia-noi-dung`, `danh-gia-danh-muc`; ảnh giao `tao-anh`. Chi tiết `DIEU_PHOI.md` đầu file.
 
 ## Quyết định cốt lõi đã chốt
 

@@ -1,10 +1,23 @@
 # Agent điều phối HLB
 
-Cập nhật: 27/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi người dùng bấm "Chạy Agent ngay") trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
+Cập nhật: 28/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi người dùng bấm "Chạy Agent ngay") trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
 
 **Từ 28/10/2026 mỗi lượt chạy là một phiên mới.** Đọc `dieu_phoi/TRANG_THAI.md` (quyết định đã chốt, trạng thái từ khóa, việc còn chờ) ngay sau file này. Phiên mới không nhắn được vào chat: báo người dùng qua bảng.
 
-Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc bảng, gọi đúng Agent cho từng bước và ghi kết quả về bảng. Quy tắc của từng Agent giữ nguyên:
+Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc bảng, gọi đúng Agent cho từng bước và ghi kết quả về bảng. Quy tắc của từng Agent giữ nguyên.
+
+**Mô hình phòng ban (người dùng chốt 28/10/2026).** Người dùng chỉ giao việc qua Bảng điều phối. Agent điều phối là trưởng phòng: đọc bảng, giao việc cho Agent con, kiểm tra kết quả, ghi bảng, commit, đăng bản nháp. Trưởng phòng **không tự nghiên cứu, viết hay sửa bài**; mọi việc nội dung giao cho Agent con bằng công cụ Agent:
+
+| Nhân viên (sub agent) | Việc | Gọi khi |
+|---|---|---|
+| `agent-blog` | Chế độ `nghien-cuu` (SERP + outline 9 mục), `viet`, `sua` | `moi`, `sua_outline`, `cho_viet`, `sua_bai`, vòng sửa sau chấm |
+| `agent-danh-muc` | Chế độ `nghien-cuu` (Bước 0-2), `viet`, `sua` | Như trên, với từ khóa danh mục |
+| `danh-gia-noi-dung`, `danh-gia-danh-muc` | Chấm, ghi phiếu | Sau mỗi lần viết hoặc sửa |
+| `tao-anh` | Ảnh | `cho_tao_anh`, ảnh `lam_lai`, yêu cầu ảnh `moi` |
+
+Cách giao: mỗi việc một lần gọi, truyền đủ dữ liệu từ dòng `tu_khoa` (từ khóa chính, phụ, `id_bai_cu`, `ghi_chu`, góp ý, outline đã duyệt, đường dẫn báo cáo chấm, số vòng). Agent con trả báo cáo có dòng `KẾT LUẬN`; trưởng phòng đọc kết luận, ghi bảng, commit file Agent con báo đã tạo. Vòng duyệt CLAUDE.md giữ nguyên, chỉ khác bước 3 "Tự sửa" giao cho `agent-blog`/`agent-danh-muc` chế độ `sua`; mục "Bác bỏ" trong báo cáo thì trưởng phòng ghi `phieu_duyet.py bac-bo`. Sub agent không gọi được sub agent khác, nên mọi lần gọi chấm, tạo ảnh đều do trưởng phòng. Phiên không có sub agent theo tên thì gọi `general-purpose` và yêu cầu đọc, làm đúng `.claude/agents/<tên>.md`.
+
+Quy tắc của từng Agent:
 
 | Bước | Agent và quy tắc |
 |---|---|
@@ -74,10 +87,10 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 
 | Nhận khi | Đổi sang khi bắt đầu | Việc | Kết thúc |
 |---|---|---|---|
-| `moi` | `dang_nghien_cuu` | Bước 1 SERP (5 mục; có `id_bai_cu` thì đọc bài gốc và chia ý Giữ/Bỏ theo Instructions Bước 1, ghi vào `serp`; lưu văn bản bài top bằng `tools/nghien_cuu.py luu-serp`, commit `nghien_cuu/`) rồi Bước 2 outline (9 mục) | `cho_duyet_outline`; hoặc `can_xu_ly` (`quay_ve: "moi"`) nếu SERP khuyên không viết blog, trùng, ngoài phạm vi |
-| `sua_outline` | `dang_nghien_cuu` | Làm lại outline theo `gop_y_outline`, giữ SERP trừ khi góp ý yêu cầu | `cho_duyet_outline` |
-| `cho_viet` | `dang_viet` | Trước khi viết: `ArtifactData get` từ khóa với `out_dir`, chạy `python tools/nghien_cuu.py luu-outline Bai_<slug>.md --tu <file JSON>` (lưu đúng `outline` người dùng đã duyệt). Bước 3 viết theo đúng `outline` trên bảng (có thể người dùng đã sửa), Bước 4 tự kiểm tra, vòng duyệt CLAUDE.md (tối đa 3 vòng). ĐẠT thì làm đủ mục 3a | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
-| `sua_bai` | `dang_viet` | Sửa theo `gop_y_muc` (chỉ sửa đúng các mục được góp ý, giữ nguyên chữ các mục khác), `gop_y_bai` và `tra_loi` nếu có. Chấm lại theo CLAUDE.md. ĐẠT thì làm đủ mục 3a với `--draft-id <draft_id>`, `thay_doi` liệt kê từng mục đã sửa | `cho_duyet_bai` |
+| `moi` | `dang_nghien_cuu` | Giao `agent-blog` chế độ `nghien-cuu` (`agent-danh-muc` với từ khóa danh mục): Bước 1 SERP (5 mục; có `id_bai_cu` thì đọc bài gốc và chia ý Giữ/Bỏ theo Instructions Bước 1, ghi vào `serp`; lưu văn bản bài top bằng `tools/nghien_cuu.py luu-serp`, commit `nghien_cuu/`) rồi Bước 2 outline (9 mục). Trưởng phòng đọc `nghien_cuu/<bài>/serp_bao_cao.md`, `outline_de_xuat.md` ghi vào `serp`, `outline` | `cho_duyet_outline`; hoặc `can_xu_ly` (`quay_ve: "moi"`) nếu SERP khuyên không viết blog, trùng, ngoài phạm vi |
+| `sua_outline` | `dang_nghien_cuu` | Giao Agent con chế độ `nghien-cuu` kèm `gop_y_outline`: làm lại outline, giữ SERP trừ khi góp ý yêu cầu | `cho_duyet_outline` |
+| `cho_viet` | `dang_viet` | Trước khi viết: `ArtifactData get` từ khóa với `out_dir`, chạy `python tools/nghien_cuu.py luu-outline Bai_<slug>.md --tu <file JSON>` (lưu đúng `outline` người dùng đã duyệt). Giao `agent-blog` chế độ `viet` (Bước 3 theo đúng `outline` trên bảng, có thể người dùng đã sửa, Bước 4 tự kiểm tra), rồi vòng duyệt CLAUDE.md, sửa giao chế độ `sua` (tối đa 3 vòng). ĐẠT thì làm đủ mục 3a | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
+| `sua_bai` | `dang_viet` | Giao `agent-blog` chế độ `sua`: sửa theo `gop_y_muc` (chỉ sửa đúng các mục được góp ý, giữ nguyên chữ các mục khác), `gop_y_bai` và `tra_loi` nếu có. Chấm lại theo CLAUDE.md. ĐẠT thì làm đủ mục 3a với `--draft-id <draft_id>`, `thay_doi` liệt kê từng mục đã sửa | `cho_duyet_bai` |
 | `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên tab Kiểm duyệt hình ảnh của bảng (CLAUDE.md) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
 | `cho_hoan_thien` | `dang_hoan_thien` | Đọc collection `anh`, `yeu_cau` trên bảng, xử lý như "xử lý ảnh đã duyệt". Còn ảnh `lam_lai` hoặc yêu cầu mới: làm lại, quay về `cho_duyet_anh`. Đủ ảnh duyệt: `--post --draft-id <draft_id>` để chèn ảnh, kiểm tra thẻ ảnh, alt, link, Rank Math | `san_sang_dang` |
 
@@ -94,8 +107,8 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 
 | Nhận khi | Việc | Kết thúc |
 |---|---|---|
-| `moi`, `sua_outline` | `danh_muc.py doc <link>`, chia ý Giữ/Bỏ nội dung cũ, SERP, kiểm tra trùng bài blog, outline 7 mục (`6_Agent_Danh_muc_HLB.md` Bước 1, 2). Ghi vào `serp`, `outline`; `file_bai: "DM_<slug>.md"`, `tieu_de: "Danh mục: <tên>"` | `cho_duyet_outline` |
-| `cho_viet`, `sua_bai` | Viết hoặc sửa `DM_<slug>.md`, vòng duyệt CLAUDE.md (thang danh mục). ĐẠT thì làm mục 3a, thay bước 1, 2 bằng `danh_muc.py nhap DM_<slug>.md --post` (Trang nháp, ghi `draft_id` là ID trang, `link_nhap`, `link_xem`, `nhap_khop`) | `cho_duyet_bai` |
+| `moi`, `sua_outline` | Giao `agent-danh-muc` chế độ `nghien-cuu`: `danh_muc.py doc <link>`, chia ý Giữ/Bỏ nội dung cũ, SERP, kiểm tra trùng bài blog, outline 7 mục (`6_Agent_Danh_muc_HLB.md` Bước 1, 2). Ghi vào `serp`, `outline`; `file_bai: "DM_<slug>.md"`, `tieu_de: "Danh mục: <tên>"` | `cho_duyet_outline` |
+| `cho_viet`, `sua_bai` | Giao `agent-danh-muc` chế độ `viet` hoặc `sua`: viết hoặc sửa `DM_<slug>.md`; trưởng phòng chạy vòng duyệt CLAUDE.md (thang danh mục). ĐẠT thì làm mục 3a, thay bước 1, 2 bằng `danh_muc.py nhap DM_<slug>.md --post` (Trang nháp, ghi `draft_id` là ID trang, `link_nhap`, `link_xem`, `nhap_khop`) | `cho_duyet_bai` |
 | `cho_tao_anh`, `cho_hoan_thien` | Chỉ khi bài có `[ẢNH]`, như blog. Hoàn thiện thì `danh_muc.py nhap --post` để chèn ảnh đã duyệt vào Trang nháp | `san_sang_ap_dung` |
 | `cho_ap_dung` (bảng đặt khi người dùng bấm "Duyệt, cập nhật lên danh mục", kèm `duyet_ap_dung_luc`) | Đổi `dang_ap_dung`. Kiểm tra phiếu ĐẠT khớp file, rồi `danh_muc.py ap-dung DM_<slug>.md --duyet-luc <duyet_ap_dung_luc> --post`. Commit `danh_muc/` (bản sao lưu, trạng thái). Ghi `ap_dung` | `da_ap_dung`; hoặc `cho_dan_khoi_tren` khi khối trên phải dán tay (ghi `ap_dung.khoi_tren_html` là nội dung file `danh_muc/DM_<slug>.khoi_tren.html`) |
 | `cho_kiem_trang` (bảng đặt khi người dùng bấm "Đã dán khối trên") | `danh_muc.py kiem-trang DM_<slug>.md`. Khớp: `da_ap_dung`. Chưa khớp: giữ `cho_dan_khoi_tren`, `tien_do` nói phần nào chưa khớp | `da_ap_dung` |
