@@ -161,6 +161,8 @@ a.btn.main:hover { color: var(--color_body); }
 .msg { font-size: 14px; }
 .msg.err { color: var(--danger); font-style: italic; }
 .msg.good { color: var(--ok); }
+.msg.note { color: var(--color_body); background: var(--you_surface); border-radius: var(--radius-sm); padding: 8px 12px; line-height: 1.55; }
+.msg.note button { background: none; border: 0; padding: 0; color: var(--color_main); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
 .pausebar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; background: var(--you_surface); border: 1px solid var(--color_primary); border-radius: var(--radius-lg); padding: 12px 17px; font-weight: 700; }
 .pausebar[hidden] { display: none; }
 .run .row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
@@ -383,7 +385,7 @@ const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d")
 function inFilter(r) {
   if (stageSel) return st(r).s === stageSel;
   const c = cls(r);
-  if (filter === "all") return !isOff(r);
+  if (filter === "all") return true;
   if (filter === "off") return isOff(r);
   return c === filter;
 }
@@ -399,7 +401,7 @@ function renderStages() {
 
 function renderFilters() {
   const count = k => rows.filter(r => { const c = cls(r);
-    if (k === "all") return !isOff(r); if (k === "off") return isOff(r); return c === k; }).length;
+    if (k === "all") return true; if (k === "off") return isOff(r); return c === k; }).length;
   $("#filters").innerHTML = FILTERS.map(([k, t]) =>
     `<button type="button" class="chip" data-filter="${k}" aria-pressed="${!stageSel && filter === k}">${t} ${count(k)}</button>`).join("");
 }
@@ -992,7 +994,8 @@ $("#addForm").addEventListener("submit", async e => {
     const parts = line.replace(/https?:\/\/\S+/, "").replace(/#\s*\d+/, "").split(",").map(s => s.trim()).filter(Boolean);
     if (!parts.length) continue;
     const chinh = parts[0];
-    if (rows.some(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase())) { trung.push(chinh); continue; }
+    const cu = rows.find(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase());
+    if (cu) { trung.push(cu); continue; }
     const t = now();
     const id = (slug(chinh) || "tu-khoa") + "-" + Math.random().toString(36).slice(2, 6);
     try {
@@ -1005,10 +1008,15 @@ $("#addForm").addEventListener("submit", async e => {
   }
   btn.disabled = false;
   if (ok) { $("#kwInput").value = ""; $("#kwTest").checked = false; filter = "agent"; stageSel = 0; }
-  msg.className = "msg good";
-  msg.textContent = `Đã nạp ${ok} từ khóa.` + (trung.length ? ` Bỏ qua ${trung.length} từ khóa đã có (kể cả đang tạm dừng, bấm Tiếp tục ở từ khóa đó): ${trung.join(", ")}.` : "");
+  // Từ khóa đã có: không nạp trùng, mở sẵn từ khóa cũ để bạn xử lý tiếp (đang tạm dừng thì bấm Tiếp tục)
+  const trungHtml = trung.map(r => `<li><b>${esc(r.tu_khoa)}</b>: đã có trên bảng, ${isOff(r) ? "đang tạm dừng. Bấm Tiếp tục ở khung chi tiết để Agent làm lại" : `đang ở chặng "${esc(st(r).t)}"`}. <button type="button" data-id="${esc(r.id)}">Mở từ khóa này</button></li>`).join("");
+  if (trung.length && !ok) { filter = "all"; stageSel = 0; selId = trung[0].id; editOutline = false; xoaId = null; }
+  msg.className = trung.length ? "msg note" : "msg good";
+  msg.innerHTML = (ok ? `Đã nạp ${ok} từ khóa mới.` : "Chưa nạp từ khóa mới nào.")
+    + (trung.length ? ` ${trung.length} từ khóa không nạp lại vì đã có:<ul style="margin:6px 0 0;padding-left:20px">${trungHtml}</ul>` : "");
   if (ok) { flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`)); ghiKetQuaGoi(moiIds); }
   render();
+  if (trung.length && !ok) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 { const h = (location.hash || "").slice(1); if (["agent", "anh", "cham"].includes(h)) showPane(h); else render(); }
