@@ -1010,7 +1010,7 @@ $("#addForm").addEventListener("submit", async e => {
     } catch (err) { msg.className = "msg err"; msg.textContent = "Chưa lưu được, thử lại sau ít giây."; btn.disabled = false; return; }
   }
   btn.disabled = false;
-  if (ok) { $("#kwInput").value = ""; $("#kwTest").checked = false; filter = "agent"; stageSel = 0; }
+  if (ok) { $("#kwInput").value = ""; $("#kwNote").value = ""; $("#kwTest").checked = false; filter = "agent"; stageSel = 0; }
   // Từ khóa đã có: không nạp trùng, mở sẵn từ khóa cũ để bạn xử lý tiếp (đang tạm dừng thì bấm Tiếp tục)
   const trungHtml = trung.map(r => `<li><b>${esc(r.tu_khoa)}</b>: đã có trên bảng, ${isOff(r) ? "đang tạm dừng. Bấm Tiếp tục ở khung chi tiết để Agent làm lại" : `đang ở chặng "${esc(st(r).t)}"`}. <button type="button" data-id="${esc(r.id)}">Mở từ khóa này</button></li>`).join("");
   if (trung.length && !ok) { filter = "all"; stageSel = 0; selId = trung[0].id; editOutline = false; xoaId = null; }
