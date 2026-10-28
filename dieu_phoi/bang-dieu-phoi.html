@@ -609,7 +609,7 @@ const AGENTS = [
     files: ["1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md", "tools/wp_draft.py"] },
   { k: "dm", t: "Agent Danh mục", role: "Viết lại nội dung danh mục sản phẩm đã có (khối trên, khối dưới lưới sản phẩm, SEO title, meta). Xem trước bằng Trang nháp, chỉ ghi lên danh mục khi bạn bấm duyệt, bản cũ được sao lưu.",
     files: ["6_Agent_Danh_muc_HLB.md", "tools/danh_muc.py", "quy_tac_cham_danh_muc.md"] },
-  { k: "cham", t: "Agent đánh giá", role: "Leader Content chấm bài blog 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
+  { k: "cham", t: "Agent đánh giá Blog", role: "Leader Content chấm bài blog 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
     files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
   { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và cách viết nội dung bán hàng. Rà checklist từng mục, chấm khắt khe nội dung danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
     files: [".claude/agents/danh-gia-danh-muc.md", "checklist_cham_danh_muc.md", "quy_tac_cham_danh_muc.md"] },
@@ -666,7 +666,7 @@ function renderAgent() {
   const feed = rows.flatMap(r => (Array.isArray(r.lich_su) ? r.lich_su : []).map(h => ({ ...h, kw: r.tu_khoa, id: r.id })))
     .sort((a, b) => (b.luc || "").localeCompare(a.luc || "")).slice(0, 15);
   $("#pane-agent").innerHTML = `
-    <div class="bar"><h2>Năm Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
+    <div class="bar"><h2>5 Agent con</h2><span class="side">Quy tắc từng Agent giữ nguyên trong các file bên dưới.</span></div>
     <div class="agents">${AGENTS.map(a => `<article class="acard">
       <h3>${esc(a.t)}</h3><p class="role">${esc(a.role)}</p>
       <div class="stats">${body[a.k]}</div>${extra[a.k]}
