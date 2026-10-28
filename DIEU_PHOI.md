@@ -47,7 +47,7 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 | `tra_loi` | Người dùng | Trả lời cho `ly_do` |
 | `lich_su` | Cả hai | Mảng `{luc, ai: "agent" or "ban", viec}`, chỉ thêm vào cuối |
 | `khoa_luc` | Agent | Giờ bắt đầu xử lý (chống chạy trùng) |
-| `goi_agent_luc` | Bảng | Giờ bảng giao việc cho Agent (nạp từ khóa, bấm duyệt, góp ý, Tiếp tục, Chạy Agent ngay). Bảng làm mờ nút "Chạy Agent ngay" tới khi Agent xác nhận hoặc quá 65 phút chưa xác nhận |
+| `goi_agent_luc` | Bảng | Giờ bảng giao việc cho Agent (nạp từ khóa, bấm duyệt, góp ý, Tiếp tục, Chạy Agent ngay). Bảng làm mờ nút "Chạy Agent ngay" tới khi Agent xác nhận hoặc quá 65 phút chưa xác nhận (10 phút khi `goi_agent_kq` là `ngay`) |
 | `goi_agent_kq` | Bảng | `ngay` (đã gọi Agent chạy ngay) hoặc `dinh_ky` (chờ lượt hằng giờ) |
 | `agent_nhan_luc` | Agent | Giờ Agent xác nhận đã thấy việc (mục 4 bước 3a). Bảng coi là đã nhận khi giờ này không sớm hơn `goi_agent_luc` |
 | `truoc_khi_dung` | Bảng, Agent | Trạng thái lúc người dùng bấm Tạm dừng. Agent xác nhận dừng thì đổi thành trạng thái chờ tương ứng (mục 3b). Dòng cũ `bo_qua` dùng `truoc_khi_bo` |
