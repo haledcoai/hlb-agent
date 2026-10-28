@@ -482,7 +482,8 @@ function anhTienDo(r) {
 
 const DUNG_BTN = dis => `<button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
 // Nhận việc: bảng ghi goi_agent_luc (và goi_agent_kq) mỗi lần giao việc cho Agent; Agent ghi agent_nhan_luc khi đọc thấy việc
-const HAN_NHAN = 65 * 60e3;
+// Gọi chạy ngay thì Agent phải xác nhận trong 10 phút; chờ lượt hằng giờ thì 65 phút
+const hanNhan = r => (r.goi_agent_kq === "ngay" ? 10 : 65) * 60e3;
 const ms = iso => { const t = Date.parse(iso || ""); return isNaN(t) ? 0 : t; };
 const hm = iso => new Date(iso).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh" });
 const ngayGio = iso => new Date(ms(iso)).toDateString() === new Date().toDateString() ? hm(iso) : fmt(iso);
@@ -492,13 +493,13 @@ function luotKe() {
 }
 const goiLuc = r => r.goi_agent_luc || r.cap_nhat;
 const daNhan = r => ms(r.agent_nhan_luc) >= ms(goiLuc(r)) && !!r.agent_nhan_luc;
-const treNhan = r => !daNhan(r) && Date.now() - ms(goiLuc(r)) > HAN_NHAN;
+const treNhan = r => !daNhan(r) && Date.now() - ms(goiLuc(r)) > hanNhan(r);
 function nhanHtml(r) {
   const td = r.tien_do ? `<span class="l2">${esc(r.tien_do)}</span>` : "";
   if (daNhan(r)) return `<div class="stt"><span class="l1 ok">Agent đã nhận việc lúc ${ngayGio(r.agent_nhan_luc)}</span>${td}</div>`;
   const goi = `Đã gửi lệnh cho Agent lúc ${ngayGio(goiLuc(r))}.`;
   if (cfg.tam_dung_tat_ca) return `<div class="stt"><span class="l1">${goi}</span><span class="l2">Agent đang tạm dừng toàn bộ nên chưa nhận việc. Bỏ tạm dừng ở đầu trang để Agent làm.</span></div>`;
-  if (treNhan(r)) return `<div class="stt"><span class="l1 warn">${goi} Agent chưa xác nhận nhận việc sau hơn 1 giờ.</span><span class="l2">Bấm Chạy Agent ngay để gọi lại.</span></div>`;
+  if (treNhan(r)) return `<div class="stt"><span class="l1 warn">${goi} Agent chưa xác nhận nhận việc sau hơn ${r.goi_agent_kq === "ngay" ? "10 phút" : "1 giờ"}.</span><span class="l2">Bấm Chạy Agent ngay để gọi lại.</span></div>`;
   const cho = r.goi_agent_kq === "ngay" ? "Agent đã được gọi chạy ngay, sẽ xác nhận nhận việc trong vài phút." : `Agent sẽ nhận việc ở lượt chạy kế tiếp lúc ${luotKe()}.`;
   return `<div class="stt"><span class="l1">${goi} Chờ Agent xác nhận.</span><span class="l2">${cho}</span></div>`;
 }
@@ -510,7 +511,7 @@ function runBtn(r, dis, dangLam) {
 function baoDaGoi(r, kieu) {
   if (kieu === "lam") return `Agent đang làm bước này${r.khoa_luc ? ` từ ${ngayGio(r.khoa_luc)}` : ""}, không cần gọi lại.`;
   if (kieu === "nhan") return `Agent đã nhận việc lúc ${ngayGio(r.agent_nhan_luc)}. Việc đang trong hàng chờ, Agent làm theo thứ tự, không cần gọi lại.`;
-  return `Bạn đã gửi lệnh lúc ${ngayGio(goiLuc(r))}. ${r.goi_agent_kq === "ngay" ? "Agent đã được gọi chạy ngay" : `Agent sẽ nhận ở lượt chạy lúc ${luotKe()}`}, không cần bấm lại. Nếu quá 1 giờ chưa thấy xác nhận, nút này sẽ sáng lại để bạn gọi lại.`;
+  return `Bạn đã gửi lệnh lúc ${ngayGio(goiLuc(r))}. ${r.goi_agent_kq === "ngay" ? "Agent đã được gọi chạy ngay" : `Agent sẽ nhận ở lượt chạy lúc ${luotKe()}`}, không cần bấm lại. Nếu quá ${r.goi_agent_kq === "ngay" ? "10 phút" : "1 giờ"} chưa thấy xác nhận, nút này sẽ sáng lại để bạn gọi lại.`;
 }
 const tenBai = r => (r.file_bai || "").replace(/\.md$/, "");
 const laDm = r => r.loai === "danh_muc" || /^DM_/.test(r.file_bai || "");
