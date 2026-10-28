@@ -261,10 +261,10 @@ select { width: auto; min-width: 220px; max-width: 100%; }
 <div class="wrap" style="padding-top:20px">
   <div class="pausebar" id="pauseBar" role="status" hidden><span>Agent đang tạm dừng toàn bộ. Lịch hằng giờ không nhận việc nào cho tới khi bạn cho chạy lại.</span><button class="btn ok" type="button" id="resumeAll">Cho Agent chạy lại</button></div>
   <nav class="ptabs" role="tablist" aria-label="Khu vực" id="ptabs">
-    <button class="ptab" role="tab" type="button" data-pane="dieu_phoi" aria-selected="true">Điều phối</button>
-    <button class="ptab" role="tab" type="button" data-pane="agent" aria-selected="false">Các Agent</button>
-    <button class="ptab" role="tab" type="button" data-pane="anh" aria-selected="false">Duyệt ảnh <span class="cnt" id="cntAnh" hidden></span></button>
-    <button class="ptab" role="tab" type="button" data-pane="cham" aria-selected="false">Lịch sử chấm</button>
+    <button class="ptab" role="tab" type="button" data-pane="dieu_phoi" aria-selected="true">Tổng quan</button>
+    <button class="ptab" role="tab" type="button" data-pane="agent" aria-selected="false">Trung tâm Agent</button>
+    <button class="ptab" role="tab" type="button" data-pane="anh" aria-selected="false">Kiểm duyệt hình ảnh <span class="cnt" id="cntAnh" hidden></span></button>
+    <button class="ptab" role="tab" type="button" data-pane="cham" aria-selected="false">Lịch sử chấm điểm</button>
   </nav>
   <section class="pane" id="pane-dieu_phoi">
   <div class="bar"><h2>Tiến độ 8 chặng</h2><span class="side">Viền vàng: chặng bạn duyệt. Viền xanh: chặng Agent làm.</span></div>
@@ -463,7 +463,7 @@ function anhTienDo(r) {
   const thieu = Array.isArray(r.anh_thieu) ? r.anh_thieu : [];
   if (!tong && !rs.length) return "";
   return `<p class="hint" style="margin-top:10px">Ảnh: đã có ${rs.length}/${tong}, bạn đã duyệt ${duyet}${cho ? `, còn ${cho} chờ bạn duyệt` : ""}.${thieu.length ? ` Agent còn thiếu: ${thieu.map(esc).join(", ")}.` : ""}
-    ${rs.length ? ` <button class="btn ghost" type="button" data-go="anh" data-bai="${esc(key)}">Mở tab Duyệt ảnh</button>` : ""}</p>`;
+    ${rs.length ? ` <button class="btn ghost" type="button" data-go="anh" data-bai="${esc(key)}">Mở tab Kiểm duyệt hình ảnh</button>` : ""}</p>`;
 }
 
 const DUNG_BTN = dis => `<button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
@@ -483,7 +483,7 @@ function dungHtml(r, dis) {
     return `<div class="panel stopbox box delbox">
       <h3>Xóa từ khóa "${esc(r.tu_khoa)}"?</h3>
       <p class="hint">Xóa khỏi bảng, không lấy lại được trên bảng:</p>
-      <ul><li>Dòng từ khóa, SERP, outline, điểm chấm, lịch sử trên bảng</li><li>Bài viết hiển thị trên bảng</li>${soAnh ? `<li>${soAnh} ảnh ở tab Duyệt ảnh và yêu cầu thêm ảnh của bài này</li>` : ""}</ul>
+      <ul><li>Dòng từ khóa, SERP, outline, điểm chấm, lịch sử trên bảng</li><li>Bài viết hiển thị trên bảng</li>${soAnh ? `<li>${soAnh} ảnh ở tab Kiểm duyệt hình ảnh và yêu cầu thêm ảnh của bài này</li>` : ""}</ul>
       <p class="hint">Vẫn giữ trên GitHub để tra lại: file bài${r.file_bai ? ` <code>${esc(r.file_bai)}</code>` : ""}, outline, văn bản SERP, lịch sử chấm.${coNhap ? "" : " Bài chưa có bản nháp WordPress."}</p>
       ${coNhap ? `<label class="check" for="xoaNhap"><input type="checkbox" id="xoaNhap"> Chuyển cả bản nháp WordPress (ID ${esc(r.draft_id)}) vào Thùng rác. Agent làm ở lượt chạy kế tiếp; trong 30 ngày vẫn khôi phục được trong wp-admin. Ảnh đã tải lên thư viện Media giữ nguyên.</label>` : ""}
       <div class="actions"><button class="btn danger" type="button" data-act="xoa_han" ${dis}>Xóa hẳn</button><button class="btn ghost" type="button" data-act="thoi_xoa">Thôi, không xóa</button></div>
@@ -542,9 +542,9 @@ function actionHtml(r) {
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_anh") return `<div class="panel act box">
       <h3>Duyệt ảnh</h3>
-      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh ở tab Duyệt ảnh. Xong thì quay lại bấm nút bên dưới.</p>${anhTienDo(r)}
+      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh ở tab Kiểm duyệt hình ảnh. Xong thì quay lại bấm nút bên dưới.</p>${anhTienDo(r)}
       <div class="actions">
-        <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Duyệt ảnh</button>
+        <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Kiểm duyệt hình ảnh</button>
         <button class="btn ok" type="button" data-act="anh_xong" ${dis}>Đã duyệt ảnh xong</button>
         <button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>
       </div><div class="msg err" data-err hidden></div></div>`;
@@ -613,7 +613,7 @@ const AGENTS = [
     files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
   { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và cách viết nội dung bán hàng. Rà checklist từng mục, chấm khắt khe nội dung danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
     files: [".claude/agents/danh-gia-danh-muc.md", "checklist_cham_danh_muc.md", "quy_tac_cham_danh_muc.md"] },
-  { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Duyệt ảnh, chèn ảnh đã duyệt vào bản nháp.",
+  { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Kiểm duyệt hình ảnh, chèn ảnh đã duyệt vào bản nháp.",
     files: [".claude/agents/tao-anh.md", "tools/tao_anh.py"] }
 ];
 const stat = (n, t, you) => `<div class="stat ${you ? "you" : ""}"><b>${esc(n)}</b><span>${esc(t)}</span></div>`;
@@ -659,9 +659,9 @@ function renderAgent() {
   const extra = {
     viet: "", dm: "",
     cham: (() => { const t = topIssues(3); return t.length ? `<div><label>Lỗi hay gặp</label><ul class="feed">${t.map(x => `<li><span class="t">${x.so} lần, ${x.bai.size} bài</span><span>${esc(x.mo_ta)}</span></li>`).join("")}</ul></div>` : ""; })()
-      + `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
-    chamdm: `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm</button></div>`,
-    anh: `<div class="actions"><button class="btn redo" type="button" data-go="anh">Mở tab Duyệt ảnh</button></div>`
+      + `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm điểm</button></div>`,
+    chamdm: `<div class="actions"><button class="btn redo" type="button" data-go="cham">Xem lịch sử chấm điểm</button></div>`,
+    anh: `<div class="actions"><button class="btn redo" type="button" data-go="anh">Mở tab Kiểm duyệt hình ảnh</button></div>`
   };
   const feed = rows.flatMap(r => (Array.isArray(r.lich_su) ? r.lich_su : []).map(h => ({ ...h, kw: r.tu_khoa, id: r.id })))
     .sort((a, b) => (b.luc || "").localeCompare(a.luc || "")).slice(0, 15);
@@ -717,7 +717,7 @@ function renderAnh() {
         <div class="actions"><button class="btn ok" type="submit">Gửi yêu cầu</button></div></form>`}</details>`;
   };
   $("#pane-anh").innerHTML = `
-    <div class="bar"><h2>Duyệt ảnh</h2><span class="side">Duyệt ảnh dùng được, ảnh chưa ưng thì ghi lý do rồi bấm Làm lại.</span></div>
+    <div class="bar"><h2>Kiểm duyệt hình ảnh</h2><span class="side">Duyệt ảnh dùng được, ảnh chưa ưng thì ghi lý do rồi bấm Làm lại.</span></div>
     <div class="filters">${tabs.map(([k, t]) => `<button type="button" class="chip" data-aloc="${k}" aria-pressed="${locAnh === k}">${t} ${c[k]}</button>`).join("")}
       ${bais.length > 1 ? `<select aria-label="Lọc theo bài" data-abai><option value="">Tất cả bài</option>${bais.map(b => `<option value="${esc(b)}" ${b === locBai ? "selected" : ""}>${esc(b)}</option>`).join("")}</select>` : ""}</div>
     ${!bais.length ? `<div class="empty">Chưa có ảnh nào. Ảnh xuất hiện ở đây sau khi Agent tạo ảnh xong.</div>` : ""}
@@ -738,7 +738,7 @@ function renderCham() {
   const list = locCham && bais.includes(locCham) ? all.filter(x => x.bai === locCham) : all;
   const iss = topIssues(12), bb = cham.bac_bo || [];
   $("#pane-cham").innerHTML = `
-    <div class="bar"><h2>Lịch sử chấm bài</h2><span class="side">Cập nhật ${fmt(cham.cap_nhat)}. Ngưỡng ĐẠT hiện tại 95/100.</span></div>
+    <div class="bar"><h2>Lịch sử chấm điểm</h2><span class="side">Cập nhật ${fmt(cham.cap_nhat)}. Ngưỡng ĐẠT hiện tại 95/100.</span></div>
     ${bais.length > 1 ? `<div class="filters"><select aria-label="Lọc theo bài" data-cbai><option value="">Tất cả bài</option>${bais.map(b => `<option value="${esc(b)}" ${b === locCham ? "selected" : ""}>${esc(b)}</option>`).join("")}</select></div>` : ""}
     ${[["blog", "Bài blog"], ["danh_muc", "Nội dung danh mục"]].map(([lo, ten]) => {
       const ds = list.filter(x => (x.loai || "blog") === lo), tl = tc.filter(t => (t.loai || "blog") === lo);
