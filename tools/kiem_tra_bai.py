@@ -286,33 +286,117 @@ def check_structure(rep, body):
         if n == 1:
             rep.warn(no, "H3 này chỉ có 1 H4, H4 chỉ dùng khi có từ 2 ý con trở lên")
 
-    # Doan van 2-4 cau, bang toi da 5 cot
-    para, start = [], None
-
-    def flush():
-        nonlocal para, start
-        if para:
-            text = strip_markup(" ".join(para))
-            n = len([s for s in re.split(r"[.!?](?:\s+|$)", text) if len(s.strip()) > 3])
-            if n > 4:
-                rep.warn(start, "Đoạn văn có %d câu, nên 2-4 câu: %s" % (n, short(para[0])))
-        para, start = [], None
-
+    # Bang toi da 5 cot. Do dai doan, cau: check_trinh_bay (nguoi dung chot 28/10/2026 tinh theo dong, thay "2-4 cau")
     for no, line in body:
         s = line.strip()
         if s.startswith("|"):
-            flush()
             cells = s.strip("|").split("|")
             if len(cells) > 5 and not re.fullmatch(r"\|[\s:|-]+\|", s):
                 rep.error(no, "Bảng có %d cột, tối đa 5 cột để đọc được trên điện thoại" % len(cells))
-        elif not s or s == "---" or re.match(r"^(#{1,6} |- |\d+\. )", s) or PLACEHOLDER.fullmatch(s) \
-                or s.strip("*") in (KHOI_TREN, KHOI_DUOI):
-            flush()
+
+
+# ---------- Trinh bay (nguoi dung chot 28/10/2026, blog va danh muc) ----------
+
+CAU_DAI = 35       # cau tot nhat khoang 20 tu, tu 35 tu canh bao
+DOAN_TOI_DA = 80   # doan tot nhat 2,5-3 dong (khoang 50-70 tu), toi da 4 dong (khoang 80 tu)
+SAPO = (40, 80)    # doan mo dau 2,5-3 dong
+FAQ_H = re.compile(r"câu hỏi thường gặp|hỏi đáp|\bfaq\b", re.I)
+
+
+def doan_van(lines):
+    """Gom dong thanh doan van: [(dong dau, van ban)], bo heading, bang, danh sach, anh, placeholder dung rieng."""
+    out, cur, start = [], [], None
+    for no, line in lines:
+        s = line.strip()
+        if not s or s == "---" or s.startswith("|") or re.match(r"^(#{1,6} |- |\* |\d+\. )", s) \
+                or IMAGE.search(s) or PLACEHOLDER.fullmatch(s) or s.strip("*") in (KHOI_TREN, KHOI_DUOI):
+            if cur:
+                out.append((start, " ".join(cur)))
+            cur, start = [], None
+            continue
+        if not cur:
+            start = no
+        cur.append(s)
+    if cur:
+        out.append((start, " ".join(cur)))
+    return out
+
+
+def cau(text):
+    return [c.strip() for c in re.split(r"(?<=[.!?])\s+", strip_markup(text)) if len(c.strip()) > 3]
+
+
+def muc_h2(body):
+    """Chia phan B theo H2: [(dong, tieu de, [(no, line) trong muc])]."""
+    out = []
+    for no, line in body:
+        m = re.match(r"^## (.+?)\s*$", line)
+        if m:
+            out.append((no, m.group(1), []))
+        elif out:
+            out[-1][2].append((no, line))
+    return out
+
+
+def check_trinh_bay(rep, body, kw):
+    kwn = norm(kw) if kw else ""
+    phan = khoi(body)[0] if DM else body
+    if not DM:
+        h1 = next((i for i, (_, l) in enumerate(body) if re.match(r"^# ", l)), None)
+        phan = body[h1 + 1:] if h1 is not None else body
+        phan = phan[:next((i for i, (_, l) in enumerate(phan) if re.match(r"^## ", l)), len(phan))]
+    doan = doan_van(phan)
+    # Sapo: tu khoa chinh o cau dau tien, 2,5-3 dong
+    if doan and kwn:
+        no, text = doan[0]
+        dau = cau(text)[:1]
+        if dau and kwn not in norm(dau[0]):
+            rep.error(no, "Câu đầu tiên của đoạn mở đầu (sapo) phải có từ khóa chính \"%s\"" % kw)
+        n = len(norm(strip_markup(text)).split())
+        if not SAPO[0] <= n <= SAPO[1]:
+            rep.warn(no, "Đoạn mở đầu (sapo) có %d từ, tốt nhất 2,5-3 dòng (khoảng %d-%d từ)" % (n, SAPO[0], SAPO[1]))
+    # Cau, doan
+    dai = []
+    for no, text in doan_van(body):
+        n = len(norm(strip_markup(text)).split())
+        if n > DOAN_TOI_DA:
+            rep.warn(no, "Đoạn văn %d từ (quá 4 dòng), ngắt thành đoạn 2,5-3 dòng: %s" % (n, short(text)))
+        dai += [(no, c) for c in cau(text) if len(c.split()) >= CAU_DAI]
+    for no, c in dai[:8]:
+        rep.warn(no, "Câu %d từ, nên khoảng 20 từ, ngắt câu: %s" % (len(c.split()), short(c)))
+    if len(dai) > 8:
+        rep.warn(None, "Còn %d câu dài từ %d từ khác" % (len(dai) - 8, CAU_DAI))
+    # In dam y chinh
+    if not any(re.search(r"\*\*[^*\[]+\*\*", l) for _, l in body):
+        rep.warn(None, "Bài không có chỗ in đậm: in đậm ý chính, từ khóa cần nhấn khi liệt kê, nhấn mạnh")
+    # Anh: H2 khong co H3 can 1 anh; H2 co H3 thi moi H3 uu tien 1 anh. Bo FAQ va muc ket bai (H2 cuoi)
+    muc = muc_h2(khoi(body)[1] if DM else body)
+    thieu_h3 = []
+    for i, (no, ten, lines) in enumerate(muc):
+        if FAQ_H.search(ten) or i == len(muc) - 1:
+            continue
+        h3 = [j for j, (_, l) in enumerate(lines) if re.match(r"^### ", l)]
+        if not h3:
+            if not any(IMAGE.search(l) for _, l in lines):
+                rep.warn(no, "H2 \"%s\" chưa có ảnh (H2 không có H3 cần ít nhất 1 ảnh)" % short(ten, 50))
+            continue
+        for k, j in enumerate(h3):
+            doan_h3 = lines[j:h3[k + 1] if k + 1 < len(h3) else len(lines)]
+            if not any(IMAGE.search(l) for _, l in doan_h3):
+                thieu_h3.append(lines[j][1][4:].strip())
+    if thieu_h3:
+        rep.info(None, "H3 chưa có ảnh (ưu tiên mỗi H3 một ảnh): " + "; ".join(short(t, 40) for t in thieu_h3))
+    # Ket bai: H2 cuoi (sau FAQ), tom tat, danh gia, co tu khoa chinh, co loi keu goi hanh dong
+    if muc:
+        no, ten, lines = muc[-1]
+        if FAQ_H.search(ten):
+            rep.warn(no, "Không thấy H2 kết bài sau FAQ (kết bài tóm tắt, đánh giá, kèm lời kêu gọi hành động)")
         else:
-            if not para:
-                start = no
-            para.append(s)
-    flush()
+            text = " ".join(l for _, l in lines)
+            if kwn and kwn not in norm(strip_markup(ten + " " + text)):
+                rep.warn(no, "Kết bài chưa có từ khóa chính \"%s\"" % kw)
+            if not re.search(r"0967\s?569\s?588|/lien-he/", text):
+                rep.warn(no, "Kết bài chưa có lời kêu gọi hành động (hotline 0967569588 hoặc link trang Liên hệ)")
 
 
 def check_links(rep, body):
@@ -458,10 +542,7 @@ def check_seo(rep, seo, body):
     if not meta:
         rep.error(None, "Phần A thiếu Meta description")
     else:
-        if not 120 <= len(meta) <= 160:
-            rep.error(no, "Meta description dài %d ký tự, cần 120-160" % len(meta))
-        if kwn not in norm(meta):
-            rep.warn(no, "Meta description không chứa nguyên cụm từ khóa chính")
+        check_meta(rep, no, meta, kwn)
 
     no, slug_raw = field("Slug")
     slug = slug_raw.split(" ")[0] if slug_raw else ""
@@ -506,6 +587,29 @@ def check_seo(rep, seo, body):
         rep.error(None, "Từ khóa chính không có trong 100 chữ đầu bài")
 
 
+# Meta description (nguoi dung chot 28/10/2026, blog va danh muc): 150-155 ky tu, tu khoa chinh o dau,
+# khong lap qua 2 lan, co tu goi hanh dong
+META_MIN, META_MAX, META_DAU = 150, 155, 30
+CTA_META = ("xem", "tham khảo", "tìm hiểu", "nhận", "liên hệ", "gọi", "chọn", "so sánh", "tính", "đọc", "đặt",
+            "báo giá", "hỏi", "gửi", "mua")
+
+
+def check_meta(rep, no, meta, kwn):
+    if not META_MIN <= len(meta) <= META_MAX:
+        rep.error(no, "Meta description dài %d ký tự, cần %d-%d" % (len(meta), META_MIN, META_MAX))
+    m = norm(meta)
+    vi_tri = m.find(kwn)
+    if vi_tri < 0:
+        rep.error(no, "Meta description không chứa nguyên cụm từ khóa chính, từ khóa phải đặt ở phần đầu")
+    elif vi_tri > META_DAU:
+        rep.error(no, "Từ khóa chính nằm ở ký tự %d của meta description, cần đặt ở phần đầu (trong %d ký tự đầu)"
+                  % (vi_tri, META_DAU))
+    if m.count(kwn) > 2:
+        rep.error(no, "Từ khóa chính lặp %d lần trong meta description, tối đa 2" % m.count(kwn))
+    if not any(re.search(r"(?<!\w)%s(?!\w)" % re.escape(w), m) for w in CTA_META):
+        rep.warn(no, "Meta description chưa có từ gợi hành động (xem, tham khảo, nhận báo giá, liên hệ...)")
+
+
 def check_seo_dm(rep, seo, body, kw, kwn):
     """Phan A cua noi dung danh muc: Danh muc/Term ID, SEO title, meta description; khong co slug, excerpt, tag."""
     for name in ("Danh mục", "Term ID", "Link danh mục"):
@@ -525,10 +629,7 @@ def check_seo_dm(rep, seo, body, kw, kwn):
     if not meta:
         rep.error(None, "Phần A thiếu Meta description")
     else:
-        if not 120 <= len(meta) <= 160:
-            rep.error(no, "Meta description dài %d ký tự, cần 120-160" % len(meta))
-        if kwn not in norm(meta):
-            rep.warn(no, "Meta description không chứa nguyên cụm từ khóa chính")
+        check_meta(rep, no, meta, kwn)
     tren = khoi(body)[0]
     words = norm(strip_markup(" ".join(l for _, l in tren if not re.match(r"^#", l)))).split()
     if kwn not in " ".join(words[:50]):
@@ -956,6 +1057,7 @@ def main():
     check_links(rep, b)
     check_images(rep, b, (seo.get("Slug", (None, ""))[1] or " ").split(" ")[0])
     check_seo(rep, seo, b)
+    check_trinh_bay(rep, b, seo.get("Focus keyword", (None, ""))[1])
     check_faq(rep, b)
     if not DM:
         check_quick_answer(rep, b)

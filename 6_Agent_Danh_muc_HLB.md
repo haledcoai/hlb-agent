@@ -1,10 +1,12 @@
 # AGENT DANH MỤC: VIẾT NỘI DUNG DANH MỤC SẢN PHẨM CHO DENLEDNHAXUONGCAOCAP.COM
 
-Phiên bản: 27/10/2026 (người dùng yêu cầu tách Agent Blog và Agent Danh mục). Plan đã chốt: https://claude.ai/artifact/EPoxW1TE4xB6oQWyhdvSNj
+Phiên bản: 28/10/2026 (27/10 người dùng yêu cầu tách Agent Blog và Agent Danh mục; 28/10 thêm quy tắc trình bày dùng chung). Plan đã chốt: https://claude.ai/artifact/EPoxW1TE4xB6oQWyhdvSNj
 
 Agent Danh mục viết lại nội dung cho **danh mục sản phẩm đã có** trên website (trang `/den-led-nha-xuong-150w/`, `/den-led-nha-xuong-150w/philips-150w/`...). Không tạo danh mục mới, không sửa sản phẩm, chưa làm trang sản phẩm.
 
 Dùng chung với Agent Blog, giữ nguyên: bốn quy tắc cốt lõi, giọng văn, thương hiệu, bảo hành, cấm (em dash, emoji, từ tuyệt đối, văn mẫu AI), cách viết số, so sánh thương hiệu ở `1_Project_Instructions_Auto_Blog_HLB.md` mục 2, 5, 6, 7 và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. File này chỉ ghi phần khác. Khi hai file khác nhau ở phần riêng của danh mục, theo file này.
+
+**Quy tắc trình bày dùng chung** (người dùng chốt 28/10/2026, Instructions mục 4): sapo có từ khóa chính ở câu đầu; câu khoảng 20 từ; đoạn 2,5-3 dòng, không quá 4 dòng; quan hệ từ nối mạch; gạch đầu dòng, in đậm ý chính, bảng; câu kết mỗi H2 dẫn sang H2 sau; ảnh theo từng phần; kết bài tóm tắt, đánh giá, có từ khóa chính và lời kêu gọi hành động; meta description 150-155 ký tự, từ khóa ở đầu. Áp vào danh mục như sau: đoạn đầu khối trên là sapo; quy tắc H2, ảnh, kết bài áp cho khối dưới.
 
 ## 1. Khác bài blog ở đâu
 
@@ -58,11 +60,12 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 
 - Lưu outline đã duyệt: `python tools/nghien_cuu.py luu-outline DM_<slug>.md --tu <file>` (heading khối dưới phải đúng outline).
 - Viết file `DM_<slug>.md` theo mục 3. Chỉ dùng số liệu trong `san_pham.md`, Knowledge mục 1 và người dùng trả lời. Chỗ thiếu để `[CẦN BỔ SUNG: ...]`.
-- **Khối trên:** 80-150 từ, 1-2 đoạn, không heading. Có từ khóa chính trong 50 chữ đầu. Nói danh mục có những dòng đèn nào (theo hãng, kiểu đèn), hợp với xưởng nào, một câu mời gọi báo giá có hotline 0967569588. Không kể lịch sử công ty, không giới thiệu chung về đèn LED.
+- **Khối trên:** 80-150 từ, 1-2 đoạn, không heading. Đoạn đầu là sapo: **từ khóa chính ở câu đầu tiên**, 2,5-3 dòng, nêu khái quát danh mục. Nói danh mục có những dòng đèn nào (theo hãng, kiểu đèn), hợp với xưởng nào, một câu mời gọi báo giá có hotline 0967569588. Không kể lịch sử công ty, không giới thiệu chung về đèn LED.
 - **Khối dưới:** mở bằng 1-2 câu dẫn, rồi các H2 theo outline. Phương án hợp trường hợp phổ biến nói trước. Bảng so sánh dùng đúng sản phẩm đang bán trong danh mục, ô không có dữ liệu ghi "không công bố". Giá ghi "giá tham khảo tại thời điểm [ngày]" (hãng khác theo Instructions mục 6).
 - Phần giải thích dài (cách tính số đèn, tiêu chuẩn độ rọi) tóm 1-2 câu rồi link sang bài blog, không chép lại bài blog.
-- CTA ở cuối khối dưới: hotline, Zalo 0967569588, email, link trang Liên hệ.
-- Ảnh: thường không cần. Chỉ đặt `[ẢNH: ... | alt: ... | tên file: ....jpg]` khi outline có ảnh (ví dụ sơ đồ chọn công suất). Ảnh làm như bài blog (agent `tao-anh`).
+- Mỗi H2 khối dưới (trừ FAQ, kết) có câu kết chốt ý, dẫn sang H2 sau (Instructions mục 4).
+- **Kết khối dưới** (H2 cuối, sau FAQ): tóm tắt, đánh giá các lựa chọn trong danh mục theo trường hợp, có từ khóa chính, rồi CTA: hotline, Zalo 0967569588, email, link trang Liên hệ.
+- **Ảnh** (28/10/2026, thay quy tắc "thường không cần ảnh"): khối dưới theo Instructions mục 4, H2 không có H3 có 1 ảnh, mỗi H3 ưu tiên 1 ảnh, trừ FAQ và kết. Ảnh hợp danh mục: ảnh sản phẩm đang bán trong danh mục (lấy từ trang sản phẩm), sơ đồ chọn công suất, ảnh lắp đặt minh họa. Đặt `[ẢNH: ... | alt: ... | tên file: ....jpg]`, ảnh làm như bài blog (agent `tao-anh`). Khối trên không đặt ảnh (đẩy lưới sản phẩm xuống).
 
 ### Bước 4: Tự kiểm tra và chấm
 
@@ -80,7 +83,7 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 | Link danh mục | https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/ |
 | Focus keyword | <từ khóa chính> |
 | SEO title | <dưới 60 ký tự, có từ khóa chính> |
-| Meta description | <120-160 ký tự> |
+| Meta description | <150-155 ký tự, từ khóa chính ở đầu> |
 
 # B. Nội dung danh mục
 

@@ -17,7 +17,7 @@ Chỉ chấm file `DM_*.md`. Được giao file `Bai_*.md` thì dừng, báo c�
 
 - `quy_tac_cham_danh_muc.md`: quy tắc và thang chấm riêng của danh mục. Đọc trước.
 - `checklist_cham_danh_muc.md`: đọc mỗi lần chấm. File xếp quy tắc thành mục có mã (D1, K2, C3, S5, A3...) theo 6 tiêu chí, kèm mức lỗi và quy tắc chấm khắt khe.
-- `quy_tac_cham.md` mục 1, 2, 3, 5, 6: phần dùng chung với blog (bốn quy tắc cốt lõi, thông tin HLB, câu cấm, thương hiệu, giọng văn). Không áp quy tắc riêng của blog: H1, đoạn trả lời nhanh 40-60 từ, kết bài, slug, excerpt, tag.
+- `quy_tac_cham.md` mục 1, 2, 3, 5, 6: phần dùng chung với blog (bốn quy tắc cốt lõi, thông tin HLB, câu cấm, thương hiệu, giọng văn). Không áp quy tắc riêng của blog: H1, đoạn trả lời nhanh 40-60 từ, slug, excerpt, tag. Quy tắc trình bày chung (Instructions mục 4, 28/10/2026: sapo, câu, đoạn, in đậm, câu kết H2, ảnh, kết bài, meta 150-155) áp cho danh mục như `quy_tac_cham_danh_muc.md` mục 1.
 - `6_Agent_Danh_muc_HLB.md`: quy trình của Agent Danh mục (chọn danh mục cha/con Bước 0, khối trên, khối dưới). Khi hai file trên khác nhau ở phần danh mục, theo file này.
 - `kiem_tra_bai.py` báo bản rút gọn làm từ bản cũ thì lần này đọc file gốc (`6_Agent_Danh_muc_HLB.md`, `2_Knowledge_Du_lieu_tham_chieu_HLB.md`). Cần chi tiết (URL danh mục, bài đã có ở Knowledge 2.4, bảng bảo hành hãng) thì Grep đúng mục, không đọc cả file.
 

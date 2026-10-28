@@ -58,7 +58,7 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Link nội bộ (không tính trang Liên hệ ở CTA) ngoài khoảng 3-5. Link về trang danh mục ngoài khoảng 1-3. Link ngoài quá 3.
 - Phần B không có đúng 1 H1. Nhảy cấp heading. Dùng H5, H6. Bảng quá 5 cột.
 - Ảnh thiếu alt, hoặc alt quá 125 ký tự.
-- SEO title từ 60 ký tự trở lên. Meta description ngoài 120-160 ký tự. Slug có dấu, chữ hoa, không nối bằng hyphen. Excerpt từ 200 ký tự hoặc trùng meta.
+- SEO title từ 60 ký tự trở lên. Meta description ngoài 150-155 ký tự, từ khóa chính không ở 30 ký tự đầu hoặc lặp quá 2 lần. Câu đầu sapo thiếu từ khóa chính. Slug có dấu, chữ hoa, không nối bằng hyphen. Excerpt từ 200 ký tự hoặc trùng meta.
 - Từ khóa chính không có trong SEO title, H1 hoặc 100 chữ đầu bài.
 - Thông số của một model (quang thông, PF, Ra) khác CSV.
 - Có placeholder trong phần B mà phần C không liệt kê. Thiếu phần C.
@@ -69,7 +69,8 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Câu nối "Điều này", "Ngoài ra", "Bên cạnh đó", "Không chỉ... mà còn", "Việc..." đầu câu, dùng quá 2 lần mỗi kiểu.
 - Định dạng số: "100 W" (phải viết liền 100W), "6500 K", "0.98" (phải dùng dấu phẩy thập phân), "19500 lm" (thiếu dấu chấm nghìn), "6 - 8 m" (phải là 6-8 m), "130lm/W" (thiếu dấu cách).
 - Đoạn văn quá 4 câu. H3 chỉ có 1 H4.
-- Meta không chứa nguyên cụm từ khóa. Không H2 nào chứa từ khóa. Slug không chứa từ khóa, sai 3-6 từ, có năm. Tag ngoài 3-5.
+- Trình bày (28/10/2026): sapo ngoài 40-80 từ, câu từ 35 từ, đoạn quá 80 từ, bài không có chỗ in đậm, H2 không có H3 mà thiếu ảnh, kết bài thiếu từ khóa chính hoặc CTA, meta thiếu từ gợi hành động.
+- Không H2 nào chứa từ khóa. Slug không chứa từ khóa, sai 3-6 từ, có năm. Tag ngoài 3-5.
 - Giá không khớp sản phẩm nào trong CSV. Tên model không có trong CSV.
 
 ## 4b. Checklist đọc bài (`checklist_cham_bai.md`, từ 27/10/2026)
@@ -97,7 +98,7 @@ Thang **100 điểm**. ĐẠT khi **điểm tính ngưỡng từ 95/100 trở l�
 | eeat | Chuyên môn và EEAT | 15 | Có lý do sau mỗi khuyến nghị? Có nói khi nào phương án KHÔNG phù hợp? Có ít nhất một điểm chuyên sâu bài top chưa có? Không bịa dự án, khách hàng, số liệu? |
 | thuong_hieu | Thương hiệu và tuân thủ | 15 | "HLB phân phối nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang)" đúng, không viết "HLB sản xuất" (HALEDCO sản xuất và phân phối, viết "đèn do HALEDCO sản xuất" là đúng)? Mốc 2011 (HALEDCO), 2018 (HLB) đúng chủ thể? So sánh Philips, Rạng Đông, Điện Quang cùng tiêu chí, có nguồn, không có hãng thắng chung cuộc? Không nhắc chính sách chưa xác nhận? Philips không bị viết chung 24 tháng? |
 | giong_van | Giọng văn | 15 | Giống chuyên gia 7-10 năm hay giống AI? Có câu rỗng, ý lặp giữa các phần? Thuật ngữ thống nhất, giải thích ở lần đầu? Bài lắp đặt có lưu ý an toàn đúng chỗ? |
-| cau_truc | Cấu trúc và SEO | 15 | Heading khớp outline đã chốt? Mỗi phần đúng phạm vi? Kết bài là khuyến nghị theo trường hợp, không tóm tắt lại bài? FAQ không lặp thân bài? Anchor đúng trang đích, link đặt trong ngữ cảnh? Phần C đủ placeholder, nguồn, ngày truy cập? |
+| cau_truc | Cấu trúc và SEO | 15 | Heading khớp outline đã chốt? Mỗi phần đúng phạm vi? Kết bài tóm tắt, đánh giá cả bài, có từ khóa chính và CTA (quy tắc 28/10/2026)? Mỗi H2 có câu kết dẫn sang H2 sau? Ảnh đủ theo phần? FAQ không lặp thân bài? Anchor đúng trang đích, link đặt trong ngữ cảnh? Phần C đủ placeholder, nguồn, ngày truy cập? |
 
 **Kết luận**
 - **ĐẠT:** điểm tính ngưỡng từ 95/100 và 0 lỗi bắt buộc. Được đưa bản nháp lên.
