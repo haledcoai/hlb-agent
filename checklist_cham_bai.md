@@ -85,9 +85,9 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 | Mã | Kiểm tra | Mức |
 |---|---|---|
 | S1 | Heading khớp outline đã chốt: đủ, đúng thứ tự, đúng cấp, đúng chữ (1) | BB (lệch ở FAQ: NS) |
-| S2 | Một H1, không nhảy cấp, không H5, H6, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể (7) | Theo script |
+| S2 | Một H1 dài 55-65 ký tự, không nhảy cấp, không H5, H6, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể (7) | Theo script |
 | S3 | Từ khóa chính ở SEO title, H1, câu đầu sapo, 100 chữ đầu, ít nhất một H2, meta (phần đầu), slug, kết bài; từ khóa phụ tối đa 5, đặt tự nhiên (7) | Thiếu ở title, H1, câu đầu sapo, 100 chữ đầu, phần đầu meta BB; còn lại NS |
-| S4 | SEO title dưới 60 ký tự; meta 150-155 ký tự, từ khóa không lặp quá 2 lần, trả lời theo 5W1H hợp intent, có từ gợi hành động; slug không dấu, 3-6 từ, không năm; excerpt dưới 200, không trùng meta; tag 3-5 (7) | Theo script |
+| S4 | SEO title 55-65 ký tự; meta 150-155 ký tự, từ khóa không lặp quá 2 lần, trả lời theo 5W1H hợp intent, có từ gợi hành động; slug không dấu, 3-6 từ, không năm; excerpt dưới 200, không trùng meta; tag 3-5 (7) | Theo script |
 | S5 | Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3 tới nguồn có thẩm quyền; anchor mô tả đúng trang đích, đặt trong câu có ngữ cảnh; một URL một lần; không link 404; URL chưa kiểm tra dùng `[LINK: ...]` (7) | BB |
 | S6 | Bảng dùng khi so sánh từ 3 tiêu chí, tối đa 5 cột, hàng xếp theo thứ tự dễ đọc (6) | NS |
 | S7 | Ảnh `[ẢNH: chú thích \| alt \| tên file]`, alt dưới 125 ký tự, tên file không trùng slug, mô tả khớp đoạn chứa ảnh. Số lượng: H2 không có H3 có 1 ảnh, mỗi H3 ưu tiên 1 ảnh (trừ FAQ, kết bài). Vị trí: ảnh hướng dẫn, giải thích ở trên hoặc cạnh đoạn mô tả; ảnh minh họa, chứng minh kết quả sau đoạn nội dung (4, 7) | Thiếu alt, trùng slug BB; còn lại NS |

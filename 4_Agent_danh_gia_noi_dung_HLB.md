@@ -58,7 +58,7 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Link nội bộ (không tính trang Liên hệ ở CTA) ngoài khoảng 3-5. Link về trang danh mục ngoài khoảng 1-3. Link ngoài quá 3.
 - Phần B không có đúng 1 H1. Nhảy cấp heading. Dùng H5, H6. Bảng quá 5 cột.
 - Ảnh thiếu alt, hoặc alt quá 125 ký tự.
-- SEO title từ 60 ký tự trở lên. Meta description ngoài 150-155 ký tự, từ khóa chính không ở 30 ký tự đầu hoặc lặp quá 2 lần. Câu đầu sapo thiếu từ khóa chính. Slug có dấu, chữ hoa, không nối bằng hyphen. Excerpt từ 200 ký tự hoặc trùng meta.
+- SEO title hoặc H1 ngoài 55-65 ký tự. Meta description ngoài 150-155 ký tự, từ khóa chính không ở 30 ký tự đầu hoặc lặp quá 2 lần. Câu đầu sapo thiếu từ khóa chính. Slug có dấu, chữ hoa, không nối bằng hyphen. Excerpt từ 200 ký tự hoặc trùng meta.
 - Từ khóa chính không có trong SEO title, H1 hoặc 100 chữ đầu bài.
 - Thông số của một model (quang thông, PF, Ra) khác CSV.
 - Có placeholder trong phần B mà phần C không liệt kê. Thiếu phần C.

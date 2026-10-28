@@ -1,4 +1,4 @@
-<!-- Lưu 2026-10-28T03:04. Sửa outline đã chốt thì lưu lại bằng tools/nghien_cuu.py luu-outline --ly-do -->
+<!-- Lưu 2026-10-28T03:42; lý do: H1 rút về 55-65 ký tự theo quy tắc 28/10. Sửa outline đã chốt thì lưu lại bằng tools/nghien_cuu.py luu-outline --ly-do -->
 
 **Bước 2: Outline**
 
@@ -14,7 +14,8 @@
 - Bỏ: "đèn pin chống cháy nổ" (thiết bị cầm tay, lệch chủ đề chiếu sáng nhà xưởng).
 
 **4. Outline**
-- H1: Đèn LED chống cháy nổ 50W: chọn loại nào, lắp ở đâu, bố trí bao nhiêu bộ
+- H1: Đèn LED chống cháy nổ 50W: chọn loại nào, lắp ở đâu, cần mấy bộ (63 ký tự)
+  - SEO title đề xuất: Đèn LED chống cháy nổ 50W: chọn loại nào, lắp ở đâu, cần mấy bộ (63 ký tự)
   - Mở bài: trả lời nhanh 50W hợp với khu nào, độ cao lắp, dạng phổ biến nhất, điều phải kiểm tra trên nhãn.
   - H2: Đèn LED chống cháy nổ 50W có những dạng nào
     - H3: Highbay tròn treo trần: dùng cho kho, xưởng trần vừa.

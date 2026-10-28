@@ -393,7 +393,7 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 - Website có nhiều trang danh mục nhắm từ khóa "đèn LED nhà xưởng [công suất]". Bài blog không nhắm trùng các từ khóa này, trừ khi intent khác rõ (ví dụ "giá", "cách chọn"), để tránh cạnh tranh với trang danh mục.
 
 ### 9.2 Heading
-- Một H1 duy nhất, chứa từ khóa chính.
+- Một H1 duy nhất, chứa từ khóa chính, dài 55-65 ký tự.
 - H2, H3, H4 đúng như outline đã chốt. Không nhảy cấp.
 - H4 chỉ dùng khi một H3 có từ 2 ý con trở lên.
 - Heading ngắn, nói rõ nội dung, không dùng heading chung chung kiểu "Lưu ý", "Kết luận" nếu có thể cụ thể hơn.
@@ -413,7 +413,7 @@ Anchor text:
 - URL chưa kiểm tra thì dùng `[LINK: tên trang]`.
 
 ### 9.4 SEO title, meta description, slug
-- **SEO title:** dưới 60 ký tự, từ khóa chính càng gần đầu càng tốt. Có thể thêm "| HLB" nếu còn chỗ. Không dùng từ tuyệt đối.
+- **SEO title:** 55-65 ký tự (người dùng chốt 28/10/2026, như H1), từ khóa chính càng gần đầu càng tốt. Có thể thêm "| HLB" nếu còn chỗ. Không dùng từ tuyệt đối.
 - **Meta description** (người dùng chốt 28/10/2026, blog và danh mục): **150-155 ký tự** (khoảng xanh của Rank Math, Yoast). Từ khóa chính đặt ở phần đầu (trong 30 ký tự đầu), không lặp quá 2 lần. Nên trả lời theo 5W1H: cái gì (What), khi nào (When), ở đâu (Where), vì sao (Why), như thế nào (How), chọn những ý hợp với intent. Viết hấp dẫn, có từ gợi hành động (xem, tham khảo, nhận báo giá, so sánh, liên hệ). Ví dụ: "Đèn LED nhà xưởng 150W: so sánh 6 mẫu UFO đang bán, quang thông, giá theo hãng và cách chọn theo chiều cao trần. Xem bảng chọn nhanh, nhận báo giá ngay."
 - **Slug:** không dấu, chữ thường, nối bằng hyphen, 3-6 từ, chứa từ khóa chính. Từ khóa chính dài hơn 6 từ thì slug lấy 3-6 từ lõi của từ khóa, giữ đúng thứ tự (ví dụ "thay đèn cao áp nhà xưởng bằng đèn LED" dùng `thay-den-cao-ap-nha-xuong`). Ví dụ: `cach-tinh-so-luong-den-nha-xuong`. Không gắn năm vào slug.
 
@@ -520,7 +520,7 @@ Rà toàn bài trước khi trả. Không in checklist ra, chỉ báo những đ
 **SEO**
 - [ ] Từ khóa chính có ở SEO title, H1, câu đầu sapo, 100 chữ đầu, ít nhất một H2, meta description (phần đầu), slug, kết bài.
 - [ ] Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3. Anchor mô tả đúng trang đích, không lặp URL.
-- [ ] SEO title dưới 60 ký tự, meta description 150-155 ký tự, có từ gợi hành động (đã đếm bằng công cụ).
+- [ ] H1 và SEO title 55-65 ký tự, meta description 150-155 ký tự, có từ gợi hành động (đã đếm bằng công cụ).
 - [ ] Ảnh có alt text, FAQ không lặp thân bài.
 
 **Đầu ra**

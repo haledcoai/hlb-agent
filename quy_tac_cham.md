@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
 Phiên bản: 28/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
-Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 5aa2c089694f; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 01e77e07c9e1
+Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 60650499decf; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 0bc54e5a7b40
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
 
@@ -70,9 +70,9 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 ## 7. SEO và đầu ra (Knowledge mục 9, 10)
 
 - Từ khóa chính ở SEO title, H1, câu đầu sapo, 100 chữ đầu, ít nhất một H2, meta (phần đầu), slug, kết bài. Từ khóa phụ tối đa 5, đặt tự nhiên.
-- Một H1, không nhảy cấp, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể.
+- Một H1 dài 55-65 ký tự, không nhảy cấp, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể.
 - Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3 tới nguồn có thẩm quyền. Anchor mô tả đúng trang đích, đặt trong câu có ngữ cảnh, một URL một lần. URL chưa kiểm tra dùng `[LINK: ...]`.
-- SEO title dưới 60 ký tự; meta 150-155 ký tự, từ khóa chính trong 30 ký tự đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động; slug không dấu, 3-6 từ, không năm (từ khóa chính trên 6 từ: slug lấy 3-6 từ lõi của từ khóa, đúng thứ tự); excerpt dưới 200 ký tự, không trùng meta; tag 3-5.
+- SEO title 55-65 ký tự; meta 150-155 ký tự, từ khóa chính trong 30 ký tự đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động; slug không dấu, 3-6 từ, không năm (từ khóa chính trên 6 từ: slug lấy 3-6 từ lõi của từ khóa, đúng thứ tự); excerpt dưới 200 ký tự, không trùng meta; tag 3-5.
 - Ảnh: H2 không có H3 có 1 ảnh, mỗi H3 ưu tiên 1 ảnh (trừ FAQ, kết bài); ảnh hướng dẫn ở trên hoặc cạnh đoạn mô tả, ảnh chứng minh kết quả sau đoạn. `[ẢNH: chú thích | alt | tên file]`, alt dưới 125 ký tự, tên file .jpg không trùng slug bài hoặc slug đã có trên website, mô tả khớp đoạn chứa ảnh.
 - FAQ 3-5 câu, trước kết bài, mỗi câu trả lời 40-80 từ, trả lời thẳng ở câu đầu, không lặp thân bài.
 - Phần C: placeholder còn lại kèm vị trí, nguồn (URL, ngày), link chưa xác minh, đề xuất link từ bài cũ, ảnh, schema, chênh lệch trên website, điểm cần người dùng quyết, (bài viết lại) ý bài gốc đã bỏ và lý do.

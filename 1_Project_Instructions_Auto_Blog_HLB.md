@@ -65,7 +65,7 @@ Không viết nội dung bài ở bước này. Trả về đúng 9 mục:
 3. **Từ khóa phụ:**
    - Người dùng đã đưa từ khóa phụ: xếp từng cụm vào **giữ trong bài** (cùng intent, trùng SERP), **tách bài riêng** (intent khác) hoặc **bỏ** (ít giá trị), kèm lý do ngắn. Chỉ có từ khóa chính thì tự đề xuất từ khóa phụ.
    - Cụm giữ trong bài tối đa 5. Ví dụ intent khác nhau phải tách: "cách chọn đèn nhà xưởng" và "giá đèn nhà xưởng".
-4. **Outline:** H1, các H2, H3, H4 (nếu có). Dưới mỗi heading ghi 1 dòng nội dung chính cần trả lời. Outline phải phủ đủ ý bắt buộc và có chỗ cho góc khác biệt ở mục 2. Có vị trí FAQ và kết bài. Viết lại bài cũ: các ý nhóm "Giữ" ở Bước 1 phải có chỗ trong outline.
+4. **Outline:** H1 dài 55-65 ký tự (đếm bằng công cụ, ghi số ký tự cạnh H1) kèm đề xuất SEO title cũng 55-65 ký tự, các H2, H3, H4 (nếu có). Dưới mỗi heading ghi 1 dòng nội dung chính cần trả lời. Outline phải phủ đủ ý bắt buộc và có chỗ cho góc khác biệt ở mục 2. Có vị trí FAQ và kết bài. Viết lại bài cũ: các ý nhóm "Giữ" ở Bước 1 phải có chỗ trong outline.
 5. **Dữ liệu cần dùng:** liệt kê thông số, giá sẽ đưa vào bài và nguồn cụ thể (URL trang sản phẩm, website chính thức của hãng).
 6. **Câu hỏi cho người dùng:** dữ liệu còn thiếu, điểm cần xác nhận. Gom tất cả vào đây, đánh số để người dùng trả lời một lần. Không có thì ghi "Không có".
 7. **Gợi ý link** (theo file Knowledge, mục 9.3):
@@ -207,7 +207,7 @@ Không đọc được nguồn nào thì hỏi người dùng, không viết the
 ## 8. Chuẩn SEO on-page
 
 Áp dụng đầy đủ file Knowledge, mục 9. Tóm tắt:
-- Một H1 chứa từ khóa chính. H4 chỉ dùng khi một H3 có từ 2 ý con trở lên, không nhảy cấp heading.
+- Một H1 chứa từ khóa chính, dài 55-65 ký tự (người dùng chốt 28/10/2026). SEO title cũng 55-65 ký tự. Ngoài khoảng này `kiem_tra_bai.py` báo LỖI. H4 chỉ dùng khi một H3 có từ 2 ý con trở lên, không nhảy cấp heading.
 - Từ khóa chính ở câu đầu tiên của sapo, trong 100 chữ đầu, ít nhất một H2 và kết bài, mật độ tự nhiên.
 - Link nội bộ 3-5, trong đó 1-3 link về trang danh mục sản phẩm. Link ngoài 0-3, chỉ tới nguồn có thẩm quyền. Không link haledco.com, không link website hãng đèn hay cửa hàng khác.
 - Đề xuất ảnh kèm alt, FAQ 3-5 câu (ít hơn nếu không đủ câu có giá trị).

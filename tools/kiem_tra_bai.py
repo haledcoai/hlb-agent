@@ -533,8 +533,7 @@ def check_seo(rep, seo, body):
     if not title:
         rep.error(None, "Phần A thiếu SEO title")
     else:
-        if len(title) >= 60:
-            rep.error(no, "SEO title dài %d ký tự, cần dưới 60" % len(title))
+        check_do_dai(rep, no, "SEO title", title)
         if kwn not in norm(title):
             rep.error(no, "SEO title không chứa từ khóa chính \"%s\"" % kw)
 
@@ -577,6 +576,8 @@ def check_seo(rep, seo, body):
         rep.warn(None, "Phần A thiếu Category")
 
     h1 = next(((n, l) for n, l in body if re.match(r"^# ", l)), None)
+    if h1:
+        check_do_dai(rep, h1[0], "H1", re.sub(r"^#\s+", "", h1[1]))
     if h1 and kwn not in norm(h1[1]):
         rep.error(h1[0], "H1 không chứa từ khóa chính \"%s\"" % kw)
     if not any(kwn in norm(l) for _, l in body if re.match(r"^## ", l)):
@@ -585,6 +586,16 @@ def check_seo(rep, seo, body):
     words = norm(strip_markup(" ".join(l for l in after if not re.match(r"^#", l)))).split()
     if kwn not in " ".join(words[:100]):
         rep.error(None, "Từ khóa chính không có trong 100 chữ đầu bài")
+
+
+# SEO title va H1 (nguoi dung chot 28/10/2026): 55-65 ky tu, ca blog va danh muc
+TIEU_DE = (55, 65)
+
+
+def check_do_dai(rep, no, ten, text):
+    text = text.strip()
+    if not TIEU_DE[0] <= len(text) <= TIEU_DE[1]:
+        rep.error(no, "%s dài %d ký tự, cần %d-%d: %s" % (ten, len(text), TIEU_DE[0], TIEU_DE[1], text))
 
 
 # Meta description (nguoi dung chot 28/10/2026, blog va danh muc): 150-155 ky tu, tu khoa chinh o dau,
@@ -619,8 +630,7 @@ def check_seo_dm(rep, seo, body, kw, kwn):
     if not title:
         rep.error(None, "Phần A thiếu SEO title")
     else:
-        if len(title) >= 60:
-            rep.error(no, "SEO title dài %d ký tự, cần dưới 60" % len(title))
+        check_do_dai(rep, no, "SEO title", title)
         if kwn not in norm(title):
             rep.error(no, "SEO title không chứa từ khóa chính \"%s\"" % kw)
         if re.search(r"20\d\d", title):

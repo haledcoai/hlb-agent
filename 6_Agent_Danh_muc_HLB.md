@@ -44,7 +44,7 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 Đúng 7 mục:
 1. **Từ khóa:** từ khóa chính (không tự đổi, CLAUDE.md mục "Nhóm từ khóa"), từ khóa phụ giữ/tách/bỏ, tối đa 4 cụm giữ.
 2. **Phân tích trang top:** ý bắt buộc, 1-2 góc khác biệt (ví dụ bảng chọn nhanh model theo chiều cao trần, so sánh các hãng trong danh mục theo cùng tiêu chí).
-3. **Khối trên:** 1 dòng nội dung chính cần nói.
+3. **Khối trên:** 1 dòng nội dung chính cần nói. Kèm đề xuất SEO title 55-65 ký tự (đếm bằng công cụ, ghi số ký tự).
 4. **Khối dưới:** các H2, H3 (không có H1, theme tự hiện tên danh mục làm H1), dưới mỗi heading 1 dòng nội dung. Cách trình bày do Agent quyết theo search intent và các trang danh mục đang lên top, như một người làm SEO 10 năm: người tìm muốn chọn mua thì ưu tiên bảng chọn model, giá, cách đặt hàng; muốn so sánh hãng thì ưu tiên bảng so sánh cùng tiêu chí. Không đưa phần không phục vụ intent chỉ để đủ khung. Gợi ý khung, không bắt buộc đủ:
    - Chọn công suất, model theo chiều cao trần và diện tích
    - So sánh các dòng đèn đang có trong danh mục (bảng tối đa 5 cột)
@@ -82,7 +82,7 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 | Term ID | 70 |
 | Link danh mục | https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/ |
 | Focus keyword | <từ khóa chính> |
-| SEO title | <dưới 60 ký tự, có từ khóa chính> |
+| SEO title | <55-65 ký tự, có từ khóa chính> |
 | Meta description | <150-155 ký tự, từ khóa chính ở đầu> |
 
 # B. Nội dung danh mục
