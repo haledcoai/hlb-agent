@@ -1,6 +1,6 @@
 # CHECKLIST CHẤM BÀI BLOG HLB
 
-Phiên bản: 27/10/2026, thang chấm v3. Agent đánh giá (Leader Content) dùng file này cùng `quy_tac_cham.md` mỗi lần chấm bài blog `Bai_*.md`.
+Phiên bản: 28/10/2026 (thêm quy tắc trình bày người dùng chốt 28/10), thang chấm v3. Agent đánh giá (Leader Content) dùng file này cùng `quy_tac_cham.md` mỗi lần chấm bài blog `Bai_*.md`.
 
 Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã có trong Instructions hoặc Knowledge (số trong ngoặc là mục của `quy_tac_cham.md`), xếp theo 6 tiêu chí chấm để biết trừ điểm ở đâu. Khi Instructions hoặc Knowledge đổi một quy tắc có trong đây, sửa luôn mục tương ứng.
 
@@ -26,8 +26,8 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 | Mã | Kiểm tra | Mức |
 |---|---|---|
 | I1 | Câu trả lời chính nằm trong 2-3 đoạn đầu (6) | NS |
-| I2 | Mở bài 2-4 câu, có từ khóa chính, không giới thiệu chung về đèn LED hay về công ty, không mở bằng định nghĩa sách giáo khoa (6) | NS |
-| I3 | Đoạn trả lời nhanh ngay sau mở bài, 40-60 từ, đúng dạng theo loại truy vấn, có số hoặc tiêu chí kèm điều kiện, đọc tách riêng vẫn hiểu (6) | NS |
+| I2 | Sapo 2,5-3 dòng (khoảng 40-80 từ), từ khóa chính ở câu đầu tiên, nhấn đúng ý tiêu đề, khái quát cả bài, không giới thiệu chung về đèn LED hay về công ty, không mở bằng định nghĩa sách giáo khoa (4) | Thiếu từ khóa ở câu đầu BB (script); còn lại NS |
+| I3 | Đoạn trả lời nhanh ngay sau sapo (hoặc gộp với sapo), 40-60 từ, đúng dạng theo loại truy vấn, có số hoặc tiêu chí kèm điều kiện, đọc tách riêng vẫn hiểu (6) | NS |
 | I4 | Bài đáp đúng ý định tìm kiếm của từ khóa chính. Từ khóa hợp làm trang danh mục, sản phẩm, hoặc trùng bài đã có thì không tự đổi (CLAUDE.md, Nhóm từ khóa) | 2b |
 | I5 | Phương án phù hợp nhất với trường hợp phổ biến được đưa trước (6) | NS |
 
@@ -65,7 +65,7 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 | T4 | So sánh hãng: cùng công suất, cùng loại đèn, cùng tiêu chí, có nguồn; ô thiếu ghi "không công bố"; nêu cả giới hạn của HLB; kết "Chọn A khi..., chọn B khi..."; không hãng thắng chung cuộc, không nói xấu (5) | BB |
 | T5 | Không link, không nhắc haledco.com; không link website hãng đèn hay cửa hàng (1, 5) | BB |
 | T6 | Hãng không bán trên website: chỉ nêu điểm tốt khi cần, ghi "theo thông tin công bố của hãng", không so với HLB (5) | NS |
-| T7 | CTA sau kết bài 1-2 câu, nói khách gửi gì và nhận gì, chỉ nhắc dịch vụ được phép (6) | NS |
+| T7 | Mọi bài có CTA ở cuối kết bài, 1-2 câu, nói khách gửi gì và nhận gì, có từ gợi hành động, chỉ nhắc dịch vụ được phép (4) | Thiếu CTA NS |
 
 ## 5. Giọng văn (giong_van, 15 điểm)
 
@@ -75,7 +75,8 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 | G2 | Không lặp ý giữa các phần; mỗi phần đúng phạm vi của heading (6) | NS |
 | G3 | Thuật ngữ theo Knowledge mục 7, giải thích ngắn ở lần đầu, thống nhất cả bài (6) | NS |
 | G4 | Xưng "chúng tôi" hoặc "HLB", gọi người đọc là "bạn"; tiếng Việt đơn giản, không dịch gượng (6) | NS |
-| G5 | Đoạn 2-4 câu; câu nối mỗi kiểu không quá 1-2 lần; định dạng số đúng (6) | NS |
+| G5 | Câu khoảng 20 từ (từ 35 từ phải ngắt); đoạn 2,5-3 dòng, không quá 4 dòng (khoảng 80 từ); quan hệ từ dùng đa dạng để nối mạch, câu nối mỗi kiểu không quá 1-2 lần; định dạng số đúng (4) | NS |
+| G8 | Liệt kê từ 3 ý dùng gạch đầu dòng; ý chính, con số quan trọng in đậm, không in đậm dày đặc (4) | NS |
 | G6 | Bài lắp đặt, đấu nối có lưu ý an toàn điện và làm việc trên cao đúng ở bước có rủi ro (6) | NS |
 | G7 | Không em dash, en dash, emoji, từ tuyệt đối, cụm văn mẫu AI (6) | BB |
 
@@ -85,13 +86,14 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 |---|---|---|
 | S1 | Heading khớp outline đã chốt: đủ, đúng thứ tự, đúng cấp, đúng chữ (1) | BB (lệch ở FAQ: NS) |
 | S2 | Một H1, không nhảy cấp, không H5, H6, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể (7) | Theo script |
-| S3 | Từ khóa chính ở SEO title, H1, 100 chữ đầu, ít nhất một H2, meta, slug; từ khóa phụ tối đa 5, đặt tự nhiên (7) | Thiếu ở title, H1, 100 chữ đầu BB; còn lại NS |
-| S4 | SEO title dưới 60 ký tự; meta 120-160; slug không dấu, 3-6 từ, không năm; excerpt dưới 200, không trùng meta; tag 3-5 (7) | Theo script |
+| S3 | Từ khóa chính ở SEO title, H1, câu đầu sapo, 100 chữ đầu, ít nhất một H2, meta (phần đầu), slug, kết bài; từ khóa phụ tối đa 5, đặt tự nhiên (7) | Thiếu ở title, H1, câu đầu sapo, 100 chữ đầu, phần đầu meta BB; còn lại NS |
+| S4 | SEO title dưới 60 ký tự; meta 150-155 ký tự, từ khóa không lặp quá 2 lần, trả lời theo 5W1H hợp intent, có từ gợi hành động; slug không dấu, 3-6 từ, không năm; excerpt dưới 200, không trùng meta; tag 3-5 (7) | Theo script |
 | S5 | Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3 tới nguồn có thẩm quyền; anchor mô tả đúng trang đích, đặt trong câu có ngữ cảnh; một URL một lần; không link 404; URL chưa kiểm tra dùng `[LINK: ...]` (7) | BB |
 | S6 | Bảng dùng khi so sánh từ 3 tiêu chí, tối đa 5 cột, hàng xếp theo thứ tự dễ đọc (6) | NS |
-| S7 | Ảnh `[ẢNH: chú thích \| alt \| tên file]`, alt dưới 125 ký tự, tên file không trùng slug, mô tả khớp đoạn chứa ảnh (7) | Thiếu alt, trùng slug BB; còn lại NS |
+| S7 | Ảnh `[ẢNH: chú thích \| alt \| tên file]`, alt dưới 125 ký tự, tên file không trùng slug, mô tả khớp đoạn chứa ảnh. Số lượng: H2 không có H3 có 1 ảnh, mỗi H3 ưu tiên 1 ảnh (trừ FAQ, kết bài). Vị trí: ảnh hướng dẫn, giải thích ở trên hoặc cạnh đoạn mô tả; ảnh minh họa, chứng minh kết quả sau đoạn nội dung (4, 7) | Thiếu alt, trùng slug BB; còn lại NS |
 | S8 | FAQ 3-5 câu, trước kết bài, mỗi câu trả lời 40-80 từ, trả lời thẳng ở câu đầu, không lặp thân bài (7) | NS |
-| S9 | Kết bài 2-4 câu, khuyến nghị theo từng trường hợp, không tóm tắt lại bài, không mâu thuẫn thân bài (6) | NS |
+| S9 | Kết bài là H2 cuối (sau FAQ): tóm tắt, đánh giá cả bài, khuyến nghị theo từng trường hợp, có từ khóa chính, không mở bằng "Tóm lại", "Nhìn chung", không chép nguyên câu thân bài, không mâu thuẫn thân bài (4) | NS |
+| S12 | Mỗi H2 (trừ FAQ, kết bài) có câu kết chốt ý và gợi ra câu hỏi H2 sau trả lời, có thông tin, không phải câu dẫn rỗng (4) | NS |
 | S10 | Phần C đủ: placeholder kèm vị trí, nguồn (URL, ngày), link chưa xác minh, đề xuất link từ bài cũ, ảnh, schema, chênh lệch trên website, điểm cần người dùng quyết; bài viết lại có ý bài gốc đã bỏ và lý do (7) | Placeholder phần B thiếu ở C: BB; thiếu mục khác: NS |
 | S11 | Phần B không quá 5 chỗ `[CẦN BỔ SUNG]`. Quá thì hook chặn đăng nháp: gom danh sách dữ liệu cần bổ sung | 2b |
 

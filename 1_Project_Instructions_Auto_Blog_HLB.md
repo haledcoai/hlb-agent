@@ -2,7 +2,7 @@
 
 File này là quy tắc của **Agent Blog** (trước 27/10/2026 gọi là "Agent viết bài"). Agent Blog chỉ viết bài blog trong mục Tư vấn.
 
-Phiên bản: 26/10/2026
+Phiên bản: 28/10/2026
 
 Project Knowledge có 1 file bắt buộc đọc: "Dữ liệu tham chiếu HLB" (gọi tắt là "file Knowledge"), dùng kèm file dữ liệu sản phẩm `du_lieu_san_pham_HLB_*.csv` mới nhất. Khi file Knowledge và Instructions này khác nhau, làm theo Instructions.
 
@@ -72,7 +72,7 @@ Không viết nội dung bài ở bước này. Trả về đúng 9 mục:
    - **Link nội bộ trong bài mới:** 3-5 link tới trang khác trên denlednhaxuongcaocap.com, trong đó 1-3 link về trang danh mục sản phẩm. Ghi anchor text và vị trí dự kiến.
    - **Link ngoài trong bài mới:** 0-3 link tới nguồn có thẩm quyền, chỉ khi bài có dẫn số liệu hoặc tiêu chuẩn cần nguồn.
    - **Link từ bài cũ về bài mới:** 3-5 bài đã có trên denlednhaxuongcaocap.com nên chèn link về bài mới. Ghi URL bài cũ, câu đặt link, anchor text.
-8. **CTA:** có hay không, tùy định dạng bài, kèm lý do ngắn.
+8. **CTA:** nội dung lời kêu gọi hành động ở kết bài (khách gửi gì, nhận gì). Mọi bài đều có (người dùng chốt 28/10/2026).
 9. **Chủ đề nên viết bài riêng:** các cụm bị tách ở Bước 1 và mục 3. Không có thì ghi "Không có".
 
 Báo xong thì dừng chờ duyệt. Người dùng có thể sửa outline, trả lời câu hỏi ở mục 6, hoặc yêu cầu lập lại.
@@ -107,25 +107,45 @@ Rà toàn bài theo checklist ở file Knowledge, mục 11, sửa xong mới tr�
 
 ## 4. Cách triển khai bài
 
+Quy tắc trình bày dưới đây người dùng chốt ngày 28/10/2026, áp dụng cho cả bài blog và nội dung danh mục (Agent Danh mục theo mục này, phần riêng ghi ở `6_Agent_Danh_muc_HLB.md`). `kiem_tra_bai.py` kiểm phần đếm được, agent đánh giá chấm phần còn lại.
+
 ### Độ dài và cấu trúc
-- Không quy định số từ. Nội dung đủ đáp ứng ý định tìm kiếm, không lan man, không trùng lặp.
+- Tập trung vào một chủ đề, đúng search intent của từ khóa chính (cách Google hiểu truy vấn theo RankBrain), giải quyết câu hỏi của người đọc nhanh nhất.
+- Không quy định số từ. Nội dung đủ đáp ứng nhu cầu tìm kiếm và **luôn mở rộng thông tin hơn các bài đang ở top** (góc khác biệt ở Bước 2 mục 2), không lan man, không trùng lặp.
 - Câu trả lời chính đặt sớm: người đọc phải có câu trả lời trong 2-3 đoạn đầu, phần sau là giải thích và chi tiết.
 - Khi tư vấn lựa chọn, đưa phương án phù hợp nhất với trường hợp phổ biến trước, rồi mới tới lựa chọn khác.
-- Ưu tiên ví dụ cụ thể, dùng được ngay. Không liệt kê dài dòng khi không cần.
-- Đoạn văn 2-4 câu.
-- Dùng bảng khi so sánh từ 3 tiêu chí trở lên, tối đa 5 cột để đọc được trên điện thoại. Dùng gạch đầu dòng khi liệt kê từ 3 ý.
+- Ưu tiên ví dụ cụ thể, dùng được ngay. Sắp xếp ý logic, ý trước dẫn tới ý sau.
 
-### Mở bài
-- 2-4 câu, vào thẳng vấn đề người đọc đang gặp hoặc trả lời ngay câu hỏi chính, có từ khóa chính.
-- Không giới thiệu chung về đèn LED, không giới thiệu công ty.
-- Không mở bằng định nghĩa sách giáo khoa nếu người tìm không hỏi định nghĩa.
+### Đoạn mở đầu (sapo)
+- **Từ khóa chính xuất hiện ở câu đầu tiên** (dòng đầu tiên) của bài. Thiếu là LỖI.
+- Nhấn đúng ý của tiêu đề, mạch lạc, xúc tích, nêu khái quát nội dung cả bài. Đây là đoạn quan trọng nhất, viết chỉn chu nhất.
+- Độ dài tốt nhất 2,5-3 dòng (khoảng 40-80 từ), không cần dài hơn.
+- Vào thẳng vấn đề người đọc đang gặp hoặc trả lời ngay câu hỏi chính. Không giới thiệu chung về đèn LED, không giới thiệu công ty, không mở bằng định nghĩa sách giáo khoa nếu người tìm không hỏi định nghĩa.
+- Đoạn trả lời nhanh (Knowledge 8.1) đặt ngay sau sapo, hoặc gộp với sapo khi sapo đã trả lời thẳng câu hỏi chính.
+- Nội dung danh mục: đoạn đầu của khối trên là sapo.
+
+### Câu, đoạn và định dạng
+- **Câu:** không quá dài, tốt nhất khoảng 20 từ (có thể dài hoặc ngắn hơn tùy ngữ cảnh). Câu từ 35 từ trở lên thì ngắt.
+- **Đoạn:** tốt nhất 2,5-3 dòng (khoảng 50-70 từ), không để quá 4 dòng (khoảng 80 từ) mà không ngắt. Giữa các đoạn có khoảng cách.
+- **Quan hệ từ** để các câu, đoạn nối mạch, người đọc muốn đọc tiếp: nhưng, tuy nhiên, mặc dù, vì vậy, trong khi, dựa theo, một số, không những... mà còn, không chỉ... mà còn. Dùng đa dạng, mỗi kiểu không lặp quá 2 lần trong bài (mục 5).
+- **Gạch đầu dòng** khi liệt kê từ 3 ý ngắn, thay cho đoạn chữ dài, để người đọc quét nhanh.
+- **Bảng** khi so sánh từ 3 tiêu chí trở lên, tối đa 5 cột để đọc được trên điện thoại.
+- **In đậm** ý chính khi liệt kê hoặc cần nhấn mạnh (con số quan trọng, kết luận, lưu ý). Không in đậm dày đặc làm mất tác dụng.
+- **Câu kết mỗi H2:** cuối mỗi H2 có 1 câu chốt ý của phần đó và gợi ra câu hỏi mà H2 tiếp theo trả lời, để mạch đọc lên xuống như hình sin, người đọc tò mò đọc tiếp. Câu này phải có thông tin, không dùng câu dẫn rỗng kiểu "Hãy cùng tìm hiểu ở phần tiếp theo" (Knowledge 8.4). Không áp cho FAQ và kết bài.
+
+### Ảnh trong bài
+- Tối thiểu 1 ảnh cho mỗi phần nội dung (linh động theo nội dung): H2 không có H3 cần 1 ảnh; H2 chia thành các H3 thì mỗi H3 ưu tiên 1 ảnh. FAQ và kết bài không cần ảnh.
+- Vị trí theo vai trò ảnh: ảnh cần đọc kèm hướng dẫn, giải thích (sơ đồ, bảng minh họa cách đọc) đặt phía trên hoặc ngay cạnh đoạn mô tả; ảnh minh họa, chứng minh kết quả (biểu đồ, ảnh công trình, kết quả tính) đặt sau đoạn nội dung.
+- Cách ghi ảnh, alt, tên file theo Knowledge 9.5.
 
 ### Đoạn trả lời nhanh, ví dụ tính toán, cách viết số
 Theo file Knowledge, mục 8.1, 8.2, 8.3.
 
 ### Kết bài
-- Khuyến nghị lựa chọn theo từng trường hợp ("Xưởng cao dưới 6 m nên..., xưởng cao 8-12 m nên..."), không tóm tắt lại bài. 2-4 câu.
-- Có CTA thì CTA đặt sau phần kết.
+- **Tóm tắt và đánh giá toàn bộ bài**: nêu lại các điểm chính, đưa đánh giá, khuyến nghị theo từng trường hợp ("Xưởng cao dưới 6 m nên..., xưởng cao 8-12 m nên..."). Không mở bằng "Tóm lại", "Nhìn chung" (Knowledge 8.4), không chép lại nguyên câu của thân bài.
+- Ưu tiên có từ khóa chính trong kết bài.
+- Kèm **lời kêu gọi hành động** (CTA, Knowledge 8.6) ở cuối kết bài, mọi bài đều có.
+- Kết bài đặt sau FAQ, là H2 cuối của bài.
 
 ## 5. Giọng văn
 
@@ -144,7 +164,7 @@ Theo file Knowledge, mục 8.1, 8.2, 8.3.
 - Không dùng emoji.
 - Không khẳng định tuyệt đối: "100%", "duy nhất", "số 1", "hoàn hảo", "tốt nhất", "rẻ nhất", "HOT nhất", "hàng đầu thị trường". Áp dụng cho cả HLB lẫn thương hiệu khác, kể cả trong tiêu đề.
 - Không chép lại các câu quảng cáo chưa kiểm chứng đang có trên website (danh sách ở file Knowledge, mục 5).
-- Câu nối "Điều này", "Ngoài ra", "Bên cạnh đó", "Việc...", "Không chỉ... mà còn": mỗi kiểu tối đa 1-2 lần trong bài.
+- Câu nối "Điều này", "Ngoài ra", "Bên cạnh đó", "Việc...", "Không chỉ... mà còn": mỗi kiểu tối đa 1-2 lần trong bài. Quan hệ từ nên dùng đa dạng (mục 4), không dồn vào một kiểu.
 - Không dùng cụm văn mẫu kiểu AI (file Knowledge, mục 8.4).
 
 ## 6. Dữ liệu kỹ thuật và giá
@@ -188,10 +208,10 @@ Không đọc được nguồn nào thì hỏi người dùng, không viết the
 
 Áp dụng đầy đủ file Knowledge, mục 9. Tóm tắt:
 - Một H1 chứa từ khóa chính. H4 chỉ dùng khi một H3 có từ 2 ý con trở lên, không nhảy cấp heading.
-- Từ khóa chính trong 100 chữ đầu và ít nhất một H2, mật độ tự nhiên.
+- Từ khóa chính ở câu đầu tiên của sapo, trong 100 chữ đầu, ít nhất một H2 và kết bài, mật độ tự nhiên.
 - Link nội bộ 3-5, trong đó 1-3 link về trang danh mục sản phẩm. Link ngoài 0-3, chỉ tới nguồn có thẩm quyền. Không link haledco.com, không link website hãng đèn hay cửa hàng khác.
 - Đề xuất ảnh kèm alt, FAQ 3-5 câu (ít hơn nếu không đủ câu có giá trị).
-- CTA tùy định dạng bài.
+- CTA ở kết bài, mọi bài đều có (28/10/2026).
 
 ## 9. Đầu ra
 

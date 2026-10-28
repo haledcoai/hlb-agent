@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
-Phiên bản: 26/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
-Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md ae6535e8da29; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 02e0bcfb37e9
+Phiên bản: 28/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
+Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 5aa2c089694f; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 01e77e07c9e1
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
 
@@ -55,10 +55,13 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 
 ## 6. Cách triển khai và giọng văn (Instructions mục 4, 5; Knowledge 7, 8.1, 8.3, 8.4)
 
-- Câu trả lời chính trong 2-3 đoạn đầu. Mở bài 2-4 câu, có từ khóa chính, không giới thiệu chung về LED hay công ty, không mở bằng định nghĩa sách giáo khoa.
-- Đoạn trả lời nhanh: ngay sau mở bài, 40-60 từ, có con số hoặc tiêu chí kèm điều kiện, đọc tách riêng vẫn hiểu. Theo loại truy vấn: "là gì" thì 1-2 câu định nghĩa; "bao nhiêu" thì số kèm điều kiện; "giá" thì khoảng giá kèm ngày; "cách chọn" thì 3-5 tiêu chí gạch đầu dòng; "so sánh" thì "Chọn A khi..., chọn B khi...". Không mở bằng "Câu trả lời là", không lặp H1, không "tùy nhu cầu" mà không nói tùy gì.
-- Phương án phù hợp nhất với trường hợp phổ biến đưa trước. Đoạn 2-4 câu. Bảng khi so sánh từ 3 tiêu chí, tối đa 5 cột.
-- Kết bài: khuyến nghị theo từng trường hợp, 2-4 câu, không tóm tắt lại bài. CTA sau kết bài, 1-2 câu, nói khách gửi gì và nhận gì, chỉ nhắc dịch vụ ở mục 2.
+- Trình bày theo Instructions mục 4 (người dùng chốt 28/10/2026, blog và danh mục).
+- Một chủ đề, đúng intent, mở rộng thông tin hơn bài top. Câu trả lời chính trong 2-3 đoạn đầu.
+- Sapo: từ khóa chính ở câu đầu tiên (script, thiếu là LỖI), 2,5-3 dòng (khoảng 40-80 từ), nhấn ý tiêu đề, khái quát cả bài, không giới thiệu chung về LED hay công ty, không mở bằng định nghĩa sách giáo khoa.
+- Đoạn trả lời nhanh: ngay sau sapo (hoặc gộp), 40-60 từ, có con số hoặc tiêu chí kèm điều kiện, đọc tách riêng vẫn hiểu. Theo loại truy vấn: "là gì" thì 1-2 câu định nghĩa; "bao nhiêu" thì số kèm điều kiện; "giá" thì khoảng giá kèm ngày; "cách chọn" thì 3-5 tiêu chí gạch đầu dòng; "so sánh" thì "Chọn A khi..., chọn B khi...". Không mở bằng "Câu trả lời là", không lặp H1, không "tùy nhu cầu" mà không nói tùy gì.
+- Phương án phù hợp nhất với trường hợp phổ biến đưa trước. Câu khoảng 20 từ (từ 35 từ phải ngắt). Đoạn 2,5-3 dòng, không quá 4 dòng (khoảng 80 từ). Quan hệ từ dùng đa dạng để nối mạch. Liệt kê từ 3 ý dùng gạch đầu dòng, ý chính in đậm (không dày đặc). Bảng khi so sánh từ 3 tiêu chí, tối đa 5 cột.
+- Mỗi H2 (trừ FAQ, kết bài) có câu kết chốt ý và gợi ra câu hỏi H2 sau trả lời, có thông tin, không phải câu dẫn rỗng.
+- Kết bài (H2 cuối, sau FAQ): tóm tắt, đánh giá cả bài, khuyến nghị theo từng trường hợp, ưu tiên có từ khóa chính, không mở bằng "Tóm lại", "Nhìn chung", không chép nguyên câu thân bài. Mọi bài có CTA ở cuối kết bài, 1-2 câu, nói khách gửi gì và nhận gì, chỉ nhắc dịch vụ ở mục 2.
 - Giọng chuyên gia 7-10 năm, tiếng Việt đơn giản, xưng "chúng tôi" hoặc "HLB", gọi "bạn". Bài lắp đặt có lưu ý an toàn đúng ở bước có rủi ro.
 - Thuật ngữ: quang thông (lm), độ rọi (lux), hiệu suất chiếu sáng (lm/W), chỉ số hoàn màu (Ra), hệ số công suất (PF), cấp bảo vệ IP, driver (bộ nguồn), góc chiếu, chiếu sáng phủ đều, chiếu sáng mạnh. "Highbay", "UFO" chỉ khi nói kiểu dáng. Thuật ngữ kỹ thuật giải thích ngắn ở lần đầu.
 - Cấm (script bắt phần lớn): em dash, en dash, emoji, từ tuyệt đối, cụm văn mẫu AI, câu nối "Điều này", "Ngoài ra", "Bên cạnh đó", "Việc...", "Không chỉ... mà còn" quá 1-2 lần mỗi kiểu.
@@ -66,10 +69,10 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 
 ## 7. SEO và đầu ra (Knowledge mục 9, 10)
 
-- Từ khóa chính ở SEO title, H1, 100 chữ đầu, ít nhất một H2, meta, slug. Từ khóa phụ tối đa 5, đặt tự nhiên.
+- Từ khóa chính ở SEO title, H1, câu đầu sapo, 100 chữ đầu, ít nhất một H2, meta (phần đầu), slug, kết bài. Từ khóa phụ tối đa 5, đặt tự nhiên.
 - Một H1, không nhảy cấp, H4 chỉ khi H3 có từ 2 ý con, heading cụ thể.
 - Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3 tới nguồn có thẩm quyền. Anchor mô tả đúng trang đích, đặt trong câu có ngữ cảnh, một URL một lần. URL chưa kiểm tra dùng `[LINK: ...]`.
-- SEO title dưới 60 ký tự; meta 120-160 ký tự; slug không dấu, 3-6 từ, không năm (từ khóa chính trên 6 từ: slug lấy 3-6 từ lõi của từ khóa, đúng thứ tự); excerpt dưới 200 ký tự, không trùng meta; tag 3-5.
-- Ảnh: `[ẢNH: chú thích | alt | tên file]`, alt dưới 125 ký tự, tên file .jpg không trùng slug bài hoặc slug đã có trên website, mô tả khớp đoạn chứa ảnh.
+- SEO title dưới 60 ký tự; meta 150-155 ký tự, từ khóa chính trong 30 ký tự đầu, không lặp quá 2 lần, theo 5W1H hợp intent, có từ gợi hành động; slug không dấu, 3-6 từ, không năm (từ khóa chính trên 6 từ: slug lấy 3-6 từ lõi của từ khóa, đúng thứ tự); excerpt dưới 200 ký tự, không trùng meta; tag 3-5.
+- Ảnh: H2 không có H3 có 1 ảnh, mỗi H3 ưu tiên 1 ảnh (trừ FAQ, kết bài); ảnh hướng dẫn ở trên hoặc cạnh đoạn mô tả, ảnh chứng minh kết quả sau đoạn. `[ẢNH: chú thích | alt | tên file]`, alt dưới 125 ký tự, tên file .jpg không trùng slug bài hoặc slug đã có trên website, mô tả khớp đoạn chứa ảnh.
 - FAQ 3-5 câu, trước kết bài, mỗi câu trả lời 40-80 từ, trả lời thẳng ở câu đầu, không lặp thân bài.
 - Phần C: placeholder còn lại kèm vị trí, nguồn (URL, ngày), link chưa xác minh, đề xuất link từ bài cũ, ảnh, schema, chênh lệch trên website, điểm cần người dùng quyết, (bài viết lại) ý bài gốc đã bỏ và lý do.

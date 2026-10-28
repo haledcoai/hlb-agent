@@ -265,7 +265,7 @@ Website hiện có một số câu quảng cáo và điểm chưa thống nhất
 
 Mục đích: người đọc có câu trả lời ngay, Google và công cụ AI dễ trích dẫn.
 
-- **Vị trí:** ngay sau mở bài, trước H2 đầu tiên. Nếu mở bài đã trả lời thẳng câu hỏi chính thì gộp làm một.
+- **Vị trí:** ngay sau đoạn mở đầu (sapo, Instructions mục 4), trước H2 đầu tiên. Nếu sapo đã trả lời thẳng câu hỏi chính thì gộp làm một.
 - **Độ dài:** 40-60 từ.
 - **Nội dung:** trả lời đúng câu hỏi của từ khóa chính, có con số hoặc tiêu chí cụ thể kèm điều kiện áp dụng. Đọc tách riêng vẫn hiểu.
 - **Hình thức theo loại truy vấn:**
@@ -338,7 +338,8 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 **Không dùng:**
 - Mở bài: "Trong thời đại công nghệ phát triển", "Ngày nay", "Hiện nay, ... ngày càng phổ biến", "... không còn xa lạ", "Bạn đang băn khoăn", "Hãy cùng tìm hiểu", "Bài viết dưới đây sẽ giúp bạn", "Trong bài viết này".
 - Thân bài: "đóng vai trò quan trọng", "không thể phủ nhận", "có thể nói", "đáng chú ý là", "một cách hiệu quả", "đáp ứng mọi nhu cầu", "giải pháp tối ưu", "lựa chọn hàng đầu", "mang lại hiệu quả vượt trội", "nâng tầm", "trải nghiệm tuyệt vời", "xu hướng tất yếu", "chìa khóa", "bí quyết", "khám phá", "tất tần tật".
-- Kết bài: "Tóm lại", "Nhìn chung", "Như vậy có thể thấy", "Hy vọng bài viết đã giúp bạn", "Đừng ngần ngại liên hệ".
+- Kết bài: "Tóm lại", "Nhìn chung", "Như vậy có thể thấy", "Hy vọng bài viết đã giúp bạn", "Đừng ngần ngại liên hệ". Kết bài vẫn tóm tắt, đánh giá cả bài (người dùng chốt 28/10/2026), nhưng vào thẳng các điểm chính, không mở bằng các cụm này.
+- Câu kết mỗi H2 dẫn sang H2 sau phải có thông tin, không dùng "Hãy cùng tìm hiểu ở phần tiếp theo", "Vậy ... là gì? Cùng xem ngay".
 - Từ tuyệt đối: "hoàn hảo", "vượt trội", "tốt nhất", "rẻ nhất", "HOT nhất", "số 1", "duy nhất", "100%", "siêu sáng".
 - Diễn đạt dịch gượng: "rửa sáng bề mặt", "chiếu sáng mạnh mẽ".
 
@@ -346,7 +347,7 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 - Thay "Đèn LED nhà xưởng đóng vai trò quan trọng trong sản xuất" bằng "Xưởng thiếu sáng làm công nhân dễ thao tác sai và mỏi mắt khi làm ca đêm."
 - Thay "tiết kiệm điện vượt trội" bằng con số tính được ở ví dụ 8.2.
 
-**Câu nối:** "Điều này", "Ngoài ra", "Bên cạnh đó", "Việc...", "Không chỉ... mà còn" mỗi kiểu tối đa 1-2 lần trong bài.
+**Câu nối:** "Điều này", "Ngoài ra", "Bên cạnh đó", "Việc...", "Không chỉ... mà còn" mỗi kiểu tối đa 1-2 lần trong bài. Quan hệ từ (nhưng, tuy nhiên, mặc dù, vì vậy, trong khi, dựa theo...) nên dùng để nối mạch, đa dạng, không dồn một kiểu (Instructions mục 4).
 
 ### 8.5 Bài toplist, bài so sánh, bài báo giá
 
@@ -372,8 +373,8 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 
 ### 8.6 CTA
 
-- Có hay không tùy định dạng bài, đã chốt ở Bước 2.
-- Đặt sau phần kết, 1-2 câu, nói rõ khách gửi gì và nhận được gì.
+- Mọi bài đều có (người dùng chốt 28/10/2026), nội dung chốt ở Bước 2 mục 8.
+- Đặt ở cuối kết bài, 1-2 câu, nói rõ khách gửi gì và nhận được gì, dùng từ gợi hành động (gửi, gọi, nhận, xem).
 - Ví dụ:
   - "Gửi kích thước nhà xưởng, chiều cao lắp và độ rọi mong muốn, HLB tính số lượng đèn bằng DIALux cho bạn."
   - "Liên hệ hotline hoặc Zalo 0967569588 để nhận báo giá theo số lượng và cấu hình chip, driver."
@@ -386,7 +387,7 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 ## 9. Chuẩn SEO on-page
 
 ### 9.1 Từ khóa
-- Từ khóa chính có trong: SEO title, H1, 100 chữ đầu, ít nhất một H2, meta description, slug.
+- Từ khóa chính có trong: SEO title, H1, câu đầu tiên của sapo, 100 chữ đầu, ít nhất một H2, meta description (ở phần đầu), slug, và nên có ở kết bài.
 - Không đặt tỷ lệ mật độ. Đọc thành tiếng thấy lặp thì bỏ bớt.
 - Từ khóa phụ (tối đa 5, đã chốt ở Bước 2) đặt ở H2, H3 hoặc đoạn văn có nội dung liên quan, không ép vào câu.
 - Website có nhiều trang danh mục nhắm từ khóa "đèn LED nhà xưởng [công suất]". Bài blog không nhắm trùng các từ khóa này, trừ khi intent khác rõ (ví dụ "giá", "cách chọn"), để tránh cạnh tranh với trang danh mục.
@@ -413,10 +414,12 @@ Anchor text:
 
 ### 9.4 SEO title, meta description, slug
 - **SEO title:** dưới 60 ký tự, từ khóa chính càng gần đầu càng tốt. Có thể thêm "| HLB" nếu còn chỗ. Không dùng từ tuyệt đối.
-- **Meta description:** 120-160 ký tự, tóm tắt nội dung, có từ khóa chính hoặc từ khóa phụ liên quan nhất, nói rõ người đọc nhận được gì.
+- **Meta description** (người dùng chốt 28/10/2026, blog và danh mục): **150-155 ký tự** (khoảng xanh của Rank Math, Yoast). Từ khóa chính đặt ở phần đầu (trong 30 ký tự đầu), không lặp quá 2 lần. Nên trả lời theo 5W1H: cái gì (What), khi nào (When), ở đâu (Where), vì sao (Why), như thế nào (How), chọn những ý hợp với intent. Viết hấp dẫn, có từ gợi hành động (xem, tham khảo, nhận báo giá, so sánh, liên hệ). Ví dụ: "Đèn LED nhà xưởng 150W: so sánh 6 mẫu UFO đang bán, quang thông, giá theo hãng và cách chọn theo chiều cao trần. Xem bảng chọn nhanh, nhận báo giá ngay."
 - **Slug:** không dấu, chữ thường, nối bằng hyphen, 3-6 từ, chứa từ khóa chính. Từ khóa chính dài hơn 6 từ thì slug lấy 3-6 từ lõi của từ khóa, giữ đúng thứ tự (ví dụ "thay đèn cao áp nhà xưởng bằng đèn LED" dùng `thay-den-cao-ap-nha-xuong`). Ví dụ: `cach-tinh-so-luong-den-nha-xuong`. Không gắn năm vào slug.
 
 ### 9.5 Ảnh
+- Số lượng (người dùng chốt 28/10/2026): tối thiểu 1 ảnh cho mỗi phần nội dung, linh động. H2 không có H3 cần 1 ảnh; H2 chia H3 thì mỗi H3 ưu tiên 1 ảnh. FAQ, kết bài không cần.
+- Vị trí: ảnh cần đọc kèm hướng dẫn, giải thích đặt phía trên hoặc ngay cạnh đoạn mô tả; ảnh minh họa, chứng minh kết quả (biểu đồ, ảnh công trình) đặt sau đoạn nội dung.
 - Đề xuất ảnh theo phần cần minh họa (bảng thông số, sơ đồ bố trí, ảnh công trình, ảnh sản phẩm).
 - Mỗi ảnh ghi: vị trí, nội dung, alt text, tên file gợi ý.
 - Alt text dưới 125 ký tự, mô tả đúng ảnh, có từ khóa khi tự nhiên.
@@ -455,7 +458,7 @@ Anchor text:
 ### Phần B. Nội dung bài viết
 
 - Markdown, bắt đầu bằng H1.
-- Thứ tự mặc định: mở bài, đoạn trả lời nhanh, các H2 theo outline, FAQ, kết bài, CTA. Outline đã chốt khác thì theo outline.
+- Thứ tự mặc định: sapo, đoạn trả lời nhanh, các H2 theo outline, FAQ, kết bài có CTA ở cuối. Outline đã chốt khác thì theo outline.
 - Link đã xác minh viết dạng `[anchor](URL)`. Chưa xác minh dùng `[LINK: tên trang]`.
 - Ảnh: `[ẢNH: nội dung ảnh | alt: ... | tên file: ...]`.
 - Dữ liệu thiếu: `[CẦN BỔ SUNG: ...]`. Thông tin chưa chắc: `[CẦN KIỂM TRA: ...]`.
@@ -484,8 +487,10 @@ Rà toàn bài trước khi trả. Không in checklist ra, chỉ báo những đ
 - [ ] Heading khớp 100% outline đã chốt, đúng thứ tự, đúng cấp.
 - [ ] Mỗi phần đúng phạm vi, không trùng ý giữa các phần.
 - [ ] Người đọc có câu trả lời chính trong 2-3 đoạn đầu.
-- [ ] Mở bài 2-4 câu, không giới thiệu chung về đèn LED hay về công ty.
-- [ ] Kết bài là khuyến nghị theo từng trường hợp, không tóm tắt lại bài.
+- [ ] Sapo 2,5-3 dòng, từ khóa chính ở câu đầu tiên, nêu khái quát cả bài, không giới thiệu chung về đèn LED hay về công ty.
+- [ ] Mỗi H2 (trừ FAQ, kết bài) có câu kết dẫn sang H2 sau.
+- [ ] Kết bài tóm tắt, đánh giá cả bài, có từ khóa chính, có CTA.
+- [ ] Ảnh: H2 không có H3 có 1 ảnh, mỗi H3 ưu tiên 1 ảnh, đặt đúng vị trí theo vai trò ảnh.
 
 **Dữ liệu**
 - [ ] Mọi thông số và giá có nguồn: trang sản phẩm, website hãng, hoặc người dùng cung cấp. Phần C có URL và ngày.
@@ -510,12 +515,12 @@ Rà toàn bài trước khi trả. Không in checklist ra, chỉ báo những đ
 - [ ] Thuật ngữ thống nhất theo mục 7, thuật ngữ kỹ thuật được giải thích ở lần đầu.
 - [ ] Xưng "chúng tôi" hoặc "HLB", gọi người đọc là "bạn".
 - [ ] Bài lắp đặt, đấu nối có lưu ý an toàn điện và làm việc trên cao đúng ở bước có rủi ro.
-- [ ] Đoạn văn 2-4 câu. Bảng tối đa 5 cột.
+- [ ] Câu khoảng 20 từ, đoạn 2,5-3 dòng (không quá 4 dòng). Liệt kê dùng gạch đầu dòng, ý chính in đậm. Bảng tối đa 5 cột.
 
 **SEO**
-- [ ] Từ khóa chính có ở SEO title, H1, 100 chữ đầu, ít nhất một H2, meta description, slug.
+- [ ] Từ khóa chính có ở SEO title, H1, câu đầu sapo, 100 chữ đầu, ít nhất một H2, meta description (phần đầu), slug, kết bài.
 - [ ] Link nội bộ 3-5 (1-3 về danh mục), link ngoài 0-3. Anchor mô tả đúng trang đích, không lặp URL.
-- [ ] SEO title dưới 60 ký tự, meta description 120-160 ký tự (đã đếm bằng công cụ).
+- [ ] SEO title dưới 60 ký tự, meta description 150-155 ký tự, có từ gợi hành động (đã đếm bằng công cụ).
 - [ ] Ảnh có alt text, FAQ không lặp thân bài.
 
 **Đầu ra**
