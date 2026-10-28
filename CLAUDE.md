@@ -45,7 +45,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 
 Mỗi lần agent đánh giá ghi phiếu, `tools/phieu_duyet.py` thêm một dòng vào `.danh_gia/nhat_ky.jsonl` (điểm từng tiêu chí, các vấn đề có nhãn). Agent chính ghi thêm các lần bác bỏ (bước 3). Không sửa tay file nhật ký.
 
-Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (từ 22/10/2026 thay trang Lịch sử chấm bài HLB cũ, trang cũ không cập nhật nữa). Cập nhật một lần khi kết thúc vòng duyệt (bước 5), trước khi báo người dùng:
+Lịch sử chấm hiện ở tab **Lịch sử chấm điểm** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (từ 22/10/2026 thay trang Lịch sử chấm bài HLB cũ, trang cũ không cập nhật nữa). Cập nhật một lần khi kết thúc vòng duyệt (bước 5), trước khi báo người dùng:
 1. `python tools/phieu_duyet.py xuat` rồi `python dieu_phoi/cham_len_bang.py > <file tạm>.json`.
 2. `ArtifactData` `set` collection `cham_bai`, doc_id `tong_hop`, `file_path` là file tạm, kèm `if_version` (đọc `get` trước để lấy version).
 
@@ -76,7 +76,7 @@ Lịch sử chấm hiện ở tab **Lịch sử chấm** của **Bảng điều 
 
 ### Trang duyệt ảnh
 
-Người dùng duyệt ảnh ở tab **Duyệt ảnh** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (từ 22/10/2026 thay trang Duyệt ảnh HLB cũ; trang cũ và `anh/trang-duyet-anh.html` không dùng nữa). Dữ liệu đọc ghi bằng công cụ `ArtifactData` với URL trên, cấu trúc giữ như cũ:
+Người dùng duyệt ảnh ở tab **Kiểm duyệt hình ảnh** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (từ 22/10/2026 thay trang Duyệt ảnh HLB cũ; trang cũ và `anh/trang-duyet-anh.html` không dùng nữa). Dữ liệu đọc ghi bằng công cụ `ArtifactData` với URL trên, cấu trúc giữ như cũ:
 - Collection `anh`, mã tài liệu `<tên bài>--<tên file>` (ví dụ `Bai_cach-chon-den-led-nha-xuong--cap-bao-ve-ip-den-nha-xuong.jpg`). Trường: `bai`, `tieu_de_bai`, `ten`, `thu_tu`, `muc`, `alt`, `nguon`, `url`, `asset_id`, `rong`, `cao`, `vong`, `trang_thai` (`cho_duyet` | `duyet` | `lam_lai`), `ghi_chu` (của người dùng), `ghi_chu_agent`, `cap_nhat`.
 - Collection `yeu_cau`: ảnh người dùng xin thêm. Trường: `bai`, `noi_dung` (tên file hoặc mô tả), `ghi_chu`, `trang_thai` (`moi` | `da_xu_ly`), `phan_hoi`, `tao_luc`.
 

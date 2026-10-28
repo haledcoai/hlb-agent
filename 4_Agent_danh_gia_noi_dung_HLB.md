@@ -202,7 +202,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 
 **Bác bỏ:** agent viết ghi lần agent đánh giá nói sai bằng lệnh `python tools/phieu_duyet.py bac-bo <bài> --vong <n> --nhan <nhãn> --ly-do "<nguồn nói gì>"`.
 
-**Trang theo dõi:** tab **Lịch sử chấm** của Bảng điều phối HLB (https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG) cho thấy:
+**Trang theo dõi:** tab **Lịch sử chấm điểm** của Bảng điều phối HLB (https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG) cho thấy:
 - điểm qua các lần chấm
 - % điểm theo từng tiêu chí
 - vấn đề lặp lại

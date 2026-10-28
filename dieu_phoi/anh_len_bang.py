@@ -1,4 +1,4 @@
-"""Đưa ảnh chờ duyệt của một bài lên tab Duyệt ảnh (collection `anh`) của Bảng điều phối HLB, một lần cho cả bài.
+"""Đưa ảnh chờ duyệt của một bài lên tab Kiểm duyệt hình ảnh (collection `anh`) của Bảng điều phối HLB, một lần cho cả bài.
 
 Bước 1: python dieu_phoi/anh_len_bang.py Bai_<slug>.md
         In danh sách file JPG cần tải lên trang (Artifact publish, asset: true, file_paths).

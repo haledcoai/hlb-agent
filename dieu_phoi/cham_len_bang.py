@@ -1,4 +1,4 @@
-"""Gộp kết quả `tools/phieu_duyet.py xuat` thành một tài liệu cho tab Lịch sử chấm trên Bảng điều phối HLB.
+"""Gộp kết quả `tools/phieu_duyet.py xuat` thành một tài liệu cho tab Lịch sử chấm điểm trên Bảng điều phối HLB.
 
 Dùng: python tools/phieu_duyet.py xuat && python dieu_phoi/cham_len_bang.py > /tmp/cham.json
 Sau đó ArtifactData "set" collection cham_bai, doc_id tong_hop, file_path = file JSON.
