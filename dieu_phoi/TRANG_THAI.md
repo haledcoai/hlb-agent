@@ -8,9 +8,9 @@ Cập nhật: 28/10/2026 13:15 giờ VN. Mỗi lượt chạy đọc file này s
 - Bảng: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG. Nút "Chạy Agent ngay" gọi lịch theo `cau_hinh/chung.trigger_id`.
 - Phiên chạy trong environment "HLB Agent" (có `WP_USER`, `WP_APP_PASSWORD`, mạng tới website). Thiếu `SERPAPI_KEY` thì không dừng cả lượt: chuyển từ khóa cần SERP sang `can_xu_ly` với `ly_do` "Phiên chạy thiếu SERPAPI_KEY, bạn thêm key vào environment HLB Agent" và làm tiếp việc khác.
 - Giờ ghi lên bảng luôn lấy bằng `TZ=Asia/Ho_Chi_Minh date -Iseconds` ngay trước khi ghi (người dùng bắt lỗi giờ ước lượng 28/10).
-- Mỗi lượt có việc: ghi `agent_nhan_luc` + `tien_do` cho mọi dòng chờ Agent trước (DIEU_PHOI mục 4 bước 3a). Bảng sáng lại nút sau 10 phút (gọi ngay) hoặc 65 phút (chờ lượt) nếu chưa xác nhận.
+- Mỗi lượt có việc: ghi `agent_nhan_luc` + `tien_do` cho mọi dòng chờ Agent trước (DIEU_PHOI mục 4 bước 3a). Bảng sáng lại nút sau 10 phút (gọi ngay) hoặc 65 phút (gọi không được) nếu chưa xác nhận.
 - Chỉ một phiên ghi lên một từ khóa tại một thời điểm (`khoa_luc`).
-- Lịch hiện dùng: "Điều phối HLB (phiên riêng)" `trig_01SZCoQZmxvcGUWbHodVv2Fx` (tạo 28/10). Lịch cũ `trig_01SNtA1v6Q62TrgSaCBvidMU` đã tắt.
+- Lịch hiện dùng: "Điều phối HLB (phiên riêng)" `trig_01VuSkTwAngCyM4hvdkjoi8u` (tạo 28/10). **Chỉ chạy khi có việc** (người dùng chốt 28/10, bớt tốn token): bảng gọi khi người dùng thao tác, lượt còn việc tự gọi lượt sau, một lượt dự phòng 8:04 sáng. Lịch cũ `trig_01SNtA1v6Q62TrgSaCBvidMU` đã tắt; lịch hằng giờ `trig_01SZCoQZmxvcGUWbHodVv2Fx` đã xóa.
 - **Mô hình phòng ban (người dùng chốt 28/10):** phiên điều phối là trưởng phòng, không tự viết bài. Nghiên cứu, viết, sửa giao `agent-blog` hoặc `agent-danh-muc`; chấm giao `danh-gia-noi-dung`, `danh-gia-danh-muc`; ảnh giao `tao-anh`. Chi tiết `DIEU_PHOI.md` đầu file.
 
 ## Quyết định cốt lõi đã chốt

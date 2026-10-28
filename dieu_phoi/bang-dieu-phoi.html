@@ -268,12 +268,12 @@ select { width: auto; min-width: 220px; max-width: 100%; }
     </div>
     <div class="run">
       <div class="row"><button class="btn main" type="button" id="runNow">Chạy Agent ngay</button><button class="btn stop" type="button" id="pauseAll">Tạm dừng toàn bộ</button></div>
-      <small id="runInfo">Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.</small>
+      <small id="runInfo">Agent chạy khi bạn giao việc trên bảng, thêm một lượt dự phòng lúc 8:04 mỗi sáng.</small>
     </div>
   </div>
 </header>
 <div class="wrap" style="padding-top:20px">
-  <div class="pausebar" id="pauseBar" role="status" hidden><span>Agent đang tạm dừng toàn bộ. Lịch hằng giờ không nhận việc nào cho tới khi bạn cho chạy lại.</span><button class="btn ok" type="button" id="resumeAll">Cho Agent chạy lại</button></div>
+  <div class="pausebar" id="pauseBar" role="status" hidden><span>Agent đang tạm dừng toàn bộ. Agent không nhận việc nào cho tới khi bạn cho chạy lại.</span><button class="btn ok" type="button" id="resumeAll">Cho Agent chạy lại</button></div>
   <nav class="ptabs" role="tablist" aria-label="Khu vực" id="ptabs">
     <button class="ptab" role="tab" type="button" data-pane="dieu_phoi" aria-selected="true">Tổng quan</button>
     <button class="ptab" role="tab" type="button" data-pane="agent" aria-selected="false">Trung tâm Agent</button>
@@ -482,14 +482,15 @@ function anhTienDo(r) {
 
 const DUNG_BTN = dis => `<button class="btn stop" type="button" data-act="dung" ${dis}>Tạm dừng</button>`;
 // Nhận việc: bảng ghi goi_agent_luc (và goi_agent_kq) mỗi lần giao việc cho Agent; Agent ghi agent_nhan_luc khi đọc thấy việc
-// Gọi chạy ngay thì Agent phải xác nhận trong 10 phút; chờ lượt hằng giờ thì 65 phút
+// Gọi chạy ngay thì Agent phải xác nhận trong 10 phút; gọi không được thì nút sáng lại sau 65 phút để gọi lại
 const hanNhan = r => (r.goi_agent_kq === "ngay" ? 10 : 65) * 60e3;
 const ms = iso => { const t = Date.parse(iso || ""); return isNaN(t) ? 0 : t; };
 const hm = iso => new Date(iso).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh" });
 const ngayGio = iso => new Date(ms(iso)).toDateString() === new Date().toDateString() ? hm(iso) : fmt(iso);
+// Từ 28/10/2026 không chạy hằng giờ: chỉ một lượt dự phòng 8:04 sáng (giờ VN)
 function luotKe() {
-  const h = new Date(Date.now() + 7 * 3600e3).getUTCHours() + 1;
-  return h > 21 ? "8:00 sáng mai" : `${Math.max(h, 8)}:00`;
+  const d = new Date(Date.now() + 7 * 3600e3), m = d.getUTCHours() * 60 + d.getUTCMinutes();
+  return m < 8 * 60 + 4 ? "8:04 sáng nay" : "8:04 sáng mai";
 }
 const goiLuc = r => r.goi_agent_luc || r.cap_nhat;
 const daNhan = r => ms(r.agent_nhan_luc) >= ms(goiLuc(r)) && !!r.agent_nhan_luc;
@@ -814,7 +815,7 @@ function render() {
   if (pane === "agent") renderAgent(); else if (pane === "anh") renderAnh(); else if (pane === "cham") renderCham();
   if (pane !== "anh") { const n = anh.filter(a => (a.trang_thai || "cho_duyet") === "cho_duyet").length, el = $("#cntAnh"); el.hidden = !n; el.textContent = n; }
   if (aid) { const el = document.getElementById(aid); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} } }
-  const last = (cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent tự kiểm tra bảng mỗi giờ, 8h đến 21h.") + (cfg.moi_truong ? " " + cfg.moi_truong : "");
+  const last = (cfg.lan_chay_cuoi ? `Agent chạy lần cuối ${fmt(cfg.lan_chay_cuoi)}.` : "Agent chạy khi bạn giao việc trên bảng, thêm một lượt dự phòng lúc 8:04 mỗi sáng.") + (cfg.moi_truong ? " " + cfg.moi_truong : "");
   $("#runInfo").textContent = last;
   const tat = !!cfg.tam_dung_tat_ca;
   $("#pauseBar").hidden = !tat; $("#pauseAll").hidden = tat; $("#pauseAll").disabled = readOnly; $("#resumeAll").disabled = readOnly;
@@ -825,15 +826,16 @@ let fireOk = false;
 async function fireAgent(reason) {
   fireOk = false;
   if (cfg.tam_dung_tat_ca) return "Agent đang tạm dừng toàn bộ. Việc này sẽ được nhận khi bạn cho Agent chạy lại.";
-  if (!cfg.trigger_id || !mcp) return "Agent sẽ nhận việc ở lượt chạy định kỳ tiếp theo.";
+  if (!cfg.trigger_id || !mcp) return "Agent sẽ nhận việc ở lượt dự phòng " + luotKe() + ".";
   try {
-    await mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: cfg.trigger_id, text: reason || "Bảng điều phối: có việc mới." });
+    // Lịch mở phiên mới mỗi lượt không nhận lời nhắn kèm: gọi không kèm text, Agent tự đọc bảng để biết việc
+    await mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: cfg.trigger_id });
     fireOk = true;
     return "Đã gọi Agent chạy ngay.";
   } catch (e) {
-    if (e && (e.code === "approval_required" || e.code === "not_in_manifest")) return "Chưa được phép gọi Agent ngay. Agent sẽ nhận việc ở lượt chạy định kỳ.";
-    if (e && (e.code === "server_not_connected" || e.code === "needs_reauth")) return "Kết nối Claude Code Remote chưa sẵn sàng. Agent sẽ nhận việc ở lượt chạy định kỳ.";
-    return "Không gọi được Agent ngay. Agent sẽ nhận việc ở lượt chạy định kỳ.";
+    if (e && (e.code === "approval_required" || e.code === "not_in_manifest")) return "Chưa được phép gọi Agent ngay. Agent sẽ nhận việc ở lượt dự phòng " + luotKe() + ". Bấm Chạy Agent ngay để thử lại.";
+    if (e && (e.code === "server_not_connected" || e.code === "needs_reauth")) return "Kết nối Claude Code Remote chưa sẵn sàng. Agent sẽ nhận việc ở lượt dự phòng " + luotKe() + ". Bấm Chạy Agent ngay để thử lại.";
+    return "Không gọi được Agent ngay. Agent sẽ nhận việc ở lượt dự phòng " + luotKe() + ". Bấm Chạy Agent ngay để thử lại.";
   }
 }
 
