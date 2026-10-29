@@ -2,7 +2,9 @@
 
 Ngày kiểm tra: 29/10/2026. Nguồn: top Google Việt Nam qua SerpApi (`tools/nghien_cuu.py serp`, lưu ở `serp/_ket_qua_den-chong-chay-no-1m2.json`). Google chỉ trả 8 kết quả tự nhiên, có mục "Tìm kiếm liên quan", không có "Mọi người cũng hỏi".
 
-Loại bài người dùng chọn trên bảng: blog. Không có `id_bai_cu`, không có ghi chú.
+Loại bài người dùng chọn trên bảng: blog. Lần đầu không có `id_bai_cu`, không có ghi chú.
+
+**Cập nhật 29/10/2026 sau khi người dùng trả lời 4 câu hỏi:** người dùng đồng ý viết lại bài 3904 (giữ URL), `id_bai_cu` = 3904; giữ Duhal, Paragon, Athaco vì bài là tổng hợp; dữ liệu HALEDCO lấy từ haledco.com vì HLB không có model 1m2; dữ liệu hãng khác theo link người dùng gửi. SERP giữ nguyên, không chạy lại. Bảng Giữ/Bỏ ở cuối đã sửa theo trả lời này. Kết quả đọc nguồn sản phẩm ở `du_lieu_mau.md`.
 
 ## Top 8 Google VN
 
@@ -66,19 +68,21 @@ Thuộc phạm vi: đèn chống cháy nổ là chủ đề phụ đã có bài 
 |---|---|---|
 | **Giữ** | Đèn chống cháy nổ 1m2 là bộ đèn dùng bóng tuýp dài 1,2 m, có loại đơn và đôi | Đúng intent, khớp SERP (#4, #5, #8) |
 | **Giữ** | Có loại LED và loại huỳnh quang chống nổ 1m2, so sánh hai loại | Ý hữu ích, nhưng viết lại không dùng số không nguồn |
-| **Giữ** (chờ xác nhận) | Các model HALEDCO: tuýp đơn, tuýp đôi, 40W, 60W, 80W | Chỉ giữ khi người dùng xác nhận HLB còn phân phối và cấp lại thông số, giá (câu hỏi 2) |
-| **Giữ** (chờ nguồn) | Mẫu Rạng Đông, Philips, Điện Quang 1m2 | Hãng đang bán trên website, được so sánh, nhưng thông số phải lấy lại từ website hãng (câu hỏi 3) |
+| **Giữ** (chờ nguồn) | Các model HALEDCO: tuýp đơn, tuýp đôi, 40W, 60W, 80W | Người dùng chốt: HLB không có model 1m2 trên website (đã kiểm REST, CSV), lấy model, thông số, Ex, giá từ haledco.com (không link). Phiên 29/10 chưa vào được haledco.com |
+| **Giữ** (chờ nguồn) | Mẫu Rạng Đông, Philips 1m2 | Hãng đang bán trên website; thông số lấy lại theo link người dùng gửi (rangdong.com.vn pr1928, congtydenled.com.vn), phiên 29/10 chưa mở được |
+| **Giữ** (chờ xác nhận) | Mẫu Điện Quang | Link người dùng gửi có slug "bo-den-led-mica-...-dq-ledmf02-36", theo tên là bộ đèn mica, có thể không phải đèn chống nổ; chỉ giữ khi tìm được model Điện Quang có ký hiệu Ex |
+| **Giữ** (người dùng chốt) | Duhal LSC 240, Duhal đôi, Paragon 1m2, Paragon phòng sạch, Athaco | Bài tổng hợp, người dùng muốn liệt kê. Viết theo Instructions mục 7 "thương hiệu không bán trên website": nêu theo thông tin công bố của hãng, tách nhóm riêng, không so sánh với hãng HLB phân phối, không kết luận hãng nào hơn. Số trong bài cũ không dùng lại (xem các dòng Bỏ vì sai) |
 | **Giữ** | Mục "nơi mua" | Chuyển thành CTA ngắn ở kết bài |
 | **Bỏ vì sai** | HALEDCO tuýp đơn 18W ghi quang thông 13.000 lm và 130 lm/W; tuýp đôi 36W cũng 13.000 lm | Mâu thuẫn: 18 W x 130 lm/W = 2.340 lm, 36 W x 130 lm/W = 4.680 lm, không ra 13.000 lm |
 | **Bỏ vì sai** | Ký hiệu chống nổ ghi "Exd II BT", "EXD II BT" | Ký hiệu thiếu nhóm khí (IIA, IIB, IIC) và cấp nhiệt độ (T1-T6), không đọc được |
 | **Bỏ vì sai** | "Khả năng chịu nhiệt 450 độ C" | Không rõ là gì (có thể nhầm nhiệt độ bốc cháy ứng với cấp T1), không nguồn |
 | **Bỏ vì sai** | Rạng Đông IP65 "sử dụng được cho cả không gian ngoài trời" | Kết luận vượt nguồn, cần thông tin công bố của hãng |
 | **Bỏ vì sai** | Paragon 36W, Duhal đôi ghi "thời gian sạc 24 giờ, dùng 1,5 giờ" | Đây là thông số đèn sự cố, lệch với bộ đèn chiếu sáng thường; nhiều bảng chép trùng kích thước 1342x168x109 mm cho 3 hãng |
-| **Bỏ vì lỗi thời** | Toàn bộ giá 2023 (1.280.000 - 9.714.000 đồng) | Giá cũ, không có trang sản phẩm trên website để đối chiếu |
+| **Bỏ vì lỗi thời** | Toàn bộ giá 2023 (1.280.000 - 9.714.000 đồng) | Giá cũ, không có trang sản phẩm trên website để đối chiếu; giá mới lấy theo nguồn ở `du_lieu_mau.md` |
+| **Bỏ vì sai** | Điện Quang, Athaco, Paragon 72W cùng kích thước 1342x168x109 mm; bảng so sánh LED và huỳnh quang ghi "tiêu chuẩn chống nổ ATEX" cho cả hai, "IP50-IP54" cho huỳnh quang | Chép trùng, không nguồn; ATEX là chỉ thị EU, không phải tính chất chung của mọi đèn |
 | **Bỏ vì lỗi thời** | "Tiết kiệm điện 70%", "tiết kiệm 60%", "tốt hơn gấp 3-5 lần" | Câu cấm ở Knowledge mục 5, không có điều kiện so sánh |
 | **Bỏ vì lỗi thời** | Tiêu đề "tốt nhất", "rẻ nhất"; câu "chống cháy nổ tốt nhất" ở sapo | Từ tuyệt đối bị cấm |
 | **Bỏ vì lỗi thời** | Địa chỉ "Q. Bắc Từ Liêm", "Ngô Quyền - Sơn Tây" | Địa chỉ đã đổi theo Knowledge mục 1 |
-| **Bỏ vì ngoài phạm vi** | Duhal LSC 240, Duhal đôi, Paragon 72W, Paragon phòng sạch, Athaco | Hãng không bán trên website; Instructions mục 7 chỉ cho nhắc khi cần, không so sánh (câu hỏi 4) |
 | **Bỏ vì ngoài phạm vi** | Danh sách hãng chip, driver kèm link ngoài (Cree, Nichia, Osram, Bridgelux, Philips, Meanwell) | Không liên quan cách chọn đèn 1m2, link website hãng bị cấm |
 | **Bỏ vì ngoài phạm vi** | Đoạn "HALEDCO còn cung cấp đèn panel, âm trần..." | Giới thiệu HALEDCO, lệch chủ đề |
 
