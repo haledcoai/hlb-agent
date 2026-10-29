@@ -41,7 +41,7 @@ Loại đơn lắp 1 bóng, loại đôi lắp 2 bóng trong cùng một thân. 
 
 [ẢNH: Bộ đèn chống nổ 1m2 loại đơn và loại đôi đặt cạnh nhau để so sánh kích thước | alt: Đèn chống cháy nổ 1m2 đơn và đôi đặt cạnh nhau | tên file: den-chong-no-1m2-don-va-doi-so-sanh.jpg]
 
-Khi tư vấn cho kho sơn trần khoảng 4 m, chúng tôi thường gợi ý bộ đôi. Số bộ ít hơn nên số đầu cáp, số điểm đấu nối trong vùng nguy hiểm cũng ít hơn, kiểm tra định kỳ cũng nhẹ hơn.
+Khi tư vấn cho kho sơn trần khoảng 4 m, chúng tôi thường gợi ý bộ đôi, vì số bộ ít hơn thì việc kiểm tra định kỳ cũng nhẹ hơn.
 
 ### Bóng tuýp LED hay huỳnh quang chống nổ 1m2
 
@@ -67,7 +67,7 @@ Phần này liệt kê mẫu của 4 hãng HLB phân phối. Số thứ tự ch�
 
 ### Đèn chống cháy nổ 1m2 HALEDCO
 
-HALEDCO là một trong các thương hiệu HLB phân phối. Đèn chống nổ 1m2 của hãng là đèn do HALEDCO sản xuất, có cả loại đơn và loại đôi. Website HLB hiện chưa có trang sản phẩm riêng cho mẫu 1m2, nên thông số dưới đây lấy theo công bố của hãng.
+HALEDCO là một trong các thương hiệu HLB phân phối. Đèn chống nổ 1m2 của hãng là đèn do HALEDCO sản xuất, có cả loại đơn và loại đôi [CẦN KIỂM TRA: theo bài gốc #3904, chưa đối chiếu trang hãng]. Website HLB hiện chưa có trang sản phẩm riêng cho mẫu 1m2, nên thông số dưới đây lấy theo công bố của hãng.
 
 [CẦN BỔ SUNG: model HALEDCO loại đơn và loại đôi, công suất, quang thông, ký hiệu Ex đầy đủ, IP, kích thước, giá, theo trang sản phẩm HALEDCO]
 
@@ -81,13 +81,13 @@ Rạng Đông có dòng "Bộ đèn LED chống nổ" trên website của hãng.
 
 [CẦN BỔ SUNG: model Rạng Đông 1,2 m, loại đơn/đôi, công suất, quang thông, ký hiệu Ex, IP, theo trang "Bộ đèn LED chống nổ" của Rạng Đông]
 
-Bảo hành theo chính sách của Rạng Đông. Bài cũ từng ghi đèn Rạng Đông IP65 "dùng được ngoài trời"; chúng tôi bỏ câu này vì chưa thấy hãng công bố như vậy cho mẫu chống nổ.
+Bảo hành theo chính sách của Rạng Đông. Mẫu chống nổ chỉ dùng ngoài trời khi hãng công bố rõ, xem câu hỏi về dùng ngoài trời ở cuối bài.
 
 [ẢNH: Bộ đèn LED chống nổ 1m2 Rạng Đông lắp trên trần kho | alt: Đèn chống cháy nổ 1m2 Rạng Đông lắp trong kho | tên file: den-chong-no-1m2-rang-dong-lap-kho.jpg]
 
 ### Đèn chống cháy nổ 1m2 Philips
 
-Nguồn chúng tôi có cho mẫu Philips là trang của một đơn vị bán hàng, không phải trang chính thức của Philips. Vì vậy thông số dưới đây cần đối chiếu lại với tài liệu của hãng trước khi dùng cho hồ sơ dự án.
+Philips có đèn chống nổ cho khu công nghiệp. Trước khi dùng thông số cho hồ sơ dự án, bạn nên đối chiếu với tài liệu kỹ thuật của hãng cho đúng mã sản phẩm.
 
 [CẦN BỔ SUNG: model Philips chống nổ dài 1,2 m, loại đơn/đôi, công suất, quang thông, ký hiệu Ex, IP, nguồn thông số]
 
@@ -101,7 +101,7 @@ Philips bảo hành theo từng model, không có một thời hạn chung. Khi 
 
 [CẦN BỔ SUNG: model Điện Quang chống nổ 1m2 có ký hiệu Ex, hoặc người dùng quyết định bỏ mục này]
 
-[ẢNH: Nhãn thông số trên thân đèn, khoanh vùng dòng ký hiệu Ex cần tìm khi mua | alt: Vị trí ký hiệu Ex trên nhãn đèn chống cháy nổ 1m2 | tên file: vi-tri-ky-hieu-ex-tren-nhan-den-1m2.jpg]
+[ẢNH: Bộ đèn LED máng mica thông thường đặt cạnh bộ đèn chống nổ 1m2 để thấy khác biệt về thân vỏ và đầu cáp (ảnh minh họa) | alt: Đèn LED máng mica thường và đèn chống cháy nổ 1m2 đặt cạnh nhau | tên file: den-mang-mica-thuong-canh-den-chong-no-1m2.jpg]
 
 Các hãng trên là hàng HLB phân phối. Người mua 1m2 cũng hay hỏi mẫu của Duhal, Paragon, Athaco, phần dưới tổng hợp theo thông tin các hãng này công bố.
 
@@ -111,15 +111,15 @@ Ba hãng này không bán trên website HLB. Nội dung dưới đây ghi theo t
 
 ### Đèn chống nổ 1m2 Duhal
 
-Duhal có bộ đèn chống nổ dùng bóng tuýp, theo thông tin công bố của hãng. Bài cũ của chúng tôi nêu mẫu LSC 240, nhưng chưa đối chiếu được với trang hãng nên chưa đưa thông số vào đây.
+Duhal có bộ đèn chống nổ dùng bóng tuýp dài 1,2 m [CẦN KIỂM TRA: theo bài gốc #3904, chưa đối chiếu trang hãng].
 
 [CẦN BỔ SUNG: model Duhal 1m2 đơn/đôi, công suất, ký hiệu Ex, IP, giá, theo trang Duhal]
 
-[ẢNH: Bộ đèn chống nổ 1m2 loại đôi lắp trong kho sơn có kệ hàng | alt: Đèn chống nổ 1m2 lắp trong kho sơn | tên file: den-chong-no-1m2-lap-kho-son.jpg]
+[ẢNH: Bộ đèn chống nổ 1m2 loại đôi lắp trong kho sơn có kệ hàng (ảnh minh họa, không phải sản phẩm Duhal) | alt: Đèn chống nổ 1m2 lắp trong kho sơn | tên file: den-chong-no-1m2-lap-kho-son.jpg]
 
 ### Đèn chống nổ 1m2 Paragon
 
-Paragon có mẫu chống nổ 1m2 dùng cho nhà xưởng và mẫu dùng cho phòng sạch, theo thông tin công bố của hãng. Mẫu phòng sạch thường gắn sát trần, bề mặt phẳng để dễ lau chùi, hợp với phòng pha chế dược, hóa mỹ phẩm.
+Paragon có mẫu chống nổ 1m2 dùng cho nhà xưởng và mẫu dùng cho phòng sạch [CẦN KIỂM TRA: theo bài gốc #3904, chưa đối chiếu trang hãng]. Mẫu phòng sạch thường gắn sát trần, bề mặt phẳng để dễ lau chùi, hợp với phòng pha chế dược, hóa mỹ phẩm.
 
 [CẦN BỔ SUNG: model Paragon 1m2 và mẫu phòng sạch, công suất, ký hiệu Ex, IP, giá, theo trang Paragon]
 
@@ -146,7 +146,7 @@ Một dòng nhãn đầy đủ có dạng như "Ex d IIB T4" (ví dụ minh họ
 - **Ex:** thiết bị có chứng nhận dùng trong môi trường khí nổ.
 - **Kiểu bảo vệ:** "d" là vỏ chịu nổ (nếu có cháy bên trong, vỏ giữ lửa không lan ra ngoài), "e" là tăng cường an toàn, "m" là đúc kín. Nhiều đèn ghi kết hợp như "de", "edm".
 - **Nhóm khí:** IIA, IIB, IIC, trong đó IIC khắt khe nhất (nhóm có hydro, axetylen). Đèn IIC dùng được cho khu IIB và IIA, chiều ngược lại thì không.
-- **Cấp nhiệt độ:** T1 đến T6, cho biết nhiệt độ bề mặt cao nhất của đèn. T6 là cấp có bề mặt nguội nhất. Cấp nhiệt độ phải thấp hơn nhiệt độ tự bốc cháy của chất trong khu.
+- **Cấp nhiệt độ:** T1 đến T6, cho biết nhiệt độ bề mặt cao nhất của đèn. T6 là cấp có bề mặt nguội nhất. Nhiệt độ bề mặt cao nhất theo cấp T của đèn phải thấp hơn nhiệt độ tự bốc cháy của chất có trong khu.
 
 [ẢNH: Sơ đồ giải thích từng phần của ký hiệu Ex trên nhãn đèn chống nổ | alt: Cách đọc ký hiệu Ex trên nhãn đèn chống cháy nổ 1m2 | tên file: cach-doc-ky-hieu-ex-den-chong-no.jpg]
 
@@ -222,7 +222,7 @@ Giá đúng mới là một nửa. Phần lớn sự cố với đèn chống n�
 - **Lắp bóng thường vào máng chống nổ:** bóng khác công suất hoặc khác kiểu đấu nguồn có thể làm thân đèn nóng hơn mức cấp nhiệt độ cho phép. Chỉ thay bóng đúng mã hãng ghi trong tài liệu.
 - **Nhầm đèn kín nước IP65 với đèn chống nổ:** nhìn bề ngoài giống nhau, nhưng đèn kín nước không có ký hiệu Ex trên nhãn.
 - **Chọn sai cấp nhiệt độ:** kho chứa dung môi có nhiệt độ tự bốc cháy thấp mà dùng đèn cấp T3 là lỗi hay gặp. Hỏi bộ phận an toàn danh sách chất trong kho trước khi chọn.
-- **Đầu cáp và ống luồn dây không kín:** đầu cáp phải đúng cỡ cáp và siết đủ chặt, lỗ thừa trên thân bịt bằng nút bịt chống nổ, không bịt bằng băng keo hay silicone.
+- **Đầu cáp và ống luồn dây không kín:** đầu cáp phải đúng cỡ cáp và siết đủ chặt. Lỗ thừa trên thân bịt bằng nút bịt chống nổ, không dùng băng keo hay silicone.
 - **Mở nắp thay bóng khi còn điện:** đây là bước rủi ro nhất.
 
 [ẢNH: Thợ điện siết đầu cáp chống nổ trên thân bộ đèn 1m2 trước khi đóng nắp | alt: Siết đầu cáp khi lắp đèn chống cháy nổ 1m2 | tên file: siet-dau-cap-den-chong-no-1m2.jpg]
@@ -235,11 +235,13 @@ Những lỗi trên phần lớn tránh được nếu bạn hỏi đúng câu k
 
 ### Đèn chống cháy nổ 1m2 lắp cao bao nhiêu là hợp lý?
 
-Đèn chống cháy nổ 1m2 thường lắp ở độ cao khoảng 3-6 m, hợp nhất là 3-4 m. Bóng tuýp tỏa sáng rộng nên khi treo quá cao, ánh sáng xuống sàn yếu đi nhanh. Với trần thấp, nên gắn sát trần hoặc treo bằng giá đi kèm của hãng, giữ khoảng cách giữa các bộ đều để sàn không bị vệt tối.
+Hợp nhất là 3-4 m, tối đa khoảng 6 m như bảng ở mục cách chọn. Ngoài chiều cao, cách lắp cũng quyết định độ sáng dưới sàn.
+
+Trần bê tông phẳng thì gắn sát trần bằng giá đi kèm của hãng. Trần kèo thép, có ống hoặc máng cáp chắn thì treo thấp xuống bằng giá treo hãng cho phép, sao cho kệ hàng không che sáng. Khoảng cách giữa các bộ càng lớn so với chiều cao lắp thì khoảng sàn giữa hai bộ càng dễ tối, nên bố trí đều theo cả hai chiều.
 
 ### Có dùng bóng tuýp LED thường thay bóng trong máng chống nổ được không?
 
-Không nên. Chứng nhận chống nổ áp cho cả bộ đèn gồm loại bóng hãng chỉ định. Khi bóng hỏng mà không có bóng thay đúng mã, bạn chụp nhãn thân đèn gửi nhà cung cấp để đặt đúng loại. Lắp tạm bóng thường sẽ khiến bộ đèn không còn được tính là thiết bị chống nổ.
+Không nên. Khi bóng hỏng, bạn chụp nhãn thân đèn gửi nhà cung cấp để đặt đúng mã bóng hãng chỉ định cho máng đó. Nếu hãng đã ngừng mã bóng này, hỏi hãng có mã bóng thay thế được chỉ định cho máng hay không. Không có mã thay thế thì nên thay cả bộ đèn, thay vì lắp tạm bóng thường chờ hàng.
 
 ### Đèn chống nổ 1m2 có dùng ngoài trời được không?
 
@@ -254,13 +256,13 @@ Một bộ đôi 2 bóng LED 18W (36W, số giả định) chạy 12 giờ mỗi
 Đèn chống cháy nổ 1m2 hợp với khu có khí, hơi dễ cháy và trần thấp. Điểm quyết định không nằm ở chiều dài bóng mà ở ký hiệu Ex khớp vùng nguy hiểm. Gợi ý theo khu:
 
 - **Hành lang, trạm bơm, phòng ắc quy trần 3-4 m:** chọn loại đơn, đủ sáng để đi lại.
-- **Kho có kệ, phòng pha chế trần 3-5 m:** chọn loại đôi, ít bộ hơn nên ít điểm đấu nối hơn.
-- **Kho, xưởng trần trên 5-6 m:** chuyển sang đèn kiểu highbay chống nổ thay vì lắp dày bộ 1m2.
+- **Kho có kệ, phòng pha chế trần 3-6 m:** chọn loại đôi.
+- **Kho, xưởng trần trên 6 m:** chuyển sang đèn kiểu highbay chống nổ thay vì lắp dày bộ 1m2.
 - **Kho thường không có khí, hơi dễ cháy:** không cần đèn chống nổ, [đèn LED nhà xưởng 50W](https://denlednhaxuongcaocap.com/den-led-nha-xuong-50w/) là phương án đơn giản và rẻ hơn.
 
 Giữa các hãng, bạn chọn mẫu có ký hiệu Ex đúng vùng, thông số công bố rõ và bóng thay thế dễ đặt. Không có hãng nào hợp với mọi khu.
 
-Gửi cho HLB loại khu vực (khí, hơi, bụi, vùng nguy hiểm nếu đã có), kích thước phòng và chiều cao lắp. Chúng tôi gợi ý loại đơn hay đôi, số bộ, cách bố trí và báo giá các mẫu HLB phân phối. Gọi hoặc nhắn Zalo 0967569588 để nhận tư vấn.
+Gửi HLB loại khu vực (khí, hơi, bụi, vùng nguy hiểm nếu có), kích thước phòng và chiều cao lắp qua điện thoại hoặc Zalo 0967569588. Chúng tôi gợi ý loại đơn hay đôi, số bộ, cách bố trí và báo giá các mẫu HLB phân phối.
 
 # C. GHI CHÚ CHO NGƯỜI DUYỆT
 
@@ -280,8 +282,9 @@ Phần B còn **9 chỗ [CẦN BỔ SUNG]**, vượt mức 5 chỗ cho phép đ�
 | H3 Athaco | Model 1m2, Ex, IP |
 | H2 Giá | Khoảng giá cả bộ loại đơn, đôi của HALEDCO, Rạng Đông, Philips, ngày kiểm tra |
 
-**[CẦN KIỂM TRA]** còn 2 chỗ:
+**[CẦN KIỂM TRA]** còn 5 chỗ:
 - H2 đầu, đoạn 3: mã IEC 60079 và TCVN tương đương chưa có trong `tieu_chuan_da_kiem.csv`; phiên này không vào được thuvienphapluat.vn, iec.ch để tra. Phần giải thích ký hiệu Ex (kiểu bảo vệ d, e, m; nhóm khí IIA, IIB, IIC; cấp nhiệt độ T1-T6; vùng 0/1/2, 20/21/22) viết theo kiến thức chung của ngành, nên đối chiếu IEC 60079-0 và IEC 60079-10-1 khi tra được.
+- H3 HALEDCO ("có cả loại đơn và loại đôi"), H3 Duhal ("bộ đèn chống nổ dùng bóng tuýp dài 1,2 m"), H3 Paragon ("mẫu nhà xưởng và mẫu phòng sạch"): ý lấy từ bài gốc #3904, chưa đối chiếu được trang hãng (bị chặn, xem mục 2). Bài gốc nêu mẫu Duhal LSC 240, chưa đưa vào bài vì chưa đối chiếu được.
 - H3 Athaco: số 700.000-750.000 đồng/máng đôi chưa gồm bóng và "bảo hành 2 năm" lấy từ đoạn trích Google (SERP ngày 29/10/2026, `nghien_cuu/Bai_den-chong-chay-no-1m2/serp/_ket_qua_den-chong-chay-no-1m2.json`), chưa mở được trang athaco.vn.
 
 **2. Nguồn đã dùng (truy cập 29/10/2026)**
@@ -325,7 +328,7 @@ Phần B còn **9 chỗ [CẦN BỔ SUNG]**, vượt mức 5 chỗ cho phép đ�
 
 1. Phần B có 9 chỗ [CẦN BỔ SUNG], vượt 5 chỗ nên `wp_draft.py --post` sẽ chặn. Bạn mở các tên miền ở mục 2 trong cài đặt mạng của môi trường cloud, hoặc dán thông số, giá từng mẫu vào bảng điều phối.
 2. H3 Điện Quang: chưa có model chống nổ 1m2 có ký hiệu Ex. Link người dùng gửi (DQ LEDMF02 36) theo tên là bộ đèn LED máng mica, không đưa vào như đèn chống nổ. Nếu không có model khác, cần lưu lại outline bỏ H3 này (`nghien_cuu.py luu-outline --ly-do`).
-3. Thông số Philips lấy từ trang bán hàng congtydenled.com.vn có được dùng không, hay chỉ dùng cho khoảng giá.
+3. Nguồn duy nhất có cho mẫu Philips là trang bán hàng congtydenled.com.vn, không phải trang chính thức của Philips (ghi chú này đã chuyển khỏi phần B). Thông số Philips lấy từ trang này có được dùng không, hay chỉ dùng cho khoảng giá, hay lấy từ signify.com.
 
 **9. Ý bài gốc #3904 đã bỏ và lý do**
 
@@ -334,7 +337,7 @@ Phần B còn **9 chỗ [CẦN BỔ SUNG]**, vượt mức 5 chỗ cho phép đ�
 | HALEDCO tuýp đơn 18W và tuýp đôi 36W cùng quang thông 13.000 lm, ghi 130 lm/W | Sai: 18 x 130 = 2.340 lm, 36 x 130 = 4.680 lm |
 | Ký hiệu "Exd II BT", "EXD II BT" | Thiếu nhóm khí và cấp nhiệt độ, không đọc được |
 | "Khả năng chịu nhiệt 450 độ C" | Không rõ nghĩa, không nguồn |
-| Rạng Đông IP65 "dùng được cả ngoài trời" | Kết luận vượt nguồn |
+| Rạng Đông IP65 "dùng được cả ngoài trời" | Kết luận vượt nguồn (phần B thay bằng câu: chỉ dùng ngoài trời khi hãng công bố rõ) |
 | Paragon 36W, Duhal đôi ghi "sạc 24 giờ, dùng 1,5 giờ" | Thông số đèn sự cố, lệch loại đèn |
 | Nhiều hãng cùng kích thước 1342 x 168 x 109 mm; bảng LED và huỳnh quang ghi "ATEX", "IP50-IP54" | Chép trùng, không nguồn |
 | Toàn bộ giá năm 2023 (1.280.000-9.714.000 đồng) | Lỗi thời, không có trang sản phẩm để đối chiếu |
