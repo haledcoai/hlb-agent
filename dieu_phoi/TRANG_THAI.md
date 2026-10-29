@@ -1,6 +1,6 @@
 # Trạng thái Điều phối HLB (bàn giao cho lượt chạy phiên riêng)
 
-Cập nhật: 29/10/2026 08:24 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
+Cập nhật: 29/10/2026 09:12 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
 
 ## Cách chạy từ 28/10/2026
 
@@ -38,7 +38,7 @@ Cập nhật: 29/10/2026 08:24 giờ VN. Mỗi lượt chạy đọc file này s
 | đèn chống cháy nổ 40w | `cho_duyet_outline` | Blog (người dùng chọn). `nghien_cuu/Bai_den-chong-chay-no-40w/`. SERP 9/9 là trang sản phẩm. Câu hỏi: cập nhật bài 7308 thay vì viết mới? HLB có báo giá đèn chống cháy nổ? model 40W? |
 | đèn led chống cháy nổ 50w | `cho_duyet_outline` | Blog. `nghien_cuu/Bai_den-led-chong-chay-no-50w/`. Trùng một phần bài 3821; đề xuất gộp với 40W; hỏi bài 3821 (HLEP4-50W, giá 1,55-3,05 triệu) còn đúng không |
 | đèn led chống cháy nổ 100w | `can_xu_ly` (quay về `moi`) | Blog Toplist (người dùng muốn). `nghien_cuu/Bai_den-led-chong-chay-no-100w/`, outline đã lập. Trùng bài 3874 (cùng slug): đề xuất viết lại 3874, chờ 9 câu trả lời (hãng HLB phân phối, nguồn thông số 6 mẫu, giá HLEP). Website có bài đúng từ khóa 20W 4069, 40W 4077, 50W 4082: outline 40W, 50W cần tính lại |
-| đèn chống cháy nổ 1m2 (nạp 29/10) | `cho_duyet_outline` | Blog, viết lại bài 3904 (`id_bai_cu` 3904, người dùng đồng ý 29/10). Giữ Duhal, Paragon, Athaco theo ý người dùng (mục riêng, không xếp hạng). Dữ liệu HALEDCO lấy từ haledco.com (không link). Mạng chặn haledco.com, rangdong.com.vn, congtydenled.com.vn, dienquang.com: chưa có thông số mẫu, hỏi người dùng mở mạng hoặc dán dữ liệu. `nghien_cuu/Bai_den-chong-chay-no-1m2/du_lieu_mau.md` |
+| đèn chống cháy nổ 1m2 (nạp 29/10) | `can_xu_ly` (quay về `sua_bai`) | `Bai_den-chong-chay-no-1m2.md`, viết lại bài 3904. Viết 29/10, vòng 1 = 87 (ngưỡng 88), vòng 2 = 95 (ngưỡng 96) ĐẠT. Chưa đẩy nháp vì phần B còn 9 chỗ [CẦN BỔ SUNG] (mạng chặn trang hãng). Chờ người dùng mở mạng hoặc dán dữ liệu, trả lời Điện Quang (khuyến nghị bỏ), nguồn Philips. Lần sửa sau làm luôn 2 điểm nên sửa vòng 2 (FAQ 1 dài 97 từ, câu "Số thứ tự chỉ để đánh mục"). Chưa tạo ảnh (15 chỗ [ẢNH]) |
 
 ## Việc còn chờ người dùng
 

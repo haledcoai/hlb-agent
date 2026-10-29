@@ -778,5 +778,175 @@
   "bai": "cach-chon-den-led-nha-xuong",
   "vong": 3,
   "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Ghi theo cong bo cua hang (HALEDCO, Duhal, Paragon) khi chua doc trang hang, dong 70 114 122",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "ghi-chu-noi-bo-trong-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Ghi chu ve bai cu va nguon trong phan B (dong 84, 90, 114), nen dua sang phan C",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Y bo doi it diem dau noi lap 3 lan (dong 44, 187, 257)",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "cau-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Cau 36 tu o dong 225 (dau cap va ong luon day)",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "dien-dat-ky-thuat-chua-chat",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Cap nhiet do phai thap hon nhiet do tu boc chay (dong 149) dien dat chua chat",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "cta-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "CTA ket bai 3 cau, quy tac 1-2 cau (dong 263)",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "ket-bai-mau-thuan-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Ket bai noi tran tren 5-6 m chuyen highbay, bang va FAQ noi 4-6 m van dung doi",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ 1 va 2 lap bang chieu cao va loi lap bong thuong o than bai",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "anh-khong-khop-doan",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Anh dong 104 (nhan Ex) va 118 (kho son) khong khop noi dung H3 Dien Quang, Duhal",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "placeholder-vuot-muc",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan B con 9 cho CAN BO SUNG, can nguoi dung mo mang hoac dan du lieu hang",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "muc-hang-chua-co-model",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "intent",
+  "mo_ta": "H3 Dien Quang chua co model Ex, sapo va meta van ke Dien Quang",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "nguon-thong-so-ban-hang",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Thong so Philips chi co nguon trang ban hang congtydenled.com.vn",
+  "ma": "L018",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "faq-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "FAQ 1 (dong 238-240) 97 tu, vuot 80; cau dau con tro ve bang than bai",
+  "ma": "L019",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "cau-thua-khong-khop-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 60 noi so thu tu chi de danh muc nhung H3 hang khong danh so",
+  "ma": "L019",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "placeholder-vuot-muc",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Phan B con 9 cho CAN BO SUNG, can mo mang hoac dan du lieu hang",
+  "ma": "L019",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "muc-hang-chua-co-model",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "intent",
+  "mo_ta": "H3 Dien Quang chua co model Ex, sapo van ke Dien Quang",
+  "ma": "L019",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 2,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "nguon-thong-so-ban-hang",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Thong so Philips chi co nguon trang ban hang congtydenled.com.vn",
+  "ma": "L019",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
  }
 ]
