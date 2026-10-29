@@ -105,6 +105,8 @@ Người dùng duyệt ảnh ở tab **Kiểm duyệt hình ảnh** của **Bả
 
 Mô hình phòng ban: người dùng giao việc qua Bảng điều phối, Agent điều phối là trưởng phòng, giao việc cho Agent con và không tự viết bài. Agent con: `agent-blog` (nghiên cứu, viết, sửa bài blog), `agent-danh-muc` (nghiên cứu, viết, sửa nội dung danh mục), `danh-gia-noi-dung`, `danh-gia-danh-muc` (chấm), `tao-anh` (ảnh). Chi tiết ở `DIEU_PHOI.md` đầu file. Khi người dùng giao việc viết bài trực tiếp trong thread chat, phiên chat cũng đóng vai trưởng phòng và giao cho Agent con như trên.
 
+**Không báo trong chat (người dùng chốt 29/10/2026):** lượt Điều phối và sub agent chỉ ghi hoạt động, kết quả, câu hỏi lên Bảng điều phối; chỉ nhắn chat khi có lỗi hệ thống cần người dùng sửa. Chi tiết ở `DIEU_PHOI.md` đầu file.
+
 ## Nội dung danh mục sản phẩm (Agent Danh mục, người dùng chốt 27/10/2026)
 
 - Agent viết bài blog gọi là **Agent Blog** (quy tắc ở file 1). Nội dung danh mục sản phẩm đã có trên website do **Agent Danh mục** viết, quy tắc ở `6_Agent_Danh_muc_HLB.md`, chấm bởi agent riêng `danh-gia-danh-muc` (thang `quy_tac_cham_danh_muc.md`), công cụ `tools/danh_muc.py`, file `DM_<slug danh mục>.md`. Điều phối tự nhận diện từ khóa danh mục (`DIEU_PHOI.md` mục 3c).

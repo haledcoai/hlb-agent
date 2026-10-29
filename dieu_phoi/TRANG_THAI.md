@@ -4,6 +4,7 @@ Cập nhật: 29/10/2026 08:03 giờ VN. Mỗi lượt chạy đọc file này s
 
 ## Cách chạy từ 28/10/2026
 
+- **Không trả lời trong chat (người dùng chốt 29/10/2026):** lượt Điều phối và mọi sub agent không nhắn, không báo kết quả trong chat project hay thread. Mọi hoạt động, kết quả, câu hỏi chỉ ghi lên Bảng điều phối (`tien_do`, `ly_do` + `can_xu_ly`, `cau_hoi`, `lich_su`, `cau_hinh/chung.moi_truong`). Chỉ nhắn chat khi có lỗi hệ thống cần người dùng sửa (ví dụ thiếu biến môi trường, mất quyền GitHub, bảng không ghi được). Phiên chạy trong thread mà bắt buộc kết thúc bằng một công cụ chat thì dùng `no_reply_needed`, không `post_message`.
 - Lịch "Điều phối HLB" chạy **mỗi lượt một phiên mới** (người dùng chốt 28/10, lý do: chạy chung thread chat thì lỡ lệnh và tốn giới hạn sử dụng). Phiên mới không nhắn được vào thread chat: mọi báo cáo cho người dùng ghi lên Bảng điều phối (`tien_do`, `ly_do` + `can_xu_ly`, `cau_hoi`, `cau_hinh/chung.moi_truong`).
 - Bảng: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG. Nút "Chạy Agent ngay" gọi lịch theo `cau_hinh/chung.trigger_id`.
 - Phiên chạy trong environment "HLB Agent" (có `WP_USER`, `WP_APP_PASSWORD`, mạng tới website). Thiếu `SERPAPI_KEY` thì không dừng cả lượt: chuyển từ khóa cần SERP sang `can_xu_ly` với `ly_do` "Phiên chạy thiếu SERPAPI_KEY, bạn thêm key vào environment HLB Agent" và làm tiếp việc khác.
