@@ -1,6 +1,6 @@
 # Trạng thái Điều phối HLB (bàn giao cho lượt chạy phiên riêng)
 
-Cập nhật: 29/10/2026 09:12 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
+Cập nhật: 29/10/2026 09:10 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
 
 ## Cách chạy từ 28/10/2026
 
