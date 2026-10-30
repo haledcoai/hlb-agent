@@ -1,6 +1,6 @@
 # Trạng thái Điều phối HLB (bàn giao cho lượt chạy phiên riêng)
 
-Cập nhật: 30/10/2026 16:14 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
+Cập nhật: 30/10/2026 16:27 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
 
 ## Cách chạy từ 28/10/2026
 
@@ -41,6 +41,7 @@ Cập nhật: 30/10/2026 16:14 giờ VN. Mỗi lượt chạy đọc file này s
 | đèn chống cháy nổ 0.6m (nạp 30/10) | `can_xu_ly` (quay về `moi`) | Danh mục (người dùng chọn). `danh_muc.py tim` không khớp: website chưa có danh mục đèn chống cháy nổ. Chờ người dùng tạo (đề xuất cha `den-chong-chay-no`, con `den-chong-chay-no-0-6m`) và gửi link |
 | đèn chống cháy nổ 1m2 (nạp 29/10) | `cho_duyet_anh` | `Bai_den-chong-chay-no-1m2.md`, viết lại bài 3904, nháp WP **8546**. 30/10: mạng mở 7 tên miền hãng (signify.com vẫn chặn), Agent Blog bổ sung dữ liệu HALEDCO, Rạng Đông, Duhal, Paragon, Athaco; vòng 3 = 93 CẦN SỬA, vòng 4 = 97 ĐẠT (tổng 95). Phần B còn 3 [CẦN BỔ SUNG]. Chờ người dùng: Điện Quang (không có model chống nổ, khuyến nghị bỏ), nguồn Philips, mở trang tiêu chuẩn cho IEC 60079. Còn 2 điểm nên sửa nhỏ (Paragon CT5/IP, "Ra 82") làm cùng lần sửa sau. 30/10 14:48 người dùng bấm Duyệt bài; 15:01 đủ 15/15 ảnh (4 ảnh bài cũ, 11 hình vẽ), đã lên tab Kiểm duyệt hình ảnh, từ khóa ở `cho_duyet_anh` |
 | đèn chống cháy nổ 250w (nạp 30/10) | `can_xu_ly` (quay về `moi`) | SERP 8/8 trang bán hàng. Trùng bài **4098** cùng slug `den-chong-chay-no-250w`: đề xuất viết lại 4098, rút gọn mục 250W bài 3821. `nghien_cuu/Bai_den-chong-chay-no-250w/serp_bao_cao.md`. Chờ 5 câu trả lời ở `cau_hoi` |
+| đèn pha chống cháy nổ (nạp 30/10) | `can_xu_ly` (quay về `moi`) | Không khớp danh mục. SERP 6/8 trang bán hàng. Trùng bài **4018** cùng slug `den-pha-chong-chay-no`: đề xuất viết lại 4018 (`Bai_den-pha-chong-chay-no.md`). `nghien_cuu/Bai_den-pha-chong-chay-no/serp_bao_cao.md`. Chờ 5 câu trả lời. SerpApi trả cache sai lần đầu, phải gọi lại `no_cache=true` (nên thêm vào `nghien_cuu.py`) |
 
 ## Việc còn chờ người dùng
 
