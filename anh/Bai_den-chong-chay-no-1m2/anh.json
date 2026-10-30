@@ -140,6 +140,76 @@
       "prompt": "",
       "tac_gia": "",
       "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "den-chong-no-1m2-rang-dong-lap-kho.jpg",
+      "file": "anh/Bai_den-chong-chay-no-1m2/den-chong-no-1m2-rang-dong-lap-kho.jpg",
+      "nguon": "python",
+      "alt": "Đèn chống cháy nổ 1m2 Rạng Đông lắp trong kho",
+      "mo_ta": "Bộ đèn LED chống nổ 1m2 Rạng Đông lắp trên trần kho",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Hình vẽ minh họa Python vị trí lắp trong kho có kệ, số liệu CN01 1200/40W.PLUS (40W, 4.000 lm, IP54) lấy từ bài. Không có ảnh thật Rạng Đông trên website HLB và bài cũ; kho ảnh không có đèn chống nổ. Thay bằng ảnh thật khi có.",
+      "prompt": "",
+      "tac_gia": "",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "den-chong-no-1m2-lap-kho-son.jpg",
+      "file": "anh/Bai_den-chong-chay-no-1m2/den-chong-no-1m2-lap-kho-son.jpg",
+      "nguon": "python",
+      "alt": "Đèn chống nổ 1m2 lắp trong kho sơn",
+      "mo_ta": "Bộ đèn chống nổ 1m2 loại đôi lắp trong kho sơn có kệ hàng (ảnh minh họa, không phải sản phẩm Duhal)",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Hình vẽ minh họa Python bộ đôi treo trên lối đi kho sơn có kệ, trần khoảng 4 m theo bài. Không phải sản phẩm Duhal.",
+      "prompt": "",
+      "tac_gia": "",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "den-chong-no-1m2-phong-pha-che.jpg",
+      "file": "anh/Bai_den-chong-chay-no-1m2/den-chong-no-1m2-phong-pha-che.jpg",
+      "nguon": "python",
+      "alt": "Đèn chống nổ 1m2 gắn trần phòng pha chế",
+      "mo_ta": "Đèn chống nổ 1m2 gắn sát trần phòng pha chế có trần phẳng (ảnh minh họa)",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Hình vẽ minh họa Python đèn gắn sát trần phẳng phòng pha chế, trần 3-4 m theo bảng chọn trong bài. Không phải sản phẩm Paragon.",
+      "prompt": "",
+      "tac_gia": "",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "den-chong-no-1m2-don-lap-hanh-lang.jpg",
+      "file": "anh/Bai_den-chong-chay-no-1m2/den-chong-no-1m2-don-lap-hanh-lang.jpg",
+      "nguon": "python",
+      "alt": "Đèn chống cháy nổ 1m2 loại đơn lắp hành lang kho",
+      "mo_ta": "Hành lang kho hóa chất trần thấp lắp đèn chống nổ 1m2 loại đơn theo một hàng",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Hình vẽ minh họa Python mặt bằng hành lang kho, bộ đơn 1 hàng, trần 3-4 m theo bảng chọn trong bài. Không ghi số bộ, khoảng cách.",
+      "prompt": "",
+      "tac_gia": "",
+      "trang_thai": "cho_duyet"
+    },
+    {
+      "ten": "kho-tran-cao-dung-highbay-chong-no.jpg",
+      "file": "anh/Bai_den-chong-chay-no-1m2/kho-tran-cao-dung-highbay-chong-no.jpg",
+      "nguon": "python",
+      "alt": "Kho trần cao dùng đèn highbay chống nổ thay đèn 1m2",
+      "mo_ta": "Kho cao trên 6 m lắp đèn highbay chống nổ thay cho đèn tuýp 1m2",
+      "url_website": null,
+      "media_id": null,
+      "dai_dien": false,
+      "ghi_chu": "Hình vẽ minh họa Python so sánh bộ 1m2 lắp dày và highbay chống nổ ở trần trên 6 m, theo mục Khi nào không nên dùng đèn 1m2.",
+      "prompt": "",
+      "tac_gia": "",
+      "trang_thai": "cho_duyet"
     }
   ]
 }

@@ -214,6 +214,161 @@ VE = {
     "cac-phan-tinh-gia-bo-den-chong-no-1m2.jpg": cac_phan_gia,
 }
 
+
+# ---------- Canh minh hoa (mat cat) ----------
+
+PHONG = []
+
+
+def khung_phong(ax, x0, x1, y0, cao, nhan_cao):
+    """San, tran, tuong mat cat; cao la chieu cao ve (inch). Ghi lai khung de cat vung sang."""
+    PHONG[:] = [x0 + 0.1, y0, x1 - x0 - 0.2, cao]
+    ax.add_patch(Rectangle((x0, y0 - 0.12), x1 - x0, 0.12, fc=GRAY, ec="none"))
+    ax.add_patch(Rectangle((x0, y0 + cao), x1 - x0, 0.1, fc=GRAY, ec="none"))
+    for x in (x0, x1 - 0.1):
+        ax.add_patch(Rectangle((x, y0), 0.1, cao, fc="#c9d0d8", ec="none"))
+    _mui_ten(ax, (x0 - 0.2, y0), (x0 - 0.2, y0 + cao))
+    ax.text(x0 - 0.4, y0 + cao / 2, nhan_cao, rotation=90, va="center", ha="center", fontsize=11.5, weight="bold", color=GRAY)
+
+
+def den_tran(ax, x, y_tran, dai=0.9, treo=0.0, rong_sang=1.4, y_san=0.0, doi=True):
+    y = y_tran - treo - 0.16
+    if treo:
+        for dx in (0.15, dai - 0.15):
+            ax.plot([x - dai / 2 + dx] * 2, [y + 0.16, y_tran], color=NAVY, lw=1)
+    sang = ax.add_patch(Polygon([(x - dai / 2 + 0.1, y), (x + dai / 2 - 0.1, y), (x + rong_sang / 2, y_san),
+                                 (x - rong_sang / 2, y_san)], closed=True, fc=AMBER, alpha=0.16, ec="none"))
+    if PHONG:
+        sang.set_clip_path(Rectangle(PHONG[:2], PHONG[2], PHONG[3], transform=ax.transData))
+    ax.add_patch(FancyBboxPatch((x - dai / 2, y), dai, 0.16, boxstyle="round,pad=0,rounding_size=0.03", fc=XAM_THAN, ec=NAVY, lw=1))
+    for i in range(2 if doi else 1):
+        yy = y + 0.16 * (i + 1) / (3 if doi else 2)
+        ax.plot([x - dai / 2 + 0.08, x + dai / 2 - 0.08], [yy, yy], color=AMBER, lw=2)
+
+
+def ke(ax, x, y0, rong, cao, tang=4, mau="#7a8899"):
+    ax.add_patch(Rectangle((x, y0), 0.05, cao, fc=mau, ec="none"))
+    ax.add_patch(Rectangle((x + rong - 0.05, y0), 0.05, cao, fc=mau, ec="none"))
+    for i in range(tang):
+        y = y0 + 0.1 + i * (cao - 0.1) / tang
+        ax.add_patch(Rectangle((x, y), rong, 0.04, fc=mau, ec="none"))
+        for j in range(int(rong / 0.22)):
+            ax.add_patch(Rectangle((x + 0.08 + j * 0.22, y + 0.04), 0.16, 0.2, fc="#d9a441" if (i + j) % 2 else "#c0c8d2",
+                                   ec=NAVY, lw=0.5))
+
+
+def canh_kho_rang_dong():
+    fig = hinh(5.0)
+    ax, h = truc(fig)
+    x0, x1, y0, cao = 0.9, 7.6, 0.75, 2.85
+    khung_phong(ax, x0, x1, y0, cao, "khoảng 4 m")
+    for x in (1.3, 3.4, 5.5):
+        ke(ax, x, y0, 1.3, 1.7, tang=4)
+    for x in (2.95, 5.05, 7.0):
+        den_tran(ax, x, y0 + cao, dai=0.8, rong_sang=1.5, y_san=y0, doi=False)
+    ax.text(RONG_IN / 2, y0 + cao + 0.32, "Bộ đèn LED chống nổ dài khoảng 1,2 m gắn trần, đặt trên lối đi giữa các kệ",
+            ha="center", fontsize=10.5, color=NAVY, weight="bold")
+    tieu_de(fig, "Đèn chống cháy nổ 1m2 lắp trong kho có kệ",
+            "Mẫu Rạng Đông CN01 1200/40W.PLUS theo trang hãng: 40W, 4.000 lm, IP54 (dùng trong nhà)")
+    chan_trang(fig, "Hình vẽ minh họa vị trí lắp, không theo tỷ lệ, không phải ảnh sản phẩm hay công trình thật.")
+    return fig
+
+
+def canh_kho_son():
+    fig = hinh(5.0)
+    ax, h = truc(fig)
+    x0, x1, y0, cao = 0.9, 7.6, 0.75, 3.2
+    khung_phong(ax, x0, x1, y0, cao, "khoảng 4 m")
+    for x in (1.1, 3.25, 5.4):
+        ke(ax, x, y0, 1.5, 2.0, tang=4)
+        # thung son
+    for x in (2.92, 5.07, 7.1):
+        den_tran(ax, x, y0 + cao, dai=0.85, treo=0.35, rong_sang=1.7, y_san=y0, doi=True)
+    ax.text(RONG_IN / 2, y0 + cao + 0.32, "Bộ đôi treo trên lối đi để ánh sáng chiếu vào mặt kệ, dễ đọc nhãn thùng",
+            ha="center", fontsize=10.5, color=NAVY, weight="bold")
+    tieu_de(fig, "Đèn chống nổ 1m2 loại đôi trong kho sơn có kệ hàng")
+    chan_trang(fig, "Hình vẽ minh họa, không theo tỷ lệ, không phải sản phẩm Duhal hay công trình thật.")
+    return fig
+
+
+def canh_pha_che():
+    fig = hinh(5.0)
+    ax, h = truc(fig)
+    x0, x1, y0, cao = 0.9, 7.6, 0.75, 2.9
+    khung_phong(ax, x0, x1, y0, cao, "3-4 m")
+    # ban pha che
+    for bx in (1.5, 4.6):
+        ax.add_patch(Rectangle((bx, y0 + 0.75), 2.0, 0.08, fc=NAVY, ec="none"))
+        for lx in (bx + 0.1, bx + 1.85):
+            ax.add_patch(Rectangle((lx, y0), 0.06, 0.75, fc=NAVY, ec="none"))
+        for k in range(4):
+            ax.add_patch(Rectangle((bx + 0.3 + k * 0.42, y0 + 0.83), 0.22, 0.3 - 0.05 * k, fc="#c0c8d2", ec=NAVY, lw=0.6))
+    for x in (2.5, 5.6):
+        den_tran(ax, x, y0 + cao, dai=1.0, rong_sang=2.4, y_san=y0, doi=True)
+    ax.text(RONG_IN / 2, y0 + cao + 0.32, "Gắn sát trần phẳng ngay trên bàn cân, trộn; thân đèn cần dễ lau chùi",
+            ha="center", fontsize=10.5, color=NAVY, weight="bold")
+    tieu_de(fig, "Đèn chống nổ 1m2 gắn trần phòng pha chế")
+    chan_trang(fig, "Hình vẽ minh họa, không theo tỷ lệ, không phải sản phẩm Paragon hay công trình thật.")
+    return fig
+
+
+def canh_hanh_lang():
+    fig = hinh(4.6)
+    ax, h = truc(fig)
+    x0, x1, y0, y1 = 0.5, 7.7, 1.55, 3.05
+    ax.add_patch(Rectangle((x0, y0), x1 - x0, y1 - y0, fc=LIGHT, ec="none"))
+    for y in (y0 - 0.5, y1):
+        ax.add_patch(Rectangle((x0, y), x1 - x0, 0.5, fc="#c9d0d8", ec=NAVY, lw=1))
+    for i in range(5):
+        x = x0 + 0.45 + i * 1.45
+        ax.add_patch(Rectangle((x, y1), 0.8, 0.5, fc="#e6d3a8", ec=NAVY, lw=1))
+        ax.text(x + 0.4, y1 + 0.25, "kho", ha="center", va="center", fontsize=9.6, color=NAVY)
+    for i in range(4):
+        cx = x0 + 0.9 + i * 1.8
+        ax.add_patch(Circle((cx, (y0 + y1) / 2), 0.7, fc=AMBER, alpha=0.15, ec="none"))
+        ax.add_patch(Rectangle((cx - 0.35, (y0 + y1) / 2 - 0.07), 0.7, 0.14, fc=NAVY, ec=AMBER, lw=1))
+    ax.text(RONG_IN / 2, y0 - 0.8, "Mặt bằng hành lang trần 3-4 m: bộ đơn lắp 1 hàng dọc giữa lối đi",
+            ha="center", fontsize=11, color=NAVY, weight="bold")
+    tieu_de(fig, "Đèn chống cháy nổ 1m2 loại đơn lắp hành lang kho")
+    chan_trang(fig, "Hình vẽ minh họa, không theo tỷ lệ. Số bộ và khoảng cách cần tính theo độ rọi cần đạt.")
+    return fig
+
+
+def canh_tran_cao():
+    fig = hinh(5.2)
+    ax, h = truc(fig)
+    y0, cao = 0.8, 3.0
+    khung_phong(ax, 0.75, 3.95, y0, cao, "trên 6 m")
+    ax.text(2.35, y0 + cao + 0.3, "Bộ 1m2 ở trần trên 6 m", ha="center", fontsize=12, weight="bold", color=NAVY)
+    for i in range(6):
+        den_tran(ax, 1.1 + i * 0.5, y0 + cao, dai=0.4, rong_sang=0.9, y_san=y0, doi=True)
+    khung_phong(ax, 4.65, 7.85, y0, cao, "trên 6 m")
+    ax.text(6.25, y0 + cao + 0.3, "Highbay chống nổ", ha="center", fontsize=12, weight="bold", color=NAVY)
+    for x in (5.45, 7.05):
+        y = y0 + cao - 0.5
+        ax.plot([x, x], [y + 0.3, y0 + cao], color=NAVY, lw=1)
+        sang = ax.add_patch(Polygon([(x - 0.25, y + 0.3), (x + 0.25, y + 0.3), (x + 0.95, y0), (x - 0.95, y0)],
+                                    closed=True, fc=AMBER, alpha=0.18, ec="none"))
+        sang.set_clip_path(Rectangle(PHONG[:2], PHONG[2], PHONG[3], transform=ax.transData))
+        ax.add_patch(Polygon([(x - 0.12, y + 0.3), (x + 0.12, y + 0.3), (x + 0.28, y), (x - 0.28, y)], closed=True,
+                             fc=XAM_THAN, ec=NAVY, lw=1))
+    ax.text(2.35, y0 + 0.35, "Phải lắp dày, tốn đầu cáp\nvà công lắp", ha="center", fontsize=10.5, color=AMBER_DAM,
+            weight="bold")
+    ax.text(6.25, y0 + 0.35, "Thường hợp hơn cho\nkho, xưởng trần cao", ha="center", fontsize=10.5, color=NAVY,
+            weight="bold")
+    tieu_de(fig, "Kho trần cao: dùng highbay chống nổ thay đèn 1m2")
+    chan_trang(fig, "Hình vẽ minh họa, không theo tỷ lệ. Số bộ chính xác cần tính bằng DIALux.")
+    return fig
+
+
+VE.update({
+    "den-chong-no-1m2-rang-dong-lap-kho.jpg": canh_kho_rang_dong,
+    "den-chong-no-1m2-lap-kho-son.jpg": canh_kho_son,
+    "den-chong-no-1m2-phong-pha-che.jpg": canh_pha_che,
+    "den-chong-no-1m2-don-lap-hanh-lang.jpg": canh_hanh_lang,
+    "kho-tran-cao-dung-highbay-chong-no.jpg": canh_tran_cao,
+})
+
 if __name__ == "__main__":
     for ten in (sys.argv[1:] or list(VE)):
         luu(VE[ten](), OUT, ten)
