@@ -90,7 +90,7 @@ Cả ba mẫu ghi ký hiệu "Ex de II CT6 Gb", tức kiểu bảo vệ de, nhó
 
 ### Đèn chống cháy nổ 1m2 Rạng Đông
 
-Trong nhóm "Bộ đèn LED chống nổ" trên website Rạng Đông, mẫu dài khoảng 1,2 m là CN01 1200/40W.PLUS. Theo trang hãng, đèn có công suất 40W, quang thông 4.000 lm (100 lm/W), dài 1.320 mm, IP54, Ra từ 82, giá bán lẻ đề xuất 2.461.000 đồng.
+Trong nhóm "Bộ đèn LED chống nổ" trên website Rạng Đông, mẫu dài khoảng 1,2 m là CN01 1200/40W.PLUS. Theo trang hãng, đèn có công suất 40W, quang thông 4.000 lm (100 lm/W), dài 1.320 mm, IP54, Ra 82, giá bán lẻ đề xuất 2.461.000 đồng.
 
 Trang không ghi ký hiệu Ex và số bóng; phần tiêu chuẩn áp dụng chỉ nêu các tiêu chuẩn đèn điện chung. Vì vậy, trước khi lắp ở khu đã phân vùng nguy hiểm, bạn nên yêu cầu bản chứng nhận chống nổ ghi đủ ký hiệu Ex của model này.
 
@@ -124,22 +124,22 @@ Ba hãng này không bán trên website HLB. Nội dung dưới đây ghi theo t
 
 ### Đèn chống nổ 1m2 Duhal
 
-Duhal có hai mẫu đèn LED chống nổ dùng bóng LED tuýp T8 dài khoảng 1,3 m:
+Duhal có hai mẫu đèn LED chống nổ dài khoảng 1,3 m, dùng bóng LED tuýp T8:
 
 - **SLSC140, loại đơn (1x18W):** quang thông 2.000 lm, kích thước 1.300 x 115 x 115 mm, IP65, giá 1.652.000 đồng đã gồm VAT.
 - **SLSC240, loại đôi (2x18W):** quang thông 3.800 lm, kích thước 1.315 x 155 x 140 mm, IP65, giá 2.666.000 đồng đã gồm VAT.
 
-Trang hãng nêu đèn đạt chuẩn ATEX, IECEx, ký hiệu Ex đầy đủ không công bố trên trang. Khi đặt hàng, bạn xin bản chứng nhận để đối chiếu với vùng lắp.
+Trang SLSC140 ghi đạt chuẩn ATEX, IECEx; trang SLSC240 ghi đạt chuẩn ATEX. Ký hiệu Ex đầy đủ không công bố trên cả hai trang. Khi đặt hàng, bạn xin bản chứng nhận để đối chiếu với vùng lắp.
 
 [ẢNH: Bộ đèn chống nổ 1m2 loại đôi lắp trong kho sơn có kệ hàng (ảnh minh họa, không phải sản phẩm Duhal) | alt: Đèn chống nổ 1m2 lắp trong kho sơn | tên file: den-chong-no-1m2-lap-kho-son.jpg]
 
 ### Đèn chống nổ 1m2 Paragon
 
-Trên trang Paragon, đèn phòng chống nổ bán dưới thương hiệu EEW. Các mẫu dạng máng gắn trần dùng bóng LED tuýp T8:
+Trên trang Paragon, đèn phòng chống nổ bán dưới thương hiệu EEW. Các mẫu dạng máng gắn trần dùng bóng LED tuýp T8, trang không công bố quang thông:
 
 - **BYS1x36W (1 bóng):** 20W, kích thước 1.342 x 168 x 108,5 mm, IP65, ký hiệu trang ghi "Exedmb II Ct4, DIP A20 TA, T6", giá 6.478.000 đồng.
 - **BYS-LED2x18 (2 bóng):** 36W, cùng kích thước và ký hiệu với BYS1x36W, giá 7.616.000 đồng.
-- **BHY-LED2X18X (2 bóng):** 36W, kích thước 1.386 x 236 x 150 mm, IP66, Ex ed mb IIC T6 Gb, giá 11.847.000 đồng.
+- **BHY-LED2X18X (2 bóng):** 36W, kích thước 1.386 x 236 x 150 mm, IP65-IP66 (trang ghi khác nhau ở hai chỗ), Ex ed mb IIC T6 Gb, giá 11.847.000 đồng.
 
 Thân máng dòng BYS làm bằng polycarbonate, hãng ghi dùng được ở vùng 1, vùng 2. Trang không nêu mẫu nào dành riêng cho phòng sạch. Với phòng pha chế cần bề mặt dễ lau chùi, bạn hỏi thêm hãng về vật liệu và cách gắn.
 
@@ -147,9 +147,9 @@ Thân máng dòng BYS làm bằng polycarbonate, hãng ghi dùng được ở v�
 
 ### Đèn chống nổ 1m2 Athaco
 
-Trang sản phẩm của Athaco (mã MCN1M2) ghi máng chống nổ 1m2 dùng 1 hoặc 2 bóng LED T8, thân hợp kim nhôm, IP54, ký hiệu "Exd II BT", bảo hành 24 tháng. Giá máng đơn 500.000 đồng, máng đôi 650.000 đồng, **chưa gồm bóng** và VAT 8%.
+Trang sản phẩm của Athaco (mã MCN1M2) ghi máng chống nổ 1m2 dùng 1 hoặc 2 bóng LED T8, thân hợp kim nhôm, IP54, ký hiệu "Exd II BT", bảo hành 24 tháng. Công suất, quang thông theo bóng lắp vào, hãng không công bố cho máng. Giá máng đơn 500.000 đồng, máng đôi 650.000 đồng, **chưa gồm bóng** và VAT 8%.
 
-Một trang báo giá khác của hãng ghi máng đôi 700.000-750.000 đồng, nên bạn hỏi lại giá khi đặt.
+Một trang báo giá khác của hãng (trang đăng năm 2021) ghi máng đôi 700.000-750.000 đồng, nên bạn hỏi lại giá khi đặt.
 
 [ẢNH: Máng đèn chống nổ 1m2 loại đôi chưa lắp bóng, nắp mở | alt: Máng đèn chống nổ 1m2 đôi chưa lắp bóng | tên file: mang-den-chong-no-1m2-doi-chua-lap-bong.jpg]
 
@@ -234,14 +234,19 @@ Giá đèn chống cháy nổ 1m2 chênh khá nhiều giữa các hãng, và ch�
 
 Bảng dưới là giá tham khảo tại thời điểm 30/10/2026, lấy theo trang của từng hãng. Cấu hình khác nhau (cả bộ hay chỉ máng, đã gồm VAT hay chưa), nên bảng chỉ để dự trù, không dùng để so hãng nào rẻ hơn.
 
-| Hãng | Mẫu | Giá tham khảo | Ghi chú |
-|---|---|---|---|
-| HALEDCO | HLEP TL3-18 (đơn) | Liên hệ | Hãng không niêm yết |
-| HALEDCO | HLEP TL2-60, TL2-80 (đôi) | 4.906.688-9.607.500 đồng | Giá bán lẻ đề xuất |
-| Rạng Đông | CN01 1200/40W.PLUS | 2.461.000 đồng | Giá bán lẻ đề xuất |
-| Duhal | SLSC140 (đơn), SLSC240 (đôi) | 1.652.000 và 2.666.000 đồng | Đã gồm VAT |
-| Paragon (EEW) | BYS, BHY (1-2 bóng) | 6.478.000-11.847.000 đồng | Giá trên trang hãng |
-| Athaco | MCN1M2 đơn, đôi | 500.000 và 650.000 đồng | Chỉ máng, chưa gồm bóng, VAT |
+| Nhóm | Hãng | Mẫu | Giá tham khảo | Ghi chú |
+|---|---|---|---|---|
+| HLB phân phối | HALEDCO | HLEP TL3-18 (đơn) | Liên hệ | Hãng không niêm yết |
+| HLB phân phối | HALEDCO | HLEP TL2-60 (đôi) | 4.906.688-8.921.250 đồng | Giá bán lẻ đề xuất |
+| HLB phân phối | HALEDCO | HLEP TL2-80 (đôi) | 5.284.125-9.607.500 đồng | Giá bán lẻ đề xuất |
+| HLB phân phối | Rạng Đông | CN01 1200/40W.PLUS | 2.461.000 đồng | Giá bán lẻ đề xuất |
+| Không bán trên website HLB | Duhal | SLSC140 (đơn) | 1.652.000 đồng | Đã gồm VAT |
+| Không bán trên website HLB | Duhal | SLSC240 (đôi) | 2.666.000 đồng | Đã gồm VAT |
+| Không bán trên website HLB | Paragon (EEW) | BYS1x36W (1 bóng) | 6.478.000 đồng | Giá trên trang hãng |
+| Không bán trên website HLB | Paragon (EEW) | BYS-LED2x18 (2 bóng) | 7.616.000 đồng | Giá trên trang hãng |
+| Không bán trên website HLB | Paragon (EEW) | BHY-LED2X18X (2 bóng) | 11.847.000 đồng | Giá trên trang hãng |
+| Không bán trên website HLB | Athaco | MCN1M2 đơn | 500.000 đồng | Chỉ máng, chưa gồm bóng, VAT |
+| Không bán trên website HLB | Athaco | MCN1M2 đôi | 650.000 đồng | Chỉ máng, chưa gồm bóng, VAT |
 
 [CẦN BỔ SUNG: khoảng giá cả bộ đèn chống nổ 1m2 Philips, chờ người dùng chọn nguồn]
 
@@ -314,14 +319,14 @@ Phần B còn **3 chỗ [CẦN BỔ SUNG]** (dưới mức 5 chỗ chặn đăng
 - HALEDCO "có cả loại đơn và loại đôi": khớp (HLEP TL3-18 đơn 1m2; HLEP TL2-60, TL2-80 đôi 1m2).
 - Duhal "bộ đèn chống nổ dùng bóng tuýp dài 1,2 m": khớp (SLSC140, SLSC240 dùng bóng LED T8, dài 1.300-1.315 mm). Bài gốc nêu LSC240; trang hiện có cả LSC240 (giá liên hệ) và SLSC240 (có giá, có quang thông), bài dùng SLSC240.
 - Paragon "mẫu nhà xưởng và mẫu phòng sạch": **không khớp**. Trang Paragon không nêu mẫu chống nổ nào dành cho phòng sạch. Đã sửa đoạn Paragon theo trang (dòng EEW BYS, BHY), bỏ câu về mẫu phòng sạch.
-- Athaco "máng đôi 700.000-750.000 đồng, bảo hành 2 năm": **khác một phần**. Trang sản phẩm MCN1M2 (tiêu đề ghi năm 2026) ghi máng đơn 500.000 đồng, máng đôi 650.000 đồng, chưa gồm bóng và VAT 8%, bảo hành 24 tháng. Trang báo giá cũ (thân bài còn ghi "mới nhất 2021") ghi máng đơn 520.000-550.000, đôi 700.000-750.000 đồng. Bài dùng trang sản phẩm, nhắc mức của trang báo giá.
+- Athaco "máng đôi 700.000-750.000 đồng, bảo hành 2 năm": **khác một phần**. Trang sản phẩm MCN1M2 (tiêu đề ghi năm 2026) ghi máng đơn 500.000 đồng, máng đôi 650.000 đồng, chưa gồm bóng và VAT 8%, bảo hành 24 tháng. Trang báo giá cũ (đăng 03/05/2021, thân bài ghi "mới nhất 2021") ghi máng đơn 520.000-550.000, đôi 700.000-750.000 đồng. Bài dùng trang sản phẩm, nhắc mức của trang báo giá.
 
 **Ghi chú đọc dữ liệu**
 - HALEDCO ghi ký hiệu "Ex de II CT6 Gb" (viết liền của Ex de IIC T6 Gb), ô "Chứng nhận" ghi gọn "Exd II". Bài đọc thành nhóm khí IIC, cấp T6 theo dòng đầy đủ và ghi rõ cách hãng viết.
-- Giá HALEDCO là "giá bản lẻ đề xuất" dạng khoảng (trang không giải thích vì sao có khoảng); HLEP TL3-18 ghi "Liên hệ". HLEP TL1-20, TL1-40 trang ghi dài 0,6 m nên không đưa vào bài.
-- Rạng Đông CN01 1200/40W.PLUS: trang không ghi ký hiệu Ex, không ghi số bóng; tiêu chuẩn áp dụng là TCCS 31:2020/RĐ và tiêu chuẩn đèn điện chung (IEC 60598-2-1, IEC 62722-2-1). Trang còn ghi PF danh định 0,5, bài không nêu vì không thuộc bộ tiêu chí.
+- Giá HALEDCO là "giá bản lẻ đề xuất" dạng khoảng: mức thấp là giá sau ưu đãi, mức cao là giá niêm yết (khối sản phẩm liên quan trên trang hãng hiện giá niêm yết gạch ngang kèm nhãn ưu đãi); bài ghi nguyên khoảng, không nêu mức ưu đãi; HLEP TL3-18 ghi "Liên hệ". HLEP TL1-20, TL1-40 trang ghi dài 0,6 m nên không đưa vào bài.
+- Rạng Đông CN01 1200/40W.PLUS: trang ghi "CRI= 82", bài ghi Ra 82. Trang không ghi ký hiệu Ex, không ghi số bóng; tiêu chuẩn áp dụng là TCCS 31:2020/RĐ và tiêu chuẩn đèn điện chung (IEC 60598-2-1, IEC 62722-2-1). Trang còn ghi PF danh định 0,5, bài không nêu vì không thuộc bộ tiêu chí.
 - Duhal SLSC140: phần mô tả ghi IP66, bảng thông số ghi IP65; bài dùng bảng thông số. Mẫu LSC1181, SLSC2181 ghi IP54 "chỉ sử dụng trong nhà", không đưa vào bài.
-- Paragon: BYS ghi IP65 ở bảng, BYS-LED2x18 ghi IP66 ở phần đặc điểm; bài dùng bảng. Dòng BPY1x36, BPY2x36 (2.488.000, 3.969.000 đồng, "Exd II BT6") không ghi chiều dài nên không đưa vào bài.
+- Paragon: BYS ghi IP65 ở bảng, BYS-LED2x18 ghi IP66 ở phần đặc điểm; bài dùng bảng. BHY-LED2X18X tự ghi khác nhau: ô IP ghi 66, ô Cấp bảo vệ và phần đặc điểm ghi IP65, nên bài ghi "IP65-IP66"; bảng thông số ghi "Ex ed mb IIC T6 Gb", phần đặc điểm ghi "Exedmb II CT5", bài giữ ký hiệu của bảng thông số. Trang không công bố quang thông cho cả ba mẫu BYS, BHY. Dòng BPY1x36, BPY2x36 (2.488.000, 3.969.000 đồng, "Exd II BT6") không ghi chiều dài nên không đưa vào bài.
 - Điện Quang: rà sitemap dienquang.com (1.042 URL sản phẩm, bộ sưu tập, bài viết) không có sản phẩm chống nổ. Trang DQ LEDMF02 36 người dùng gửi là "Bộ đèn LED Mica ... 1.2m 36W, nguồn tích hợp", không có ký hiệu Ex.
 - Philips: trang congtydenled.com.vn (đơn vị bán hàng, không phải Philips) có mục "Đèn tuýp chống cháy nổ Philips 1m2 đơn 18w" (Exd II BT6, IP65, 1.599.000-1.998.000 đồng/bộ) và "1m2 2 bóng 36w" (Exd II BT6, IP65, 2.280.000-3.537.000 đồng/bộ), nhưng không ghi mã sản phẩm Philips. Chưa đưa vào bài, chờ người dùng chọn (mục 8, câu 2). signify.com vẫn bị chặn.
 

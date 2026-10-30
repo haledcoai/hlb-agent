@@ -1,13 +1,13 @@
 {
   "file": "Bai_den-chong-chay-no-1m2.md",
-  "sha256": "67e818096154daf533e0e7eb6f35e57ef9fb3ffccd2150fcd32fcfb11156ee42",
-  "diem": 91,
+  "sha256": "515d932e304a741ea3de0c58be54a5d16a65af20b372fed6bf6504404428681c",
+  "diem": 95,
   "diem_cho_nguoi_dung": 2,
-  "diem_tinh": 93,
-  "loi_bat_buoc": 1,
+  "diem_tinh": 97,
+  "loi_bat_buoc": 0,
   "nguong": 95,
-  "ket_luan": "CAN_SUA",
-  "vong": 3,
+  "ket_luan": "DAT",
+  "vong": 4,
   "che_do": "du",
-  "thoi_gian": "2026-10-30T14:24:35+07:00"
+  "thoi_gian": "2026-10-30T14:31:51+07:00"
 }
