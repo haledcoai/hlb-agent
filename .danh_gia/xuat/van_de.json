@@ -948,5 +948,115 @@
   "bai": "den-chong-chay-no-1m2",
   "vong": 2,
   "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "chung-nhan-ap-chung-nhieu-model",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Dong 132 Duhal: IECEx chi co o trang SLSC140, trang SLSC240 chi ghi ATEX",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "thong-so-trang-hang-mau-thuan",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Dong 142 BHY trang ghi IP65 va IP66, T6 va CT5, bai chon mot so; dong 93 Ra tu 82 trang ghi CRI 82",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "o-thieu-chua-ghi-khong-cong-bo",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "Paragon thieu quang thong, Athaco thieu cong suat, quang thong chua ghi khong cong bo",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "dien-dat-ky-thuat-chua-chat",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 127 bong LED tuyp T8 dai khoang 1,3 m: bong T8 dai 1,2 m, 1,3 m la than den",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "bang-gia-gop-nhieu-model",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "Bang gia dong 240, 243 gop gia nhieu model mot khoang, chua tach nhom hang HLB phan phoi",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "muc-hang-chua-co-model",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "intent",
+  "mo_ta": "H3 Dien Quang chua co model Ex, sapo va meta van ke Dien Quang",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "nguon-thong-so-ban-hang",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Philips: signify.com chan, chi co trang ban hang congtydenled khong ghi ma",
+  "ma": "L020",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "thong-so-trang-hang-mau-thuan",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Dong 141-142 Paragon: BHY trang ghi T6 va CT5 chi neu T6; BYS-LED2x18 thieu IP (bang 65, dac diem 66)",
+  "ma": "L021",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 4,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "Dong 93 Ra 82 xuat hien lan dau, chua giai thich chi so hoan mau",
+  "ma": "L021",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 4,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "muc-hang-chua-co-model",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "intent",
+  "mo_ta": "H3 Dien Quang chua co model Ex, sapo va meta van ke Dien Quang",
+  "ma": "L021",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 4,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "nguon-thong-so-ban-hang",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Philips: signify.com chan, chi co trang ban hang congtydenled khong ghi ma",
+  "ma": "L021",
+  "bai": "den-chong-chay-no-1m2",
+  "vong": 4,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
  }
 ]
