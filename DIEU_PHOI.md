@@ -4,6 +4,8 @@ Cập nhật: 31/10/2026. File này là quy trình cho phiên Claude chạy theo
 
 **Từ 28/10/2026 mỗi lượt chạy là một phiên mới.** Đọc `dieu_phoi/TRANG_THAI.md` (quyết định đã chốt, trạng thái từ khóa, việc còn chờ) ngay sau file này. Phiên mới không nhắn được vào chat: báo người dùng qua bảng.
 
+**Chạy trên máy (người dùng chốt 03/11/2026):** lượt điều phối chạy được trên máy người dùng (folder clone của `main`). Đầu lượt `git pull`, cuối lượt commit và push ngay, không làm từ khóa đang có `khoa_luc` còn hạn của phiên khác. Chi tiết ở `CLAUDE.md` mục Chạy trên máy.
+
 **Không trả lời trong chat (người dùng chốt 29/10/2026):** lượt Điều phối và mọi sub agent không nhắn, không báo kết quả trong chat project hay thread. Mọi hoạt động, kết quả, câu hỏi chỉ ghi lên Bảng điều phối (`tien_do`, `ly_do` + `can_xu_ly`, `cau_hoi`, `lich_su`, `cau_hinh/chung.moi_truong`). Chỉ nhắn chat khi có lỗi hệ thống cần người dùng sửa (ví dụ thiếu biến môi trường, mất quyền GitHub, bảng không ghi được). Phiên chạy trong thread mà bắt buộc kết thúc bằng một công cụ chat thì dùng `no_reply_needed`, không `post_message`.
 
 Agent điều phối không có quy tắc nội dung riêng. Nó chỉ đọc bảng, gọi đúng Agent cho từng bước và ghi kết quả về bảng. Quy tắc của từng Agent giữ nguyên.
