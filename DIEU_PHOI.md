@@ -79,7 +79,7 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 
 Collection `bai_viet`, tài liệu cùng id với từ khóa: `tieu_de`, `noi_dung` (phần B markdown, bỏ H1), `ghi_chu` (phần C), `vong`, `diem`, `ket_luan`, `sha`, `file_bai`, `thay_doi` (markdown: đã sửa gì so với bản trước), `cap_nhat`. Script dừng khi bài chưa có phiếu hoặc phiếu không khớp nội dung, nên bảng không hiện bài chưa chấm. Tạo bằng `python dieu_phoi/bai_len_bang.py Bai_<slug>.md --thay-doi "..."` rồi `ArtifactData set` với `file_path`. Bảng hiện bài này để người dùng đọc và góp ý theo mục, không cần mở wp-admin.
 
-Giờ ghi lên bảng (`luc`, `cap_nhat`, `khoa_luc`, `agent_nhan_luc`) dùng giờ Việt Nam có múi giờ, ví dụ `2026-10-26T14:05:00+07:00`. **Luôn lấy giờ thật bằng lệnh `TZ=Asia/Ho_Chi_Minh date -Iseconds` ngay trước khi ghi, không tự ước lượng hay làm tròn giờ** (người dùng báo sai giờ 28/10/2026).
+Giờ ghi lên bảng (`luc`, `cap_nhat`, `khoa_luc`, `agent_nhan_luc`) dùng giờ Việt Nam có múi giờ, ví dụ `2026-10-26T14:05:00+07:00`. **Luôn lấy giờ thật bằng lệnh `TZ=UTC-7 date -Iseconds` ngay trước khi ghi, không tự ước lượng hay làm tròn giờ** (người dùng báo sai giờ 28/10/2026).
 
 Tài liệu `cau_hinh/chung`: `trigger_id` (lịch chạy để nút "Chạy Agent ngay" gọi), `lan_chay_cuoi`, `link_duyet_anh`, `link_lich_su_cham`, `tam_dung_tat_ca` (`true` khi người dùng bấm "Tạm dừng toàn bộ"), `tam_dung_luc`, `dang_do` (dấu việc dở của lượt đang chạy, mục 4 bước 1a; `null` khi không có lượt nào dở).
 
