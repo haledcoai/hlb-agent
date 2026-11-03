@@ -23,6 +23,8 @@ Agent điều phối và các Agent con chạy được cả trên máy lẫn cl
 2. **Cuối lượt:** commit và push lên `main` ngay khi xong việc, kể cả khi dừng giữa chừng. Push bị từ chối vì cloud đã đẩy trước thì `git pull --rebase` rồi push lại; gặp xung đột thì dừng và báo người dùng, không ghi đè.
 3. **Không chạy song song với cloud trên cùng một bài:** trước khi làm một từ khóa, kiểm tra và ghi `khoa_luc` trên Bảng điều phối như phiên cloud (`DIEU_PHOI.md`). Từ khóa đang có khóa còn hạn thì bỏ qua.
 
+Repo trên máy đặt `git config core.autocrlf false`, để file bài giữ xuống dòng LF như cloud; không thì mã sha256 của phiếu duyệt lệch.
+
 Biến môi trường (`WP_USER`, `WP_APP_PASSWORD`, `SERPAPI_KEY`) đặt trong file `.env` ở folder máy, file này không lên GitHub.
 
 ## Vòng duyệt tự động (bắt buộc)
