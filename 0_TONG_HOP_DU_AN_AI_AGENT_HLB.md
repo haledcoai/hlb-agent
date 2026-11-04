@@ -1,6 +1,6 @@
 # TỔNG HỢP DỰ ÁN AI AGENT VIẾT BÀI CHO DENLEDNHAXUONGCAOCAP.COM
 
-Cập nhật: 23/10/2026. File này tóm tắt các quyết định, trạng thái và việc còn dở, để tiếp tục ở phiên làm việc khác mà không cần đọc lại toàn bộ cuộc trò chuyện.
+Cập nhật: 04/11/2026. File này tóm tắt các quyết định, trạng thái và việc còn dở, để tiếp tục ở phiên làm việc khác mà không cần đọc lại toàn bộ cuộc trò chuyện.
 
 ## 1. Mục tiêu
 
@@ -35,50 +35,22 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | tools/tao_anh.py thu-vien, dung-lai | Thư viện ảnh đã duyệt và đã tải lên website ở mọi bài: tìm theo từ khóa, dùng lại media có sẵn cho bài mới, không tạo mới, không tải lại (24/10/2026) |
 | dieu_phoi/anh_len_bang.py | Tạo sẵn dữ liệu đưa ảnh chờ duyệt của cả bài lên tab Kiểm duyệt hình ảnh: danh sách file cần tải và mảng `writes` cho một lần ArtifactData batch |
 | anh/<bài>/ | Ảnh của từng bài, `anh.json` và script vẽ sơ đồ `ve_so_do.py` (gọi mẫu trong `tools/mau_anh.py`). `wp_draft.py` đọc `anh.json`: `--post` tải ảnh lên Media, chèn vào bài và đặt ảnh đại diện |
-| anh/trang-duyet-anh.html | Trang Duyệt ảnh HLB cũ (từ 22/10/2026 chuyển sang tab Kiểm duyệt hình ảnh của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG): người dùng bấm Duyệt hoặc Làm lại từng ảnh, ghi ảnh còn thiếu. Agent đọc qua ArtifactData, chỉ ảnh đã duyệt được đăng. Quy trình ở `quy_trinh/anh.md` |
 | .danh_gia/nhat_ky.jsonl | Nhật ký chấm, chỉ thêm không ghi đè: mỗi lần chấm (điểm 6 tiêu chí, vấn đề có nhãn, phiên bản thang chấm) và mỗi lần agent đánh giá bị bác bỏ. Đã nhập lại 3 lần chấm bài "cách chọn đèn" ngày 21/10/2026 (thang v1) |
 | Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (`quy_trinh/nhat_ky_cham_va_bang.md`) |
 | .claude/settings.json | Cho phép lệnh `phieu_duyet.py ghi`, `nhan`. Khai báo 5 hook: PreToolUse Bash (chặn đăng, chặn ghi phiếu ngoài agent đánh giá), PreToolUse Agent (đánh dấu đang chấm), SubagentStop (bỏ đánh dấu), PostToolUse (ghi nhận sửa bài), Stop (nhắc chấm lại) |
 
 ## 3. Quyết định đã chốt
 
-**Thương hiệu và vai trò**
-- Website vệ tinh xưng "Đèn LED Nhà Xưởng HLB" (gọi tắt HLB), thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- Vai trò (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng. Không viết "HLB sản xuất". Dòng cao cấp gọi "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026).
-- Mốc thời gian: HALEDCO sản xuất từ 2011, HLB phân phối từ 2018. Không cộng gộp số năm.
-
-**Liên hệ**
-- Hotline bán hàng, ưu tiên trong bài và CTA: 0967569588 (có Zalo).
-- Hotline kỹ thuật và bảo hành: 02437 918 122.
-- Email: denlednhaxuongcaocap@gmail.com.
-
-**Quy tắc nội dung**
-- Không link về haledco.com.
-- Được so sánh công bằng Philips, Rạng Đông, Điện Quang và dòng cao cấp (cùng tiêu chí, có nguồn), không nói xấu, không kết luận hãng nào tốt nhất.
-- Duyệt 2 lần: sau Bước 1 (SERP) và sau Bước 2 (outline). Bước 3 viết trọn bài một lần.
-- Không em dash, en dash, emoji, từ tuyệt đối.
-
-**Chính sách**
-- Dòng cao cấp bảo hành 2 năm (driver, chip LED). HALEDCO 2 năm; các hãng khác thường 2 năm (26/10). Sai thời hạn là lỗi bắt buộc, thêm điều kiện ngoài nguồn là nên sửa. Hãng khác theo chính sách hãng: Rạng Đông 24 tháng, Điện Quang 24 tháng, Philips theo từng model trên signify.com.
-- Đổi trả theo nhu cầu: khách chịu phí 10% giá trị hàng.
-- Miễn phí giao hàng khi đơn trên 5 triệu đồng, trong bán kính 10 km.
-- Chiết khấu: được nhắc là có, không nêu mức.
-
-**Đăng bản nháp**
-- Bài viết lại bài cũ: tiêu đề `[CẬP NHẬT #ID] ...`, slug `ban-nhap-cap-nhat-ID`, không đụng bài gốc. Người dùng chép nội dung sang bài gốc để giữ URL.
-- Chủ đề mới: tiêu đề `[MỚI] ...`.
-- Đầu mỗi bản nháp có khối "GHI CHÚ BIÊN TẬP", xóa trước khi đăng.
-- Thông tin đăng nhập ở biến môi trường WP_USER (hiện là `quoc-viet`, vai trò Biên tập viên) và WP_APP_PASSWORD trên máy người dùng. Không lưu mật khẩu trong file.
+Không chép lại ở đây để tránh lệch. Nguồn duy nhất:
+- Thương hiệu, vai trò HLB và HALEDCO, mốc năm, liên hệ, bảo hành, đổi trả, giao hàng, chiết khấu: `2_Knowledge_Du_lieu_tham_chieu_HLB.md` mục 1, 1.1.
+- Quy tắc nội dung (không link haledco.com, so sánh công bằng, không bịa, duyệt SERP và outline), cách đặt tiêu đề, slug bản nháp: `1_Project_Instructions_Auto_Blog_HLB.md` mục 2, 3, 10.
+- Đăng nhập WordPress, khối ghi chú biên tập: `tools/HUONG_DAN_DANG_NHAP.md`.
 
 ## 4. Trạng thái công việc
 
-| Việc | Trạng thái |
-|---|---|
-| Bài "cách chọn đèn LED nhà xưởng" (viết lại bài ID 2323) | Bản nháp ID 8514, đẩy lần đầu 21/10/2026 kèm 3 ảnh đã duyệt (Media 8518, 8519, 8520; ảnh đại diện 8520). 23/10/2026 sửa câu vai trò thương hiệu, chấm phần ĐẠT 95, cập nhật lại bản nháp. Chờ người dùng duyệt trong wp-admin và chép sang bài gốc 2323. Bài này không có dòng trên Bảng điều phối |
-| Bài "mẫu nhà xưởng 200m2" | Bản nháp ID 8524, đủ 10/10 ảnh đúng chuẩn (`tao_anh.py kiem`). 23/10/2026 sửa câu vai trò thương hiệu, chấm phần ĐẠT 96. Trạng thái duyệt xem trên Bảng điều phối |
-| Bảng hỏi thông tin cố định | Xong nhóm 1. Nhóm 2 còn 4 điểm chờ xác nhận. Nhóm 3 đến 8 chưa trả lời |
+Trạng thái từng từ khóa và bài: Bảng điều phối HLB (https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG) và `dieu_phoi/TRANG_THAI.md`. Mục 5 dưới đây chỉ giữ chi tiết để tra cứu.
 
-## 5. Việc còn dở
+## 5. Việc còn dở (chi tiết tra cứu)
 
 **Agent Danh mục (27/10/2026, đã xây xong, chưa chạy thử theo yêu cầu người dùng)**
 - Khối trên lưới sản phẩm nằm ở trường riêng của theme, REST chưa mở: cần tên trường (hoặc nhờ người làm web mở `show_in_rest`) để ghi `khoi_tren_meta` vào `danh_muc/cau_hinh.json`. Chưa có thì người dùng dán tay.
@@ -86,10 +58,8 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 - Chạy thử đầu tiên khi người dùng yêu cầu (đề xuất danh mục đèn LED nhà xưởng 150W).
 
 **Chờ người dùng xác nhận (nhóm 2)**
-1. 15 ngày đầu: sản phẩm lỗi, còn mới, còn tem thì được đổi mới 1 đổi 1?
-2. Thời hạn đổi trả theo nhu cầu bao nhiêu ngày?
-3. Đổi trả do lỗi sản phẩm có mất phí 10% không? Ai chịu phí vận chuyển khi bảo hành?
-4. Bán kính 10 km tính từ văn phòng Xuân Đỉnh hay trụ sở Sơn Tây?
+- Đổi trả do lỗi sản phẩm có mất phí 10% không? Ai chịu phí vận chuyển, tháo lắp khi bảo hành?
+- Đã trả lời 04/11/2026: đổi trả theo nhu cầu trong 15 ngày, phí 10%; miễn phí giao hàng tính từ văn phòng Xuân Đỉnh. Điều kiện đổi mới trong 15 ngày đầu của dòng cao cấp đã có ở Knowledge mục 1.1 (xác nhận 21/10/2026).
 
 **Chưa trả lời:** nhóm 3 (dịch vụ) đến nhóm 8 (người duyệt, ảnh) trong file 3.
 

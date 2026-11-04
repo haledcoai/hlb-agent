@@ -974,7 +974,7 @@ def cap_nhat_quy_tac(dm=False):
     text, n = re.subn(r"^Mã nguồn: .*$", line, text, flags=re.M)
     if not n:
         sys.exit("%s thiếu dòng 'Mã nguồn: ...'" % os.path.basename(path))
-    with open(path, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
     print("Đã ghi: " + line)
 
@@ -1016,7 +1016,7 @@ def ghi_da_kiem(article, n_err):
     state[os.path.basename(article)] = {"sha256": sha, "loi": n_err,
                                         "luc": datetime.datetime.now().isoformat(timespec="seconds")}
     os.makedirs(os.path.dirname(DA_KIEM), exist_ok=True)
-    with open(DA_KIEM, "w", encoding="utf-8") as f:
+    with open(DA_KIEM, "w", encoding="utf-8", newline="\n") as f:
         json.dump(state, f, ensure_ascii=False, indent=1)
 
 

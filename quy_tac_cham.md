@@ -1,7 +1,7 @@
 # QUY TẮC CHẤM BÀI HLB (BẢN RÚT GỌN CHO AGENT ĐÁNH GIÁ)
 
 Phiên bản: 28/10/2026. Rút từ `1_Project_Instructions_Auto_Blog_HLB.md` (Instructions) và `2_Knowledge_Du_lieu_tham_chieu_HLB.md` (Knowledge), chỉ giữ phần dùng để chấm. Khi file này khác file gốc, file gốc đúng. File này chỉ chép lại quy tắc của file gốc, không thêm điều kiện, ví dụ hay mức nghiêm mới.
-Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 1131b8aa2dc4; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 0bc54e5a7b40
+Mã nguồn: 1_Project_Instructions_Auto_Blog_HLB.md 1131b8aa2dc4; 2_Knowledge_Du_lieu_tham_chieu_HLB.md 6d7e23c41fd6
 
 Cách dùng: agent đánh giá đọc file này thay cho hai file gốc. `kiem_tra_bai.py` báo "quy_tac_cham.md làm từ bản Instructions/Knowledge cũ" thì lần chấm đó đọc hai file gốc. Cần tra chi tiết (danh sách URL danh mục, bài đã có, bảng bảo hành hãng) thì Grep đúng mục trong Knowledge, không đọc cả file.
 
@@ -23,8 +23,8 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 - Bảo hành dòng cao cấp HLB phân phối: 2 năm, linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Đèn HALEDCO: 2 năm. Các hãng khác thường 2 năm (viết chung được), Philips cụ thể theo từng model.
 - Mức lỗi bảo hành (26/10/2026): sai thời hạn là bắt buộc; thêm điều kiện không có trong nguồn là nên sửa.
 - Rạng Đông, Điện Quang: 24 tháng theo chính sách hãng. Philips: theo từng model trên signify.com, **không viết chung 24 tháng**.
-- Đổi trả theo nhu cầu: phí 10% giá trị hàng. Thời hạn đổi trả, điều kiện 15 ngày, phí khi lỗi sản phẩm: đang chờ xác nhận, bài phải để `[CHỜ XÁC NHẬN]` hoặc không nêu.
-- Giao hàng toàn quốc, không nêu số ngày. Miễn phí khi đơn trên 5 triệu đồng trong bán kính 10 km (điểm tính đang chờ xác nhận).
+- Đổi trả theo nhu cầu (đổi công suất, model, linh kiện): trong vòng 15 ngày, khách chịu phí 10% giá trị hàng (người dùng xác nhận 04/11/2026). Dòng cao cấp lỗi trong 15 ngày đầu, còn mới, còn tem: đổi mới. Phí khi đổi trả do lỗi sản phẩm, ai chịu phí vận chuyển khi bảo hành: đang chờ xác nhận, bài phải để `[CHỜ XÁC NHẬN]` hoặc không nêu.
+- Giao hàng toàn quốc, không nêu số ngày. Miễn phí khi đơn trên 5 triệu đồng trong bán kính 10 km tính từ văn phòng Xuân Đỉnh.
 - Chiết khấu: chỉ nói "có chính sách chiết khấu cho dự án, đại lý, đơn số lượng lớn", không nêu mức.
 - Dịch vụ đã công bố trên trang sản phẩm dòng cao cấp: hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy (câu công bố của trang, không biến thành "nhà máy của HLB"), đặt hàng theo yêu cầu, giao toàn quốc, tính bố trí đèn bằng DIALux khi khách gửi kích thước. Chọn hãng chip, driver chỉ với model có ghi trên trang sản phẩm.
 - Chỉ dùng khi người dùng cung cấp: số dự án, tên công trình, khách hàng, chứng nhận từng model, giá đại lý, năng lực sản xuất, thời gian giao cụ thể. Không dùng nhận xét khách hàng ở trang chủ.

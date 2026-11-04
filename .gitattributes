@@ -1,0 +1,8 @@
+# Mọi file văn bản lưu xuống dòng LF trong repo và trên máy (sha256 phiếu duyệt tính trên nội dung file)
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.pdf binary
+# Giữ nguyên như script ghi (không chuẩn hóa)
+*.csv -text
+.danh_gia/nhat_ky.jsonl -text

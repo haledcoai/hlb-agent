@@ -1,6 +1,6 @@
 # BẢNG HỎI THÔNG TIN CỐ ĐỊNH CỦA HLB
 
-Phiên bản: 21/10/2026. Điền một lần, Agent đưa vào file Knowledge và dùng cho mọi bài sau.
+Phiên bản: 21/10/2026, cập nhật câu 2.4, 2.5 ngày 04/11/2026. Điền một lần, Agent đưa vào file Knowledge và dùng cho mọi bài sau.
 
 **Cách điền:** ghi vào cột "Trả lời". Ô nào Agent đã điền sẵn từ website thì chỉ cần ghi "Đúng" hoặc sửa lại. Không biết hoặc không muốn công khai thì ghi "Không nêu", Agent sẽ tránh nội dung đó thay vì để placeholder. Phần nào chưa có thông tin có thể bỏ trống, điền sau cũng được.
 
@@ -26,8 +26,8 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 | 2.1 | Bảo hành 24 tháng áp dụng cho cả Philips, Rạng Đông, Điện Quang không? | Tất cả 113 trang sản phẩm ghi "Bảo hành 24 tháng" | |
 | 2.2 | Bảo hành gồm driver không? Đổi mới hay sửa chữa? Thời gian xử lý bao lâu? | Trang chính sách: thay chip, nguồn lỗi; không sửa được thì đổi mới hoặc hoàn tiền | |
 | 2.3 | Ai chịu chi phí tháo lắp, vận chuyển khi bảo hành? | Chưa thấy | |
-| 2.4 | Đổi trả trong bao nhiêu ngày kể từ khi nhận hàng? | Trang chính sách ghi "trong vòng tuần" (thiếu số), mô tả trên Google ghi "1 tuần" | |
-| 2.5 | Thời gian giao hàng: nội thành Hà Nội, các tỉnh? Miễn phí giao hàng khi nào? | Chưa thấy cụ thể | |
+| 2.4 | Đổi trả trong bao nhiêu ngày kể từ khi nhận hàng? | Trang chính sách ghi "trong vòng tuần" (thiếu số), mô tả trên Google ghi "1 tuần" | Đổi trả theo nhu cầu trong 15 ngày, khách chịu phí 10% (04/11/2026) |
+| 2.5 | Thời gian giao hàng: nội thành Hà Nội, các tỉnh? Miễn phí giao hàng khi nào? | Chưa thấy cụ thể | Miễn phí khi đơn trên 5 triệu đồng, bán kính 10 km tính từ văn phòng Xuân Đỉnh. Thời gian giao không nêu số ngày (04/11/2026) |
 | 2.6 | Bài viết được nhắc "có chiết khấu theo số lượng, dự án, đại lý" không? | Trang sản phẩm có nhắc chiết khấu theo số lượng | |
 
 ## 3. Dịch vụ

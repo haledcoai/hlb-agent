@@ -1,6 +1,6 @@
 # Dự án AI Agent viết bài cho denlednhaxuongcaocap.com
 
-Quy trình viết bài, giọng văn và quy tắc dữ liệu nằm ở `1_Project_Instructions_Auto_Blog_HLB.md` và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Trạng thái và việc còn dở nằm ở `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`. Đọc ba file này trước khi làm việc với bài viết.
+Quy trình viết bài, giọng văn và quy tắc dữ liệu nằm ở `1_Project_Instructions_Auto_Blog_HLB.md` và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. Trạng thái từng từ khóa nằm trên Bảng điều phối và `dieu_phoi/TRANG_THAI.md`; danh sách file, chi tiết việc dở và lịch sử nằm ở `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md`. Đọc file 1, file 2 trước khi làm việc với bài viết. Thông tin công ty và chính sách (bảo hành, đổi trả, giao hàng) chỉ ghi ở file 2 mục 1, 1.1; file khác trỏ về đó, không chép lại.
 
 **Một nguồn quy tắc (người dùng chốt 26/10/2026):** file `1_Project_Instructions_Auto_Blog_HLB.md` trên repo là bản gốc. Project settings chỉ giữ bản ngắn trỏ về file này. Đổi quy tắc thì sửa file repo (và `quy_tac_cham.md` nếu quy tắc chấm đổi), không sửa Project settings.
 

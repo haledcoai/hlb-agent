@@ -73,7 +73,7 @@ for x in ds:
            "ghi_chu_agent": ("Dùng lại ảnh đã duyệt %s. " % x["dung_lai_tu"] if x.get("dung_lai_tu") else "")
            + x.get("ghi_chu", ""), "cap_nhat": luc}
     p = os.path.abspath(os.path.join(a.out, "%s--%s.json" % (bai, x["ten"])))
-    with open(p, "w", encoding="utf-8") as f:
+    with open(p, "w", encoding="utf-8", newline="\n") as f:
         json.dump(doc, f, ensure_ascii=False)
     writes.append({"op": "set", "collection": "anh", "doc_id": "%s--%s" % (bai, x["ten"]), "file_path": p})
 print(json.dumps(writes, ensure_ascii=False))

@@ -1,5 +1,7 @@
 # AGENT ĐÁNH GIÁ NỘI DUNG HLB (BẢN DÙNG TRÊN CLAUDE.AI)
 
+> **Ngừng cập nhật từ 04/11/2026.** File này còn thang chấm v2 (24/10/2026), chưa có cách chấm khắt khe v3. Không dùng để chấm. Muốn chấm trên claude.ai thì tạo lại từ `.claude/agents/danh-gia-noi-dung.md` và `checklist_cham_bai.md`.
+
 Phiên bản: 24/10/2026, thang chấm v2. Bản gọn của `4_Agent_danh_gia_noi_dung_HLB.md`, đã bỏ phần chạy trong Claude Code (script, hook, phiếu duyệt). Khi file 4 đổi thang chấm hoặc quy tắc, tạo lại file này từ file 4.
 
 **Cách dùng**

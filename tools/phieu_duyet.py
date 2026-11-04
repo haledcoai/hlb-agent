@@ -199,7 +199,7 @@ def ghi(args):
     }
     os.makedirs(BAN_CHAM, exist_ok=True)
     shutil.copyfile(args.article, ban_cham_path(args.article))
-    with open(phieu_path(args.article), "w", encoding="utf-8") as f:
+    with open(phieu_path(args.article), "w", encoding="utf-8", newline="\n") as f:
         json.dump(phieu, f, ensure_ascii=False, indent=2)
     them_nhat_ky(dict(phieu, loai="cham", thang_cham=thang_cua(args.article), tieu_chi=tieu_chi, van_de=van_de))
     luu_dang_cham({})  # cham xong, Stop hook duoc nhac lai neu bai bi sua tiep
@@ -320,7 +320,7 @@ def xuat(args):
         + [{"ma": k, "ten": ten, "toi_da": toi_da, "loai": "danh_muc"} for k, (ten, toi_da) in TIEU_CHI_DM.items()]
     os.makedirs(args.thu_muc, exist_ok=True)
     for ten, rows in (("cham", cham), ("van_de", van_de), ("bac_bo", bac_bo), ("tieu_chi", tieu_chi)):
-        with open(os.path.join(args.thu_muc, ten + ".json"), "w", encoding="utf-8") as f:
+        with open(os.path.join(args.thu_muc, ten + ".json"), "w", encoding="utf-8", newline="\n") as f:
             json.dump(rows, f, ensure_ascii=False, indent=1)
     print("Đã xuất vào %s: cham.json (%d lần chấm), van_de.json (%d vấn đề), bac_bo.json (%d lần bác bỏ)"
           % (args.thu_muc, len(cham), len(van_de), len(bac_bo)))
@@ -448,7 +448,7 @@ def doc_dang_cham():
 
 def luu_dang_cham(state):
     os.makedirs(PHIEU_DIR, exist_ok=True)
-    with open(DANG_CHAM, "w", encoding="utf-8") as f:
+    with open(DANG_CHAM, "w", encoding="utf-8", newline="\n") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 
@@ -504,7 +504,7 @@ def doc_can_cham():
 
 def luu_can_cham(state):
     os.makedirs(PHIEU_DIR, exist_ok=True)
-    with open(CAN_CHAM, "w", encoding="utf-8") as f:
+    with open(CAN_CHAM, "w", encoding="utf-8", newline="\n") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 

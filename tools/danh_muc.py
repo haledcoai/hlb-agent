@@ -91,7 +91,7 @@ def doc_json(path, mac_dinh=None):
 
 def ghi_json(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
@@ -304,11 +304,11 @@ def cmd_doc(args):
     }
     ghi_json(os.path.join(thu_muc, "danh_muc.json"), info)
     ghi_json(os.path.join(thu_muc, "san_pham.json"), sp)
-    with open(os.path.join(thu_muc, "noi_dung_cu.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(thu_muc, "noi_dung_cu.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("# Nội dung cũ: %s\n\nĐọc lúc %s từ %s\n\nSEO title: %s\n\nMeta description: %s\n\n## Khối trên\n\n%s\n\n## Khối dưới\n\n%s\n"
                 % (info["ten_day_du"], info["doc_luc"], c["link"], trang["title"], trang["meta"],
                    van_ban(tren) or "(trống)", van_ban(desc) or "(trống)"))
-    with open(os.path.join(thu_muc, "san_pham.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(thu_muc, "san_pham.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("# Sản phẩm trong danh mục %s (%d)\n\nNguồn: API cửa hàng của website và %s, đọc lúc %s. "
                 "Chỉ dùng số liệu trong bảng này, ô trống là trang sản phẩm chưa công bố.\n\n"
                 "| Sản phẩm | Giá (đồng) | Hãng | W | lm | IP | Ra | Tuổi thọ (giờ) | Bảo hành |\n|---|---|---|---|---|---|---|---|---|\n"
@@ -450,7 +450,7 @@ def cmd_nhap(args):
     content = ghep_trang(c, seo, h_tren, h_duoi, ghi_chu, missing)
     title = TIEN_TO_NHAP + html.unescape(c["name"]) + (" (%s)" % c["slug"] if c["parent"] else "")
     preview = os.path.splitext(args.article)[0] + ".preview.html"
-    with open(preview, "w", encoding="utf-8") as f:
+    with open(preview, "w", encoding="utf-8", newline="\n") as f:
         f.write("<!doctype html><meta charset=utf-8><title>%s</title><h1>%s</h1>\n%s"
                 % (html.escape(title), html.escape(title), content))
     print("File xem trước:", preview)
@@ -548,7 +548,7 @@ def cmd_ap_dung(args):
                            "khoi_tren": "da_ghi" if khoa_tren else "cho_dan"}})
     if not khoa_tren:
         f_tren = os.path.join(THU_MUC, ten_file(args.article) + ".khoi_tren.html")
-        with open(f_tren, "w", encoding="utf-8") as f:
+        with open(f_tren, "w", encoding="utf-8", newline="\n") as f:
             f.write(h_tren)
         st["ap_dung"]["file_khoi_tren"] = os.path.relpath(f_tren, ROOT)
         print("Khối trên chờ dán tay: %s (đưa lên bảng để người dùng chép)." % os.path.relpath(f_tren, ROOT))

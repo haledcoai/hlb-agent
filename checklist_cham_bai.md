@@ -18,7 +18,7 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 
 1. Một tiêu chí chỉ được điểm tối đa khi mọi mục của tiêu chí đó là Đạt hoặc Không áp dụng.
 2. Mỗi vấn đề nên sửa trừ ít nhất 1 điểm, mỗi lỗi bắt buộc trừ ít nhất 2 điểm, ở đúng tiêu chí của mục. Một vấn đề chỉ trừ ở một tiêu chí.
-3. Cùng một lỗi lặp ở nhiều chỗ: ghi một vấn đề, liệt kê đủ mọi vị trí để agent viết sửa hết một lần.
+3. Cùng một lỗi lặp ở nhiều chỗ: ghi một vấn đề, liệt kê đủ mọi vị trí để Agent Blog sửa hết một lần.
 4. ĐẠT nghĩa là bài đăng được mà người dùng không phải sửa thêm câu chữ hay số liệu. Còn nghi ngờ về một con số thì kiểm tra cho xong, hoặc xếp vấn đề, không cho qua.
 
 ## 1. Search intent (intent, 15 điểm)

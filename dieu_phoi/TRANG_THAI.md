@@ -4,22 +4,16 @@ Cập nhật: 30/10/2026 16:27 giờ VN. Mỗi lượt chạy đọc file này s
 
 ## Cách chạy từ 28/10/2026
 
-- **Không trả lời trong chat (người dùng chốt 29/10/2026):** lượt Điều phối và mọi sub agent không nhắn, không báo kết quả trong chat project hay thread. Mọi hoạt động, kết quả, câu hỏi chỉ ghi lên Bảng điều phối (`tien_do`, `ly_do` + `can_xu_ly`, `cau_hoi`, `lich_su`, `cau_hinh/chung.moi_truong`). Chỉ nhắn chat khi có lỗi hệ thống cần người dùng sửa (ví dụ thiếu biến môi trường, mất quyền GitHub, bảng không ghi được). Phiên chạy trong thread mà bắt buộc kết thúc bằng một công cụ chat thì dùng `no_reply_needed`, không `post_message`.
-- Lịch "Điều phối HLB" chạy **mỗi lượt một phiên mới** (người dùng chốt 28/10, lý do: chạy chung thread chat thì lỡ lệnh và tốn giới hạn sử dụng). Phiên mới không nhắn được vào thread chat: mọi báo cáo cho người dùng ghi lên Bảng điều phối (`tien_do`, `ly_do` + `can_xu_ly`, `cau_hoi`, `cau_hinh/chung.moi_truong`).
-- Bảng: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG. Nút "Chạy Agent ngay" gọi lịch theo `cau_hinh/chung.trigger_id`.
+Quy trình mỗi lượt (không nhắn chat, mỗi lượt một phiên mới, giờ lấy bằng lệnh, xác nhận nhận việc, `khoa_luc`, mô hình phòng ban): `DIEU_PHOI.md`. Ở đây chỉ giữ thông tin môi trường và lịch:
+
 - Phiên chạy trong environment "HLB Agent" (có `WP_USER`, `WP_APP_PASSWORD`, mạng tới website). Thiếu `SERPAPI_KEY` thì không dừng cả lượt: chuyển từ khóa cần SERP sang `can_xu_ly` với `ly_do` "Phiên chạy thiếu SERPAPI_KEY, bạn thêm key vào environment HLB Agent" và làm tiếp việc khác.
-- Giờ ghi lên bảng luôn lấy bằng `TZ=UTC-7 date -Iseconds` ngay trước khi ghi (người dùng bắt lỗi giờ ước lượng 28/10).
-- Mỗi lượt có việc: ghi `agent_nhan_luc` + `tien_do` cho mọi dòng chờ Agent trước (DIEU_PHOI mục 4 bước 3a). Bảng sáng lại nút sau 10 phút (gọi ngay) hoặc 65 phút (gọi không được) nếu chưa xác nhận.
-- Chỉ một phiên ghi lên một từ khóa tại một thời điểm (`khoa_luc`).
+- Bảng sáng lại nút sau 10 phút (gọi ngay) hoặc 65 phút (gọi không được) nếu chưa xác nhận.
 - Lịch hiện dùng: "Điều phối HLB (phiên riêng)" `trig_01WH9a4VRDCSW6az6Hofrcvd` (tạo 31/10 với prompt mới, PR #36). **Chỉ chạy khi có việc** (người dùng chốt 28/10, bớt tốn token): bảng gọi khi người dùng thao tác, lượt còn việc tự gọi lượt sau, một lượt dự phòng 8:04 sáng. **Từ 31/10 lượt 8:04 chỉ làm khi còn việc dở** (người dùng chốt): lượt nào có việc thì ghi dấu `cau_hinh/chung.dang_do` trước mỗi bước, xóa khi xong; lượt sau thấy dấu cũ hơn 1 giờ thì làm tiếp, không có dấu và mọi từ khóa tạm dừng hoặc chờ người dùng thì dừng ngay, không lấy repo (DIEU_PHOI mục 4 bước 1a). Lịch cũ `trig_01VuSkTwAngCyM4hvdkjoi8u` (28/10, prompt cũ) và `trig_01SNtA1v6Q62TrgSaCBvidMU` đã tắt; lịch hằng giờ `trig_01SZCoQZmxvcGUWbHodVv2Fx` đã xóa.
-- **Mô hình phòng ban (người dùng chốt 28/10):** phiên điều phối là trưởng phòng, không tự viết bài. Nghiên cứu, viết, sửa giao `agent-blog` hoặc `agent-danh-muc`; chấm giao `danh-gia-noi-dung`, `danh-gia-danh-muc`; ảnh giao `tao-anh`. Chi tiết `DIEU_PHOI.md` đầu file.
 
 ## Quyết định cốt lõi đã chốt
 
-- Thương hiệu "Đèn LED Nhà Xưởng HLB", thuộc Cty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO (HALEDCO từ 2011, HLB từ 2018). HALEDCO là đơn vị sản xuất và phân phối. HLB phân phối đèn LED nhiều thương hiệu: HALEDCO, Philips, Rạng Đông, Điện Quang. Dòng cao cấp gọi "dòng đèn cao cấp HLB phân phối", không gán cho một hãng.
+- Thông tin công ty, vai trò HALEDCO và HLB, liên hệ, bảo hành, đổi trả, giao hàng, chiết khấu: `2_Knowledge_Du_lieu_tham_chieu_HLB.md` mục 1, 1.1 (không chép lại ở đây).
 - Không link haledco.com. Không bịa thông số; thiếu thì `[CẦN BỔ SUNG]`. Quá 5 chỗ ở phần B thì không đăng nháp.
-- Bảo hành: dòng cao cấp HLB phân phối và HALEDCO 2 năm; Rạng Đông, Điện Quang 24 tháng; Philips tra theo model. Đổi trả theo nhu cầu 15 ngày, phí 10%. Miễn phí giao đơn trên 5 triệu trong 10 km tính từ Xuân Đỉnh. Chiết khấu: nhắc có, không nêu mức.
-- Hotline/Zalo 0967569588; kỹ thuật, bảo hành 02437 918 122; email denlednhaxuongcaocap@gmail.com.
 - UF và MF giả định khoảng 0,8 (xưởng bụi lấy MF thấp hơn).
 - Một dòng từ khóa = một bài; từ đầu dòng là từ khóa chính, không tự đổi.
 - Bài ĐẠT thì tự đẩy bản nháp WordPress (chỉ nháp, không đăng công khai). Ghi lên danh mục chỉ khi người dùng bấm "Duyệt, cập nhật lên danh mục".
@@ -45,7 +39,7 @@ Cập nhật: 30/10/2026 16:27 giờ VN. Mỗi lượt chạy đọc file này s
 
 ## Việc còn chờ người dùng
 
-- Bảng hỏi thông tin cố định: nhóm 2 còn chờ (lỗi NSX có mất phí, ai chịu ship/tháo lắp bảo hành); nhóm 3-8 chưa trả lời. Rà soát Knowledge 27/10 ở `/mnt/project-files/ra-soat/ra_soat_knowledge_2710.md`.
+- Bảng hỏi thông tin cố định: nhóm 2 còn chờ (lỗi NSX có mất phí, ai chịu ship/tháo lắp bảo hành); nhóm 3-8 chưa trả lời.
 - Phát hiện website cần người dùng sửa: BUFO1-200, BUFO3-200 ghi IP40; 4 model 150W hãng khác chung 16.500 lm; Philips ghi chung "BH 24 tháng"; trang bảo hành thiếu số ngày đổi trả; danh mục Điện Quang 150W trống.
 - Agent Danh mục (PR #16) chưa chạy thử với danh mục thật.
 

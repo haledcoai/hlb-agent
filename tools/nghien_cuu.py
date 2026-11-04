@@ -143,7 +143,7 @@ def luu_outline(args):
         datetime.datetime.now().isoformat(timespec="minutes"), "; lý do: " + args.ly_do if args.ly_do else "")
     if cu and not args.ly_do and cu != heads:
         sys.exit("Đã có outline khác cho bài này. Lưu đè phải có --ly-do (ví dụ người dùng duyệt đổi heading ngày nào)")
-    with open(path, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
         # bo dong ghi lan luu cu khi luu lai tu chinh file outline.md
         f.write(dau + re.sub(r"\A\s*<!-- Lưu .*?-->\s*", "", text.strip()) + "\n")
     for level, text in heads:
@@ -199,7 +199,7 @@ def luu_serp(args):
         so_tu = len(chuan(text).split())
         if so_tu < 150:
             print("- %s: chỉ có %d từ, có thể trang chặn hoặc lấy sai phần thân bài" % (url, so_tu))
-        with open(path, "w", encoding="utf-8") as f:
+        with open(path, "w", encoding="utf-8", newline="\n") as f:
             f.write("URL: %s\nLưu: %s\n\n%s\n" % (url, datetime.date.today().isoformat(), text.strip()))
         print("- Đã lưu %s (%d từ)" % (os.path.relpath(path, ROOT), so_tu))
     if loi:

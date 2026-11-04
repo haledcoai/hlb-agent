@@ -53,9 +53,9 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 - Trong 15 ngày đầu: sản phẩm lỗi, còn mới 100%, chưa qua sử dụng, còn nguyên tem nhãn thì được đổi mới.
 - Sau 15 ngày, trong thời hạn bảo hành: thay thế linh kiện bị lỗi, hư hỏng.
 
-**Đổi trả theo nhu cầu khách hàng:** khách chịu phí đổi trả 10% giá trị hàng hóa. Thời gian hỗ trợ đổi trả hàng theo yêu cầu khách hàng ví dụ như đổi công suất, model, đổi linh kiện,... trong vòng 15 ngày
+**Đổi trả theo nhu cầu khách hàng:** khách chịu phí đổi trả 10% giá trị hàng hóa. Thời gian hỗ trợ đổi trả hàng theo yêu cầu khách hàng ví dụ như đổi công suất, model, đổi linh kiện,... trong vòng 15 ngày (người dùng xác nhận 04/11/2026).
 
-**Giao hàng:** giao toàn quốc, thời gian tùy khu vực (không nêu số ngày cụ thể trong bài). Miễn phí giao hàng khi đơn hàng trên 5 triệu đồng và trong bán kính 10 km tính từ văn phòng Xuân Đỉnh.
+**Giao hàng:** giao toàn quốc, thời gian tùy khu vực (không nêu số ngày cụ thể trong bài). Miễn phí giao hàng khi đơn hàng trên 5 triệu đồng và trong bán kính 10 km tính từ văn phòng Xuân Đỉnh (người dùng xác nhận 04/11/2026).
 
 **Thương hiệu khác: bảo hành theo chính sách của hãng (đã tra ngày 21/10/2026):**
 
@@ -214,7 +214,7 @@ Website hiện có một số câu quảng cáo và điểm chưa thống nhất
 | "Không nên chiếu sáng liên tục quá 10 tiếng" (trang BUFO4-50) | Mâu thuẫn với thực tế nhà xưởng chạy 2-3 ca | Không dùng. Hỏi người dùng nếu bài cần nói về thời gian hoạt động |
 | "Chứng nhận phù hợp tiêu chuẩn ISO 9001:2015: TCVN 7722-1:2009/IEC 60598-1:2008" | Ghép hệ thống quản lý chất lượng với tiêu chuẩn sản phẩm trong một câu | Chỉ nêu khi người dùng xác nhận chứng nhận cụ thể |
 | "Công nghệ tản nhiệt độc quyền Graphene và TCPlus 5s" | Chưa có tài liệu kỹ thuật | Chỉ nêu dạng "theo công bố trên trang sản phẩm", không diễn giải thêm |
-| "Đổi trả hàng trong vòng tuần" (trang bảo hành) | Không rõ số ngày | Dùng thông tin ở mục 1.1 khi người dùng đã xác nhận số ngày |
+| "Đổi trả hàng trong vòng tuần" (trang bảo hành) | Không rõ số ngày | Viết "trong vòng 15 ngày" theo mục 1.1 (người dùng xác nhận 04/11/2026) |
 | "Bảo hành 24 tháng" trên trang sản phẩm Philips | Philips bảo hành theo từng model | Lấy thời hạn trên signify.com (mục 1.1) |
 | Lời nhận xét khách hàng ở trang chủ | Không kiểm chứng được | Không dùng |
 

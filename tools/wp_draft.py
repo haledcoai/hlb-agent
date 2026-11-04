@@ -408,7 +408,7 @@ def main():
             return a["url_website"]
         return os.path.relpath(os.path.join(ROOT, a["file"]), preview_dir).replace("\\", "/")
 
-    with open(preview, "w", encoding="utf-8") as f:
+    with open(preview, "w", encoding="utf-8", newline="\n") as f:
         f.write("<!doctype html><meta charset=utf-8><title>%s</title>"
                 "<style>img{max-width:100%%;height:auto}.aligncenter{display:block;margin:1em auto;text-align:center}"
                 "figcaption{font-size:14px;color:#555;margin-top:6px}</style><h1>%s</h1>\n%s"
@@ -453,7 +453,7 @@ def main():
         with open(manifest_path(args.article), encoding="utf-8") as f:
             manifest = json.load(f)
         manifest["anh"] = [images.get(t, a) for t, a in all_images.items()]
-        with open(manifest_path(args.article), "w", encoding="utf-8") as f:
+        with open(manifest_path(args.article), "w", encoding="utf-8", newline="\n") as f:
             json.dump(manifest, f, ensure_ascii=False, indent=2)
         content = insert_images(content, images, lambda a: a.get("url_da_tai") or a["url_website"])
 
