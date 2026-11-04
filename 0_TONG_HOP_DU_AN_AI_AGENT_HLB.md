@@ -14,7 +14,8 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | 2_Knowledge_Du_lieu_tham_chieu_HLB.md | Thông tin HLB đã xác nhận, URL danh mục và bài Tư vấn, cách đọc trang sản phẩm, chuẩn SEO, checklist. Tải lên Project Knowledge |
 | 6_Agent_Danh_muc_HLB.md | Quy tắc Agent Danh mục (27/10/2026): viết lại nội dung danh mục sản phẩm đã có, file `DM_<slug>.md`, Trang nháp xem trước, chỉ ghi lên danh mục khi người dùng duyệt. Agent `danh-gia-danh-muc` chấm theo `quy_tac_cham_danh_muc.md` |
 | tools/danh_muc.py | Công cụ Agent Danh mục: `ds`, `tim` (nhận diện từ khóa danh mục), `doc` (lưu danh mục, sản phẩm, nội dung cũ vào `nghien_cuu/DM_<slug>/`), `nhap` (Trang nháp), `ap-dung` (sao lưu rồi ghi mô tả, Rank Math), `kiem-trang`, `khoi-phuc` |
-| 4_Agent_danh_gia_noi_dung_HLB.md | Tóm tắt agent đánh giá chất lượng: vai trò, kiểm tra cơ học (làm tay được khi không có script), thang 100 điểm cần từ 95, mẫu báo cáo, vòng duyệt, phiếu và nhật ký, bài học, việc còn mở. Dùng được cả trong Claude Project trên claude.ai |
+| 4_Agent_danh_gia_noi_dung_HLB.md | Hồ sơ agent đánh giá: kiểm tra cơ học làm tay, phần chạy trong Claude Code (phiếu, nhật ký, hook), lịch sử, bài học, việc còn mở. Cách chấm nằm ở `.claude/agents/danh-gia-noi-dung.md` |
+| 5_Agent_danh_gia_ban_claude_ai.md | Bản chấm cho Claude Project trên claude.ai, ngừng cập nhật từ 04/11/2026 (còn thang v2) |
 | 3_Bang_hoi_thong_tin_co_dinh_HLB.md | Bảng hỏi thông tin cố định (8 nhóm). Đã trả lời nhóm 1 và phần lớn nhóm 2 |
 | du_lieu_san_pham_HLB_<ngày>.csv | Thông số và giá 113 sản phẩm đọc từ website. Làm mới bằng `python tools/lam_moi_csv.py` (giữ một file mới nhất, bản cũ trong git) |
 | Bai_cach-chon-den-led-nha-xuong.md | Bài viết lại "cách chọn đèn LED nhà xưởng" (phần A, B, C) |
