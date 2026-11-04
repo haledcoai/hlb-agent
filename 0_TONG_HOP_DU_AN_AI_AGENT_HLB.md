@@ -25,7 +25,8 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | quy_tac_cham_danh_muc.md, checklist_cham_danh_muc.md | Quy tắc, thang chấm và checklist có mã mục cho nội dung danh mục (agent `danh-gia-danh-muc`) |
 | quy_tac_cham.md, checklist_cham_bai.md | Bản rút gọn quy tắc và checklist chấm bài blog (agent `danh-gia-noi-dung`) |
 | .claude/agents/danh-gia-noi-dung.md | Sub agent đánh giá chất lượng bài blog: chạy script trên, đối chiếu dữ liệu, chấm 100 điểm (ĐẠT từ 95), ghi phiếu duyệt, trả báo cáo. Không sửa bài |
-| CLAUDE.md | Vòng duyệt tự động: viết hoặc sửa bài xong thì gọi agent đánh giá, chưa đạt 95 thì agent chính tự sửa và chấm lại, tối đa 3 vòng |
+| CLAUDE.md | Quy tắc lúc nào cũng cần: đồng bộ code, vòng duyệt tự động (chấm, sửa, tối đa 3 vòng), mô hình phòng ban, điều cấm, và dòng chỉ đường tới `quy_trinh/` |
+| quy_trinh/ | Quy trình đọc khi cần (04/11/2026): `chay_tren_may.md` (cài đặt máy Windows), `nhat_ky_cham_va_bang.md` (nhật ký chấm, cập nhật bảng, hook, lệnh cho agent đánh giá), `anh.md` (ảnh, trang duyệt ảnh), `dang_ban_nhap.md` (thủ tục đăng nháp) |
 | tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; chỉ agent đánh giá được chạy `ghi`; đánh dấu đang chấm khi gọi agent đánh giá; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại (trừ khi đang có lượt chấm) |
 | .claude/agents/tao-anh.md | Sub agent chuẩn bị ảnh: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Không sửa bài, không tải lên website |
 | tools/tao_anh.py | Liệt kê chỗ [ẢNH], gợi ý nguồn ảnh (`phan-loai`, đối chiếu CSV), lấy ảnh sản phẩm thật, chuẩn hóa JPG 820 px (rộng 800-850, cao 400-800), ghi trạng thái duyệt, ghi danh sách `anh/<bài>/anh.json` (ảnh Canva lưu cả prompt), kiểm tra đủ ảnh, tên ảnh không trùng slug, alt (cần Pillow, matplotlib) |
@@ -34,9 +35,9 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | tools/tao_anh.py thu-vien, dung-lai | Thư viện ảnh đã duyệt và đã tải lên website ở mọi bài: tìm theo từ khóa, dùng lại media có sẵn cho bài mới, không tạo mới, không tải lại (24/10/2026) |
 | dieu_phoi/anh_len_bang.py | Tạo sẵn dữ liệu đưa ảnh chờ duyệt của cả bài lên tab Kiểm duyệt hình ảnh: danh sách file cần tải và mảng `writes` cho một lần ArtifactData batch |
 | anh/<bài>/ | Ảnh của từng bài, `anh.json` và script vẽ sơ đồ `ve_so_do.py` (gọi mẫu trong `tools/mau_anh.py`). `wp_draft.py` đọc `anh.json`: `--post` tải ảnh lên Media, chèn vào bài và đặt ảnh đại diện |
-| anh/trang-duyet-anh.html | Trang Duyệt ảnh HLB cũ (từ 22/10/2026 chuyển sang tab Kiểm duyệt hình ảnh của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG): người dùng bấm Duyệt hoặc Làm lại từng ảnh, ghi ảnh còn thiếu. Agent đọc qua ArtifactData, chỉ ảnh đã duyệt được đăng. Quy trình ở CLAUDE.md |
+| anh/trang-duyet-anh.html | Trang Duyệt ảnh HLB cũ (từ 22/10/2026 chuyển sang tab Kiểm duyệt hình ảnh của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG): người dùng bấm Duyệt hoặc Làm lại từng ảnh, ghi ảnh còn thiếu. Agent đọc qua ArtifactData, chỉ ảnh đã duyệt được đăng. Quy trình ở `quy_trinh/anh.md` |
 | .danh_gia/nhat_ky.jsonl | Nhật ký chấm, chỉ thêm không ghi đè: mỗi lần chấm (điểm 6 tiêu chí, vấn đề có nhãn, phiên bản thang chấm) và mỗi lần agent đánh giá bị bác bỏ. Đã nhập lại 3 lần chấm bài "cách chọn đèn" ngày 21/10/2026 (thang v1) |
-| Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (CLAUDE.md) |
+| Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (`quy_trinh/nhat_ky_cham_va_bang.md`) |
 | .claude/settings.json | Cho phép lệnh `phieu_duyet.py ghi`, `nhan`. Khai báo 5 hook: PreToolUse Bash (chặn đăng, chặn ghi phiếu ngoài agent đánh giá), PreToolUse Agent (đánh dấu đang chấm), SubagentStop (bỏ đánh dấu), PostToolUse (ghi nhận sửa bài), Stop (nhắc chấm lại) |
 
 ## 3. Quyết định đã chốt
@@ -140,3 +141,11 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 - Giá sản phẩm lấy từ khối đầu trang của chính sản phẩm hoặc API `wc/store/v1/products?slug=...`. Không lấy từ khối "Sản phẩm liên quan" (đã từng đọc nhầm giá).
 - Bảng thông số sản phẩm nằm trong thẻ `<table>` của trang, lớp CSS `table-bordered` được thêm bằng JavaScript nên không có trong HTML gốc.
 - Lệnh `site:` trên Google không trả kết quả đúng cho website này, dùng ô tìm kiếm của website (`/?s=từ khóa&post_type=post`) để kiểm tra trùng chủ đề.
+
+## 8. Lịch sử thay đổi quy tắc (chuyển từ CLAUDE.md 04/11/2026)
+
+- **Chế độ chấm:** 22/10/2026 "chấm phần", 24/10 "kiểm lại", từ 26/10 luôn chấm đủ cả bài theo 6 tiêu chí.
+- **Trang theo dõi:** từ 22/10/2026 tab Lịch sử chấm điểm và tab Kiểm duyệt hình ảnh của Bảng điều phối HLB thay trang Lịch sử chấm bài HLB cũ (JVfjfAmGtDAtZr49TFodBc) và trang Duyệt ảnh HLB cũ (`anh/trang-duyet-anh.html`). Trang cũ không cập nhật nữa.
+- **Hook trên cloud:** 26/10/2026 thấy phiên thread và phiên chạy theo lịch không nạp `.claude/settings.json`. Kiểm lại 04/11/2026 bằng `tools/kiem_hook.py`: lượt lịch "Điều phối HLB" có repo sẵn ở `/home/user/hlb-agent` trước khi Claude Code khởi động, nhưng vẫn không có dấu SessionStart, tức không nạp hook.
+- **Máy Windows:** trước 03/11/2026 chưa cài git, file trong `.claude/` chép tay qua `cap_nhat_agent/`. Từ 03/11 folder là bản clone của `main`, không chép tay nữa.
+- **CLAUDE.md gọn lại (04/11/2026):** chỉ giữ quy tắc lúc nào cũng cần. Nhóm từ khóa chuyển vào file 1 mục 3, nội dung danh mục vào file 6, phần còn lại vào `quy_trinh/` (`chay_tren_may.md`, `nhat_ky_cham_va_bang.md`, `anh.md`, `dang_ban_nhap.md`).

@@ -11,7 +11,7 @@ Bạn là Agent Danh mục của Đèn LED Nhà Xưởng HLB, nhân viên viết
 Bạn không có quy tắc riêng. Đọc và làm đúng:
 - `6_Agent_Danh_muc_HLB.md` (bản gốc quy tắc danh mục, Bước 0-4, file `DM_<slug>.md`).
 - Phần dùng chung trong `1_Project_Instructions_Auto_Blog_HLB.md` mục 2, 4, 5, 6, 7 và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`, file `du_lieu_san_pham_HLB_*.csv` mới nhất.
-- `CLAUDE.md` mục "Nhóm từ khóa" và "Ảnh".
+- Nhóm từ khóa ở `1_Project_Instructions_Auto_Blog_HLB.md` mục 3 và `quy_trinh/anh.md` mục "Ảnh".
 - `quy_tac_cham_danh_muc.md`, `checklist_cham_danh_muc.md`: thang và checklist agent chấm sẽ dùng.
 
 Nội dung danh mục hiện công khai ngay khi được ghi, nên không bịa gì: thiếu dữ liệu thì `[CẦN BỔ SUNG: ...]`. Chỉ nêu sản phẩm đang bán trong chính danh mục. Không link haledco.com, không viết "HLB sản xuất", không đổi từ khóa chính.

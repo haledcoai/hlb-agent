@@ -28,7 +28,7 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 | I1 | Câu trả lời chính nằm trong 2-3 đoạn đầu (6) | NS |
 | I2 | Sapo 2,5-3 dòng (khoảng 40-80 từ), từ khóa chính ở câu đầu tiên, nhấn đúng ý tiêu đề, khái quát cả bài, không giới thiệu chung về đèn LED hay về công ty, không mở bằng định nghĩa sách giáo khoa (4) | Thiếu từ khóa ở câu đầu BB (script); còn lại NS |
 | I3 | Đoạn trả lời nhanh ngay sau sapo (hoặc gộp với sapo), 40-60 từ, đúng dạng theo loại truy vấn, có số hoặc tiêu chí kèm điều kiện, đọc tách riêng vẫn hiểu (6) | NS |
-| I4 | Bài đáp đúng ý định tìm kiếm của từ khóa chính. Từ khóa hợp làm trang danh mục, sản phẩm, hoặc trùng bài đã có thì không tự đổi (CLAUDE.md, Nhóm từ khóa) | 2b |
+| I4 | Bài đáp đúng ý định tìm kiếm của từ khóa chính. Từ khóa hợp làm trang danh mục, sản phẩm, hoặc trùng bài đã có thì không tự đổi (`1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa) | 2b |
 | I5 | Phương án phù hợp nhất với trường hợp phổ biến được đưa trước (6) | NS |
 
 ## 2. Dữ liệu và nguồn (du_lieu, 25 điểm)

@@ -4,7 +4,7 @@ Cập nhật: 31/10/2026. File này là quy trình cho phiên Claude chạy theo
 
 **Từ 28/10/2026 mỗi lượt chạy là một phiên mới.** Đọc `dieu_phoi/TRANG_THAI.md` (quyết định đã chốt, trạng thái từ khóa, việc còn chờ) ngay sau file này. Phiên mới không nhắn được vào chat: báo người dùng qua bảng.
 
-**Chạy trên máy (người dùng chốt 03/11/2026):** lượt điều phối chạy được trên máy người dùng (folder clone của `main`). Đầu lượt `git pull`, cuối lượt commit và push ngay, không làm từ khóa đang có `khoa_luc` còn hạn của phiên khác. Chi tiết ở `CLAUDE.md` mục Chạy trên máy.
+**Chạy trên máy (người dùng chốt 03/11/2026):** lượt điều phối chạy được trên máy người dùng (folder clone của `main`). Đầu lượt `git pull`, cuối lượt commit và push ngay, không làm từ khóa đang có `khoa_luc` còn hạn của phiên khác. Chi tiết ở `CLAUDE.md` mục Chạy trên máy và `quy_trinh/chay_tren_may.md`.
 
 **Không trả lời trong chat (người dùng chốt 29/10/2026):** lượt Điều phối và mọi sub agent không nhắn, không báo kết quả trong chat project hay thread. Mọi hoạt động, kết quả, câu hỏi chỉ ghi lên Bảng điều phối (`tien_do`, `ly_do` + `can_xu_ly`, `cau_hoi`, `lich_su`, `cau_hinh/chung.moi_truong`). Chỉ nhắn chat khi có lỗi hệ thống cần người dùng sửa (ví dụ thiếu biến môi trường, mất quyền GitHub, bảng không ghi được). Phiên chạy trong thread mà bắt buộc kết thúc bằng một công cụ chat thì dùng `no_reply_needed`, không `post_message`.
 
@@ -28,8 +28,8 @@ Quy tắc của từng Agent:
 | Agent Blog: nghiên cứu SERP, outline, viết bài blog | `1_Project_Instructions_Auto_Blog_HLB.md` + `2_Knowledge_Du_lieu_tham_chieu_HLB.md` + CSV sản phẩm |
 | Agent Danh mục: viết lại nội dung danh mục sản phẩm đã có (từ 27/10/2026) | `6_Agent_Danh_muc_HLB.md` + Knowledge + `tools/danh_muc.py`; luồng trên bảng ở mục 3c |
 | Chấm và vòng sửa | `CLAUDE.md` mục "Vòng duyệt tự động", sub agent `danh-gia-noi-dung` (bài blog), `danh-gia-danh-muc` (nội dung danh mục), `tools/kiem_tra_bai.py`, `tools/phieu_duyet.py` |
-| Đăng bản nháp | `tools/wp_draft.py`, Project Instructions mục 10, CLAUDE.md mục "Đăng bản nháp" |
-| Tạo ảnh | sub agent `tao-anh`, `tools/tao_anh.py`, CLAUDE.md mục "Ảnh" và "Trang duyệt ảnh" |
+| Đăng bản nháp | `tools/wp_draft.py`, Project Instructions mục 10, `quy_trinh/dang_ban_nhap.md` |
+| Tạo ảnh | sub agent `tao-anh`, `tools/tao_anh.py`, `quy_trinh/anh.md` |
 
 Đọc `CLAUDE.md`, `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md` trước khi làm.
 
@@ -48,7 +48,7 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 
 | Trường | Ai ghi | Nội dung |
 |---|---|---|
-| `tu_khoa`, `tu_khoa_phu` (mảng), `id_bai_cu`, `ghi_chu` | Người dùng khi nạp | Một dòng nạp là một bài (chốt 22/10/2026): từ đầu dòng là từ khóa chính (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng. Giữ đúng vai trò này khi lập outline và viết: không đổi từ khóa chính sang từ khóa khác. `tu_khoa_phu` rỗng thì Agent tự chọn ở bước SERP và ghi vào; có sẵn thì xử lý theo CLAUDE.md mục "Nhóm từ khóa". `id_bai_cu` có giá trị thì là viết lại bài cũ (`--update`) |
+| `tu_khoa`, `tu_khoa_phu` (mảng), `id_bai_cu`, `ghi_chu` | Người dùng khi nạp | Một dòng nạp là một bài (chốt 22/10/2026): từ đầu dòng là từ khóa chính (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng. Giữ đúng vai trò này khi lập outline và viết: không đổi từ khóa chính sang từ khóa khác. `tu_khoa_phu` rỗng thì Agent tự chọn ở bước SERP và ghi vào; có sẵn thì xử lý theo `1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa. `id_bai_cu` có giá trị thì là viết lại bài cũ (`--update`) |
 | `trang_thai` | Cả hai | Xem mục 3 |
 | `tien_do` | Agent | Một dòng đang làm gì, ví dụ "Vòng chấm 2" |
 | `serp`, `outline` | Agent (người dùng có thể sửa `outline`) | Markdown: 5 mục SERP, 9 mục outline đúng Project Instructions |
@@ -95,7 +95,7 @@ Người dùng đẩy trạng thái bằng nút trên bảng. Agent chỉ nhận
 | `sua_outline` | `dang_nghien_cuu` | Giao Agent con chế độ `nghien-cuu` kèm `gop_y_outline`: làm lại outline, giữ SERP trừ khi góp ý yêu cầu | `cho_duyet_outline` |
 | `cho_viet` | `dang_viet` | Trước khi viết: `ArtifactData get` từ khóa với `out_dir`, chạy `python tools/nghien_cuu.py luu-outline Bai_<slug>.md --tu <file JSON>` (lưu đúng `outline` người dùng đã duyệt). Giao `agent-blog` chế độ `viet` (Bước 3 theo đúng `outline` trên bảng, có thể người dùng đã sửa, Bước 4 tự kiểm tra), rồi vòng duyệt CLAUDE.md, sửa giao chế độ `sua` (tối đa 3 vòng). ĐẠT thì làm đủ mục 3a | `cho_duyet_bai`; hoặc `can_xu_ly` (`quay_ve: "sua_bai"`) nếu hết 3 vòng chưa ĐẠT |
 | `sua_bai` | `dang_viet` | Giao `agent-blog` chế độ `sua`: sửa theo `gop_y_muc` (chỉ sửa đúng các mục được góp ý, giữ nguyên chữ các mục khác), `gop_y_bai` và `tra_loi` nếu có. Chấm lại theo CLAUDE.md. ĐẠT thì làm đủ mục 3a với `--draft-id <draft_id>`, `thay_doi` liệt kê từng mục đã sửa | `cho_duyet_bai` |
-| `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên tab Kiểm duyệt hình ảnh của bảng (CLAUDE.md) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
+| `cho_tao_anh` | `dang_tao_anh` | Gọi `tao-anh`, kiểm đủ ảnh, đưa lên tab Kiểm duyệt hình ảnh của bảng (`quy_trinh/anh.md`) | `cho_duyet_anh`, ghi `anh_tong`, `anh_duyet: 0` |
 | `cho_hoan_thien` | `dang_hoan_thien` | Đọc collection `anh`, `yeu_cau` trên bảng, xử lý như "xử lý ảnh đã duyệt". Còn ảnh `lam_lai` hoặc yêu cầu mới: làm lại, quay về `cho_duyet_anh`. Đủ ảnh duyệt: `--post --draft-id <draft_id>` để chèn ảnh, kiểm tra thẻ ảnh, alt, link, Rank Math | `san_sang_dang` |
 
 ### 3c. Từ khóa danh mục: nhận diện và luồng riêng (người dùng chốt 27/10/2026)
@@ -185,7 +185,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
    - Từ khóa ở `dang_*` có `khoa_luc` quá 1 giờ: lượt trước bị ngắt. Đưa về trạng thái chờ tương ứng (`dang_nghien_cuu` về `moi` hoặc `sua_outline`, `dang_viet` về `cho_viet` hoặc `sua_bai`, `dang_tao_anh` về `cho_tao_anh`, `dang_hoan_thien` về `cho_hoan_thien`), ghi lịch sử "Lượt trước bị ngắt, làm tiếp từ <tien_do>".
    - Kiểm tra theo file trên repo, không làm lại phần đã xong: bài đã có file và phiếu ĐẠT khớp nội dung thì không viết, không chấm lại; `cho_duyet_bai` chưa có `nhap_khop` thì đẩy nháp (mục 3a); `cho_tao_anh` thì chạy `python tools/tao_anh.py kiem <file_bai>` và chỉ gọi `tao-anh` cho ảnh còn thiếu; ảnh đã có trong `anh/<bài>/` mà chưa có dòng trong collection `anh` thì đưa lên bảng ngay.
    - `da_xoa` `cho_xu_ly` và `dang_dung` quá 1 giờ: xử lý theo mục 3b.
-   - **Ảnh bị yêu cầu làm lại** (người dùng chốt 23/10/2026): `list` collection `anh` và `yeu_cau`. Ảnh `lam_lai` hoặc yêu cầu `moi` thì làm ngay trong lượt này, dù từ khóa đang ở `cho_duyet_anh` hay trạng thái nào (trừ khi từ khóa đang tạm dừng), không chờ người dùng bấm "Đã duyệt ảnh xong". Gọi `tao-anh` cho đúng ảnh đó kèm `ghi_chu` của người dùng, rồi đưa lên bảng như CLAUDE.md mục "Đưa ảnh lên trang" (ảnh làm lại). Nút "Làm lại" trên bảng gọi Agent chạy ngay; nếu không gọi được thì lượt định kỳ kế tiếp làm.
+   - **Ảnh bị yêu cầu làm lại** (người dùng chốt 23/10/2026): `list` collection `anh` và `yeu_cau`. Ảnh `lam_lai` hoặc yêu cầu `moi` thì làm ngay trong lượt này, dù từ khóa đang ở `cho_duyet_anh` hay trạng thái nào (trừ khi từ khóa đang tạm dừng), không chờ người dùng bấm "Đã duyệt ảnh xong". Gọi `tao-anh` cho đúng ảnh đó kèm `ghi_chu` của người dùng, rồi đưa lên bảng như `quy_trinh/anh.md` mục "Đưa ảnh lên trang" (ảnh làm lại). Nút "Làm lại" trên bảng gọi Agent chạy ngay; nếu không gọi được thì lượt định kỳ kế tiếp làm.
    - Việc dở làm trước mọi việc mới ở bước 3.
 3. Chọn việc theo thứ tự: `cho_ap_dung`, `cho_kiem_trang`, `cho_hoan_thien`, `sua_bai`, `sua_outline`, `cho_tao_anh`, `cho_viet`, `moi` (việc gần xong và việc người dùng vừa góp ý làm trước). Cùng loại thì `cap_nhat` cũ trước.
 3a. **Xác nhận nhận việc (bắt buộc, người dùng chốt 28/10/2026):** sau khi chọn việc, mọi dòng đang chờ Agent (kể cả dòng không làm trong lượt này vì hết suất) có `goi_agent_luc` (không có thì `cap_nhat`) muộn hơn `agent_nhan_luc` thì `update` `agent_nhan_luc` là giờ hiện tại và `tien_do` một câu, ví dụ "Đã nhận, làm trong lượt này" hoặc "Đã nhận, xếp hàng thứ 2, làm ở lượt sau". Dòng chuyển sang `can_xu_ly` cũng ghi `agent_nhan_luc`. Không làm bước này thì bảng báo người dùng là Agent chưa nhận lệnh.

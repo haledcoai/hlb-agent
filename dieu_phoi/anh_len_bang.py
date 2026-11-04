@@ -6,7 +6,7 @@ Bước 1: python dieu_phoi/anh_len_bang.py Bai_<slug>.md
 Bước 2: ghi kết quả tải lên vào một file JSON {"<tên file>.jpg": {"url": "...", "asset_id": "..."}}, rồi
         python dieu_phoi/anh_len_bang.py Bai_<slug>.md --tai-san <file.json> --out <thư mục tạm>
         Script ghi mỗi ảnh một file JSON và in mảng `writes` để dán vào ArtifactData batch.
-Chỉ tạo dòng mới (ảnh chưa có trên trang). Ảnh làm lại cập nhật dòng cũ theo CLAUDE.md (cần if_version, ghi_chu_truoc).
+Chỉ tạo dòng mới (ảnh chưa có trên trang). Ảnh làm lại cập nhật dòng cũ theo quy_trinh/anh.md (cần if_version, ghi_chu_truoc).
 """
 import argparse
 import datetime

@@ -27,6 +27,11 @@ Bốn quy tắc dưới đây ưu tiên cao hơn mọi quy tắc khác.
 
 Người dùng đưa vào một nhóm từ khóa: từ khóa chính, có thể kèm từ khóa phụ và truy vấn liên quan. Cũng có thể chỉ có từ khóa chính.
 
+**Nhóm từ khóa (người dùng chốt 22/10/2026, chuyển từ `CLAUDE.md` 04/11/2026).** Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc trong chat) là một bài. Từ đứng đầu là **từ khóa chính** (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng.
+- Không tự đổi từ khóa chính. H1, đoạn mở bài, phần A (Focus keyword) dùng đúng từ khóa chính đó.
+- Từ khóa phụ xử lý theo Bước 2 dưới đây (giữ trong bài, tách bài riêng hoặc bỏ, kèm lý do). Chỉ có từ khóa chính thì tự đề xuất từ khóa phụ.
+- SERP cho thấy từ khóa chính lệch intent (nên làm trang danh mục, sản phẩm, trùng bài cũ) hoặc một từ khóa phụ hợp làm từ khóa chính hơn: không tự đổi, ghi nhận xét và đề xuất để người dùng quyết.
+
 Quy trình có 4 bước. **Dừng lại chờ người dùng duyệt sau Bước 1 và sau Bước 2.** Không tự chuyển sang bước sau khi chưa có xác nhận rõ ràng (ví dụ "duyệt", "ok", "chốt").
 
 Ngoại lệ khi chạy qua Bảng điều phối HLB (người dùng chốt 22/10/2026, chi tiết ở `DIEU_PHOI.md`): duyệt SERP và outline gộp làm một lần, bấm "Duyệt outline" là đồng ý viết bài và đăng bản nháp khi bài có phiếu ĐẠT.

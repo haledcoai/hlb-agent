@@ -2,7 +2,7 @@
 
 Phiên bản: 28/10/2026 (27/10 người dùng yêu cầu tách Agent Blog và Agent Danh mục; 28/10 thêm quy tắc trình bày dùng chung). Plan đã chốt: https://claude.ai/artifact/EPoxW1TE4xB6oQWyhdvSNj
 
-Agent Danh mục viết lại nội dung cho **danh mục sản phẩm đã có** trên website (trang `/den-led-nha-xuong-150w/`, `/den-led-nha-xuong-150w/philips-150w/`...). Không tạo danh mục mới, không sửa sản phẩm, chưa làm trang sản phẩm.
+Agent Danh mục viết lại nội dung cho **danh mục sản phẩm đã có** trên website (trang `/den-led-nha-xuong-150w/`, `/den-led-nha-xuong-150w/philips-150w/`...). Không tạo danh mục mới, không sửa sản phẩm, chưa làm trang sản phẩm. Công cụ `tools/danh_muc.py`, file `DM_<slug danh mục>.md`, chấm bởi agent riêng `danh-gia-danh-muc` (thang `quy_tac_cham_danh_muc.md`). Điều phối tự nhận diện từ khóa danh mục (`DIEU_PHOI.md` mục 3c).
 
 Dùng chung với Agent Blog, giữ nguyên: bốn quy tắc cốt lõi, giọng văn, thương hiệu, bảo hành, cấm (em dash, emoji, từ tuyệt đối, văn mẫu AI), cách viết số, so sánh thương hiệu ở `1_Project_Instructions_Auto_Blog_HLB.md` mục 2, 5, 6, 7 và `2_Knowledge_Du_lieu_tham_chieu_HLB.md`. File này chỉ ghi phần khác. Khi hai file khác nhau ở phần riêng của danh mục, theo file này.
 
@@ -42,7 +42,7 @@ Báo 5 mục như Instructions Bước 1 (intent, định dạng, gộp/tách, t
 ### Bước 2: Outline
 
 Đúng 7 mục:
-1. **Từ khóa:** từ khóa chính (không tự đổi, CLAUDE.md mục "Nhóm từ khóa"), từ khóa phụ giữ/tách/bỏ, tối đa 4 cụm giữ.
+1. **Từ khóa:** từ khóa chính (không tự đổi, `1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa), từ khóa phụ giữ/tách/bỏ, tối đa 4 cụm giữ.
 2. **Phân tích trang top:** ý bắt buộc, 1-2 góc khác biệt (ví dụ bảng chọn nhanh model theo chiều cao trần, so sánh các hãng trong danh mục theo cùng tiêu chí).
 3. **Khối trên:** 1 dòng nội dung chính cần nói. Kèm đề xuất SEO title 55-65 ký tự (đếm bằng công cụ, ghi số ký tự).
 4. **Khối dưới:** các H2, H3 (không có H1, theme tự hiện tên danh mục làm H1), dưới mỗi heading 1 dòng nội dung. Cách trình bày do Agent quyết theo search intent và các trang danh mục đang lên top, như một người làm SEO 10 năm: người tìm muốn chọn mua thì ưu tiên bảng chọn model, giá, cách đặt hàng; muốn so sánh hãng thì ưu tiên bảng so sánh cùng tiêu chí. Không đưa phần không phục vụ intent chỉ để đủ khung. Gợi ý khung, không bắt buộc đủ:

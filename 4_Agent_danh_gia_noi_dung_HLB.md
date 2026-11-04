@@ -177,7 +177,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 | `tools/kiem_tra_bai.py` | Kiểm tra cơ học ở phần 4, kiểm đoạn trả lời nhanh 40-60 từ. `--gon` in gọn, `--tra` tra và đếm trên CSV, `--cap-nhat-quy-tac`. Thoát mã 1 khi còn LỖI |
 | `tools/phieu_duyet.py` | Ghi phiếu duyệt, nhật ký chấm, xuất dữ liệu cho trang theo dõi, các hook. `lan-truoc`, `khac` để đối chiếu với lần chấm trước |
 | `.claude/settings.json` | Cho phép lệnh `phieu_duyet.py ghi`, `nhan` chạy không hỏi. 5 hook: chặn đăng khi chưa có phiếu ĐẠT và chặn ghi phiếu khi không phải agent đánh giá; đánh dấu đang chấm khi gọi agent đánh giá; bỏ đánh dấu khi sub agent kết thúc; ghi nhận bài vừa sửa; nhắc chấm lại trước khi kết thúc lượt (bỏ qua khi đang có lượt chấm) |
-| `CLAUDE.md` | Vòng duyệt tự động ở phần 8, cách cập nhật trang theo dõi |
+| `CLAUDE.md` | Vòng duyệt tự động ở phần 8; cách cập nhật trang theo dõi ở `quy_trinh/nhat_ky_cham_va_bang.md` |
 | `.danh_gia/` | Phiếu từng bài (`<bài>.json`, có mã SHA-256 nội dung lúc chấm), bản bài lúc chấm `ban_cham/`, nhật ký `nhat_ky.jsonl`, dữ liệu xuất `xuat/` |
 
 **Phiếu duyệt:** agent đánh giá ghi phiếu bằng lệnh dưới đây:
@@ -209,7 +209,7 @@ Chỉ chấm, không tự sửa, khi người dùng chỉ yêu cầu "đánh gi�
 - các lần agent bị bác bỏ
 - bảng lịch sử
 
-Cập nhật ở cuối mỗi vòng duyệt: `python tools/phieu_duyet.py xuat`, rồi tải các file JSON lên trang. Các bước chi tiết ở `CLAUDE.md`.
+Cập nhật ở cuối mỗi vòng duyệt: `python tools/phieu_duyet.py xuat`, rồi tải các file JSON lên trang. Các bước chi tiết ở `quy_trinh/nhat_ky_cham_va_bang.md`.
 
 **Đổi thang chấm:** sửa đồng thời file agent, và `TIEU_CHI`, `NGUONG` trong `phieu_duyet.py`, rồi tăng `THANG_CHAM` (hiện là v3). Như vậy điểm của hai thang không bị so lẫn.
 
