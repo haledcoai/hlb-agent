@@ -4,4 +4,5 @@ __pycache__/
 anh/*/_goc/
 .danh_gia/_dang_cham.json
 .danh_gia/_da_kiem.json
+.danh_gia/_hook_da_chay.json
 *.preview.html
