@@ -892,7 +892,7 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
                     (rep.error if error else rep.warn)(no, msg)
 
         cmp("quang thông (lm)", nums(r"(\d{1,3}(?:\.\d{3})+|\d{4,})\s*lm\b", text),
-            {to_int(r["lm"]) for r in known.values() if r["lm"]})
+            {to_int(x) for r in known.values() for x in r["lm"].split("/") if x.strip()})  # CSV co the ghi nhieu muc "16500/16500/15750"
         cmp("PF", [x.replace(",", ".") for x in re.findall(r"PF\D{0,10}(\d[,.]\d+)", text)],
             {r["pf"] for r in known.values()})
         cmp("Ra", re.findall(r"\bRa\D{0,10}(\d{2})\b", text), {r["ra"] for r in known.values()})
@@ -913,7 +913,8 @@ def check_against_csv(rep, body, models, csv_name, notes_text=""):
         cmp("tuổi thọ (giờ)", [x for x in nums(r"(\d{1,3}(?:\.\d{3})+|\d{5,})\s*giờ", text) if x >= 10000],
             {to_int(r["life"]) for r in known.values() if r["life"].strip()}, error=False)
         eff = [float(x.replace(",", ".")) for x in re.findall(r"(\d{2,3}(?:,\d+)?)\s*lm/W", text)]
-        calc = [to_int(r["lm"]) / to_int(r["w"]) for r in known.values() if r["lm"] and r["w"].strip()]
+        calc = [to_int(x) / to_int(r["w"]) for r in known.values() if r["w"].strip()
+                for x in r["lm"].split("/") if x.strip()]
         if eff and calc and not any(abs(e - c) <= 1 for e in eff for c in calc):
             rep.warn(no, "%s: hiệu suất trong bài %s lm/W, tính từ CSV %s lm/W" % (
                 names, ", ".join("%g" % e for e in eff), ", ".join("%.0f" % c for c in calc)))
