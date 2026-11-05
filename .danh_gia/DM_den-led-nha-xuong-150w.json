@@ -1,13 +1,13 @@
 {
   "file": "DM_den-led-nha-xuong-150w.md",
-  "sha256": "295dca8bf425ccf47e21ecdb0429b40eb16b68f974fdde14988e262bfeb09708",
-  "diem": 88,
+  "sha256": "01d4296ef41980f825b29de22ff9c1c9f00377478579d55c16ad8d7273c25d5e",
+  "diem": 99,
   "diem_cho_nguoi_dung": 1,
-  "diem_tinh": 89,
-  "loi_bat_buoc": 2,
+  "diem_tinh": 100,
+  "loi_bat_buoc": 0,
   "nguong": 95,
-  "ket_luan": "CAN_SUA",
-  "vong": 1,
+  "ket_luan": "DAT",
+  "vong": 2,
   "che_do": "du",
-  "thoi_gian": "2026-11-05T14:31:50+07:00"
+  "thoi_gian": "2026-11-05T14:38:41+07:00"
 }
