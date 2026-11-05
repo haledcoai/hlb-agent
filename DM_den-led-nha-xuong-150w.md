@@ -6,14 +6,14 @@
 | Term ID | 70 |
 | Link danh mục | https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/ |
 | Focus keyword | đèn led nhà xưởng 150w |
-| SEO title | Đèn LED nhà xưởng 150W highbay, UFO: bảng giá, chọn model - HLB |
+| SEO title | Đèn LED nhà xưởng 150W highbay, UFO: giá, cách chọn model - HLB |
 | Meta description | Đèn LED nhà xưởng 150W: 21 mẫu Philips, Rạng Đông, dòng cao cấp, so sánh quang thông, cấp IP, giá theo hãng. Xem bảng chọn theo trần xưởng, nhận báo giá. |
 
 # B. Nội dung danh mục
 
 [KHỐI TRÊN]
 
-**Đèn LED nhà xưởng 150W** tại HLB có 21 mẫu đang bán, gồm 14 mẫu dòng đèn cao cấp HLB phân phối, 3 mẫu Philips và 4 mẫu Rạng Đông. Dòng cao cấp có hai kiểu: dạng UFO BUFO và dạng có chóa B-series. Các mẫu có quang thông 12.000-19.500 lm, cấp bảo vệ IP40, IP54 hoặc IP66, hợp xưởng sản xuất và nhà kho có trần cao vừa.
+**Đèn LED nhà xưởng 150W** tại HLB có 21 mẫu đang bán, gồm 14 mẫu dòng đèn cao cấp HLB phân phối, 3 mẫu Philips và 4 mẫu Rạng Đông. Dòng cao cấp có hai kiểu: dạng UFO BUFO và dạng có chóa B-series. Các mẫu có quang thông 12.000-19.500 lm, cấp bảo vệ IP40, IP54 hoặc IP66, hợp xưởng sản xuất và nhà kho treo đèn khoảng 6-10 m.
 
 Giá tham khảo tại thời điểm 05/11/2026 từ khoảng 1,5 đến 5 triệu đồng một bộ, tùy hãng và cấu hình. Bảng chọn model theo chiều cao treo và môi trường nằm ngay dưới lưới sản phẩm. Gọi hoặc nhắn Zalo **0967569588** để nhận báo giá theo số lượng.
 
@@ -32,11 +32,11 @@ Ba thông số quyết định mẫu đèn hợp xưởng của bạn: **góc ch
 | **Xưởng khô, kho, treo khoảng 6-8 m** (phổ biến nhất) | 120 độ để phủ đều | IP40, Ra 80 trở lên | B-series bản 120 độ, Philips BPLCE-150, 4 mẫu Rạng Đông |
 | Treo khoảng 8-10 m, cần ánh sáng xuống tới sàn | 90 độ | IP40 nếu xưởng khô | B-series bản 90 độ, BUFO1-150 đến BUFO4-150, Philips BNX-150, BY239P |
 | Xưởng nhiều bụi (gỗ, dệt, bao bì) | 90 hoặc 120 độ theo chiều cao | IP54 trở lên | BUFO1-150 đến BUFO4-150 (IP54) |
-| Nơi ẩm, có phun rửa sàn | Theo chiều cao treo | IP66 | Philips BY239P LED180 PSU GM G2 |
+| Nơi ẩm, có phun rửa sàn | Theo chiều cao treo | IP65 trở lên | Philips BY239P LED180 PSU GM G2 (thông số ghi IP66) [CẦN KIỂM TRA: IP của BY239P, mô tả trang sản phẩm ghi IP40] |
 | Xưởng cần phân biệt màu (may mặc, in, kiểm hàng) | Theo chiều cao treo | Ra 85-90 | BUFO, B8-150, B9-150 (Ra 90); B1-150 đến B5-150, B11-150 (Ra 85) |
-| Kho chứa hàng ít yêu cầu màu, cần giá thấp | 120 độ | Ra 70-80 | B6-150, B7-150 (Ra 70), Rạng Đông BD HB02L 430/150W (Ra 80) |
+| Kho chứa hàng ít yêu cầu màu, cần giá thấp | 120 độ | Ra 70-85 | B5-150, B4-150 (Ra 85), B7-150 (Ra 70) |
 
-Treo cao mà dùng góc rộng, ánh sáng tỏa ra tường, sàn giữa hai đèn bị tối. Ngược lại, treo thấp mà dùng góc hẹp, sàn có vệt sáng tròn và dễ chói mắt.
+Treo cao mà dùng góc rộng, một phần ánh sáng tỏa ra tường và giá kệ phía trên, nên độ rọi trên sàn giảm. Ngược lại, treo thấp mà dùng góc hẹp, sàn có vệt sáng tròn, vùng giữa hai đèn tối hơn và dễ chói mắt.
 
 **Khi nào 150W không hợp:**
 
@@ -63,7 +63,7 @@ Mỗi dòng đều có giới hạn cần biết trước khi chọn:
 - **Philips:** BPLCE-150, BNX-150 là IP40, trang sản phẩm ghi không chống nước. Tuổi thọ công bố 30.000-50.000 giờ, Ra 80.
 - **Rạng Đông:** cả 4 mẫu IP40, góc chiếu 120 độ, Ra 80. Tuổi thọ công bố 25.000-30.000 giờ.
 
-**Chọn dòng cao cấp** khi cần quang thông cao, Ra 85-90, tuổi thọ tới 65.000 giờ hoặc xưởng có bụi (BUFO IP54). **Chọn Philips** khi nơi lắp ẩm, có phun rửa (BY239P IP66), hoặc dự án chỉ định thương hiệu Philips. **Chọn Rạng Đông** khi dự án chỉ định Rạng Đông và xưởng khô, treo vừa phải hợp góc 120 độ.
+**Chọn dòng cao cấp** khi cần quang thông cao, Ra 85-90, tuổi thọ tới 65.000 giờ hoặc xưởng có bụi (BUFO IP54). **Chọn Philips** khi nơi lắp ẩm, có phun rửa (BY239P IP66 [CẦN KIỂM TRA: IP của BY239P, mô tả trang sản phẩm ghi IP40]), hoặc dự án chỉ định thương hiệu Philips. **Chọn Rạng Đông** khi dự án chỉ định Rạng Đông và xưởng khô, treo vừa phải hợp góc 120 độ.
 
 ### Dòng đèn cao cấp HLB phân phối: UFO BUFO và dạng chóa B-series
 
@@ -94,21 +94,21 @@ Giá tham khảo tại thời điểm 05/11/2026. Tuổi thọ công bố của 
 
 ### Đèn LED nhà xưởng Philips 150W
 
-Ba mẫu Philips cùng quang thông 16.500 lm, Ra 80, PF 0,9 theo trang sản phẩm. BY239P LED180 PSU GM G2 có kiểu dáng UFO tròn dẹt, IP66, tuổi thọ công bố 30.000 giờ. BPLCE-150 và BNX-150 là IP40, tuổi thọ công bố 50.000 giờ.
+Ba mẫu Philips cùng quang thông 16.500 lm và PF 0,9 theo trang sản phẩm. BY239P LED180 PSU GM G2 có kiểu dáng UFO tròn dẹt. BY239P và BPLCE-150 có bốn mức góc chiếu 45/60/90/120 độ, còn BNX-150 chỉ có góc 90 độ, hợp khi treo cao. Ô thông số trang BY239P ghi IP66 nhưng phần mô tả cùng trang ghi IP40 [CẦN KIỂM TRA: IP của BY239P, mô tả trang sản phẩm ghi IP40], nên bạn xác nhận lại với HLB trước khi chọn mẫu này cho nơi ẩm.
 
 [ẢNH: Ba mẫu đèn LED nhà xưởng Philips 150W đang bán trong danh mục | alt: Đèn LED nhà xưởng Philips 150W BY239P, BPLCE-150, BNX-150 | tên file: den-philips-150w-by239p-bplce-bnx-nha-xuong.jpg]
 
-| Model | Quang thông | IP | Góc chiếu | Giá (đồng) |
+| Model | Tuổi thọ | IP | Góc chiếu | Giá (đồng) |
 |---|---|---|---|---|
-| BY239P LED180 PSU GM G2 | 16.500 lm | IP66 | 45/60/90/120 độ | 3.299.000 |
-| BPLCE-150 | 16.500 lm | IP40 | 45/60/90/120 độ | 2.110.000 |
-| BNX-150 | 16.500 lm | IP40 | 90 độ | 1.900.000 |
+| BY239P LED180 PSU GM G2 | 30.000 giờ | IP66 | 45/60/90/120 độ | 3.299.000 |
+| BPLCE-150 | 50.000 giờ | IP40 | 45/60/90/120 độ | 2.110.000 |
+| BNX-150 | 50.000 giờ | IP40 | 90 độ | 1.900.000 |
 
 Giá niêm yết tại HLB, tham khảo tại thời điểm 05/11/2026. Hàng Philips có nhiều đơn vị cùng phân phối nên giá trên thị trường có thể khác. Bảo hành theo chính sách của Philips, theo từng model. Xem riêng ở danh mục [đèn LED nhà xưởng Philips 150W](https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/philips-150w/).
 
 ### Đèn LED nhà xưởng Rạng Đông 150W
 
-Bốn mẫu Rạng Đông cùng IP40, Ra 80, PF 0,9 và góc chiếu 120 độ, hợp xưởng khô cần ánh sáng phủ đều. Hai mẫu BD HB03L có kiểu dáng UFO, hai mẫu BD HB01L và BD HB02L có chóa hợp kim nhôm.
+Rạng Đông có hai kiểu dáng: hai mẫu BD HB03L dạng UFO, hai mẫu BD HB01L và BD HB02L có chóa hợp kim nhôm. Cùng 150W và PF 0,9 nhưng quang thông chênh khá nhiều, từ 12.000 lm (BD HB01L 500/150W) đến 16.500 lm (BD HB03L). Nếu chọn Rạng Đông mà cần sáng nhiều, bạn ưu tiên BD HB03L.
 
 [ẢNH: Bốn mẫu đèn LED nhà xưởng Rạng Đông 150W dạng UFO và dạng chóa | alt: Đèn LED nhà xưởng Rạng Đông 150W BD HB03L, BD HB01L, BD HB02L | tên file: den-rang-dong-150w-hb03l-hb01l-hb02l-nha-xuong.jpg]
 
@@ -125,13 +125,7 @@ Giá trong các bảng trên là giá lẻ một bộ, còn đơn số lượng 
 
 ## Giá đèn LED nhà xưởng 150W và cách nhận báo giá theo số lượng
 
-Giá tham khảo tại thời điểm 05/11/2026 theo từng dòng:
-
-- **Dòng cao cấp HLB phân phối:** 1.510.277-4.998.000 đồng một bộ.
-- **Philips:** 1.900.000-3.299.000 đồng một bộ.
-- **Rạng Đông:** 2.887.500-3.819.000 đồng một bộ.
-
-Giá thay đổi theo số lượng, thời điểm đặt hàng và cấu hình hãng chip, hãng driver (với dòng cao cấp). HLB có chính sách chiết khấu cho dự án, đại lý và đơn số lượng lớn; mức chiết khấu tùy số lượng, loại sản phẩm và thương hiệu.
+Khoảng giá tham khảo tại thời điểm 05/11/2026 của từng dòng nằm ở bảng so sánh phía trên, giá từng model nằm ở bảng của mỗi dòng. Giá thay đổi theo số lượng, thời điểm đặt hàng và cấu hình hãng chip, hãng driver (với dòng cao cấp). HLB có chính sách chiết khấu cho dự án, đại lý và đơn số lượng lớn; mức chiết khấu tùy số lượng, loại sản phẩm và thương hiệu.
 
 Để nhận báo giá nhanh, bạn gửi ba thông tin:
 
@@ -190,7 +184,7 @@ Công suất giống nhau nhưng thông số khác nhau. Trong danh mục này, 
 
 ### Mua vài bộ có được giao không, bao lâu nhận hàng?
 
-Có. Giá trên lưới sản phẩm là giá lẻ một bộ, nên đơn vài bộ vẫn đặt được và được giao toàn quốc. Thời gian nhận hàng tùy khu vực, bạn gọi 0967569588 kèm địa chỉ giao để biết thời gian cụ thể cho đơn của mình.
+Có, đơn vài bộ vẫn đặt được. Ví dụ 3 bộ B4-150 có tổng giá 5.661.000 đồng, trên mức 5 triệu đồng. Nếu địa chỉ nằm trong bán kính 10 km từ văn phòng Xuân Đỉnh, đơn này được miễn phí giao. HLB không ghi sẵn số ngày nhận hàng; bạn gọi 0967569588 kèm model, số lượng và địa chỉ để được báo thời gian cho đúng đơn của mình.
 
 ### Có chọn được ánh sáng trắng hay vàng không?
 
@@ -198,7 +192,7 @@ Có, mỗi dòng có các mức nhiệt độ màu khác nhau theo trang sản p
 
 ## Nên chọn đèn LED nhà xưởng 150W nào cho xưởng của bạn?
 
-Với xưởng khô, kho treo khoảng 6-8 m và cần giá tốt, B-series góc 120 độ như B4-150, B5-150 hoặc Philips BPLCE-150 đã đủ dùng. Xưởng nhiều bụi nên chọn BUFO1-150 đến BUFO4-150 (IP54), còn nơi ẩm, có phun rửa thì chọn Philips BY239P (IP66).
+Với xưởng khô, kho treo khoảng 6-8 m và cần giá tốt, B-series góc 120 độ như B4-150, B5-150 hoặc Philips BPLCE-150 đã đủ dùng. Xưởng nhiều bụi nên chọn BUFO1-150 đến BUFO4-150 (IP54), còn nơi ẩm, có phun rửa thì chọn Philips BY239P (IP66 [CẦN KIỂM TRA: IP của BY239P, mô tả trang sản phẩm ghi IP40]).
 
 Xưởng may, in, kiểm hàng cần màu chuẩn nên ưu tiên mẫu Ra 90 như BUFO, B8-150, B9-150. Khi dự án chỉ định thương hiệu, Philips và Rạng Đông có đủ mẫu đèn LED nhà xưởng 150W cho xưởng khô.
 
@@ -208,7 +202,7 @@ Gửi diện tích, chiều cao treo, môi trường xưởng và số lượng 
 
 **1. Placeholder còn lại**
 
-- Phần B không có [CẦN BỔ SUNG] hay [CẦN KIỂM TRA].
+- Phần B có 4 chỗ [CẦN KIỂM TRA] cùng một việc: IP thật của Philips BY239P LED180 PSU GM G2 (ô thông số ghi IP66, mô tả cùng trang ghi IP40), ở bảng chọn H2 1, câu "Chọn Philips" H2 2, đoạn đầu H3 Philips và kết bài. Không có [CẦN BỔ SUNG].
 - [CẦN KIỂM TRA] Philips (outline mục 5, câu hỏi 1 chưa trả lời): quang thông 16.500 lm của cả 3 mẫu Philips và tuổi thọ 30.000, 50.000 giờ giữ theo trang sản phẩm trên website, chưa đối chiếu được với signify.com (mạng chặn từ 30/10/2026). Bảo hành Philips viết "theo chính sách của Philips, theo từng model", không dùng dòng "24 tháng" trên trang sản phẩm (Knowledge mục 1.1, mục 5). Khi mở được signify.com, nên tra từng model BY239P LED180 PSU GM G2, BPLCE-150, BNX-150.
 - Giá Philips, Rạng Đông: bài ghi giá niêm yết tại HLB kèm câu "giá trên thị trường có thể khác". Chưa thu thập giá của nhà phân phối khác để ghi khoảng giá thị trường theo Instructions mục 6 [CẦN KIỂM TRA].
 
@@ -248,7 +242,8 @@ Gửi diện tích, chiều cao treo, môi trường xưởng và số lượng 
 **7. Chênh lệch trên website**
 
 - Trang B11-150 ghi nhiệt độ màu "2700-3500K, 500-6700K", có thể là lỗi gõ của 5500-6700K. Bài viết chung "dải 5500-6700K" cho dòng cao cấp; nên sửa trang sản phẩm B11-150.
-- SEO title trong outline là "... chọn model | HLB". File dùng "- HLB" vì dấu "|" làm vỡ bảng phần A khi script đọc; khi ghi lên Rank Math có thể đổi lại "|" (cùng 63 ký tự).
+- SEO title trong outline là "Đèn LED nhà xưởng 150W highbay, UFO: bảng giá, chọn model | HLB". Vòng 1 đổi "bảng giá, chọn model" thành "giá, cách chọn model" để không giành cụm "bảng giá đèn led nhà xưởng 150w" đã giao cho bài 1529 (mục 4); title mới 63 ký tự (đếm bằng Python). File dùng "- HLB" vì dấu "|" làm vỡ bảng phần A khi script đọc; khi ghi lên Rank Math có thể đổi lại "|" (cùng 63 ký tự).
+- Trang BY239P LED180 PSU GM G2 tự mâu thuẫn: ô thông số (API, CSV) ghi IP66, phần mô tả (API cửa hàng đọc lại 05/11/2026 khi sửa vòng 1) ghi "Thân đèn thiết kế đạt chuẩn IP40 ... mẫu đèn không có khả năng chống nước ... không nên dùng đèn nhà xưởng lắp ngoài trời". Mô tả cũng ghi "hiệu suất phát quang 120lm/w" và "tới >130lm/w", trong khi 16.500 lm / 150W = 110 lm/W (tính bằng Python), và "tiết kiệm 75% điện năng" (Knowledge mục 5, bài không dùng); mô tả còn ghi "chóa nông 120 độ hoặc chóa sâu 90 độ", khác kiểu UFO tròn dẹt. Nên sửa trang sản phẩm sau khi xác nhận với Philips.
 - Trang B5-150 ghi "Rohs" (chữ thường), các trang khác ghi "RoHS".
 - Trang Philips, Rạng Đông ghi "Bảo hành 24 tháng"; Philips cần sửa theo từng model (Knowledge mục 5).
 - Mô tả trang BUFO4-150, BPLCE-150 có câu "tiết kiệm điện 70%" (Knowledge mục 5), bài không dùng.
@@ -256,7 +251,7 @@ Gửi diện tích, chiều cao treo, môi trường xưởng và số lượng 
 
 **8. Điểm cần người dùng quyết định**
 
-1. Philips: cho phép mở signify.com để tra bảo hành, quang thông từng model, hay giữ cách viết hiện tại (câu hỏi 1 của outline).
+1. Philips: cho phép mở signify.com để tra bảo hành, quang thông từng model và IP thật của BY239P LED180 PSU GM G2 (IP66 hay IP40), hay giữ cách viết hiện tại (câu hỏi 1 của outline). Chưa xác nhận IP thì bài chưa nên khẳng định BY239P dùng được cho nơi ẩm, phun rửa.
 2. Danh mục con Điện Quang 150W (`dien-quang-150w`) đang không có sản phẩm. Nội dung danh mục cha đã bỏ hẳn Điện Quang theo đề xuất; bạn nên thêm sản phẩm hoặc ẩn danh mục con này.
 3. 5 dự án, video, catalogue ở nội dung cũ: xác nhận để đưa lại, hoặc giữ bỏ như hiện tại.
 4. Bài 5742: viết lại góc khác hay chuyển hướng 301.
