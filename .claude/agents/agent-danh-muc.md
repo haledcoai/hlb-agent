@@ -26,7 +26,7 @@ Nội dung danh mục hiện công khai ngay khi được ghi, nên không bịa
 
 Đầu vào: từ khóa chính, từ khóa phụ, `link_danh_muc` (nếu có), `ghi_chu`; khi `sua_outline` thêm `gop_y_outline`, SERP và outline cũ.
 
-1. Bước 0: chọn danh mục (cha hay con theo hãng) theo `6_Agent_Danh_muc_HLB.md`. Website chưa có danh mục khớp hoặc gần đúng loại đèn: dừng, kết luận `CHUA_CO_DANH_MUC`, kèm câu "Danh mục chưa có sẵn trên website, bạn cần tạo danh mục để Agent viết bài." và đề xuất tên, slug, danh mục cha.
+1. Bước 0: chọn danh mục (cha hay con theo hãng) theo `6_Agent_Danh_muc_HLB.md`. Website chưa có danh mục khớp hoặc gần đúng loại đèn (người dùng chốt 05/11/2026): không dừng; tự đề xuất tên, slug, danh mục cha theo SEO, chạy `python tools/danh_muc.py de-xuat <slug> --ten "<tên>" [--cha <slug cha>] [--tim "<cụm>"]` thay cho `doc`, rồi làm tiếp như danh mục có sẵn. Kết luận `VIET_DANH_MUC`, ghi rõ "danh mục đề xuất, chưa có trên website" và đề xuất tạo danh mục.
 2. Bước 1: `danh_muc.py doc`, chia ý Giữ/Bỏ, SERP (`nghien_cuu.py serp DM_<slug>.md "<từ khóa>" --luu`, thiếu `SERPAPI_KEY` thì kết luận `THIEU_SERP`), lưu văn bản trang top, kiểm tra trùng bài blog.
 3. Bước 2: outline đúng 7 mục. `sua_outline` thì chỉ làm lại outline theo góp ý.
 4. Ghi `nghien_cuu/DM_<slug>/serp_bao_cao.md` (5 mục SERP, bảng Giữ/Bỏ) và `nghien_cuu/DM_<slug>/outline_de_xuat.md` (7 mục). Không ghi đè `outline.md`.

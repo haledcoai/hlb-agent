@@ -15,6 +15,7 @@ Ai sửa `6_Agent_Danh_muc_HLB.md` hoặc Knowledge thì sửa luôn file này n
 
 ## 2. Dữ liệu (lỗi bắt buộc khi sai)
 
+- Danh mục đề xuất (chưa có trên website, `danh_muc.json` có `de_xuat: true`, người dùng chốt 05/11/2026): Phần A ghi Term ID 0 và "(đề xuất, chưa có trên website)" là đúng, không bắt lỗi; `san_pham.json` thường trống nên không nêu model nào, bài viết theo cách chọn đèn và để `[CẦN BỔ SUNG]` cho sản phẩm.
 - Chỉ nêu sản phẩm đang bán trong chính danh mục: model phải có trong `nghien_cuu/DM_<slug>/san_pham.json` (`kiem_tra_bai.py` tự so). Nêu model của danh mục khác hoặc không còn bán là lỗi bắt buộc.
 - Thông số, giá theo `san_pham.md` (đọc từ trang sản phẩm và CSV mới nhất). Giá ghi "giá tham khảo tại thời điểm [ngày]", hãng khác theo `quy_tac_cham.md` mục 4.
 - Số model, số hãng trong danh mục ("danh mục có 21 mẫu", "4 thương hiệu") phải đếm đúng `san_pham.json`.

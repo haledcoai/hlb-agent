@@ -5,6 +5,8 @@ Cach dung:
   python tools/danh_muc.py ds                              # liet ke danh muc san pham (id, slug, so san pham, do dai mo ta)
   python tools/danh_muc.py tim "<tu khoa>"                 # tu khoa co khop danh muc nao khong (dieu phoi tu nhan dien)
   python tools/danh_muc.py doc <slug|id|link>              # lay noi dung cu + san pham trong danh muc vao nghien_cuu/DM_<slug>/
+  python tools/danh_muc.py de-xuat <slug> --ten "<ten>" [--cha <slug cha>]   # danh muc CHUA CO tren website (05/11/2026):
+                                                           # ghi nghien_cuu/DM_<slug>/ voi danh muc de xuat, 0 san pham
   python tools/danh_muc.py nhap DM_<slug>.md               # tao file xem truoc DM_<slug>.preview.html
   python tools/danh_muc.py nhap DM_<slug>.md --post        # tao/cap nhat Trang nhap "[Nhap danh muc] <ten>" tren WordPress
   python tools/danh_muc.py ap-dung DM_<slug>.md --duyet-luc <ISO>            # chay thu: in nhung gi se ghi
@@ -326,6 +328,44 @@ def cmd_doc(args):
         print("Sản phẩm chưa có trong CSV (chạy tools/lam_moi_csv.py rồi đọc lại, hoặc để [CẦN BỔ SUNG]): " + "; ".join(thieu))
 
 
+def cmd_de_xuat(args):
+    """Danh muc chua co tren website (nguoi dung chot 05/11/2026): van viet noi dung, dua len Trang nhap.
+    Ghi danh_muc.json voi de_xuat=true, id=0; san pham: cac san pham dang ban co ten khop --tim (thuong la 0)."""
+    ds = tat_ca_danh_muc()
+    if any(c["slug"] == args.slug for c in ds):
+        sys.exit("Danh mục %s đã có trên website, dùng: python tools/danh_muc.py doc %s" % (args.slug, args.slug))
+    rows, csv_name = doc_csv()
+    sp = []
+    if args.tim:
+        q = urllib.parse.quote(args.tim)
+        for p in get(wp_draft.API + "/wc/store/v1/products?search=%s&per_page=100" % q):
+            r = rows.get(p["permalink"].rstrip("/"))
+            sp.append({"id": p["id"], "ten": html.unescape(p["name"]), "link": p["permalink"], "gia": gia(p),
+                       "thong_so": {k: r[k] for k in ("brand", "bh", "ip", "w", "pf", "lm", "life", "cct", "ra", "cert", "goc")} if r else None})
+    thu_muc = os.path.join(NGHIEN_CUU, "DM_" + args.slug)
+    info = {"id": 0, "de_xuat": True, "slug": args.slug, "ten": args.ten, "ten_day_du": args.ten,
+            "link": "%s/%s/" % (SITE, args.slug), "cha": args.cha or "", "con": [],
+            "khoi_tren_html": "", "khoi_duoi_html": "", "seo_title": "", "meta_description": "",
+            "csv": csv_name, "doc_luc": gio_vn()}
+    ghi_json(os.path.join(thu_muc, "danh_muc.json"), info)
+    ghi_json(os.path.join(thu_muc, "san_pham.json"), sp)
+    with open(os.path.join(thu_muc, "noi_dung_cu.md"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("# Nội dung cũ: %s\n\nDanh mục chưa có trên website (kiểm tra lúc %s), không có nội dung cũ.\n"
+                % (args.ten, info["doc_luc"]))
+    with open(os.path.join(thu_muc, "san_pham.md"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("# Sản phẩm cho danh mục đề xuất %s (%d)\n\nDanh mục chưa có trên website. Sản phẩm đang bán trên website "
+                "có tên khớp \"%s\", đọc lúc %s. Không nêu model ngoài bảng này; khi người dùng tạo danh mục và gắn sản phẩm, "
+                "chạy lại doc <slug>.\n\n| Sản phẩm | Giá (đồng) | Hãng | W | IP |\n|---|---|---|---|---|\n"
+                % (args.ten, len(sp), args.tim or "", info["doc_luc"]))
+        for x in sp:
+            t = x["thong_so"] or {}
+            f.write("| [%s](%s) | %s | %s | %s | %s |\n" % (x["ten"], x["link"], x["gia"] or "Liên hệ",
+                                                          t.get("brand", ""), t.get("w", ""), t.get("ip", "")))
+    print("Danh mục đề xuất %s (slug %s, cha %s): %d sản phẩm khớp. Đã lưu vào %s"
+          % (args.ten, args.slug, args.cha or "không", len(sp), os.path.relpath(thu_muc, ROOT)))
+    print("Phần A ghi: Danh mục: %s (đề xuất, chưa có trên website) / Term ID: 0 / Link danh mục: %s" % (args.ten, info["link"]))
+
+
 # ---------- File bai DM_<slug>.md ----------
 
 def doc_bai(path):
@@ -401,7 +441,25 @@ def noi_dung(article, auth=None):
     return seo, h_tren, h_duoi, ghi_chu, missing
 
 
-def danh_muc_cua_bai(seo):
+def danh_muc_de_xuat(article):
+    """Danh muc de xuat (chua co tren website) cua bai, doc tu nghien_cuu/DM_<slug>/danh_muc.json; None neu khong phai."""
+    info = doc_json(os.path.join(NGHIEN_CUU, ten_file(article), "danh_muc.json"), {}) or {}
+    return info if info.get("de_xuat") else None
+
+
+def danh_muc_cua_bai(seo, article=None, cho_phep_de_xuat=False):
+    dx = danh_muc_de_xuat(article) if article else None
+    if dx:
+        ds = tat_ca_danh_muc()
+        for c in ds:
+            if c["slug"] == dx["slug"]:
+                return c  # nguoi dung da tao danh muc
+        if not cho_phep_de_xuat:
+            sys.exit("Danh mục %s chưa có trên website. Người dùng tạo danh mục slug %s (cha: %s), gắn sản phẩm, "
+                     "rồi chạy python tools/danh_muc.py doc %s trước khi áp dụng."
+                     % (dx["ten"], dx["slug"], dx.get("cha") or "không", dx["slug"]))
+        return {"id": 0, "slug": dx["slug"], "name": dx["ten"], "link": dx["link"], "parent": 0, "de_xuat": True,
+                "cha": dx.get("cha", "")}
     ref = seo.get("Term ID") or seo.get("Danh mục") or seo.get("Link danh mục")
     if not ref:
         sys.exit("Phần A thiếu dòng Term ID hoặc Danh mục (slug)")
@@ -421,7 +479,11 @@ def kiem_phieu(article):
 # ---------- Trang nhap ----------
 
 def ghi_chu_nhap(c, seo, ghi_chu, missing):
-    rows = [("Danh mục", '<a href="%s">%s</a> (ID %d)' % (c["link"], html.escape(html.unescape(c["name"])), c["id"])),
+    dm = ('%s (đề xuất, CHƯA CÓ trên website: tạo danh mục slug <code>%s</code>%s rồi gắn sản phẩm)'
+          % (html.escape(c["name"]), c["slug"], (", danh mục cha <code>%s</code>" % c["cha"]) if c.get("cha") else "")
+          if c.get("de_xuat") else
+          '<a href="%s">%s</a> (ID %d)' % (c["link"], html.escape(html.unescape(c["name"])), c["id"]))
+    rows = [("Danh mục", dm),
             ("Focus keyword", html.escape(seo.get("Focus keyword", ""))),
             ("SEO title", html.escape(seo.get("SEO title", ""))),
             ("Meta description", html.escape(seo.get("Meta description", "")))]
@@ -437,7 +499,9 @@ def ghi_chu_nhap(c, seo, ghi_chu, missing):
 def ghep_trang(c, seo, h_tren, h_duoi, ghi_chu, missing):
     return (ghi_chu_nhap(c, seo, ghi_chu, missing)
             + "<p><strong>KHỐI TRÊN (hiện trên lưới sản phẩm)</strong></p>\n" + h_tren
-            + '\n[products category="%s" limit="8" columns="4" paginate="false"]\n' % c["slug"]
+            + ('\n<p><em>(Lưới sản phẩm hiện ở đây sau khi bạn tạo danh mục và gắn sản phẩm.)</em></p>\n'
+               if c.get("de_xuat") else
+               '\n[products category="%s" limit="8" columns="4" paginate="false"]\n' % c["slug"])
             + "<p><strong>KHỐI DƯỚI (hiện sau lưới sản phẩm)</strong></p>\n" + h_duoi)
 
 
@@ -446,7 +510,7 @@ def cmd_nhap(args):
         kiem_phieu(args.article)
     auth = wp_draft.credentials() if args.post else None
     seo, h_tren, h_duoi, ghi_chu, missing = noi_dung(args.article, auth)
-    c = danh_muc_cua_bai(seo)
+    c = danh_muc_cua_bai(seo, args.article, cho_phep_de_xuat=True)
     content = ghep_trang(c, seo, h_tren, h_duoi, ghi_chu, missing)
     title = TIEN_TO_NHAP + html.unescape(c["name"]) + (" (%s)" % c["slug"] if c["parent"] else "")
     preview = os.path.splitext(args.article)[0] + ".preview.html"
@@ -518,7 +582,7 @@ def cmd_ap_dung(args):
     seo, h_tren, h_duoi, _ghi_chu, missing = noi_dung(args.article, auth if args.post else None)
     if missing:
         sys.exit("Còn ảnh chưa duyệt hoặc thiếu: %s. Duyệt đủ ảnh (hoặc bỏ dòng [ẢNH]) trước khi áp dụng." % ", ".join(missing))
-    c = danh_muc_cua_bai(seo)
+    c = danh_muc_cua_bai(seo, args.article)
     khoa_tren = (doc_json(CAU_HINH, {}) or {}).get("khoi_tren_meta")
     meta = {"rank_math_title": seo.get("SEO title", ""), "rank_math_description": seo.get("Meta description", ""),
             "rank_math_focus_keyword": seo.get("Focus keyword", "")}
@@ -566,7 +630,7 @@ def cmd_ap_dung(args):
 
 def kiem_trang(article, in_ra=False):
     seo, h_tren, h_duoi, _g, _m = noi_dung(article)
-    c = danh_muc_cua_bai(seo)
+    c = danh_muc_cua_bai(seo, article)
     trang = doc_trang(c["link"] + ("&" if "?" in c["link"] else "?") + "kiem=%d" % int(datetime.datetime.now().timestamp()))
     toan_bo = van_ban("".join(trang["khoi"]))
     kq = {"duoi": all(m in toan_bo for m in mau_cau(h_duoi, 2)),
@@ -627,6 +691,12 @@ def main():
     d = sub.add_parser("doc")
     d.add_argument("ref", help="slug, ID hoac link danh muc")
     d.set_defaults(func=cmd_doc)
+    x = sub.add_parser("de-xuat")
+    x.add_argument("slug")
+    x.add_argument("--ten", required=True, help="ten danh muc de xuat")
+    x.add_argument("--cha", help="slug danh muc cha de xuat")
+    x.add_argument("--tim", help="cum tim san pham dang ban de dua vao san_pham.json")
+    x.set_defaults(func=cmd_de_xuat)
     n = sub.add_parser("nhap")
     n.add_argument("article")
     n.add_argument("--post", action="store_true")
