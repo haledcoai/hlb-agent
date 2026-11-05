@@ -1058,5 +1058,95 @@
   "bai": "den-chong-chay-no-1m2",
   "vong": 4,
   "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "thong-so-trang-hang-mau-thuan",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "BY239P: o thong so ghi IP66, mo ta trang ghi IP40 khong chong nuoc; bai goi y cho noi phun rua",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "Dữ liệu và kỹ thuật"
+ },
+ {
+  "nhan": "sai-kien-thuc-goc-chieu",
+  "muc": "bat_buoc",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Cau treo cao dung goc rong lam san giua hai den bi toi la sai ket qua quang hoc",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "Dữ liệu và kỹ thuật"
+ },
+ {
+  "nhan": "goi-y-model-chua-khop-gia",
+  "muc": "nen_sua",
+  "tieu_chi": "chon_mua",
+  "mo_ta": "Hang can gia thap goi y B6-150, HB02L dat hon B4-150, B5-150 Ra 85",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "Giúp chọn mua"
+ },
+ {
+  "nhan": "tra-loi-nhanh-thieu-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "chon_mua",
+  "mo_ta": "Khoi tren ghi tran cao vua, chua neu khoang treo 6-10 m nhu than bai",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "Giúp chọn mua"
+ },
+ {
+  "nhan": "title-trung-tu-khoa-bai-blog",
+  "muc": "nen_sua",
+  "tieu_chi": "seo",
+  "mo_ta": "SEO title dung cum bang gia, cum phan C giao cho bai 1529",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "SEO và technical"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "gon",
+  "mo_ta": "Khoang gia lap o khoi tren, bang tong, H2 gia; gioi han Philips, Rang Dong lap o H3; FAQ 3 lap H2",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "Ngắn gọn, không trùng blog"
+ },
+ {
+  "nhan": "gia-hang-khac-chua-co-gia-thi-truong",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Philips, Rang Dong ghi gia niem yet HLB, chua co khoang gia thi truong theo QC4",
+  "ma": "L022",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 1,
+  "ten_tieu_chi": "Dữ liệu và kỹ thuật"
+ },
+ {
+  "nhan": "gia-hang-khac-chua-co-gia-thi-truong",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Philips, Rang Dong ghi gia niem yet HLB, chua co khoang gia thi truong theo QC4",
+  "ma": "L023",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 2,
+  "ten_tieu_chi": "Dữ liệu và kỹ thuật"
+ },
+ {
+  "nhan": "thong-so-trang-hang-mau-thuan",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "IP BY239P cho xac nhan (IP66 hay IP40), 4 cho CAN KIEM TRA, chua tru diem",
+  "ma": "L023",
+  "bai": "DM_den-led-nha-xuong-150w",
+  "vong": 2,
+  "ten_tieu_chi": "Dữ liệu và kỹ thuật"
  }
 ]
