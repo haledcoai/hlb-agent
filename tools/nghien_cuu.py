@@ -28,7 +28,8 @@ import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 THU_MUC = os.path.join(ROOT, "nghien_cuu")
-HEADING_OUTLINE = re.compile(r"^\s*(?:[-*+]\s+|\d+\.\s+)?\**H([1-4])\**\s*[:.)-]\s*(.+?)\s*$")
+# Nhan ca dang "H2: ...", "**H2:** ..." va dang danh so "**H2 1. ...**", "- **H3 2.1. ...**" (outline danh muc)
+HEADING_OUTLINE = re.compile(r"^\s*(?:[-*+]\s+|\d+\.\s+)?\**H([1-4])\**(?:\s*[:.)-]|\s+\d+(?:\.\d+)*\.?(?=\s))\s*(.+?)\s*$")
 HEADING_MD = re.compile(r"^(#{1,4})\s+(.+?)\s*$")
 FAQ = re.compile(r"câu hỏi thường gặp|hỏi đáp|\bfaq\b", re.I)
 # Doan trung voi bai top: tu 10 tu lien tiep la canh bao, tu 25 tu (gan mot doan van) la LOI
@@ -59,7 +60,8 @@ SO_KY_TU = re.compile(r"\s*\(\d+ ký tự\)\s*$")
 
 def heading_outline(text):
     """Danh sach (cap, chu) tu outline. Uu tien dang 'H2: ...'; khong co thi doc heading markdown."""
-    out = [(int(m.group(1)), SO_KY_TU.sub("", m.group(2)).strip("* ")) for m in map(HEADING_OUTLINE.match, text.splitlines()) if m]
+    # phan sau dau ** dong in dam la ghi chu cua outline, vi du "**H2 6. Câu hỏi...** (4 câu)"
+    out = [(int(m.group(1)), SO_KY_TU.sub("", m.group(2).strip("* ").split("**")[0]).strip("* ")) for m in map(HEADING_OUTLINE.match, text.splitlines()) if m]
     if not out:
         out = [(len(m.group(1)), m.group(2).strip()) for m in map(HEADING_MD.match, text.splitlines()) if m]
     return out
