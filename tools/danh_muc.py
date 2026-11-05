@@ -344,7 +344,7 @@ def cmd_de_xuat(args):
                        "thong_so": {k: r[k] for k in ("brand", "bh", "ip", "w", "pf", "lm", "life", "cct", "ra", "cert", "goc")} if r else None})
     thu_muc = os.path.join(NGHIEN_CUU, "DM_" + args.slug)
     info = {"id": 0, "de_xuat": True, "slug": args.slug, "ten": args.ten, "ten_day_du": args.ten,
-            "link": "%s/%s/" % (SITE, args.slug), "cha": args.cha or "", "con": [],
+            "link": "%s/%s%s/" % (SITE, (args.cha + "/") if args.cha else "", args.slug), "cha": args.cha or "", "con": [],
             "khoi_tren_html": "", "khoi_duoi_html": "", "seo_title": "", "meta_description": "",
             "csv": csv_name, "doc_luc": gio_vn()}
     ghi_json(os.path.join(thu_muc, "danh_muc.json"), info)
