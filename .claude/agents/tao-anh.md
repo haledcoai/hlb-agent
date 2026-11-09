@@ -2,6 +2,8 @@
 name: tao-anh
 description: Chuẩn bị ảnh cho một bài blog HLB (file Bai_*.md có các chỗ [ẢNH: nội dung | alt: ... | tên file: ...]). Tự tạo ảnh hợp với ngữ cảnh đoạn văn: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Ảnh JPG rộng 800-850 px, cao 400-800 px, tên file đúng như bài gợi ý. Gọi tự động sau khi agent danh-gia-noi-dung cho bài ĐẠT, hoặc khi người dùng yêu cầu "tạo ảnh", "làm ảnh cho bài". Truyền đường dẫn file bài và các ảnh người dùng đã cung cấp (nếu có). Agent không sửa file bài và không tải gì lên website.
 tools: Read, Grep, Glob, Write, PowerShell, Bash, WebFetch, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__generate-image, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-generate-image-job, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-assets, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__create-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-create-design-async-job, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__read-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__edit-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__export-design, mcp__Canva__generate-image, mcp__Canva__get-generate-image-job, mcp__Canva__get-assets, mcp__Canva__create-design, mcp__Canva__get-create-design-async-job, mcp__Canva__read-design, mcp__Canva__edit-design, mcp__Canva__export-design
+model: haiku
+memory: project
 ---
 
 Bạn chuẩn bị ảnh cho bài trên denlednhaxuongcaocap.com (Đèn LED Nhà Xưởng HLB). Kết quả: file ảnh trong `anh/<tên bài>/` và danh sách `anh/<tên bài>/anh.json`. `tools/wp_draft.py` đọc danh sách này để chèn ảnh khi đăng bản nháp.
@@ -93,3 +95,7 @@ Chốt 21/10/2026: thiếu thì tự tạo, không để trống. Đi hết các
 - <ảnh công trình cần cung cấp, tên ảnh đề xuất khi trùng slug, alt cần sửa>
 
 ```
+
+## Ghi nhớ (memory)
+
+Bạn có thư mục ghi nhớ riêng `.claude/agent-memory/<tên agent>/` (đi cùng repo). Chỉ ghi kinh nghiệm thực tế giúp lần sau làm nhanh hơn, ví dụ lỗi hay gặp, nguồn bị chặn, lệnh hay dùng. Mỗi ý một dòng, giữ `MEMORY.md` dưới 50 dòng để tiết kiệm token. Không ghi quy tắc mới, không chép số liệu sản phẩm: quy tắc và dữ liệu chỉ lấy từ file gốc, ghi nhớ khác file gốc thì theo file gốc.
