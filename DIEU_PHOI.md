@@ -169,6 +169,8 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 ## 4. Mỗi lượt chạy
 
+**Từ 09/11/2026 lịch 8:04 đã tắt (người dùng chốt), mục (b) dưới đây tạm không chạy; việc dở chờ lần người dùng thao tác trên bảng.**
+
 **Khi nào có lượt chạy (người dùng chốt 28/10/2026, để bớt tốn token):** không chạy hằng giờ nữa. Lượt chạy chỉ đến từ (a) bảng gọi khi người dùng thao tác (nạp từ khóa, duyệt, góp ý, Tiếp tục, Chạy Agent ngay), (b) một lượt dự phòng 8:04 sáng mỗi ngày (bắt lượt bị ngắt, việc còn lại vì hết suất, việc bảng gọi không được). Từ 05/11/2026 lượt còn việc không tự gọi lượt sau (bước 8). Lượt không có việc chỉ đọc `cau_hinh/chung` và bảng rồi dừng, không đọc các file quy tắc dài.
 
 **Lượt 8:04 chỉ làm khi còn việc dở (người dùng chốt 31/10/2026).** Lịch không tự bỏ qua được lượt chạy, nên lượt 8:04 vẫn mở phiên nhưng kết thúc ngay sau bước 0, 1 nếu không có việc: không lấy repo, không chạy `doi_chieu_bang.py`, không kiểm tra môi trường. "Có việc" là một trong hai: (1) `cau_hinh/chung.dang_do` còn (lượt trước bị ngắt giữa chừng, ví dụ Claude hết token), (2) có từ khóa chờ Agent hoặc `dang_*`, ảnh `lam_lai`, yêu cầu ảnh `moi`, `da_xoa` `cho_xu_ly` (thường là việc bảng gọi Agent không được). Mọi từ khóa đều tạm dừng hoặc chờ người dùng (`can_xu_ly`, `cho_duyet_*`, `san_sang_*`, `da_ap_dung`) thì không có việc. Lệch giữa bảng và repo do thread khác sửa bài thì thread đó tự đồng bộ (CLAUDE.md), lượt có việc vẫn chạy `doi_chieu_bang.py` ở bước 2.
