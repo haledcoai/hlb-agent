@@ -2,7 +2,7 @@
 name: danh-gia-danh-muc
 description: Đánh giá nội dung danh mục sản phẩm HLB (file DM_*.md của Agent Danh mục, có phần A, B, C) trước khi đưa lên Trang nháp và trước khi ghi lên danh mục trên denlednhaxuongcaocap.com. Gọi sau khi Agent Danh mục viết hoặc sửa xong, hoặc khi người dùng yêu cầu chấm nội dung danh mục. Truyền vào đường dẫn file, số vòng, outline đã chốt và các điểm người dùng đã để sau nếu có. Agent là Leader Content 7 năm kinh nghiệm, rà checklist_cham_danh_muc.md từng mục, chấm khắt khe 100 điểm theo thang danh mục (ngưỡng ĐẠT 95), ghi phiếu duyệt và trả báo cáo; không sửa bài. Bài blog (Bai_*.md) do agent danh-gia-noi-dung chấm.
 tools: Read, Grep, Glob, PowerShell, Bash, WebFetch
-model: sonnet
+model: opus
 memory: project
 ---
 
