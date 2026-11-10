@@ -288,12 +288,12 @@ select { width: auto; min-width: 220px; max-width: 100%; }
   <details class="add" id="addBox">
     <summary>Nạp từ khóa</summary>
     <form id="addForm">
-      <p class="hint">Mỗi dòng là một bài. Từ đầu dòng là từ khóa chính (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng của bài đó. Chỉ ghi từ khóa chính cũng được, Agent tự tìm thêm từ khóa phụ. Viết lại bài cũ thì thêm <code>#ID</code> ở cuối dòng, ví dụ <code>đèn led nhà xưởng 150w, đèn ufo 150w #2410</code>.</p>
-      <label for="kwInput">Danh sách từ khóa</label>
-      <textarea id="kwInput" name="kw" required placeholder="đèn pha bảng hiệu&#10;đèn hắt biển quảng cáo"></textarea>
+      <p class="hint">Một nhóm từ khóa là một bài SEO. Trong nhóm, mỗi dòng là một từ khóa: <b>dòng đầu là từ khóa chính</b> (thường có lượng tìm kiếm cao nhất), các dòng sau là từ khóa phụ, từ khóa liên quan của cùng bài. Chỉ ghi từ khóa chính cũng được, Agent tự tìm thêm từ khóa phụ. Nạp nhiều bài một lần thì cách các nhóm bằng <b>một dòng trống</b>. Viết lại bài cũ thì thêm <code>#ID</code> vào cuối dòng đầu của nhóm, ví dụ <code>đèn led nhà xưởng 150w #2410</code>.</p>
+      <label for="kwInput">Nhóm từ khóa</label>
+      <textarea id="kwInput" name="kw" required placeholder="đèn led nhà xưởng 150w&#10;đèn ufo 150w&#10;giá đèn led nhà xưởng 150w&#10;&#10;đèn pha bảng hiệu&#10;đèn hắt biển quảng cáo"></textarea>
       <label for="kwLoai">Loại nội dung</label>
       <select id="kwLoai" name="loai"><option value="tu_dong">Agent tự nhận diện (blog hoặc danh mục)</option><option value="blog">Bài blog (Agent Blog)</option><option value="danh_muc">Nội dung danh mục sản phẩm (Agent Danh mục)</option></select>
-      <p class="hint">Danh mục: dán link danh mục cần viết lại vào cuối dòng nếu biết, ví dụ <code>đèn led nhà xưởng 150w https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/</code>. Không có link thì Agent tự tìm danh mục khớp trên website.</p>
+      <p class="hint">Danh mục: dán link danh mục cần viết lại vào cuối dòng đầu của nhóm nếu biết, ví dụ <code>đèn led nhà xưởng 150w https://denlednhaxuongcaocap.com/den-led-nha-xuong-150w/</code>. Không có link thì Agent tự tìm danh mục khớp trên website.</p>
       <label for="kwNote">Ghi chú chung cho Agent (không bắt buộc)</label>
       <input type="text" id="kwNote" name="note" placeholder="Ví dụ: ưu tiên khách là chủ xưởng cơ khí">
       <label class="check" for="kwTest"><input type="checkbox" id="kwTest" name="test"> Chạy thử: Agent làm đủ các bước nhưng không đăng nháp, không tải ảnh lên WordPress</label>
@@ -408,7 +408,7 @@ function renderFilters() {
 
 function renderList() {
   const shown = rows.filter(inFilter).sort((a, b) => (b.cap_nhat || "").localeCompare(a.cap_nhat || ""));
-  if (!rows.length) { $("#list").innerHTML = `<div class="empty">Chưa có từ khóa nào. Mở "Nạp từ khóa" ở trên, dán danh sách rồi bấm Nạp và giao Agent.</div>`; return; }
+  if (!rows.length) { $("#list").innerHTML = `<div class="empty">Chưa có từ khóa nào. Mở "Nạp từ khóa" ở trên, dán nhóm từ khóa rồi bấm Nạp và giao Agent.</div>`; return; }
   if (!shown.length) { $("#list").innerHTML = `<div class="empty">Không có từ khóa nào ở mục này.</div>`; return; }
   $("#list").innerHTML = shown.map(r => {
     const s = st(r);
@@ -985,16 +985,21 @@ document.addEventListener("submit", async e => {
 $("#addForm").addEventListener("submit", async e => {
   e.preventDefault();
   if (!db) return;
-  const lines = $("#kwInput").value.split(/\n+/).map(s => s.trim()).filter(Boolean);
-  if (!lines.length) return;
+  // Một nhóm là một bài: các nhóm cách nhau bằng dòng trống; trong nhóm, dòng đầu là từ khóa chính, các dòng sau là từ khóa phụ
+  const nhoms = $("#kwInput").value.split(/\n\s*\n/).map(g => g.split("\n").map(s => s.trim()).filter(Boolean)).filter(g => g.length);
+  if (!nhoms.length) return;
   const loaiChon = $("#kwLoai").value || "tu_dong";
   const note = $("#kwNote").value.trim(), test = $("#kwTest").checked, btn = $("#addBtn"), msg = $("#addMsg");
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Đang nạp...";
   let ok = 0, trung = [], moiIds = [];
-  for (const line of lines) {
-    const lk = line.match(/https?:\/\/\S+/); const linkDm = lk ? lk[0] : "";
-    const m = line.replace(/https?:\/\/\S+/, "").match(/#\s*(\d+)/); const idCu = m ? m[1] : "";
-    const parts = line.replace(/https?:\/\/\S+/, "").replace(/#\s*\d+/, "").split(",").map(s => s.trim()).filter(Boolean);
+  for (const nhom of nhoms) {
+    const text = nhom.join("\n");
+    const lk = text.match(/https?:\/\/\S+/); const linkDm = lk ? lk[0] : "";
+    const m = text.replace(/https?:\/\/\S+/g, "").match(/#\s*(\d+)/); const idCu = m ? m[1] : "";
+    // Mỗi dòng một từ khóa; dòng có dấu phẩy vẫn tách thành nhiều từ khóa (cách ghi cũ)
+    const parts = [];
+    for (const line of nhom) for (const k of line.replace(/https?:\/\/\S+/g, "").replace(/#\s*\d+/g, "").split(",").map(s => s.trim()).filter(Boolean))
+      if (!parts.some(x => x.toLowerCase() === k.toLowerCase())) parts.push(k);
     if (!parts.length) continue;
     const chinh = parts[0];
     const cu = rows.find(r => (r.tu_khoa || "").toLowerCase() === chinh.toLowerCase());
@@ -1015,9 +1020,9 @@ $("#addForm").addEventListener("submit", async e => {
   const trungHtml = trung.map(r => `<li><b>${esc(r.tu_khoa)}</b>: đã có trên bảng, ${isOff(r) ? "đang tạm dừng. Bấm Tiếp tục ở khung chi tiết để Agent làm lại" : `đang ở chặng "${esc(st(r).t)}"`}. <button type="button" data-id="${esc(r.id)}">Mở từ khóa này</button></li>`).join("");
   if (trung.length && !ok) { filter = "all"; stageSel = 0; selId = trung[0].id; editOutline = false; xoaId = null; }
   msg.className = trung.length ? "msg note" : "msg good";
-  msg.innerHTML = (ok ? `Đã nạp ${ok} từ khóa mới.` : "Chưa nạp từ khóa mới nào.")
-    + (trung.length ? ` ${trung.length} từ khóa không nạp lại vì đã có:<ul style="margin:6px 0 0;padding-left:20px">${trungHtml}</ul>` : "");
-  if (ok) { flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} từ khóa mới.`)); ghiKetQuaGoi(moiIds); }
+  msg.innerHTML = (ok ? `Đã nạp ${ok} bài mới (mỗi nhóm từ khóa một bài).` : "Chưa nạp bài mới nào.")
+    + (trung.length ? ` ${trung.length} nhóm không nạp lại vì từ khóa chính đã có:<ul style="margin:6px 0 0;padding-left:20px">${trungHtml}</ul>` : "");
+  if (ok) { flash(await fireAgent(`Bảng điều phối: vừa nạp ${ok} bài mới.`)); ghiKetQuaGoi(moiIds); }
   render();
   if (trung.length && !ok) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" });
 });

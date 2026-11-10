@@ -6,7 +6,7 @@ Quy trình viết bài, giọng văn và quy tắc dữ liệu nằm ở `1_Proj
 
 ## Đọc thêm khi cần
 
-- Nhận một dòng từ khóa (từ khóa chính, phụ): `1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa.
+- Nhận một nhóm từ khóa (một bài; dòng đầu là từ khóa chính, các dòng sau là phụ): `1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa.
 - Nội dung danh mục sản phẩm (`DM_*.md`, Trang nháp, ghi lên danh mục): `6_Agent_Danh_muc_HLB.md`.
 - Cài đặt máy Windows, giờ Việt Nam, biến môi trường: `quy_trinh/chay_tren_may.md`.
 - Kết thúc vòng duyệt (ghi nhật ký, cập nhật Lịch sử chấm, chạy `doi_chieu_bang.py`), đổi thang chấm, gặp hook nhắc, lệnh cho agent đánh giá: `quy_trinh/nhat_ky_cham_va_bang.md`.

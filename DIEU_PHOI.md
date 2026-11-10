@@ -48,7 +48,7 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 
 | Trường | Ai ghi | Nội dung |
 |---|---|---|
-| `tu_khoa`, `tu_khoa_phu` (mảng), `id_bai_cu`, `ghi_chu` | Người dùng khi nạp | Một dòng nạp là một bài (chốt 22/10/2026): từ đầu dòng là từ khóa chính (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng. Giữ đúng vai trò này khi lập outline và viết: không đổi từ khóa chính sang từ khóa khác. `tu_khoa_phu` rỗng thì Agent tự chọn ở bước SERP và ghi vào; có sẵn thì xử lý theo `1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa. `id_bai_cu` có giá trị thì là viết lại bài cũ (`--update`) |
+| `tu_khoa`, `tu_khoa_phu` (mảng), `id_bai_cu`, `ghi_chu` | Người dùng khi nạp | Một nhóm từ khóa nạp vào là một bài (chốt 22/10/2026, sửa cách ghi trên bảng 10/11/2026): mỗi dòng trong nhóm là một từ khóa, dòng đầu là từ khóa chính (thường có lượng tìm kiếm cao nhất), các dòng sau là từ khóa phụ, liên quan; các nhóm cách nhau bằng dòng trống, mỗi nhóm thành một tài liệu `tu_khoa`. Bảng tự tách: `tu_khoa` là dòng đầu, `tu_khoa_phu` là các dòng sau (dòng có dấu phẩy vẫn tách theo dấu phẩy), `#ID` và link danh mục ở bất kỳ dòng nào trong nhóm đều được nhận. Giữ đúng vai trò này khi lập outline và viết: không đổi từ khóa chính sang từ khóa khác. `tu_khoa_phu` rỗng thì Agent tự chọn ở bước SERP và ghi vào; có sẵn thì xử lý theo `1_Project_Instructions_Auto_Blog_HLB.md` mục 3, Nhóm từ khóa. `id_bai_cu` có giá trị thì là viết lại bài cũ (`--update`) |
 | `trang_thai` | Cả hai | Xem mục 3 |
 | `tien_do` | Agent | Một dòng đang làm gì, ví dụ "Vòng chấm 2" |
 | `serp`, `outline` | Agent (người dùng có thể sửa `outline`) | Markdown: 5 mục SERP, 9 mục outline đúng Project Instructions |
