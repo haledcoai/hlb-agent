@@ -1,6 +1,6 @@
 # Agent điều phối HLB
 
-Cập nhật: 31/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi người dùng bấm "Chạy Agent ngay") trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
+Cập nhật: 31/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi bảng gọi Agent lúc người dùng thao tác) trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
 
 **Từ 28/10/2026 mỗi lượt chạy là một phiên mới.** Đọc `dieu_phoi/TRANG_THAI.md` (quyết định đã chốt, trạng thái từ khóa, việc còn chờ) ngay sau file này. Phiên mới không nhắn được vào chat: báo người dùng qua bảng.
 
@@ -66,7 +66,7 @@ Collection `tu_khoa`, mỗi tài liệu là một nhóm từ khóa:
 | `tra_loi` | Người dùng | Trả lời cho `ly_do` |
 | `lich_su` | Cả hai | Mảng `{luc, ai: "agent" or "ban", viec}`, chỉ thêm vào cuối |
 | `khoa_luc` | Agent | Giờ bắt đầu xử lý (chống chạy trùng) |
-| `goi_agent_luc` | Bảng | Giờ bảng giao việc cho Agent (nạp từ khóa, bấm duyệt, góp ý, Tiếp tục, Chạy Agent ngay). Bảng làm mờ nút "Chạy Agent ngay" tới khi Agent xác nhận hoặc quá 65 phút chưa xác nhận (10 phút khi `goi_agent_kq` là `ngay`) |
+| `goi_agent_luc` | Bảng | Giờ bảng giao việc cho Agent (nạp từ khóa, bấm duyệt, góp ý, Tiếp tục, Gọi lại Agent). Nút "Gọi lại Agent" trên từng dòng chỉ hiện khi Agent chưa xác nhận quá 65 phút (10 phút khi `goi_agent_kq` là `ngay`). Nút chung "Chạy Agent ngay" đầu trang đã bỏ (người dùng chốt 10/11/2026), vì mọi nút theo bước đã tự gọi Agent |
 | `goi_agent_kq` | Bảng | `ngay` (đã gọi Agent chạy ngay) hoặc `dinh_ky` (gọi không được, chờ lượt dự phòng 8:04 sáng) |
 | `agent_nhan_luc` | Agent | Giờ Agent xác nhận đã thấy việc (mục 4 bước 3a). Bảng coi là đã nhận khi giờ này không sớm hơn `goi_agent_luc` |
 | `truoc_khi_dung` | Bảng, Agent | Trạng thái lúc người dùng bấm Tạm dừng. Agent xác nhận dừng thì đổi thành trạng thái chờ tương ứng (mục 3b). Dòng cũ `bo_qua` dùng `truoc_khi_bo` |
@@ -81,7 +81,7 @@ Collection `bai_viet`, tài liệu cùng id với từ khóa: `tieu_de`, `noi_du
 
 Giờ ghi lên bảng (`luc`, `cap_nhat`, `khoa_luc`, `agent_nhan_luc`) dùng giờ Việt Nam có múi giờ, ví dụ `2026-10-26T14:05:00+07:00`. **Luôn lấy giờ thật bằng lệnh `TZ=UTC-7 date -Iseconds` ngay trước khi ghi, không tự ước lượng hay làm tròn giờ** (người dùng báo sai giờ 28/10/2026).
 
-Tài liệu `cau_hinh/chung`: `trigger_id` (lịch chạy để nút "Chạy Agent ngay" gọi), `lan_chay_cuoi`, `link_duyet_anh`, `link_lich_su_cham`, `tam_dung_tat_ca` (`true` khi người dùng bấm "Tạm dừng toàn bộ"), `tam_dung_luc`, `dang_do` (dấu việc dở của lượt đang chạy, mục 4 bước 1a; `null` khi không có lượt nào dở).
+Tài liệu `cau_hinh/chung`: `trigger_id` (lịch chạy để các nút trên bảng gọi), `lan_chay_cuoi`, `link_duyet_anh`, `link_lich_su_cham`, `tam_dung_tat_ca` (`true` khi người dùng bấm "Tạm dừng toàn bộ"), `tam_dung_luc`, `dang_do` (dấu việc dở của lượt đang chạy, mục 4 bước 1a; `null` khi không có lượt nào dở).
 
 Collection `da_xoa`, tài liệu cùng id với từ khóa đã xóa (bảng ghi khi người dùng bấm "Xóa hẳn"): `tu_khoa`, `file_bai`, `draft_id`, `thu_nghiem`, `xoa_nhap` (người dùng tick chuyển nháp vào Thùng rác), `anh` (mảng `{id, ten, asset_id}` các ảnh đã xóa khỏi bảng), `trang_thai` (`cho_xu_ly` | `da_xu_ly`), `luc`, `ket_qua` (Agent ghi).
 
@@ -171,7 +171,7 @@ Khi người dùng trả lời ở `can_xu_ly`, bảng đã tự đưa từ khó
 
 **Từ 09/11/2026 lịch 8:04 đã tắt (người dùng chốt), mục (b) dưới đây tạm không chạy; việc dở chờ lần người dùng thao tác trên bảng.**
 
-**Khi nào có lượt chạy (người dùng chốt 28/10/2026, để bớt tốn token):** không chạy hằng giờ nữa. Lượt chạy chỉ đến từ (a) bảng gọi khi người dùng thao tác (nạp từ khóa, duyệt, góp ý, Tiếp tục, Chạy Agent ngay), (b) một lượt dự phòng 8:04 sáng mỗi ngày (bắt lượt bị ngắt, việc còn lại vì hết suất, việc bảng gọi không được). Từ 05/11/2026 lượt còn việc không tự gọi lượt sau (bước 8). Lượt không có việc chỉ đọc `cau_hinh/chung` và bảng rồi dừng, không đọc các file quy tắc dài.
+**Khi nào có lượt chạy (người dùng chốt 28/10/2026, để bớt tốn token):** không chạy hằng giờ nữa. Lượt chạy chỉ đến từ (a) bảng gọi khi người dùng thao tác (nạp từ khóa, duyệt, góp ý, Tiếp tục, Gọi lại Agent), (b) một lượt dự phòng 8:04 sáng mỗi ngày (bắt lượt bị ngắt, việc còn lại vì hết suất, việc bảng gọi không được). Từ 05/11/2026 lượt còn việc không tự gọi lượt sau (bước 8). Lượt không có việc chỉ đọc `cau_hinh/chung` và bảng rồi dừng, không đọc các file quy tắc dài.
 
 **Lượt 8:04 chỉ làm khi còn việc dở (người dùng chốt 31/10/2026).** Lịch không tự bỏ qua được lượt chạy, nên lượt 8:04 vẫn mở phiên nhưng kết thúc ngay sau bước 0, 1 nếu không có việc: không lấy repo, không chạy `doi_chieu_bang.py`, không kiểm tra môi trường. "Có việc" là một trong hai: (1) `cau_hinh/chung.dang_do` còn (lượt trước bị ngắt giữa chừng, ví dụ Claude hết token), (2) có từ khóa chờ Agent hoặc `dang_*`, ảnh `lam_lai`, yêu cầu ảnh `moi`, `da_xoa` `cho_xu_ly` (thường là việc bảng gọi Agent không được). Mọi từ khóa đều tạm dừng hoặc chờ người dùng (`can_xu_ly`, `cho_duyet_*`, `san_sang_*`, `da_ap_dung`) thì không có việc. Lệch giữa bảng và repo do thread khác sửa bài thì thread đó tự đồng bộ (CLAUDE.md), lượt có việc vẫn chạy `doi_chieu_bang.py` ở bước 2.
 
