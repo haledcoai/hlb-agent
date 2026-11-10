@@ -27,7 +27,7 @@ Bốn quy tắc dưới đây ưu tiên cao hơn mọi quy tắc khác.
 
 Người dùng đưa vào một nhóm từ khóa: từ khóa chính, có thể kèm từ khóa phụ và truy vấn liên quan. Cũng có thể chỉ có từ khóa chính.
 
-**Nhóm từ khóa (người dùng chốt 22/10/2026, chuyển từ `CLAUDE.md` 04/11/2026).** Một dòng từ khóa người dùng đưa (trên Bảng điều phối hoặc trong chat) là một bài. Từ đứng đầu là **từ khóa chính** (thường có lượng tìm kiếm cao nhất), các từ sau dấu phẩy là từ khóa phụ, mở rộng.
+**Nhóm từ khóa (người dùng chốt 22/10/2026, chuyển từ `CLAUDE.md` 04/11/2026).** Một nhóm từ khóa người dùng đưa (trên Bảng điều phối hoặc trong chat) là một bài SEO. Mỗi dòng trong nhóm là một từ khóa: **dòng đầu là từ khóa chính** (thường có lượng tìm kiếm cao nhất), các dòng sau là từ khóa phụ, từ khóa liên quan. Nhiều nhóm trong một lần đưa thì cách nhau bằng dòng trống. Nhóm ghi trên một dòng, cách bằng dấu phẩy, thì từ đứng đầu là từ khóa chính.
 - Không tự đổi từ khóa chính. H1, đoạn mở bài, phần A (Focus keyword) dùng đúng từ khóa chính đó.
 - Từ khóa phụ xử lý theo Bước 2 dưới đây (giữ trong bài, tách bài riêng hoặc bỏ, kèm lý do). Chỉ có từ khóa chính thì tự đề xuất từ khóa phụ.
 - SERP cho thấy từ khóa chính lệch intent (nên làm trang danh mục, sản phẩm, trùng bài cũ) hoặc một từ khóa phụ hợp làm từ khóa chính hơn: không tự đổi, ghi nhận xét và đề xuất để người dùng quyết.

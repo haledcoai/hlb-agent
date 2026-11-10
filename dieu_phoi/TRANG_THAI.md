@@ -16,7 +16,7 @@ Quy trình mỗi lượt (không nhắn chat, mỗi lượt một phiên mới, 
 - Thông tin công ty, vai trò HALEDCO và HLB, liên hệ, bảo hành, đổi trả, giao hàng, chiết khấu: `2_Knowledge_Du_lieu_tham_chieu_HLB.md` mục 1, 1.1 (không chép lại ở đây).
 - Không link haledco.com. Không bịa thông số; thiếu thì `[CẦN BỔ SUNG]`. Quá 5 chỗ ở phần B thì không đăng nháp.
 - UF và MF giả định khoảng 0,8 (xưởng bụi lấy MF thấp hơn).
-- Một dòng từ khóa = một bài; từ đầu dòng là từ khóa chính, không tự đổi.
+- Một nhóm từ khóa = một bài (nhóm cách nhau bằng dòng trống); mỗi dòng một từ khóa, dòng đầu là từ khóa chính, không tự đổi.
 - Bài ĐẠT thì tự đẩy bản nháp WordPress (chỉ nháp, không đăng công khai). Ghi lên danh mục chỉ khi người dùng bấm "Duyệt, cập nhật lên danh mục".
 - Tên file ảnh không trùng slug bài hay slug đã có trên website.
 - Repo `haledcoai/hlb-agent` nhánh `main` là bản gốc; thread được tự merge PR.
