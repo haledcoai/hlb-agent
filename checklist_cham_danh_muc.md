@@ -75,8 +75,8 @@ Phần lớn các mục lấy từ quy tắc đã có. Số trong ngoặc là m�
 
 | Mã | Kiểm tra | Mức |
 |---|---|---|
-| T1 | HLB phân phối đèn LED của nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang); không "HLB sản xuất"; "đèn do HALEDCO sản xuất" là đúng; dòng cao cấp không gán cho riêng một hãng (QC2) | BB |
-| T2 | Bảo hành đúng: HALEDCO và dòng cao cấp HLB phân phối 2 năm; hãng khác thường 2 năm; Philips theo từng model. Chính sách, dịch vụ chỉ dùng những gì được phép (QC2) | Sai thời hạn BB, thêm điều kiện ngoài nguồn NS |
+| T1 | HLB phân phối đèn LED của nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang); không "HLB sản xuất"; "đèn do HALEDCO sản xuất" là đúng; không dùng "dòng cao cấp"; BUFO, B-series, B8 DX gọi theo tên dòng, không gán hãng (QC2) | BB |
+| T2 | Bảo hành đúng: HALEDCO và dòng BUFO, B-series, B8 DX 2 năm; hãng khác thường 2 năm; Philips theo từng model. Chính sách, dịch vụ chỉ dùng những gì được phép (QC2) | Sai thời hạn BB, thêm điều kiện ngoài nguồn NS |
 | T3 | So sánh hãng trong danh mục: cùng công suất, cùng tiêu chí, có nguồn; nêu cả giới hạn của HLB; kết "Chọn A khi..., chọn B khi..."; không hãng thắng chung cuộc, không nói xấu (QC5) | BB |
 | T4 | Không câu cấm, không em dash, en dash, emoji, từ tuyệt đối, cụm văn mẫu AI (QC3, QC6) | BB |
 | T5 | (Leader Content) Giọng người bán hàng có chuyên môn 7-10 năm: câu cụ thể, có số, có điều kiện; xưng "chúng tôi" hoặc "HLB", gọi khách là "bạn"; tiếng Việt đơn giản, không dịch gượng, không quảng cáo quá đà (QC6) | NS |

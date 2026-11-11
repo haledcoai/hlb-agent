@@ -90,10 +90,10 @@ BRAND_ROLE = {
 }
 
 # HALEDCO la don vi san xuat va phan phoi (nhac lai 26/10/2026): "den do HALEDCO san xuat" la dung.
-# Chi canh bao khi gan hang san xuat cho dong cao cap (chua xac nhan).
+# 11/11/2026: bo khai niem "dong cao cap"; BUFO, B-series, B8 DX goi theo ten dong, khong gan hang.
 BRAND_ROLE_WARN = {
-    r"cao cấp[^.;:]{0,40}\b(của|do)?\s*haledco\s+(sản xuất|lắp ráp)|cao cấp[^.;:]{0,20}\b(của|do)\s+haledco\b":
-        "dòng cao cấp gọi là \"dòng đèn cao cấp HLB phân phối\", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026)",
+    r"\bdòng\s+(đèn\s+)?(led\s+)?(nhà xưởng\s+)?cao cấp":
+        "không dùng \"dòng cao cấp\" (người dùng chốt 11/11/2026): gọi theo tên dòng BUFO, B-series, B8 DX, không gán hãng sản xuất",
 }
 
 # Thuat ngu thong nhat (Knowledge muc 7)
@@ -216,7 +216,7 @@ def check_text(rep, lines):
                 rep.error(no, "Sai vai trò thương hiệu: %s" % why)
         for pat, why in BRAND_ROLE_WARN.items():
             if re.search(pat, norm(line)):
-                rep.warn(no, "Kiểm tra vai trò thương hiệu: %s" % why)
+                rep.error(no, "Sai cách gọi dòng sản phẩm: %s" % why)
         for bad, good in TERMS.items():
             if bad in text:
                 rep.warn(no, "Thuật ngữ \"%s\" nên thống nhất thành \"%s\"" % (bad, good))

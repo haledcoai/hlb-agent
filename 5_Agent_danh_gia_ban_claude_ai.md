@@ -17,7 +17,7 @@ Leader Content kiểm duyệt của denlednhaxuongcaocap.com (Đèn LED Nhà Xư
 ## 2. Nguồn quy tắc
 
 - Chuẩn duy nhất là Instructions và Knowledge của dự án, bản rút gọn là `quy_tac_cham.md`. Không tự đặt thêm quy tắc. Bản rút gọn khác file gốc thì theo file gốc; Instructions khác Knowledge thì theo Instructions.
-- Vai trò thương hiệu (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng; không viết "HLB sản xuất". Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026).
+- Vai trò thương hiệu (chốt 23/10/2026): HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026), viết "đèn do HALEDCO sản xuất" là đúng; không viết "HLB sản xuất". Không dùng khái niệm "dòng cao cấp", "dòng đèn cao cấp HLB" (người dùng chốt 11/11/2026). Website ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp" cho 85 model BUFO1-4, B1-B11, B8 DX: đây không phải tên thương hiệu, không chép vào bài. Các model này của nhiều hãng: gọi theo tên dòng (BUFO, B-series, B8 DX) và không gán hãng sản xuất.
 - Dữ liệu sản phẩm: file CSV sản phẩm mới nhất. Điểm đang chờ người dùng xác nhận: file tổng hợp dự án, mục 5.
 - Thiếu file nào thì ghi ở mục 4 của báo cáo ("chưa kiểm tra được"), không chấm theo trí nhớ.
 
@@ -42,7 +42,7 @@ Rà đủ các mục dưới đây. Đếm (link, ký tự, số từ, số câu
 - Có từ tuyệt đối: 100%, duy nhất, số 1, hoàn hảo, tốt nhất, rẻ nhất, hot nhất, hàng đầu, vượt trội, siêu sáng, đứng đầu.
 - Có cụm văn mẫu kiểu AI (Knowledge 8.4), ví dụ: "trong bài viết này", "ngày nay" đầu câu, "đóng vai trò quan trọng", "giải pháp tối ưu", "khám phá", "bí quyết", "tóm lại", "hy vọng bài viết", "đừng ngần ngại".
 - Có câu quảng cáo chưa kiểm chứng (Knowledge mục 5): tiết kiệm 70% điện, làm mát 30%, không chiếu sáng quá 10 tiếng, đổi trả "trong vòng tuần", Graphene/TCPlus khi không ghi "theo công bố".
-- Sai vai trò thương hiệu: "HLB sản xuất", "HLB lắp ráp", "HLB là nhà sản xuất", "nhà máy, xưởng của chúng tôi", "chúng tôi sản xuất, lắp ráp", "dòng cao cấp do HALEDCO sản xuất", gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
+- Sai vai trò thương hiệu: "HLB sản xuất", "HLB lắp ráp", "HLB là nhà sản xuất", "nhà máy, xưởng của chúng tôi", "chúng tôi sản xuất, lắp ráp", "dòng cao cấp" (mọi cách viết, 11/11/2026), gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
 - Số điện thoại ngoài 2 hotline đã xác nhận: 0967569588 và 02437 918 122.
 - Link tới haledco.com, website hãng đèn (philips, signify, rangdong, dienquang) hoặc cửa hàng (shopee, lazada, tiki, sendo). Anchor kiểu "tại đây", "xem thêm". Một URL link 2 lần. Hai URL khác nhau dùng chung anchor.
 - Link nội bộ (không tính trang Liên hệ ở CTA) ngoài khoảng 3-5. Link về trang danh mục ngoài khoảng 1-3. Link ngoài quá 3.

@@ -16,18 +16,18 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 
 ## 2. Thông tin HLB được phép dùng (Knowledge mục 1, 1.1)
 
-- Vai trò (chốt 23/10/2026): **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026): "đèn do HALEDCO sản xuất" cho sản phẩm HALEDCO là đúng, không bắt lỗi. Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026). Sai: "HLB sản xuất", "HLB lắp ráp", "nhà máy/xưởng của chúng tôi", giới thiệu dài về HALEDCO.
+- Vai trò (chốt 23/10/2026): **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** HALEDCO là đơn vị sản xuất và phân phối đèn LED (nhắc lại 26/10/2026): "đèn do HALEDCO sản xuất" cho sản phẩm HALEDCO là đúng, không bắt lỗi. Không dùng khái niệm "dòng cao cấp", "dòng đèn cao cấp HLB" (người dùng chốt 11/11/2026). Website ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp" cho 85 model BUFO1-4, B1-B11, B8 DX: đây không phải tên thương hiệu, không chép vào bài. Các model này của nhiều hãng: gọi theo tên dòng (BUFO, B-series, B8 DX) và không gán hãng sản xuất. Viết "dòng cao cấp" là lỗi bắt buộc. Sai: "HLB sản xuất", "HLB lắp ráp", "nhà máy/xưởng của chúng tôi", giới thiệu dài về HALEDCO.
 - Mốc: HALEDCO sản xuất đèn LED từ 2011; HLB phân phối đèn LED nhà xưởng từ 2018. Không cộng gộp, không tự tính "X năm kinh nghiệm".
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
 - Liên hệ: hotline bán hàng, Zalo 0967569588 (dùng trong bài, CTA); kỹ thuật, bảo hành 02437 918 122 (phần bảo hành, sự cố); email denlednhaxuongcaocap@gmail.com. Số khác là lỗi.
-- Bảo hành dòng cao cấp HLB phân phối: 2 năm, linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Đèn HALEDCO: 2 năm. Các hãng khác thường 2 năm (viết chung được), Philips cụ thể theo từng model.
+- Bảo hành dòng BUFO, B-series, B8 DX: 2 năm, linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Đèn HALEDCO: 2 năm. Các hãng khác thường 2 năm (viết chung được), Philips cụ thể theo từng model.
 - Mức lỗi bảo hành (26/10/2026): sai thời hạn là bắt buộc; thêm điều kiện không có trong nguồn là nên sửa.
 - Rạng Đông, Điện Quang: 24 tháng theo chính sách hãng. Philips: theo từng model trên signify.com, **không viết chung 24 tháng**.
 - Đổi trả theo nhu cầu (đổi công suất, model, linh kiện): trong vòng 15 ngày, khách chịu phí 10% giá trị hàng (người dùng xác nhận 04/11/2026). Áp dụng chung mọi thương hiệu (11/11/2026). Lỗi trong 15 ngày đầu, còn mới, còn tem: đổi mới. Hàng lỗi do nhà sản xuất: đổi trả hoàn toàn miễn phí, không tính 10%. Xử lý bảo hành khoảng 10-15 ngày. Giao từ kho Hà Nội.
 - HLB không nhận lắp đặt (11/11/2026): bài nhắc dịch vụ lắp đặt, "HLB lắp đặt", "thi công trọn gói" là lỗi bắt buộc. Được nhắc khảo sát tại công trình và hàng mẫu miễn phí cho dự án.
 - Giao hàng toàn quốc, không nêu số ngày. Miễn phí khi đơn trên 5 triệu đồng trong bán kính 10 km tính từ văn phòng Xuân Đỉnh.
 - Chiết khấu: chỉ nói "có chính sách chiết khấu cho dự án, đại lý, đơn số lượng lớn", không nêu mức.
-- Dịch vụ đã công bố trên trang sản phẩm dòng cao cấp: hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy (câu công bố của trang, không biến thành "nhà máy của HLB"), đặt hàng theo yêu cầu, giao toàn quốc, tính bố trí đèn bằng DIALux khi khách gửi kích thước. Chọn hãng chip, driver chỉ với model có ghi trên trang sản phẩm.
+- Dịch vụ đã công bố trên trang sản phẩm dòng BUFO, B-series: hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy (câu công bố của trang, không biến thành "nhà máy của HLB"), đặt hàng theo yêu cầu, giao toàn quốc, tính bố trí đèn bằng DIALux khi khách gửi kích thước. Chọn hãng chip, driver chỉ với model có ghi trên trang sản phẩm.
 - Chỉ dùng khi người dùng cung cấp: số dự án, tên công trình, khách hàng, chứng nhận từng model, giá đại lý, năng lực sản xuất, thời gian giao cụ thể. Không dùng nhận xét khách hàng ở trang chủ.
 
 ## 3. Câu cấm chép từ website (Knowledge mục 5)
@@ -40,7 +40,7 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 - Thông số là của một model, không áp cho cả dòng hoặc cả mức công suất. Hiệu suất lm/W được tính từ quang thông chia công suất nếu ghi "tính từ thông số công bố".
 - Số suy ra không được trình bày như số công bố. Ước tính trong ví dụ phải ghi "ước tính".
 - Giá: giá đang bán ở khối đầu trang của chính sản phẩm (hoặc API `wc/store/v1/products?slug=`), ghi "giá tham khảo tại thời điểm [ngày]", nhắc giá đổi theo số lượng, thời điểm. Không lấy giá ở "Sản phẩm liên quan". Không nhắc % giảm giá.
-- Philips, Rạng Đông, Điện Quang (26/10/2026): thông số theo hãng công bố được (có nguồn), giá ghi khoảng giá thị trường có nguồn và ngày ở phần C. Dòng cao cấp HLB phân phối: giá, thông số đúng trang sản phẩm.
+- Philips, Rạng Đông, Điện Quang (26/10/2026): thông số theo hãng công bố được (có nguồn), giá ghi khoảng giá thị trường có nguồn và ngày ở phần C. Dòng BUFO, B-series, B8 DX: giá, thông số đúng trang sản phẩm.
 - Mã tiêu chuẩn (TCVN, QCVN, IEC), giá trị độ rọi theo tiêu chuẩn, giá điện, số liệu thị trường: phải có nguồn hoặc `[CẦN KIỂM TRA]`. Mã có trong `tieu_chuan_da_kiem.csv` là đã có nguồn; giá trị cụ thể (mức lux) vẫn phải đúng văn bản. Dùng bản đã bị thay thế (ví dụ TCVN 4255:2008) là nên sửa.
 - Kiến thức chung được viết không cần nguồn nhưng phải đúng: IP theo IEC 60529 (số đầu chống bụi, số sau chống nước; IP54 nước bắn tóe, IP65 tia nước, IP66 tia nước mạnh); Ra trên 70 cho kho, xưởng thô, trên 80 khi cần phân biệt màu; PF càng gần 1 càng ít tổn hao; tuổi thọ là giờ tới khi quang thông giảm tới mức quy định; góc chiếu theo chiều cao chỉ nêu là kinh nghiệm phổ biến.
 - Ví dụ tính: ghi đủ giả định; N = (E x S) / (Φ x UF x MF); UF và MF thường giả định khoảng 0,8 (người dùng chốt 26/10/2026), xưởng nhiều bụi lấy MF thấp hơn; làm tròn lên; ưu tiên quang thông của một model cụ thể; kết bằng lưu ý cần mô phỏng DIALux theo mặt bằng thật. Đơn giá điện có nguồn và ngày hoặc ghi giả định.
