@@ -1,6 +1,6 @@
 # DỮ LIỆU THAM CHIẾU HLB (FILE KNOWLEDGE)
 
-Phiên bản: 23/10/2026. Dùng kèm "Project Instructions: Viết blog cho denlednhaxuongcaocap.com".
+Phiên bản: 11/11/2026. Dùng kèm "Project Instructions: Viết blog cho denlednhaxuongcaocap.com".
 
 Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này khác với thông tin đang đăng trên website, làm theo website (đã mở kiểm tra trong phiên) và ghi chênh lệch vào phần C.
 
@@ -28,7 +28,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 - Tên: Đèn LED Nhà Xưởng HLB (gọi tắt HLB), website denlednhaxuongcaocap.com.
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
 - **Vai trò (người dùng chốt 23/10/2026, thay bản 21/10):** **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** **HALEDCO là đơn vị sản xuất và phân phối đèn LED** (người dùng nhắc lại 26/10/2026), và là một trong các thương hiệu HLB phân phối. Viết "đèn HALEDCO", "đèn do HALEDCO sản xuất" cho sản phẩm thương hiệu HALEDCO là đúng. Người sản xuất là HALEDCO, không phải HLB: không viết "HLB sản xuất", "HLB lắp ráp", "nhà máy của chúng tôi". Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026).
-- Văn phòng: Tầng 21 Chung cư C2 Xuân Đỉnh, P. Xuân Đỉnh, Hà Nội. Trụ sở chính: Số 42 Phùng Hưng, Phường Sơn Tây, Thành phố Hà Nội. Bán hàng và giao hàng toàn quốc.
+- Văn phòng: Tầng 21 Chung cư C2 Xuân Đỉnh, P. Xuân Đỉnh, Hà Nội. Trụ sở chính: Số 42 Phùng Hưng, Phường Sơn Tây, Thành phố Hà Nội. Bán hàng và giao hàng toàn quốc, hàng vận chuyển trực tiếp từ kho Hà Nội (người dùng xác nhận 11/11/2026; không viết có kho hoặc văn phòng phía Nam).
 - **Liên hệ (người dùng xác nhận 21/10/2026):**
   - Hotline bán hàng, ưu tiên dùng trong bài và CTA: 0967569588 (có Zalo cùng số).
   - Hotline kỹ thuật và bảo hành: 02437 918 122. Dùng trong phần nói về bảo hành, sự cố, hỗ trợ kỹ thuật.
@@ -43,17 +43,20 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
   - Hỗ trợ kỹ thuật và bảo hành: 02437 918 122.
 - **Đổi trả và giao hàng:** xem mục 1.1.
 - **Chiết khấu:** được nhắc "có chính sách chiết khấu cho dự án, đại lý và đơn số lượng lớn, mức chiết khấu tùy số lượng, loại sản phẩm và thương hiệu". Không nêu mức cụ thể.
+- **Dịch vụ (người dùng xác nhận 11/11/2026):** gửi hàng mẫu miễn phí cho dự án; có khảo sát tại công trình. HLB **không nhận lắp đặt**: bài chỉ nói khảo sát công trình và bán đèn, không nhắc dịch vụ lắp đặt, không viết "HLB lắp đặt", "thi công trọn gói". Hướng dẫn kỹ thuật lắp đặt cho khách tự làm vẫn viết được.
 - Dịch vụ công bố trên trang sản phẩm dòng cao cấp: cung cấp hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy, đặt hàng theo yêu cầu, giao hàng toàn quốc, tính toán bố trí đèn bằng phần mềm DIALux khi khách gửi kích thước nhà xưởng và độ rọi yêu cầu.
 - Dòng cao cấp (theo trang sản phẩm BUFO4-50): khách có thể chọn hãng chip LED và hãng driver theo dự án. Chỉ áp dụng cho model nào có ghi trên trang sản phẩm của model đó.
 
 ### 1.1 Bảo hành, đổi trả, giao hàng
 
-**Dòng cao cấp HLB (người dùng xác nhận 21/10/2026):**
-- Thời hạn: 2 năm. Phạm vi: linh kiện driver (bộ nguồn) và chip LED.
+**Đổi mới, bảo hành tại HLB (người dùng xác nhận 21/10/2026, 11/11/2026). Áp dụng chung cho mọi thương hiệu HLB bán; thời hạn bảo hành vẫn theo từng hãng ở bảng dưới:**
+- Phạm vi bảo hành: linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
 - Trong 15 ngày đầu: sản phẩm lỗi, còn mới 100%, chưa qua sử dụng, còn nguyên tem nhãn thì được đổi mới.
 - Sau 15 ngày, trong thời hạn bảo hành: thay thế linh kiện bị lỗi, hư hỏng.
+- Hàng lỗi do nhà sản xuất: đổi trả hoàn toàn miễn phí, không tính phí 10% (11/11/2026).
+- Thời gian xử lý bảo hành: khoảng 10-15 ngày (11/11/2026).
 
-**Đổi trả theo nhu cầu khách hàng:** khách chịu phí đổi trả 10% giá trị hàng hóa. Thời gian hỗ trợ đổi trả hàng theo yêu cầu khách hàng ví dụ như đổi công suất, model, đổi linh kiện,... trong vòng 15 ngày (người dùng xác nhận 04/11/2026).
+**Đổi trả theo nhu cầu khách hàng (áp dụng chung mọi thương hiệu, 11/11/2026):** khách chịu phí đổi trả 10% giá trị hàng hóa. Thời gian hỗ trợ đổi trả hàng theo yêu cầu khách hàng ví dụ như đổi công suất, model, đổi linh kiện,... trong vòng 15 ngày (người dùng xác nhận 04/11/2026).
 
 **Giao hàng:** giao toàn quốc, thời gian tùy khu vực (không nêu số ngày cụ thể trong bài). Miễn phí giao hàng khi đơn hàng trên 5 triệu đồng và trong bán kính 10 km tính từ văn phòng Xuân Đỉnh (người dùng xác nhận 04/11/2026).
 
