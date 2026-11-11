@@ -1,6 +1,6 @@
 # BẢNG HỎI THÔNG TIN CỐ ĐỊNH CỦA HLB
 
-Phiên bản: 21/10/2026, cập nhật câu 2.4, 2.5 ngày 04/11/2026. Điền một lần, Agent đưa vào file Knowledge và dùng cho mọi bài sau.
+Phiên bản: 21/10/2026, cập nhật câu 2.4, 2.5 ngày 04/11/2026; ghi lại các câu đã trả lời ở nhóm 1, 2 ngày 11/11/2026 (nội dung gốc ở Knowledge mục 1, 1.1). Điền một lần, Agent đưa vào file Knowledge và dùng cho mọi bài sau.
 
 **Cách điền:** ghi vào cột "Trả lời". Ô nào Agent đã điền sẵn từ website thì chỉ cần ghi "Đúng" hoặc sửa lại. Không biết hoặc không muốn công khai thì ghi "Không nêu", Agent sẽ tránh nội dung đó thay vì để placeholder. Phần nào chưa có thông tin có thể bỏ trống, điền sau cũng được.
 
@@ -12,23 +12,24 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 
 | # | Câu hỏi | Agent thấy trên website | Trả lời |
 |---|---|---|---|
-| 1.1 | Hotline chính dùng trong bài | Footer: 0967569588. Nút "Tư vấn miễn phí" trên trang sản phẩm: 02437 918 122 | |
-| 1.2 | Hai số trên dùng cho việc gì (bán hàng, kỹ thuật, bảo hành)? | | |
-| 1.3 | Có Zalo hoặc email khác ngoài denlednhaxuongcaocap@gmail.com không? | | |
-| 1.4 | HLB thành lập năm nào? Được nêu số năm kinh nghiệm không? | Chưa thấy | |
-| 1.5 | Khu vực phục vụ chính (miền Bắc, toàn quốc)? Có kho hoặc văn phòng phía Nam không? | Trang sản phẩm ghi "Giao hàng toàn quốc" | |
+| 1.1 | Hotline chính dùng trong bài | Footer: 0967569588. Nút "Tư vấn miễn phí" trên trang sản phẩm: 02437 918 122 | Đã trả lời 21/10/2026: dùng 0967569588 trong bài và CTA. Xem Knowledge mục 1 |
+| 1.2 | Hai số trên dùng cho việc gì (bán hàng, kỹ thuật, bảo hành)? | | Đã trả lời 21/10/2026: 0967569588 bán hàng (có Zalo); 02437 918 122 kỹ thuật, bảo hành |
+| 1.3 | Có Zalo hoặc email khác ngoài denlednhaxuongcaocap@gmail.com không? | | Đã trả lời 21/10/2026: Zalo cùng số 0967569588; email chỉ dùng denlednhaxuongcaocap@gmail.com |
+| 1.4 | HLB thành lập năm nào? Được nêu số năm kinh nghiệm không? | Chưa thấy | Đã trả lời 21/10/2026: HALEDCO sản xuất từ 2011, HLB phân phối đèn nhà xưởng từ 2018. Ghi năm bắt đầu, không tự tính số năm kinh nghiệm |
+| 1.5 | Khu vực phục vụ chính (miền Bắc, toàn quốc)? Có kho hoặc văn phòng phía Nam không? | Trang sản phẩm ghi "Giao hàng toàn quốc" | Một phần: giao hàng toàn quốc; văn phòng Tầng 21 C2 Xuân Đỉnh, trụ sở 42 Phùng Hưng, Sơn Tây, Hà Nội. **Còn thiếu:** có kho, văn phòng phía Nam không |
 | 1.6 | Trong bài, dòng "cao cấp" được viết là HLB **sản xuất**, HALEDCO sản xuất, hay HLB **phân phối**? | Trang sản phẩm ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp", "Xuất xứ: Việt Nam" | Chốt 23/10/2026: HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không gán hãng sản xuất cho dòng cao cấp. 26/10/2026: HALEDCO là đơn vị sản xuất và phân phối; dòng cao cấp gồm đèn nhiều thương hiệu, không gán cho riêng một hãng. |
 
 ## 2. Chính sách
 
 | # | Câu hỏi | Agent thấy trên website | Trả lời |
 |---|---|---|---|
-| 2.1 | Bảo hành 24 tháng áp dụng cho cả Philips, Rạng Đông, Điện Quang không? | Tất cả 113 trang sản phẩm ghi "Bảo hành 24 tháng" | |
-| 2.2 | Bảo hành gồm driver không? Đổi mới hay sửa chữa? Thời gian xử lý bao lâu? | Trang chính sách: thay chip, nguồn lỗi; không sửa được thì đổi mới hoặc hoàn tiền | |
-| 2.3 | Ai chịu chi phí tháo lắp, vận chuyển khi bảo hành? | Chưa thấy | |
+| 2.1 | Bảo hành 24 tháng áp dụng cho cả Philips, Rạng Đông, Điện Quang không? | Tất cả 113 trang sản phẩm ghi "Bảo hành 24 tháng" | Đã trả lời 21/10 và 26/10/2026: dòng cao cấp HLB phân phối và HALEDCO 2 năm; Rạng Đông, Điện Quang 24 tháng theo hãng; Philips tra theo từng model trên signify.com, không dùng dòng "24 tháng" chung |
+| 2.2 | Bảo hành gồm driver không? Đổi mới hay sửa chữa? Thời gian xử lý bao lâu? | Trang chính sách: thay chip, nguồn lỗi; không sửa được thì đổi mới hoặc hoàn tiền | Một phần (21/10/2026): bảo hành driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Trong 15 ngày đầu, hàng lỗi còn mới 100%, nguyên tem thì đổi mới; sau 15 ngày thì thay linh kiện lỗi. **Còn thiếu:** thời gian xử lý bảo hành |
+| 2.3 | Ai chịu chi phí tháo lắp, vận chuyển khi bảo hành? Hàng lỗi do nhà sản xuất có mất phí 10% không? | Chưa thấy | **Chưa trả lời** |
 | 2.4 | Đổi trả trong bao nhiêu ngày kể từ khi nhận hàng? | Trang chính sách ghi "trong vòng tuần" (thiếu số), mô tả trên Google ghi "1 tuần" | Đổi trả theo nhu cầu trong 15 ngày, khách chịu phí 10% (04/11/2026) |
 | 2.5 | Thời gian giao hàng: nội thành Hà Nội, các tỉnh? Miễn phí giao hàng khi nào? | Chưa thấy cụ thể | Miễn phí khi đơn trên 5 triệu đồng, bán kính 10 km tính từ văn phòng Xuân Đỉnh. Thời gian giao không nêu số ngày (04/11/2026) |
-| 2.6 | Bài viết được nhắc "có chiết khấu theo số lượng, dự án, đại lý" không? | Trang sản phẩm có nhắc chiết khấu theo số lượng | |
+| 2.6 | Bài viết được nhắc "có chiết khấu theo số lượng, dự án, đại lý" không? | Trang sản phẩm có nhắc chiết khấu theo số lượng | Đã trả lời: được nhắc có chiết khấu cho dự án, đại lý, đơn số lượng lớn, mức tùy số lượng, loại sản phẩm, thương hiệu. Không nêu mức cụ thể |
+| 2.7 | Quy tắc đổi mới trong 15 ngày và đổi trả theo nhu cầu (15 ngày, phí 10%) áp cho: chỉ dòng cao cấp, cả đèn HALEDCO, hay cả Philips, Rạng Đông, Điện Quang? | Knowledge mục 1.1 đang ghi dưới tiêu đề "Dòng cao cấp HLB" | **Chưa trả lời** |
 
 ## 3. Dịch vụ
 
