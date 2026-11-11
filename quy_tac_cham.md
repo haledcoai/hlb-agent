@@ -23,7 +23,8 @@ Ai sửa Instructions hoặc Knowledge thì sửa luôn file này nếu quy tắ
 - Bảo hành dòng cao cấp HLB phân phối: 2 năm, linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Đèn HALEDCO: 2 năm. Các hãng khác thường 2 năm (viết chung được), Philips cụ thể theo từng model.
 - Mức lỗi bảo hành (26/10/2026): sai thời hạn là bắt buộc; thêm điều kiện không có trong nguồn là nên sửa.
 - Rạng Đông, Điện Quang: 24 tháng theo chính sách hãng. Philips: theo từng model trên signify.com, **không viết chung 24 tháng**.
-- Đổi trả theo nhu cầu (đổi công suất, model, linh kiện): trong vòng 15 ngày, khách chịu phí 10% giá trị hàng (người dùng xác nhận 04/11/2026). Dòng cao cấp lỗi trong 15 ngày đầu, còn mới, còn tem: đổi mới. Phí khi đổi trả do lỗi sản phẩm, ai chịu phí vận chuyển khi bảo hành: đang chờ xác nhận, bài phải để `[CHỜ XÁC NHẬN]` hoặc không nêu.
+- Đổi trả theo nhu cầu (đổi công suất, model, linh kiện): trong vòng 15 ngày, khách chịu phí 10% giá trị hàng (người dùng xác nhận 04/11/2026). Áp dụng chung mọi thương hiệu (11/11/2026). Lỗi trong 15 ngày đầu, còn mới, còn tem: đổi mới. Hàng lỗi do nhà sản xuất: đổi trả hoàn toàn miễn phí, không tính 10%. Xử lý bảo hành khoảng 10-15 ngày. Giao từ kho Hà Nội.
+- HLB không nhận lắp đặt (11/11/2026): bài nhắc dịch vụ lắp đặt, "HLB lắp đặt", "thi công trọn gói" là lỗi bắt buộc. Được nhắc khảo sát tại công trình và hàng mẫu miễn phí cho dự án.
 - Giao hàng toàn quốc, không nêu số ngày. Miễn phí khi đơn trên 5 triệu đồng trong bán kính 10 km tính từ văn phòng Xuân Đỉnh.
 - Chiết khấu: chỉ nói "có chính sách chiết khấu cho dự án, đại lý, đơn số lượng lớn", không nêu mức.
 - Dịch vụ đã công bố trên trang sản phẩm dòng cao cấp: hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy (câu công bố của trang, không biến thành "nhà máy của HLB"), đặt hàng theo yêu cầu, giao toàn quốc, tính bố trí đèn bằng DIALux khi khách gửi kích thước. Chọn hãng chip, driver chỉ với model có ghi trên trang sản phẩm.

@@ -58,11 +58,11 @@ Trạng thái từng từ khóa và bài: Bảng điều phối HLB (https://cla
 - Chờ trả lời: có viết nội dung cho danh mục con theo hãng (Philips 150W...) không; từ khóa "đèn chống cháy nổ 20w" (không có danh mục) chuyển viết lại bài blog ID 4069?
 - Chạy thử đầu tiên khi người dùng yêu cầu (đề xuất danh mục đèn LED nhà xưởng 150W).
 
-**Chờ người dùng xác nhận (nhóm 2)**
-- Đổi trả do lỗi sản phẩm có mất phí 10% không? Ai chịu phí vận chuyển, tháo lắp khi bảo hành?
+**Bảng hỏi nhóm 1-3**
+- Đã trả lời 11/11/2026: lỗi do nhà sản xuất đổi trả miễn phí; xử lý bảo hành 10-15 ngày; quy tắc 15 ngày và phí 10% áp chung mọi hãng; giao từ kho Hà Nội; hàng mẫu miễn phí cho dự án, có khảo sát công trình, không nhận lắp đặt (không nhắc trong bài).
 - Đã trả lời 04/11/2026: đổi trả theo nhu cầu trong 15 ngày, phí 10%; miễn phí giao hàng tính từ văn phòng Xuân Đỉnh. Điều kiện đổi mới trong 15 ngày đầu của dòng cao cấp đã có ở Knowledge mục 1.1 (xác nhận 21/10/2026).
 
-**Chưa trả lời:** nhóm 3 (dịch vụ) đến nhóm 8 (người duyệt, ảnh) trong file 3.
+**Chưa trả lời:** DIALux có miễn phí không, 3.5, 3.6, nhóm 4 đến nhóm 8 (người duyệt, ảnh) trong file 3.
 
 **Placeholder còn trong bài 8514** (5 chỗ, kiểm tra 22/10/2026)
 - `[CẦN KIỂM TRA]` Đối chiếu bảng độ rọi với TCVN 7114-1:2008, kèm `[LINK]` trang tra cứu (Agent tự làm). 26/10/2026: mã và tên TCVN 7114-1:2008 đã tra nguồn (có trong `tieu_chuan_da_kiem.csv`, link bản PDF thư viện Rạng Đông); giá trị lux trong bảng chưa đối chiếu vì mạng cloud chặn trang văn bản, lần sửa bài tới đọc bản PDF bằng WebFetch.
