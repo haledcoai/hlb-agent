@@ -60,14 +60,14 @@ Trạng thái từng từ khóa và bài: Bảng điều phối HLB (https://cla
 
 **Bảng hỏi nhóm 1-3**
 - Đã trả lời 11/11/2026: lỗi do nhà sản xuất đổi trả miễn phí; xử lý bảo hành 10-15 ngày; quy tắc 15 ngày và phí 10% áp chung mọi hãng; giao từ kho Hà Nội; hàng mẫu miễn phí cho dự án, có khảo sát công trình, không nhận lắp đặt (không nhắc trong bài).
-- Đã trả lời 04/11/2026: đổi trả theo nhu cầu trong 15 ngày, phí 10%; miễn phí giao hàng tính từ văn phòng Xuân Đỉnh. Điều kiện đổi mới trong 15 ngày đầu của dòng cao cấp đã có ở Knowledge mục 1.1 (xác nhận 21/10/2026).
+- Đã trả lời 04/11/2026: đổi trả theo nhu cầu trong 15 ngày, phí 10%; miễn phí giao hàng tính từ văn phòng Xuân Đỉnh. Điều kiện đổi mới trong 15 ngày đầu đã có ở Knowledge mục 1.1 (xác nhận 21/10/2026).
 
 **Chưa trả lời:** DIALux có miễn phí không, 3.5, 3.6, nhóm 4 đến nhóm 8 (người duyệt, ảnh) trong file 3.
 
 **Placeholder còn trong bài 8514** (5 chỗ, kiểm tra 22/10/2026)
 - `[CẦN KIỂM TRA]` Đối chiếu bảng độ rọi với TCVN 7114-1:2008, kèm `[LINK]` trang tra cứu (Agent tự làm). 26/10/2026: mã và tên TCVN 7114-1:2008 đã tra nguồn (có trong `tieu_chuan_da_kiem.csv`, link bản PDF thư viện Rạng Đông); giá trị lux trong bảng chưa đối chiếu vì mạng cloud chặn trang văn bản, lần sửa bài tới đọc bản PDF bằng WebFetch.
 - `[CẦN KIỂM TRA]` Website có bán đèn dạng dài không.
-- `[CẦN BỔ SUNG]` Phần xưởng bụi: dòng cao cấp chưa có model từ IP65; có gợi ý đèn IP65/IP66 của hãng khác đang bán (Philips BY239P, BPLCE-200, BPLCE-250, Rạng Đông BD HB03L 390/250W) hay để trung lập.
+- `[CẦN BỔ SUNG]` Phần xưởng bụi: dòng BUFO, B-series chưa có model từ IP65; có gợi ý đèn IP65/IP66 của hãng khác đang bán (Philips BY239P, BPLCE-200, BPLCE-250, Rạng Đông BD HB03L 390/250W) hay để trung lập.
 - `[CẦN BỔ SUNG]` Dải nhiệt độ làm việc của dòng BUFO (trang BUFO4-150 không ghi).
 - Đã giải: tùy chọn hãng chip, driver của BUFO4-150 (trang sản phẩm mục 1.1, 1.2 có ghi).
 
@@ -99,7 +99,7 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 
 ## 6. Phát hiện trên website cần người dùng xử lý
 
-- ~~47 model dòng cao cấp có bảng thông số trống~~: sai do cách đọc cũ (26/10/2026). Các trang này ghi nhãn khác ("Quang thông" thay vì "Quang thông (lm)"), `lam_moi_csv.py` đọc được đủ thông số cả 113 model.
+- ~~47 model dòng B-series có bảng thông số trống~~: sai do cách đọc cũ (26/10/2026). Các trang này ghi nhãn khác ("Quang thông" thay vì "Quang thông (lm)"), `lam_moi_csv.py` đọc được đủ thông số cả 113 model.
 - BUFO1-200, BUFO3-200 ghi IP40, các model BUFO khác ghi IP54.
 - 4 model 150W của hãng khác cùng ghi 16.500 lm, PF 0,9, Ra 80, có thể dùng chung mẫu bảng.
 - Tất cả sản phẩm Philips ghi "Bảo hành 24 tháng", trong khi Philips bảo hành theo từng model.

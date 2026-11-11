@@ -27,7 +27,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 **Được dùng ngay:**
 - Tên: Đèn LED Nhà Xưởng HLB (gọi tắt HLB), website denlednhaxuongcaocap.com.
 - Pháp nhân: trực thuộc Công ty TNHH Công nghệ và Xúc tiến Thương mại HALEDCO.
-- **Vai trò (người dùng chốt 23/10/2026, thay bản 21/10):** **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** **HALEDCO là đơn vị sản xuất và phân phối đèn LED** (người dùng nhắc lại 26/10/2026), và là một trong các thương hiệu HLB phân phối. Viết "đèn HALEDCO", "đèn do HALEDCO sản xuất" cho sản phẩm thương hiệu HALEDCO là đúng. Người sản xuất là HALEDCO, không phải HLB: không viết "HLB sản xuất", "HLB lắp ráp", "nhà máy của chúng tôi". Dòng cao cấp gọi là "dòng đèn cao cấp HLB phân phối", dòng này gồm đèn của nhiều thương hiệu, không gán cho riêng một hãng sản xuất (người dùng chốt 26/10/2026).
+- **Vai trò (người dùng chốt 23/10/2026, thay bản 21/10):** **HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang.** **HALEDCO là đơn vị sản xuất và phân phối đèn LED** (người dùng nhắc lại 26/10/2026), và là một trong các thương hiệu HLB phân phối. Viết "đèn HALEDCO", "đèn do HALEDCO sản xuất" cho sản phẩm thương hiệu HALEDCO là đúng. Người sản xuất là HALEDCO, không phải HLB: không viết "HLB sản xuất", "HLB lắp ráp", "nhà máy của chúng tôi". Không dùng khái niệm "dòng cao cấp", "dòng đèn cao cấp HLB" (người dùng chốt 11/11/2026). Website ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp" cho 85 model BUFO1-4, B1-B11, B8 DX: đây không phải tên thương hiệu, không chép vào bài. Các model này của nhiều hãng: gọi theo tên dòng (BUFO, B-series, B8 DX) và không gán hãng sản xuất.
 - Văn phòng: Tầng 21 Chung cư C2 Xuân Đỉnh, P. Xuân Đỉnh, Hà Nội. Trụ sở chính: Số 42 Phùng Hưng, Phường Sơn Tây, Thành phố Hà Nội. Bán hàng và giao hàng toàn quốc, hàng vận chuyển trực tiếp từ kho Hà Nội (người dùng xác nhận 11/11/2026; không viết có kho hoặc văn phòng phía Nam).
 - **Liên hệ (người dùng xác nhận 21/10/2026):**
   - Hotline bán hàng, ưu tiên dùng trong bài và CTA: 0967569588 (có Zalo cùng số).
@@ -35,7 +35,7 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
   - Email: denlednhaxuongcaocap@gmail.com.
 - **Mốc thời gian (người dùng xác nhận 21/10/2026):** HALEDCO sản xuất đèn LED từ năm 2011; HLB phân phối đèn LED nhà xưởng từ năm 2018. Luôn gắn mỗi mốc với đúng chủ thể. Không viết "HLB có kinh nghiệm từ 2011" hay cộng gộp số năm. Không tự tính "X năm kinh nghiệm" vì con số đổi theo năm, ghi năm bắt đầu.
 - **Bảo hành (người dùng xác nhận 21/10/2026):**
-  - Dòng cao cấp HLB phân phối: 2 năm, bảo hành linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
+  - Dòng BUFO, B-series, B8 DX: 2 năm, bảo hành linh kiện driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành.
   - Đèn thương hiệu HALEDCO: 2 năm (người dùng xác nhận 26/10/2026).
   - Các hãng khác thường bảo hành 2 năm (người dùng 26/10/2026). Chi tiết theo chính sách của từng hãng, xem mục 1.1: Rạng Đông, Điện Quang 24 tháng; Philips theo từng model. Viết chung "các hãng thường bảo hành 2 năm" được, nhưng không gán 24 tháng cho một model Philips khi chưa tra.
   - Mức lỗi khi chấm (26/10/2026): sai thời hạn bảo hành là lỗi bắt buộc; thêm điều kiện không có trong nguồn (ví dụ "do nhà sản xuất") là nên sửa.
@@ -44,8 +44,8 @@ Khi file này và Instructions khác nhau, làm theo Instructions. Khi file này
 - **Đổi trả và giao hàng:** xem mục 1.1.
 - **Chiết khấu:** được nhắc "có chính sách chiết khấu cho dự án, đại lý và đơn số lượng lớn, mức chiết khấu tùy số lượng, loại sản phẩm và thương hiệu". Không nêu mức cụ thể.
 - **Dịch vụ (người dùng xác nhận 11/11/2026):** gửi hàng mẫu miễn phí cho dự án; có khảo sát tại công trình. HLB **không nhận lắp đặt**: bài chỉ nói khảo sát công trình và bán đèn, không nhắc dịch vụ lắp đặt, không viết "HLB lắp đặt", "thi công trọn gói". Hướng dẫn kỹ thuật lắp đặt cho khách tự làm vẫn viết được.
-- Dịch vụ công bố trên trang sản phẩm dòng cao cấp: cung cấp hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy, đặt hàng theo yêu cầu, giao hàng toàn quốc, tính toán bố trí đèn bằng phần mềm DIALux khi khách gửi kích thước nhà xưởng và độ rọi yêu cầu.
-- Dòng cao cấp (theo trang sản phẩm BUFO4-50): khách có thể chọn hãng chip LED và hãng driver theo dự án. Chỉ áp dụng cho model nào có ghi trên trang sản phẩm của model đó.
+- Dịch vụ công bố trên trang sản phẩm dòng BUFO, B-series: cung cấp hàng mẫu miễn phí cho dự án, kiểm định chất lượng tại nhà máy, đặt hàng theo yêu cầu, giao hàng toàn quốc, tính toán bố trí đèn bằng phần mềm DIALux khi khách gửi kích thước nhà xưởng và độ rọi yêu cầu.
+- Dòng BUFO, B-series (theo trang sản phẩm BUFO4-50): khách có thể chọn hãng chip LED và hãng driver theo dự án. Chỉ áp dụng cho model nào có ghi trên trang sản phẩm của model đó.
 
 ### 1.1 Bảo hành, đổi trả, giao hàng
 
@@ -118,7 +118,7 @@ Các mức 80W, 180W, 240W, 300W chưa thấy danh mục con trên menu. Chỉ d
 
 Dùng để biết website có gì. Thông số và giá phải mở trang sản phẩm để lấy, không dùng bảng này thay trang sản phẩm.
 
-| Công suất | Dòng cao cấp HLB | Philips | Rạng Đông | Điện Quang |
+| Công suất | BUFO, B-series | Philips | Rạng Đông | Điện Quang |
 |---|---|---|---|---|
 | 50W | BUFO4-50, BUFO3-50 | BNX-50 | BD HB02L 350/50W | BĐQ LEDBU10-50 |
 | 100W | | BNX-100 | BD HB03L 230/100W, BD HB03L 290/100W, BD HB02L 430/100W, BD HB01L 500/100W | |
@@ -354,7 +354,7 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 
 ### 8.5 Bài toplist, bài so sánh, bài báo giá
 
-**Bài so sánh thương hiệu đang bán (Philips, Rạng Đông, Điện Quang, dòng cao cấp HLB):**
+**Bài so sánh thương hiệu đang bán (Philips, Rạng Đông, Điện Quang, các dòng BUFO, B-series):**
 - Được dùng bảng đặt thông số và giá cạnh nhau, tối đa 5 cột, cột đầu là tiêu chí hoặc tên model.
 - So sánh cùng mức công suất, cùng loại đèn. Ghi nguồn (URL trang sản phẩm) và ngày kiểm tra ở phần C.
 - Mỗi hãng nêu cả điểm mạnh và giới hạn theo số liệu, không dùng từ cảm tính ("kém", "yếu", "đắt vô lý").
@@ -364,12 +364,12 @@ Không dùng em dash, en dash cho khoảng giá trị. Chỉ dùng hyphen (-).
 **Bài toplist (ví dụ "top đèn LED nhà xưởng 150W"):**
 - Mỗi mục cùng cấu trúc: thông số chính, giá tham khảo, phù hợp với loại nhà xưởng nào, lưu ý khi chọn.
 - Không chấm điểm, không xếp hạng kiểu "tốt nhất", "đứng đầu". Số thứ tự chỉ để đánh mục, nói rõ trong bài nếu cần.
-- Vị trí dòng cao cấp HLB trong danh sách: hỏi người dùng ở Bước 2.
+- Vị trí các dòng BUFO, B-series trong danh sách: hỏi người dùng ở Bước 2.
 - Phần cuối hướng dẫn cách chọn theo nhu cầu, không kết luận hãng nào hơn.
 
 **Bài báo giá:**
 - Giá lấy từ trang sản phẩm trên website, ghi ngày kiểm tra ngay trong bài ("giá tham khảo tháng 10/2026").
-- Nói rõ giá thay đổi theo số lượng, thời điểm và cấu hình (hãng chip, hãng driver với dòng cao cấp).
+- Nói rõ giá thay đổi theo số lượng, thời điểm và cấu hình (hãng chip, hãng driver với model có ghi tùy chọn này).
 - Bảng giá nhóm theo công suất hoặc thương hiệu, tối đa 5 cột.
 
 **Bài so sánh công nghệ:** LED và đèn cao áp, chip COB và chip SMD, UFO và highbay chuông. Nêu công bằng ưu và nhược của từng phương án, kể cả phương án website không bán.

@@ -17,19 +17,19 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 | 1.3 | Có Zalo hoặc email khác ngoài denlednhaxuongcaocap@gmail.com không? | | Đã trả lời 21/10/2026: Zalo cùng số 0967569588; email chỉ dùng denlednhaxuongcaocap@gmail.com |
 | 1.4 | HLB thành lập năm nào? Được nêu số năm kinh nghiệm không? | Chưa thấy | Đã trả lời 21/10/2026: HALEDCO sản xuất từ 2011, HLB phân phối đèn nhà xưởng từ 2018. Ghi năm bắt đầu, không tự tính số năm kinh nghiệm |
 | 1.5 | Khu vực phục vụ chính (miền Bắc, toàn quốc)? Có kho hoặc văn phòng phía Nam không? | Trang sản phẩm ghi "Giao hàng toàn quốc" | Một phần: giao hàng toàn quốc; văn phòng Tầng 21 C2 Xuân Đỉnh, trụ sở 42 Phùng Hưng, Sơn Tây, Hà Nội. 11/11/2026: không có kho phía Nam, hàng vận chuyển trực tiếp từ kho Hà Nội |
-| 1.6 | Trong bài, dòng "cao cấp" được viết là HLB **sản xuất**, HALEDCO sản xuất, hay HLB **phân phối**? | Trang sản phẩm ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp", "Xuất xứ: Việt Nam" | Chốt 23/10/2026: HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không gán hãng sản xuất cho dòng cao cấp. 26/10/2026: HALEDCO là đơn vị sản xuất và phân phối; dòng cao cấp gồm đèn nhiều thương hiệu, không gán cho riêng một hãng. |
+| 1.6 | Trong bài, dòng "cao cấp" được viết là HLB **sản xuất**, HALEDCO sản xuất, hay HLB **phân phối**? | Trang sản phẩm ghi "Hãng sản xuất: Đèn led nhà xưởng cao cấp", "Xuất xứ: Việt Nam" | Chốt 23/10/2026: HLB phân phối đèn LED của nhiều thương hiệu, gồm HALEDCO, Philips, Rạng Đông, Điện Quang. Không gán hãng sản xuất cho dòng cao cấp. 26/10/2026: HALEDCO là đơn vị sản xuất và phân phối. **11/11/2026: bỏ khái niệm "dòng cao cấp"**; BUFO, B-series, B8 DX là đèn nhiều hãng, gọi theo tên dòng, không gán hãng. |
 
 ## 2. Chính sách
 
 | # | Câu hỏi | Agent thấy trên website | Trả lời |
 |---|---|---|---|
-| 2.1 | Bảo hành 24 tháng áp dụng cho cả Philips, Rạng Đông, Điện Quang không? | Tất cả 113 trang sản phẩm ghi "Bảo hành 24 tháng" | Đã trả lời 21/10 và 26/10/2026: dòng cao cấp HLB phân phối và HALEDCO 2 năm; Rạng Đông, Điện Quang 24 tháng theo hãng; Philips tra theo từng model trên signify.com, không dùng dòng "24 tháng" chung |
+| 2.1 | Bảo hành 24 tháng áp dụng cho cả Philips, Rạng Đông, Điện Quang không? | Tất cả 113 trang sản phẩm ghi "Bảo hành 24 tháng" | Đã trả lời 21/10 và 26/10/2026: dòng BUFO, B-series, B8 DX và HALEDCO 2 năm; Rạng Đông, Điện Quang 24 tháng theo hãng; Philips tra theo từng model trên signify.com, không dùng dòng "24 tháng" chung |
 | 2.2 | Bảo hành gồm driver không? Đổi mới hay sửa chữa? Thời gian xử lý bao lâu? | Trang chính sách: thay chip, nguồn lỗi; không sửa được thì đổi mới hoặc hoàn tiền | Một phần (21/10/2026): bảo hành driver (bộ nguồn) và chip LED, cần giấy tờ bảo hành. Trong 15 ngày đầu, hàng lỗi còn mới 100%, nguyên tem thì đổi mới; sau 15 ngày thì thay linh kiện lỗi. 11/11/2026: thời gian xử lý bảo hành khoảng 10-15 ngày |
 | 2.3 | Ai chịu chi phí tháo lắp, vận chuyển khi bảo hành? Hàng lỗi do nhà sản xuất có mất phí 10% không? | Chưa thấy | 11/11/2026: hàng lỗi do nhà sản xuất được đổi trả hoàn toàn miễn phí, không tính phí 10% |
 | 2.4 | Đổi trả trong bao nhiêu ngày kể từ khi nhận hàng? | Trang chính sách ghi "trong vòng tuần" (thiếu số), mô tả trên Google ghi "1 tuần" | Đổi trả theo nhu cầu trong 15 ngày, khách chịu phí 10% (04/11/2026) |
 | 2.5 | Thời gian giao hàng: nội thành Hà Nội, các tỉnh? Miễn phí giao hàng khi nào? | Chưa thấy cụ thể | Miễn phí khi đơn trên 5 triệu đồng, bán kính 10 km tính từ văn phòng Xuân Đỉnh. Thời gian giao không nêu số ngày (04/11/2026) |
 | 2.6 | Bài viết được nhắc "có chiết khấu theo số lượng, dự án, đại lý" không? | Trang sản phẩm có nhắc chiết khấu theo số lượng | Đã trả lời: được nhắc có chiết khấu cho dự án, đại lý, đơn số lượng lớn, mức tùy số lượng, loại sản phẩm, thương hiệu. Không nêu mức cụ thể |
-| 2.7 | Quy tắc đổi mới trong 15 ngày và đổi trả theo nhu cầu (15 ngày, phí 10%) áp cho: chỉ dòng cao cấp, cả đèn HALEDCO, hay cả Philips, Rạng Đông, Điện Quang? | Knowledge mục 1.1 đang ghi dưới tiêu đề "Dòng cao cấp HLB" | 11/11/2026: áp dụng chung cho mọi thương hiệu |
+| 2.7 | Quy tắc đổi mới trong 15 ngày và đổi trả theo nhu cầu (15 ngày, phí 10%) áp cho: chỉ dòng BUFO, B-series, cả đèn HALEDCO, hay cả Philips, Rạng Đông, Điện Quang? | Knowledge mục 1.1 đang ghi dưới tiêu đề "Dòng cao cấp HLB" | 11/11/2026: áp dụng chung cho mọi thương hiệu |
 
 ## 3. Dịch vụ
 
@@ -42,7 +42,7 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 | 3.5 | "Kiểm định chất lượng tại nhà máy" nghĩa là khách đến xem nhà máy được, hay HLB kiểm tra trước khi giao? | Trang sản phẩm có ghi dòng này | |
 | 3.6 | "Đặt hàng theo yêu cầu" gồm những gì: đổi công suất, nhiệt độ màu, góc chiếu, IP, logo? Số lượng tối thiểu? | Trang sản phẩm có ghi dòng này | |
 
-## 4. Dòng đèn cao cấp HLB
+## 4. Dòng BUFO, B-series, B8 DX (website ghi hãng "Đèn led nhà xưởng cao cấp")
 
 ### 4.1 Tổng hợp Agent đọc được từ 113 trang sản phẩm (21/10/2026)
 
@@ -58,7 +58,7 @@ Các thông tin dưới đây được chọn vì ít thay đổi và lặp lạ
 
 Danh sách đầy đủ từng model: file `du_lieu_san_pham_HLB_*.csv` mới nhất (26/10/2026: các model này thật ra có thông số, cách đọc cũ bỏ sót)
 
-### 4.2 Câu hỏi về dòng cao cấp
+### 4.2 Câu hỏi về dòng BUFO, B-series
 
 | # | Câu hỏi | Trả lời |
 |---|---|---|
@@ -91,7 +91,7 @@ Ghi chú: bảng 6 cột vì đây là bảng hỏi nội bộ, không đưa và
 
 | # | Câu hỏi | Agent thấy trên website | Trả lời |
 |---|---|---|---|
-| 5.1 | CE, RoHS của dòng cao cấp do đơn vị nào cấp? Có file để khách xem không? | Trang sản phẩm ghi "CE, RoHS" | |
+| 5.1 | CE, RoHS của dòng BUFO, B-series do đơn vị nào cấp? Có file để khách xem không? | Trang sản phẩm ghi "CE, RoHS" | |
 | 5.2 | ISO 9001:2015 là chứng nhận của HLB, HALEDCO hay nhà máy? | Trang BUFO4-50 ghi chung với TCVN 7722-1:2009 | |
 | 5.3 | Đèn đã thử nghiệm theo TCVN 7722-1:2009 (IEC 60598-1) chưa? Ở đâu? | Trang BUFO4-50 có nhắc | |
 | 5.4 | Có báo cáo đo quang thông thực tế, file IES cho DIALux không? | Chưa thấy | |
@@ -104,7 +104,7 @@ Ghi chú: bảng 6 cột vì đây là bảng hỏi nội bộ, không đưa và
 |---|---|---|
 | 6.1 | HLB là đại lý, nhà phân phối chính thức của Philips, Rạng Đông, Điện Quang không? Có CO, CQ khi giao hàng không? | |
 | 6.2 | Website còn bán Điện Quang ở các mức ngoài 50W không? (danh mục Điện Quang 150W đang trống) | |
-| 6.3 | Trong bài toplist hoặc so sánh, dòng cao cấp HLB đặt ở vị trí nào? | |
+| 6.3 | Trong bài toplist hoặc so sánh, các dòng BUFO, B-series đặt ở vị trí nào? | |
 
 Thông số các hãng có điểm bất thường, ví dụ 4 model 150W cùng ghi 16.500 lm, PF 0,9, Ra 80, hay Điện Quang LEDBU10-50 ghi PF 0,5. Agent sẽ tự đối chiếu với website chính thức của từng hãng rồi báo bạn danh sách cần sửa, bạn không cần điền phần này.
 

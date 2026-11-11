@@ -40,7 +40,7 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 | D3 | Giá lấy ở khối đầu trang của chính sản phẩm, ghi "giá tham khảo tại thời điểm [ngày]", nhắc giá đổi theo số lượng và thời điểm, không nêu % giảm giá. Hãng khác: khoảng giá thị trường có nguồn (4) | Sai giá BB, thiếu ngày hoặc thiếu câu lưu ý NS |
 | D4 | Tính lại mọi phép tính bằng Python. Đủ giả định; UF, MF khoảng 0,8 (xưởng bụi MF thấp hơn) hoặc nêu lý do dùng số khác; số đèn làm tròn lên; có lưu ý cần mô phỏng DIALux theo mặt bằng thật (4) | Tính sai BB, thiếu giả định hoặc lưu ý NS |
 | D5 | Mã tiêu chuẩn có trong `tieu_chuan_da_kiem.csv` hoặc có nguồn, hoặc `[CẦN KIỂM TRA]`. Giá trị cụ thể (mức lux) đúng văn bản. Không dùng bản đã bị thay thế (4) | Sai giá trị (đã mở nguồn) BB, bản cũ NS |
-| D6 | Bảo hành: HALEDCO và dòng cao cấp HLB phân phối 2 năm; hãng khác thường 2 năm; Philips theo từng model, không viết chung 24 tháng (2) | Sai thời hạn BB, thêm điều kiện ngoài nguồn NS |
+| D6 | Bảo hành: HALEDCO và dòng BUFO, B-series, B8 DX 2 năm; hãng khác thường 2 năm; Philips theo từng model, không viết chung 24 tháng (2) | Sai thời hạn BB, thêm điều kiện ngoài nguồn NS |
 | D7 | Chính sách, dịch vụ chỉ dùng những gì được phép (2). Điểm đang chờ xác nhận để `[CHỜ XÁC NHẬN]` hoặc không nêu | BB |
 | D8 | Không có câu cấm chép từ website (3) | BB |
 | D9 | Không bịa dự án, khách hàng, chứng nhận, số liệu thị trường. Kiến thức chung (IP, Ra, PF, tuổi thọ, góc chiếu) viết đúng (4) | BB |
@@ -59,7 +59,7 @@ Checklist không đặt quy tắc mới. Mỗi mục là một quy tắc đã c�
 
 | Mã | Kiểm tra | Mức |
 |---|---|---|
-| T1 | HLB phân phối đèn LED của nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang). Không "HLB sản xuất", "HLB lắp ráp", "nhà máy của chúng tôi". "Đèn do HALEDCO sản xuất" là đúng. Dòng cao cấp không gán cho riêng một hãng (2) | BB |
+| T1 | HLB phân phối đèn LED của nhiều thương hiệu (HALEDCO, Philips, Rạng Đông, Điện Quang). Không "HLB sản xuất", "HLB lắp ráp", "nhà máy của chúng tôi". "Đèn do HALEDCO sản xuất" là đúng. Không dùng "dòng cao cấp"; BUFO, B-series, B8 DX gọi theo tên dòng, không gán hãng (2) | BB |
 | T2 | Mốc 2011 gắn HALEDCO, 2018 gắn HLB; không cộng gộp, không tự tính "X năm kinh nghiệm" (2) | BB |
 | T3 | Chỉ dùng hotline 0967569588, 02437 918 122 và email denlednhaxuongcaocap@gmail.com, đúng chỗ dùng (2) | BB |
 | T4 | So sánh hãng: cùng công suất, cùng loại đèn, cùng tiêu chí, có nguồn; ô thiếu ghi "không công bố"; nêu cả giới hạn của HLB; kết "Chọn A khi..., chọn B khi..."; không hãng thắng chung cuộc, không nói xấu (5) | BB |

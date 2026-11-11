@@ -25,7 +25,7 @@ Khi không có script, rà tay đủ các mục dưới đây.
 - Có từ tuyệt đối: 100%, duy nhất, số 1, hoàn hảo, tốt nhất, rẻ nhất, hot nhất, hàng đầu, vượt trội, siêu sáng, đứng đầu.
 - Có cụm văn mẫu kiểu AI (Knowledge 8.4), ví dụ: "trong bài viết này", "ngày nay" đầu câu, "đóng vai trò quan trọng", "giải pháp tối ưu", "khám phá", "bí quyết", "tóm lại", "hy vọng bài viết", "đừng ngần ngại".
 - Có câu quảng cáo chưa kiểm chứng (Knowledge mục 5): tiết kiệm 70% điện, làm mát 30%, không chiếu sáng quá 10 tiếng, đổi trả "trong vòng tuần", Graphene/TCPlus khi không ghi "theo công bố".
-- Sai vai trò thương hiệu: "HLB sản xuất", "HLB lắp ráp", "HLB là nhà sản xuất", "nhà máy, xưởng của chúng tôi", "chúng tôi sản xuất, lắp ráp", "dòng cao cấp do HALEDCO sản xuất", gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
+- Sai vai trò thương hiệu: "HLB sản xuất", "HLB lắp ráp", "HLB là nhà sản xuất", "nhà máy, xưởng của chúng tôi", "chúng tôi sản xuất, lắp ráp", "dòng cao cấp" (mọi cách viết, 11/11/2026), gắn mốc 2011 cho HLB, tự tính "X năm kinh nghiệm", nhắc hoặc link haledco.com.
 - Số điện thoại ngoài 2 hotline đã xác nhận: 0967569588 và 02437 918 122.
 - Link tới haledco.com, website hãng đèn (philips, signify, rangdong, dienquang) hoặc cửa hàng (shopee, lazada, tiki, sendo). Anchor kiểu "tại đây", "xem thêm". Một URL link 2 lần. Hai URL khác nhau dùng chung anchor.
 - Link nội bộ (không tính trang Liên hệ ở CTA) ngoài khoảng 3-5. Link về trang danh mục ngoài khoảng 1-3. Link ngoài quá 3.
