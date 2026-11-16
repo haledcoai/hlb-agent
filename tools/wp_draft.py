@@ -268,7 +268,7 @@ def insert_images(content, images, src_of, preview=False):
 
 def split_images(images, body_lines):
     """Tach anh dung duoc va cac cho [ANH] con thieu (khong co anh, chua duoc duyet tren trang Duyet anh HLB,
-    hoac anh sai chuan JPG 800-850 x 400-800)."""
+    hoac anh sai chuan JPG 800-850 x 400-800, toi da 200 KB)."""
     sys.path.insert(0, os.path.join(ROOT, "tools"))
     from tao_anh import loi_chuan
     valid, missing = {}, []

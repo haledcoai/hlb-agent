@@ -30,7 +30,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | quy_trinh/ | Quy trình đọc khi cần (04/11/2026): `chay_tren_may.md` (cài đặt máy Windows), `nhat_ky_cham_va_bang.md` (nhật ký chấm, cập nhật bảng, hook, lệnh cho agent đánh giá), `anh.md` (ảnh, trang duyệt ảnh), `dang_ban_nhap.md` (thủ tục đăng nháp) |
 | tools/phieu_duyet.py | Ghi và kiểm tra phiếu duyệt (`.danh_gia/<bài>.json`, kèm mã kiểm tra nội dung). Kiêm các hook: chặn `wp_draft.py --post` khi chưa có phiếu ĐẠT; chỉ agent đánh giá được chạy `ghi`; đánh dấu đang chấm khi gọi agent đánh giá; ghi nhận bài vừa sửa; không cho kết thúc lượt khi bài vừa sửa chưa được chấm lại (trừ khi đang có lượt chấm) |
 | .claude/agents/tao-anh.md | Sub agent chuẩn bị ảnh: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Không sửa bài, không tải lên website |
-| tools/tao_anh.py | Liệt kê chỗ [ẢNH], gợi ý nguồn ảnh (`phan-loai`, đối chiếu CSV), lấy ảnh sản phẩm thật, chuẩn hóa JPG 820 px (rộng 800-850, cao 400-800), ghi trạng thái duyệt, ghi danh sách `anh/<bài>/anh.json` (ảnh Canva lưu cả prompt), kiểm tra đủ ảnh, tên ảnh không trùng slug, alt (cần Pillow, matplotlib) |
+| tools/tao_anh.py | Liệt kê chỗ [ẢNH], gợi ý nguồn ảnh (`phan-loai`, đối chiếu CSV), lấy ảnh sản phẩm thật, chuẩn hóa JPG 820 px (rộng 800-850, cao 400-800, tối đa 200 KB), ghi trạng thái duyệt, ghi danh sách `anh/<bài>/anh.json` (ảnh Canva lưu cả prompt), kiểm tra đủ ảnh, tên ảnh không trùng slug, alt (cần Pillow, matplotlib) |
 | tools/mau_anh.py | Thư viện 6 mẫu sơ đồ dùng chung: lưới bố trí, bảng IP, bảng so sánh, biểu đồ cột, mặt cắt chiều cao treo và góc chiếu, các bước. Tự kiểm tra chữ trên hình (đè, tràn, dưới 13 px, em dash) trước khi lưu |
 | anh/_prompt_canva.md | 6 prompt Canva mẫu cho cảnh nhà xưởng, cách sửa prompt khi ảnh bị trả về, cách tạo và xuất ảnh Canva (agent chỉ đọc khi dùng Canva) |
 | tools/tao_anh.py thu-vien, dung-lai | Thư viện ảnh đã duyệt và đã tải lên website ở mọi bài: tìm theo từ khóa, dùng lại media có sẵn cho bài mới, không tạo mới, không tải lại (24/10/2026) |
@@ -82,7 +82,7 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 ```
 
 **Ảnh bài 8514 (đã tải lên website 21/10/2026, Media 8518-8520, có alt, tiêu đề, mô tả):**
-- Chuẩn ảnh (chốt 21/10/2026): JPG, rộng 800-850 px, cao 400-800 px, tên file như gợi ý trong bài, nội dung khớp đoạn văn. Agent `tao-anh` tự chạy sau khi bài ĐẠT.
+- Chuẩn ảnh (chốt 21/10/2026, dung lượng chốt 16/11/2026): JPG, rộng 800-850 px, cao 400-800 px, tối đa 200 KB, tên file như gợi ý trong bài, nội dung khớp đoạn văn. Agent `tao-anh` tự chạy sau khi bài ĐẠT.
 - 2 sơ đồ vẽ bằng Python (cấp bảo vệ IP 820 x 510, lưới 5 x 8 đèn 820 x 620): xong, JPG.
 - Ảnh toàn cảnh nhà xưởng (ảnh đại diện): tạo bằng Canva (media `MAHYng0gjEU`), xuất bản đầy đủ 1680 x 944 qua thiết kế Canva `DAHYnysKTTQ` trang 2, chuẩn hóa còn 820 x 461. Là ảnh minh họa AI, không phải công trình thật.
 - Ảnh thiếu: agent tự tạo (kể cả ảnh minh họa thay ảnh công trình, có ghi chú). Vẫn thiếu thì `wp_draft.py` đăng với ảnh có sẵn, liệt kê ảnh thiếu trong ghi chú biên tập.
@@ -124,3 +124,4 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 - **Danh mục chưa có trên website:** 27/10/2026 dừng chờ người dùng tạo danh mục. Từ 05/11/2026 (người dùng trả lời trên bảng "Đưa bài nháp lên trang") Agent Danh mục vẫn viết với danh mục đề xuất (`danh_muc.py de-xuat`) và đưa lên Trang nháp; chỉ `ap-dung` chờ người dùng tạo danh mục.
 - **Tắt lượt dự phòng 8:04 (09/11/2026, người dùng chốt):** Agent tạm không cần điều phối tự động. Lịch `trig_015wH6yUw1ZwT6sW57KQANC2` tắt, giữ lại để người dùng bật lại khi cần.
 - **Ô Nạp từ khóa (10/11/2026, người dùng chốt):** trước đó bảng ghi "mỗi dòng là một bài", sai với quy ước. Đúng là một nhóm từ khóa là một bài SEO: mỗi dòng một từ khóa, dòng đầu là từ khóa chính, các dòng sau là phụ, liên quan. Nhiều bài một lần thì cách nhóm bằng dòng trống; `#ID` (viết lại bài cũ) và link danh mục ghi ở dòng đầu của nhóm.
+- **Dung lượng ảnh (16/11/2026, người dùng chốt):** tối đa 200 KB thay cho 300 KB; kích thước giữ rộng 800-850 px, cao 400-800 px. `tao_anh.py chuan-hoa` nén dần tới chất lượng 40, vẫn quá thì báo lỗi; `kiem` và `wp_draft.py` xem ảnh quá 200 KB là sai chuẩn.

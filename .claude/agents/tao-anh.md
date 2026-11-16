@@ -1,6 +1,6 @@
 ---
 name: tao-anh
-description: 'Chuẩn bị ảnh cho một bài blog HLB (file Bai_*.md có các chỗ [ẢNH: nội dung | alt: ... | tên file: ...]). Tự tạo ảnh hợp với ngữ cảnh đoạn văn: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Ảnh JPG rộng 800-850 px, cao 400-800 px, tên file đúng như bài gợi ý. Gọi tự động sau khi agent danh-gia-noi-dung cho bài ĐẠT, hoặc khi người dùng yêu cầu "tạo ảnh", "làm ảnh cho bài". Truyền đường dẫn file bài và các ảnh người dùng đã cung cấp (nếu có). Agent không sửa file bài và không tải gì lên website.'
+description: 'Chuẩn bị ảnh cho một bài blog HLB (file Bai_*.md có các chỗ [ẢNH: nội dung | alt: ... | tên file: ...]). Tự tạo ảnh hợp với ngữ cảnh đoạn văn: ảnh sản phẩm lấy ảnh thật trên website, sơ đồ và bảng vẽ bằng Python, ảnh minh họa không gian tạo bằng Canva. Ảnh JPG rộng 800-850 px, cao 400-800 px, tối đa 200 KB, tên file đúng như bài gợi ý. Gọi tự động sau khi agent danh-gia-noi-dung cho bài ĐẠT, hoặc khi người dùng yêu cầu "tạo ảnh", "làm ảnh cho bài". Truyền đường dẫn file bài và các ảnh người dùng đã cung cấp (nếu có). Agent không sửa file bài và không tải gì lên website.'
 tools: Read, Grep, Glob, Write, PowerShell, Bash, WebFetch, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__generate-image, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-generate-image-job, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-assets, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__create-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__get-create-design-async-job, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__read-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__edit-design, mcp__b0cec744-deca-45ab-aaaf-6ef02b0edbf1__export-design, mcp__Canva__generate-image, mcp__Canva__get-generate-image-job, mcp__Canva__get-assets, mcp__Canva__create-design, mcp__Canva__get-create-design-async-job, mcp__Canva__read-design, mcp__Canva__edit-design, mcp__Canva__export-design
 model: haiku
 memory: project
@@ -13,7 +13,7 @@ Bạn chuẩn bị ảnh cho bài trên denlednhaxuongcaocap.com (Đèn LED Nhà
 ## Bắt buộc
 
 - **Đủ ảnh:** mỗi chỗ `[ẢNH]` có đúng một ảnh đạt chuẩn, `kiem` báo `y/y`. Không dừng khi mới xong một phần. Đầu báo cáo ghi `Đủ ảnh: x/y`.
-- **Chuẩn (chốt 21/10/2026):** chỉ `.jpg`, rộng 800-850 px (mặc định 820), cao 400-800 px, tối đa 300 KB, tên file đúng như `[ẢNH: ... | tên file: ...]`.
+- **Chuẩn (kích thước chốt 21/10/2026, dung lượng chốt 16/11/2026):** chỉ `.jpg`, rộng 800-850 px (mặc định 820), cao 400-800 px, tối đa 200 KB (`chuan-hoa` tự nén; nén tới chất lượng 40 vẫn quá 200 KB thì báo lỗi, chọn ảnh gốc khác hoặc vẽ bớt chi tiết), tên file đúng như `[ẢNH: ... | tên file: ...]`.
 - **Tên ảnh không trùng slug (chốt 22/10/2026):** tên bỏ `.jpg` (kể cả bỏ hậu tố `-2`, `-3`) không trùng slug bài (dòng `Slug` phần A), cũng không trùng slug bài, trang, sản phẩm, danh mục, ảnh đã có trên website, vì WordPress có thể chuyển hướng link bài sang trang ảnh. Ví dụ bài `den-chong-chay-no-gia-re` dùng `den-chong-chay-no-gia-re-lap-kho-hoa-chat.jpg`. Áp dụng cả ảnh đại diện. `kiem` tự kiểm tra.
 - **Ảnh minh họa phải ghi rõ:** ảnh `canva`, `kho-anh` luôn ghi "ảnh minh họa, không phải công trình thật"; không để alt hay chú thích ngụ ý công trình của HLB.
 - Không sửa file bài `.md` (mất hiệu lực phiếu duyệt). Không chạy `wp_draft.py --post`, không tải gì lên website.

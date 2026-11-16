@@ -428,7 +428,7 @@ Anchor text:
 - Alt text dưới 125 ký tự, mô tả đúng ảnh, có từ khóa khi tự nhiên.
 - Tên file không dấu, nối bằng hyphen, đuôi `.jpg` (website chỉ dùng ảnh JPG). Tên này được dùng nguyên văn làm tên file ảnh.
 - Tên ảnh (bỏ `.jpg`) không được trùng slug của bài đang viết, và không trùng slug bài, trang, sản phẩm, danh mục, ảnh đã có trên website (người dùng chốt 22/10/2026). WordPress tạo trang đính kèm theo tên file, trùng slug thì link bài có thể bị chuyển hướng sang ảnh. Thêm từ mô tả nội dung ảnh: bài `den-chong-chay-no-gia-re` dùng `den-chong-chay-no-gia-re-lap-kho-hoa-chat.jpg`, không dùng `den-chong-chay-no-gia-re.jpg`.
-- Kích thước ảnh tạo ra (người dùng chốt 21/10/2026): rộng 800-850 px, cao 400-800 px.
+- Kích thước ảnh tạo ra (người dùng chốt 21/10/2026): rộng 800-850 px, cao 400-800 px. Dung lượng tối đa 200 KB (người dùng chốt 16/11/2026).
 - Mô tả ảnh theo đúng ý của đoạn văn chứa ảnh (ảnh minh họa điều đoạn đó nói), không mô tả chung chung.
 - Phần "nội dung ảnh" trong `[ẢNH]` được dùng làm chú thích hiển thị dưới ảnh, nên viết như một câu chú thích cho người đọc, **viết hoa chữ đầu** như alt text (26/10/2026: bài 8524 viết thường nên chú thích trên website bị chữ thường; `wp_draft.py` nay tự viết hoa chữ đầu khi đăng).
 - Ưu tiên ảnh thật sản phẩm đang bán và ảnh công trình. Chưa có ảnh công trình thật thì agent tạo ảnh minh họa (người dùng chốt 21/10/2026: thiếu ảnh thì tự tạo), ghi rõ trong phần C là ảnh minh họa, thay bằng ảnh thật khi có.

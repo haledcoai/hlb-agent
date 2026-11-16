@@ -108,7 +108,7 @@ Trên Windows đặt bằng `setx TEN "giá trị"`, rồi mở lại Claude Cod
 | `python tools/nghien_cuu.py luu-outline ...` | Lưu outline đã chốt và bài top SERP để kiểm heading, kiểm trùng |
 | `python tools/wp_draft.py <file.md> --new` hoặc `--update <ID>` | Xem trước bản nháp; thêm `--post` để đưa lên WordPress (chỉ khi có phiếu ĐẠT) |
 | `python tools/danh_muc.py ds, tim, doc, nhap, ap-dung` | Đọc danh mục, đưa Trang nháp, ghi nội dung lên danh mục |
-| `python tools/tao_anh.py ...` | Liệt kê chỗ [ẢNH], lấy ảnh sản phẩm, chuẩn hóa JPG, ghi `anh.json`, kiểm đủ ảnh |
+| `python tools/tao_anh.py ...` | Liệt kê chỗ [ẢNH], lấy ảnh sản phẩm, chuẩn hóa JPG (rộng 800-850 px, cao 400-800 px, tối đa 200 KB), ghi `anh.json`, kiểm đủ ảnh |
 | `tools/mau_anh.py` | Thư viện mẫu sơ đồ dùng chung |
 | `python tools/lam_moi_csv.py` | Làm mới CSV sản phẩm từ website |
 
