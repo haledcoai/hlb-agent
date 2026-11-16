@@ -23,7 +23,7 @@ Cach dung:
 wp_draft.py chi chen anh co trang_thai "duyet"; anh chua duyet duoc xu ly nhu anh thieu.
 
 Chuan anh tao ra (nguoi dung chot 21/10/2026): JPG, rong 800-850 px (mac dinh 820), cao 400-800 px,
-ten file dung nhu goi y trong [ANH].
+toi da 200 KB (chot 16/11/2026), ten file dung nhu goi y trong [ANH].
 Ten anh (bo .jpg) khong duoc trung slug cua bai dang viet, cung khong trung slug bai, trang, san pham, danh muc
 hay anh da co tren website. WordPress tao trang dinh kem (attachment) theo ten file; trung slug thi link bai
 co the bi chuyen huong sang trang anh hoac file anh. Anh nguon website dung lai URL co san tren website, khong ap chuan nay.
@@ -47,7 +47,7 @@ NGUON = ("python", "canva", "kho-anh", "website", "nguoi-dung")
 GIAY_PHEP = {"pixabay": "Pixabay Content License", "pexels": "Pexels License", "unsplash": "Unsplash License"}
 RONG, MIN_RONG, MAX_RONG = 820, 800, 850
 MIN_CAO, MAX_CAO = 400, 800
-MAX_KB = 300
+MAX_KB = 200  # nguoi dung chot 16/11/2026
 GACH = re.compile("[\u2013\u2014]")
 # Alt cua anh minh hoa AI khong duoc ngu y la cong trinh that
 ALT_CONG_TRINH = re.compile(r"công trình (của |do )?hlb|dự án (của |do )?hlb|công trình thực tế|dự án thực tế|khách hàng", re.I)
@@ -342,7 +342,7 @@ def tai(args):
 
 
 def chuan_hoa(args):
-    """Doi ve JPG rong 820 px. Cao vuot 800 px: --cat thi cat giua (anh chup), khong thi bao loi (so do phai ve lai)."""
+    """Doi ve JPG rong 820 px, nen ve toi da 200 KB. Cao vuot 800 px: --cat thi cat giua (anh chup), khong thi bao loi (so do phai ve lai)."""
     from PIL import Image
     if not args.out.lower().endswith(".jpg"):
         sys.exit("File ra phải có đuôi .jpg")
@@ -363,9 +363,12 @@ def chuan_hoa(args):
     while True:
         img.save(args.out, "JPEG", quality=quality, optimize=True, progressive=True)  # khong giu EXIF
         kb = os.path.getsize(args.out) // 1024
-        if kb <= MAX_KB or quality <= 60:
+        if kb <= MAX_KB or quality <= 40:
             break
         quality -= 4
+    if kb > MAX_KB:
+        os.remove(args.out)
+        sys.exit("Ảnh vẫn nặng %d KB ở chất lượng %d, vượt %d KB. Giảm chi tiết, bớt nhiễu hoặc chọn ảnh gốc khác." % (kb, quality, MAX_KB))
     print("Đã lưu %s: %d x %d, %d KB, chất lượng %d" % (args.out, img.width, img.height, kb, quality))
 
 

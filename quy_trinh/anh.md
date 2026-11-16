@@ -6,7 +6,7 @@
 
 - Ảnh do sub agent `tao-anh` chuẩn bị. **Tự gọi ngay khi vòng duyệt cho bài ĐẠT**, không chờ người dùng nhắc. Gọi cả khi người dùng yêu cầu tạo ảnh. Truyền đường dẫn bài và ảnh người dùng đã cung cấp.
 - **Đủ số lượng (bắt buộc):** mỗi chỗ `[ẢNH]` mà Agent Blog đặt trong bài phải có đúng một ảnh. Sau khi `tao-anh` trả kết quả, chạy `python tools/tao_anh.py kiem <file_bai.md>`. Chưa đủ (báo `x/y`) thì gọi lại `tao-anh` chỉ cho các ảnh còn thiếu, kèm lý do lần trước không làm được, tối đa 2 lần gọi lại. Chỉ báo người dùng còn thiếu ảnh khi đã thử hết các nguồn ở mục "Khi thiếu ảnh" của agent `tao-anh`, và nói rõ ảnh nào, vì sao. Không đưa ảnh lên trang duyệt từng phần rồi coi như xong.
-- Chuẩn ảnh: JPG, rộng 800-850 px, cao 400-800 px, tên file đúng như gợi ý trong `[ẢNH]`, nội dung khớp ngữ cảnh đoạn văn chứa ảnh.
+- Chuẩn ảnh: JPG, rộng 800-850 px, cao 400-800 px, tối đa 200 KB (chốt 16/11/2026), tên file đúng như gợi ý trong `[ẢNH]`, nội dung khớp ngữ cảnh đoạn văn chứa ảnh.
 - **Tên ảnh không trùng slug (bắt buộc, chốt 22/10/2026):** khi đặt `[ẢNH]`, tên ảnh bỏ `.jpg` phải khác slug bài (kể cả khác mỗi hậu tố `-2`) và khác slug bài, trang, sản phẩm, danh mục, ảnh đã có trên website, vì WordPress có thể chuyển hướng link bài sang trang ảnh. Thêm từ mô tả nội dung ảnh. `tao_anh.py kiem` báo lỗi khi trùng; gặp lỗi này thì sửa tên trong dòng `[ẢNH]` của bài (bài sửa nên chấm lại như thường).
 - Ảnh nằm ở `anh/<tên bài>/` và `anh.json`. Không chèn ảnh vào file bài `.md`. `wp_draft.py` tự chèn khi đăng bản nháp, nên phiếu duyệt không mất hiệu lực.
 - Ảnh tải lên thư viện Media của WordPress là công khai ngay, dù bài còn ở trạng thái nháp. `wp_draft.py` chỉ chèn ảnh có `trang_thai: "duyet"` trong `anh.json`; ảnh chưa duyệt được xử lý như ảnh thiếu.

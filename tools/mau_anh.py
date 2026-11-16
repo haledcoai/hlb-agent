@@ -11,7 +11,7 @@ Mau co san:
 
 luu(fig, thu_muc, ten_file) tu kiem tra chu tren hinh (de nhau, tran khung, nho hon 13 px khi hien thi
 o 820 px, co em dash/en dash). Co loi thi khong luu va bao loi de ve lai. Qua kiem tra thi luu PNG dpi 200
-vao <thu_muc>/_goc/ roi goi tao_anh.py chuan-hoa ve JPG 820 px.
+vao <thu_muc>/_goc/ roi goi tao_anh.py chuan-hoa ve JPG 820 px, toi da 200 KB.
 
 Moi con so truyen vao mau phai lay tu bai hoac Knowledge. Mau khong tu them so lieu nao.
 """
