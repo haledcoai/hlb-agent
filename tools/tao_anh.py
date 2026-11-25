@@ -116,6 +116,10 @@ def slug_bai(article):
             m = re.match(r"^\|\s*Slug\s*\|\s*([^|(]+)", line, re.I)
             if m:
                 return m.group(1).strip().strip("`/").split("/")[-1]
+            # File danh muc (DM_*.md) khong co dong Slug: lay slug tu dong '| Link danh muc | ... |'
+            m = re.match(r"^\|\s*Link danh mục\s*\|\s*(\S+)", line, re.I)
+            if m and m.group(1).startswith("http"):
+                return m.group(1).strip().strip("`").rstrip("/").split("/")[-1]
     return ""
 
 
