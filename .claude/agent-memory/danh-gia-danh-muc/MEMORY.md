@@ -1,0 +1,1 @@
+- [Kinh nghiệm chấm danh mục](kinh_nghiem_cham.md) — dương tính giả script, 301 slug trùng blog, so bảng chọn với bài blog anh em
