@@ -108,3 +108,10 @@ Nếu người dùng chọn viết lại bài 4098, cần catalogue hoặc trang
 3. HLB có phân phối hoặc nhận báo giá đèn chống nổ 250W của hãng nào không (HALEDCO, Soho Lighting, Paragon, Duhal, hãng khác)? Có catalogue, datasheet (quang thông, ký hiệu Ex đầy đủ, IP, bảo hành) và giá cho từng mẫu không?
 4. Muốn giữ dạng toplist (cần tối thiểu 5 mẫu có nguồn) hay đổi sang dạng hướng dẫn chọn đèn chống nổ 250W (ít mẫu hơn)?
 5. Bạn có muốn gom các bài theo công suất (20W, 40W, 50W, 80W, 100W, 250W) thành một kế hoạch viết lại trên URL cũ, và rút gọn mục 250W trong bài 3821 để không trùng giá không?
+
+## Bổ sung ngày 25/11/2026
+
+- CSV mới `du_lieu_san_pham_HLB_25-11-2026.csv`: vẫn 0 model chống nổ; `danh_muc.py tim "đèn chống cháy nổ 250w"` vẫn KHÔNG KHỚP.
+- Đã mở 2 trang sản phẩm Soho trên ledmart.vn (trang bán hàng, không phải trang hãng). SH-HB5-250SMD: 250W, D320mm, IP65, bảo hành 24 tháng, giá "Liên Hệ". SH-FL1EX-250W: 250W, D330mm, IP65, bảo hành 24 tháng, giá "Liên Hệ". Cả hai không có quang thông, điện áp, ký hiệu Ex, vật liệu, chứng nhận. Không đủ 5 mẫu có nguồn, nên outline dùng dạng hướng dẫn chọn.
+- Người dùng trả lời câu 1-2: "Giữ nội dung bài Blog cũ, viết nháp bản mới" (hiểu: bản nháp cập nhật cho 4098, bài cũ giữ nguyên). Câu 3-5 chưa trả lời.
+- Không có bài blog trong top nên không có văn bản để `luu-serp`.
