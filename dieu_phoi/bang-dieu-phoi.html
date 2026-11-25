@@ -222,6 +222,8 @@ a.btn.main:hover { color: var(--color_body); }
 .icard { background: var(--surface); border: 1px solid var(--gray_300); border-radius: var(--radius-lg); overflow: hidden; display: grid; align-content: start; min-width: 0; }
 .icard.duyet { border-color: var(--ok); box-shadow: inset 0 4px 0 var(--ok); }
 .icard.lam_lai { border-color: var(--color_primary); box-shadow: inset 0 4px 0 var(--color_primary); }
+.icard.loai_bo { border-style: dashed; }
+.icard.loai_bo img { opacity: .35; filter: grayscale(1); }
 .icard img { display: block; width: 100%; height: auto; background: var(--gray_200); }
 .icard .body { padding: 14px 16px 16px; display: grid; gap: 10px; min-width: 0; }
 .icard .top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; justify-content: space-between; }
@@ -473,10 +475,11 @@ function mucNotes(r) {
 function anhTienDo(r) {
   if (!["cho_tao_anh", "dang_tao_anh", "cho_duyet_anh", "cho_hoan_thien"].includes(r.trang_thai)) return "";
   const key = (r.file_bai || "").replace(/\.md$/, ""), rs = anh.filter(a => a.bai === key);
-  const tong = r.anh_tong || rs.length, duyet = rs.filter(a => a.trang_thai === "duyet").length, cho = rs.filter(a => (a.trang_thai || "cho_duyet") === "cho_duyet").length;
+  const loai = rs.filter(a => a.trang_thai === "loai_bo").length;
+  const tong = (r.anh_tong || rs.length) - loai, duyet = rs.filter(a => a.trang_thai === "duyet").length, cho = rs.filter(a => (a.trang_thai || "cho_duyet") === "cho_duyet").length;
   const thieu = Array.isArray(r.anh_thieu) ? r.anh_thieu : [];
   if (!tong && !rs.length) return "";
-  return `<p class="hint" style="margin-top:10px">Ảnh: đã có ${rs.length}/${tong}, bạn đã duyệt ${duyet}${cho ? `, còn ${cho} chờ bạn duyệt` : ""}.${thieu.length ? ` Agent còn thiếu: ${thieu.map(esc).join(", ")}.` : ""}
+  return `<p class="hint" style="margin-top:10px">Ảnh: đã có ${rs.length - loai}/${tong}, bạn đã duyệt ${duyet}${cho ? `, còn ${cho} chờ bạn duyệt` : ""}${loai ? `, đã loại bỏ ${loai} ảnh thừa` : ""}.${thieu.length ? ` Agent còn thiếu: ${thieu.map(esc).join(", ")}.` : ""}
     ${rs.length ? ` <button class="btn ghost" type="button" data-go="anh" data-bai="${esc(key)}">Mở tab Kiểm duyệt hình ảnh</button>` : ""}</p>`;
 }
 
@@ -579,7 +582,7 @@ function actionHtml(r) {
       </div><div class="msg err" data-err hidden></div></div>`;
   if (t === "cho_duyet_anh") return `<div class="panel act box">
       <h3>Duyệt ảnh</h3>
-      <p class="hint">Duyệt hoặc yêu cầu làm lại từng ảnh ở tab Kiểm duyệt hình ảnh. Xong thì quay lại bấm nút bên dưới.</p>${anhTienDo(r)}
+      <p class="hint">Duyệt, yêu cầu làm lại hoặc loại bỏ ảnh thừa ở tab Kiểm duyệt hình ảnh. Xong thì quay lại bấm nút bên dưới.</p>${anhTienDo(r)}
       <div class="actions">
         <button class="btn main" type="button" data-go="anh" data-bai="${esc((r.file_bai || "").replace(/\.md$/, ""))}">Mở tab Kiểm duyệt hình ảnh</button>
         <button class="btn ok" type="button" data-act="anh_xong" ${dis}>Đã duyệt ảnh xong</button>
@@ -690,7 +693,7 @@ function renderAgent() {
       + stat(byDm("da_ap_dung"), "Đã cập nhật lên web"),
     cham: chamStats(false),
     chamdm: chamStats(true),
-    anh: stat(ac("cho_duyet"), "Chờ bạn duyệt", true) + stat(ac("lam_lai"), "Chờ làm lại") + stat(ac("duyet"), "Đã duyệt")
+    anh: stat(ac("cho_duyet"), "Chờ bạn duyệt", true) + stat(ac("lam_lai"), "Chờ làm lại") + stat(ac("duyet"), "Đã duyệt") + stat(ac("loai_bo"), "Đã loại bỏ")
       + stat(yeuCau.filter(y => y.trang_thai !== "da_xu_ly").length, "Yêu cầu thêm ảnh")
   };
   const extra = {
@@ -713,14 +716,16 @@ function renderAgent() {
     <div class="panelw">${feed.length ? `<ul class="feed">${feed.map(h => `<li><span class="t">${fmt(h.luc)}</span><span><span class="k">${h.ai === "ban" ? "Bạn" : "Agent"}</span>, <a href="#" data-open="${esc(h.id)}">${esc(h.kw)}</a>: ${esc(h.viec)}</span></li>`).join("")}</ul>` : `<div class="empty">Chưa có hoạt động.</div>`}</div>`;
 }
 
-const ALABEL = { cho_duyet: "Chờ duyệt", duyet: "Đã duyệt", lam_lai: "Chờ làm lại" };
+const ALABEL = { cho_duyet: "Chờ duyệt", duyet: "Đã duyệt", lam_lai: "Chờ làm lại", loai_bo: "Đã loại bỏ" };
+// Loại bỏ ảnh (chốt 25/11/2026): ảnh thừa không chèn vào bài, Agent không tạo ảnh thay thế. Bấm 2 lần để tránh bấm nhầm
+let xacNhanLoai = null;
 const NGUON = { python: "Vẽ bằng Python", canva: "Ảnh minh họa Canva", website: "Ảnh sản phẩm trên website", "nguoi-dung": "Ảnh bạn gửi" };
 
 function renderAnh() {
   const dis = readOnly ? "disabled" : "";
-  const c = { tat_ca: anh.length, cho_duyet: 0, duyet: 0, lam_lai: 0 };
-  anh.forEach(a => { c[a.trang_thai || "cho_duyet"]++; });
-  const tabs = [["cho_duyet", "Chờ duyệt"], ["lam_lai", "Chờ làm lại"], ["duyet", "Đã duyệt"], ["tat_ca", "Tất cả"]];
+  const c = { tat_ca: anh.length, cho_duyet: 0, duyet: 0, lam_lai: 0, loai_bo: 0 };
+  anh.forEach(a => { const k = a.trang_thai || "cho_duyet"; if (k in c) c[k]++; });
+  const tabs = [["cho_duyet", "Chờ duyệt"], ["lam_lai", "Chờ làm lại"], ["duyet", "Đã duyệt"], ["loai_bo", "Đã loại bỏ"], ["tat_ca", "Tất cả"]];
   const bais = [...new Set([...anh.map(a => a.bai), ...yeuCau.map(r => r.bai)])].filter(Boolean).sort();
   const show = locBai && bais.includes(locBai) ? [locBai] : bais;
   const card = a => {
@@ -728,16 +733,19 @@ function renderAnh() {
     return `<article class="icard ${st}">
       ${a.url ? `<img src="${esc(a.url)}" alt="${esc(a.alt)}" loading="lazy" width="${esc(a.rong || 820)}" height="${esc(a.cao || 461)}">` : ""}
       <div class="body">
-        <div class="top"><span class="ten">${esc(a.ten)}</span><span class="pill ${st === "duyet" ? "done" : st === "lam_lai" ? "you" : "agent"}">${ALABEL[st]}${a.vong > 1 ? ", lần " + esc(a.vong) : ""}</span></div>
+        <div class="top"><span class="ten">${esc(a.ten)}</span><span class="pill ${st === "duyet" ? "done" : st === "lam_lai" ? "you" : st === "loai_bo" ? "off" : "agent"}">${ALABEL[st] || esc(st)}${a.vong > 1 ? ", lần " + esc(a.vong) : ""}</span></div>
         <dl><dt>Mục</dt><dd>${esc(a.muc)}</dd><dt>Alt</dt><dd>${esc(a.alt)}</dd>
           <dt>Nguồn</dt><dd>${esc(NGUON[a.nguon] || a.nguon)}${a.rong ? `, ${esc(a.rong)} x ${esc(a.cao)} px` : ""}</dd></dl>
         ${a.ghi_chu_agent ? `<div class="anote">${esc(a.ghi_chu_agent)}</div>` : ""}
+        ${st === "loai_bo" ? `<div class="anote">Ảnh này sẽ không có trong bài, kể cả chú thích. Agent không tạo ảnh thay thế. Muốn dùng lại thì bấm Khôi phục ảnh.</div>` : ""}
         <label for="an-${esc(a.id)}">Ghi chú cho Agent</label>
         <textarea id="an-${esc(a.id)}" data-anote="${esc(a.id)}" placeholder="Ví dụ: đèn phải là UFO tròn dẹt, chụp góc thấp hơn" ${dis}>${esc(note)}</textarea>
         <div class="actions">
+          ${st === "loai_bo" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Khôi phục ảnh</button>` : `
           <button class="btn ok" type="button" data-aact="duyet" data-aid="${esc(a.id)}" ${dis}>Duyệt</button>
           <button class="btn redo" type="button" data-aact="lam_lai" data-aid="${esc(a.id)}" ${dis}>Làm lại</button>
-          ${st !== "cho_duyet" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Bỏ chọn</button>` : ""}
+          <button class="btn stop" type="button" data-aact="loai_bo" data-aid="${esc(a.id)}" title="Bỏ ảnh thừa khỏi bài, không tạo ảnh thay thế" ${dis}>${xacNhanLoai === a.id ? "Bấm lần nữa để loại bỏ" : "Loại bỏ ảnh"}</button>
+          ${st !== "cho_duyet" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Bỏ chọn</button>` : ""}`}
         </div><div class="msg err" data-aerr="${esc(a.id)}" hidden></div>
       </div></article>`;
   };
@@ -754,15 +762,15 @@ function renderAnh() {
         <div class="actions"><button class="btn ok" type="submit">Gửi yêu cầu</button></div></form>`}</details>`;
   };
   $("#pane-anh").innerHTML = `
-    <div class="bar"><h2>Kiểm duyệt hình ảnh</h2><span class="side">Duyệt ảnh dùng được, ảnh chưa ưng thì ghi lý do rồi bấm Làm lại.</span></div>
+    <div class="bar"><h2>Kiểm duyệt hình ảnh</h2><span class="side">Duyệt ảnh dùng được, ảnh chưa ưng thì ghi lý do rồi bấm Làm lại, ảnh thừa thì bấm Loại bỏ ảnh.</span></div>
     <div class="filters">${tabs.map(([k, t]) => `<button type="button" class="chip" data-aloc="${k}" aria-pressed="${locAnh === k}">${t} ${c[k]}</button>`).join("")}
       ${bais.length > 1 ? `<select aria-label="Lọc theo bài" data-abai><option value="">Tất cả bài</option>${bais.map(b => `<option value="${esc(b)}" ${b === locBai ? "selected" : ""}>${esc(b)}</option>`).join("")}</select>` : ""}</div>
     ${!bais.length ? `<div class="empty">Chưa có ảnh nào. Ảnh xuất hiện ở đây sau khi Agent tạo ảnh xong.</div>` : ""}
-    ${bais.length && locAnh !== "tat_ca" && !anh.some(a => show.includes(a.bai) && (a.trang_thai || "cho_duyet") === locAnh) ? `<div class="empty">${locAnh === "cho_duyet" ? "Không còn ảnh nào chờ bạn duyệt." : locAnh === "lam_lai" ? "Không có ảnh nào đang chờ làm lại." : "Chưa có ảnh nào được duyệt."}</div>` : ""}
+    ${bais.length && locAnh !== "tat_ca" && !anh.some(a => show.includes(a.bai) && (a.trang_thai || "cho_duyet") === locAnh) ? `<div class="empty">${locAnh === "cho_duyet" ? "Không còn ảnh nào chờ bạn duyệt." : locAnh === "lam_lai" ? "Không có ảnh nào đang chờ làm lại." : locAnh === "loai_bo" ? "Chưa loại bỏ ảnh nào." : "Chưa có ảnh nào được duyệt."}</div>` : ""}
     ${show.map(b => {
       const rs = anh.filter(a => a.bai === b).sort((x, y) => (x.thu_tu ?? 99) - (y.thu_tu ?? 99));
       const sh = rs.filter(a => locAnh === "tat_ca" || (a.trang_thai || "cho_duyet") === locAnh);
-      return `<section class="pane"><div class="bai-head"><h3>${esc((rs[0] && rs[0].tieu_de_bai) || b)}</h3><span class="mono">${esc(b)}.md, đã duyệt ${rs.filter(a => a.trang_thai === "duyet").length}/${rs.length}</span></div>
+      return `<section class="pane"><div class="bai-head"><h3>${esc((rs[0] && rs[0].tieu_de_bai) || b)}</h3><span class="mono">${esc(b)}.md, đã duyệt ${rs.filter(a => a.trang_thai === "duyet").length}/${rs.filter(a => a.trang_thai !== "loai_bo").length}${rs.some(a => a.trang_thai === "loai_bo") ? `, loại bỏ ${rs.filter(a => a.trang_thai === "loai_bo").length}` : ""}</span></div>
         ${sh.length ? `<div class="agrid">${sh.map(card).join("")}</div>` : ""}${req(b)}</section>`;
     }).join("")}`;
   const n = c.cho_duyet, el = $("#cntAnh"); el.hidden = !n; el.textContent = n;
@@ -932,6 +940,8 @@ document.addEventListener("click", async e => {
     const id = b.dataset.aid, ta = document.querySelector(`[data-anote="${CSS.escape(id)}"]`), note = ta ? ta.value.trim() : "";
     const errEl = document.querySelector(`[data-aerr="${CSS.escape(id)}"]`);
     if (b.dataset.aact === "lam_lai" && !note) { errEl.textContent = "Ghi lý do cần làm lại để Agent biết sửa gì."; errEl.hidden = false; ta && ta.focus(); return; }
+    if (b.dataset.aact === "loai_bo" && xacNhanLoai !== id) { xacNhanLoai = id; b.textContent = "Bấm lần nữa để loại bỏ"; return; }
+    xacNhanLoai = null;
     b.disabled = true;
     try { await db.doc("anh/" + id).update({ trang_thai: b.dataset.aact, ghi_chu: note, cap_nhat: now() }); delete drafts["anh:" + id]; if (b.dataset.aact === "lam_lai") flash(await fireAgent("Bảng điều phối: bạn yêu cầu làm lại ảnh " + id + ".")); }
     catch (err) { errEl.textContent = err && err.code === "permission_denied" ? "Bạn chỉ có quyền xem trang này." : "Chưa lưu được, thử lại sau ít giây."; errEl.hidden = false; b.disabled = false; }

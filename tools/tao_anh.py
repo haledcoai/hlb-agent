@@ -17,10 +17,12 @@ Cach dung:
   python tools/tao_anh.py thu-vien "<tu khoa tieng Viet>"           # anh da duyet, da tai len o bai khac, dung lai duoc
   python tools/tao_anh.py dung-lai <file_bai.md> --ten <ten> --tu <bai>--<ten file> [--dai-dien]  # dung lai media co san, khong tai lai
   python tools/tao_anh.py kiem <file_bai.md> [--khong-web]       # du anh, dung chuan, alt hop le, ten anh khong trung slug
-  python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|cho_duyet [--ghi-chu "..."]
+  python tools/tao_anh.py duyet <file_bai.md> --ten <ten file> --trang-thai duyet|lam_lai|loai_bo|cho_duyet [--ghi-chu "..."]
                                                                  # chep quyet dinh tu trang Duyet anh HLB vao anh.json
 
 wp_draft.py chi chen anh co trang_thai "duyet"; anh chua duyet duoc xu ly nhu anh thieu.
+Anh "loai_bo" (nguoi dung bam Loai bo anh tren bang, chot 25/11/2026): giu dong [ANH] trong bai (phieu duyet con hieu luc),
+wp_draft.py bo han cho anh do va chu thich khi dang nhap, kiem tinh la da xu ly, liet-ke/phan-loai bo qua, khong tao anh thay the.
 
 Chuan anh tao ra (nguoi dung chot 21/10/2026): JPG, rong 800-850 px (mac dinh 820), cao 400-800 px,
 toi da 200 KB (chot 16/11/2026), ten file dung nhu goi y trong [ANH].
@@ -199,9 +201,23 @@ def loi_chuan(path):
 
 # ---------- Lenh ----------
 
+def da_loai_bo(article):
+    """Ten file cac anh nguoi dung da loai bo tren bang (trang_thai loai_bo)."""
+    return {a["ten"] for a in doc_manifest(article)["anh"] if a.get("trang_thai") == "loai_bo"}
+
+
+def cho_can_anh(article):
+    """Cac cho [ANH] con can anh: bo cho nguoi dung da loai bo."""
+    bo = da_loai_bo(article)
+    return [c for c in doc_cho_anh(article) if c["ten"] not in bo]
+
+
 def liet_ke(args):
     m = {a["ten"]: a for a in doc_manifest(args.article)["anh"]}
-    for i, c in enumerate(doc_cho_anh(args.article), 1):
+    bo = da_loai_bo(args.article)
+    if bo:
+        print("Bỏ qua %d chỗ ảnh người dùng đã loại bỏ, không tạo ảnh thay thế: %s\n" % (len(bo), ", ".join(sorted(bo))))
+    for i, c in enumerate(cho_can_anh(args.article), 1):
         a = m.get(c["ten"])
         status = "CHƯA CÓ" if not a else "%s (%s)" % (a["file"], a["nguon"])
         print("%d. %s\n   alt: %s\n   tên file: %s\n   thuộc mục: %s\n   đoạn trước: %s\n   đoạn sau: %s\n   trạng thái: %s"
@@ -210,7 +226,7 @@ def liet_ke(args):
 
 def phan_loai(args):
     sp = [x for x in doc_csv() if re.search(r"\d", x[2])]  # chi ma model co so, vd BUFO4-150
-    for i, c in enumerate(doc_cho_anh(args.article), 1):
+    for i, c in enumerate(cho_can_anh(args.article), 1):
         chu = " ".join((c["mo_ta"], c["alt"]))
         khop = [x for x in sp if re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(x[2]), chu, re.I)]
         if khop:
@@ -423,6 +439,9 @@ def duyet(args):
         sys.exit("Danh sách ảnh chưa có %s" % args.ten)
     a["trang_thai"] = args.trang_thai
     a["ghi_chu_duyet"] = args.ghi_chu or ""
+    if args.trang_thai == "loai_bo":  # ghi muc chua anh de kiem_tra_bai.py khong bao thieu anh o muc nay
+        a["muc"] = next((c["heading"] for c in doc_cho_anh(args.article) if c["ten"] == args.ten), a.get("muc", ""))
+        a["dai_dien"] = False
     with open(manifest_path(args.article), "w", encoding="utf-8") as f:
         json.dump(m, f, ensure_ascii=False, indent=2)
     print("%s: %s" % (args.ten, args.trang_thai))
@@ -487,6 +506,9 @@ def kiem(args):
     m = {a["ten"]: a for a in doc_manifest(args.article)["anh"]}
     loi = []
     cho = doc_cho_anh(args.article)
+    bo = [c["ten"] for c in cho if (m.get(c["ten"]) or {}).get("trang_thai") == "loai_bo"]
+    cho = [c for c in cho if c["ten"] not in bo]  # nguoi dung da loai bo: khong can anh, khong kiem
+    m = {t: a for t, a in m.items() if t not in bo}
     co = sum(1 for c in cho if c["ten"] in m)
     slug = slug_bai(args.article)
     if not slug:
@@ -538,7 +560,9 @@ def kiem(args):
         for x in loi:
             print("- " + x)
         sys.exit(1)
-    print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ, tên ảnh không trùng slug." % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO))
+    print("Đủ ảnh: %d/%d, đúng chuẩn JPG %d-%d x %d-%d px, alt hợp lệ, tên ảnh không trùng slug.%s"
+          % (co, len(cho), MIN_RONG, MAX_RONG, MIN_CAO, MAX_CAO,
+             " Người dùng đã loại bỏ %d ảnh: %s." % (len(bo), ", ".join(bo)) if bo else ""))
     don_goc(args.article, m)
 
 
@@ -586,7 +610,7 @@ def main():
     p.add_argument("--khong-web", action="store_true", help="bo qua so ten anh voi slug tren website (khi khong co mang)")
     p.set_defaults(func=kiem)
     p = sub.add_parser("duyet"); p.add_argument("article"); p.add_argument("--ten", required=True)
-    p.add_argument("--trang-thai", required=True, choices=("duyet", "lam_lai", "cho_duyet")); p.add_argument("--ghi-chu")
+    p.add_argument("--trang-thai", required=True, choices=("duyet", "lam_lai", "loai_bo", "cho_duyet")); p.add_argument("--ghi-chu")
     p.set_defaults(func=duyet)
     args = ap.parse_args()
     args.func(args)

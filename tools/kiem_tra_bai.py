@@ -43,6 +43,7 @@ HOTLINES = {"0967569588", "02437918122"}
 LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
 KHOI_TREN, KHOI_DUOI = "[KHỐI TRÊN]", "[KHỐI DƯỚI]"
 DM = False  # file DM_*.md: che do danh muc (dat trong main)
+LOAI_BO = {}  # anh nguoi dung bam "Loai bo anh" tren bang (anh/<bai>/anh.json, trang_thai loai_bo): ten file -> muc
 PLACEHOLDER = re.compile(r"\[(CẦN BỔ SUNG|CẦN KIỂM TRA|CHỜ XÁC NHẬN|LINK|ẢNH)[^\]]*\]")
 IMAGE = re.compile(r"\[ẢNH:([^\]]*)\]")
 EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿️‍]")
@@ -338,6 +339,17 @@ def muc_h2(body):
     return out
 
 
+def doc_loai_bo(article):
+    """Anh trang_thai loai_bo trong anh/<ten bai>/anh.json: {ten file: muc chua anh}."""
+    p = os.path.join(ROOT, "anh", os.path.splitext(os.path.basename(article))[0], "anh.json")
+    try:
+        with open(p, encoding="utf-8") as f:
+            ds = json.load(f).get("anh", [])
+    except (OSError, ValueError):
+        return {}
+    return {a["ten"]: a.get("muc", "") for a in ds if a.get("trang_thai") == "loai_bo"}
+
+
 def check_trinh_bay(rep, body, kw):
     kwn = norm(kw) if kw else ""
     phan = khoi(body)[0] if DM else body
@@ -370,6 +382,12 @@ def check_trinh_bay(rep, body, kw):
     if not any(re.search(r"\*\*[^*\[]+\*\*", l) for _, l in body):
         rep.warn(None, "Bài không có chỗ in đậm: in đậm ý chính, từ khóa cần nhấn khi liệt kê, nhấn mạnh")
     # Anh: H2 khong co H3 can 1 anh; H2 co H3 thi moi H3 uu tien 1 anh. Bo FAQ va muc ket bai (H2 cuoi)
+    # Anh nguoi dung da chu dong loai bo (nut "Loai bo anh", chot 25/11/2026): muc do khong bao thieu anh,
+    # du dong [ANH] con hay da bi xoa khoi bai
+    da_loai = {norm(v) for v in LOAI_BO.values() if v}
+    co_anh = lambda ten, ls: norm(ten) in da_loai or any(IMAGE.search(l) for _, l in ls)
+    if LOAI_BO:
+        rep.info(None, "Ảnh người dùng đã loại bỏ (không chèn khi đăng nháp, không tính thiếu ảnh): " + ", ".join(sorted(LOAI_BO)))
     muc = muc_h2(khoi(body)[1] if DM else body)
     thieu_h3 = []
     for i, (no, ten, lines) in enumerate(muc):
@@ -377,12 +395,12 @@ def check_trinh_bay(rep, body, kw):
             continue
         h3 = [j for j, (_, l) in enumerate(lines) if re.match(r"^### ", l)]
         if not h3:
-            if not any(IMAGE.search(l) for _, l in lines):
+            if not co_anh(ten, lines):
                 rep.warn(no, "H2 \"%s\" chưa có ảnh (H2 không có H3 cần ít nhất 1 ảnh)" % short(ten, 50))
             continue
         for k, j in enumerate(h3):
             doan_h3 = lines[j:h3[k + 1] if k + 1 < len(h3) else len(lines)]
-            if not any(IMAGE.search(l) for _, l in doan_h3):
+            if not co_anh(lines[j][1][4:].strip(), doan_h3):
                 thieu_h3.append(lines[j][1][4:].strip())
     if thieu_h3:
         rep.info(None, "H3 chưa có ảnh (ưu tiên mỗi H3 một ảnh): " + "; ".join(short(t, 40) for t in thieu_h3))
@@ -1055,6 +1073,8 @@ def main():
     global DM, LINK_DM
     DM = os.path.basename(args.article).startswith("DM_")
 
+    global LOAI_BO
+    LOAI_BO = doc_loai_bo(args.article)
     rep = Report()
     seo = seo_fields(a)
     if DM:
