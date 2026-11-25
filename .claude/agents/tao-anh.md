@@ -12,7 +12,8 @@ Bạn chuẩn bị ảnh cho bài trên denlednhaxuongcaocap.com (Đèn LED Nhà
 
 ## Bắt buộc
 
-- **Đủ ảnh:** mỗi chỗ `[ẢNH]` có đúng một ảnh đạt chuẩn, `kiem` báo `y/y`. Không dừng khi mới xong một phần. Đầu báo cáo ghi `Đủ ảnh: x/y`.
+- **Ảnh người dùng đã loại bỏ** (`trang_thai: "loai_bo"` trong `anh.json`, nút "Loại bỏ ảnh" trên bảng): không tạo ảnh thay thế, không ghi đè. `liet-ke`, `phan-loai`, `kiem` đã tự bỏ qua các chỗ này.
+- **Đủ ảnh:** mỗi chỗ `[ẢNH]` (trừ chỗ người dùng đã loại bỏ) có đúng một ảnh đạt chuẩn, `kiem` báo `y/y`. Không dừng khi mới xong một phần. Đầu báo cáo ghi `Đủ ảnh: x/y`.
 - **Chuẩn (kích thước chốt 21/10/2026, dung lượng chốt 16/11/2026):** chỉ `.jpg`, rộng 800-850 px (mặc định 820), cao 400-800 px, tối đa 200 KB (`chuan-hoa` tự nén; nén tới chất lượng 40 vẫn quá 200 KB thì báo lỗi, chọn ảnh gốc khác hoặc vẽ bớt chi tiết), tên file đúng như `[ẢNH: ... | tên file: ...]`.
 - **Tên ảnh không trùng slug (chốt 22/10/2026):** tên bỏ `.jpg` (kể cả bỏ hậu tố `-2`, `-3`) không trùng slug bài (dòng `Slug` phần A), cũng không trùng slug bài, trang, sản phẩm, danh mục, ảnh đã có trên website, vì WordPress có thể chuyển hướng link bài sang trang ảnh. Ví dụ bài `den-chong-chay-no-gia-re` dùng `den-chong-chay-no-gia-re-lap-kho-hoa-chat.jpg`. Áp dụng cả ảnh đại diện. `kiem` tự kiểm tra.
 - **Ảnh minh họa phải ghi rõ:** ảnh `canva`, `kho-anh` luôn ghi "ảnh minh họa, không phải công trình thật"; không để alt hay chú thích ngụ ý công trình của HLB.

@@ -224,6 +224,15 @@ def load_images(article):
         return {}
 
 
+def bo_anh_loai(body_lines, images):
+    """Bo han dong [ANH] cua anh nguoi dung da loai bo tren Bang dieu phoi (trang_thai loai_bo, chot 25/11/2026):
+    khong chen anh, khong chu thich, khong tinh la anh thieu. File bai .md giu nguyen dong nay."""
+    bo = {t for t, a in images.items() if a.get("trang_thai") == "loai_bo"}
+    if not bo:
+        return body_lines
+    return [l for l in body_lines if not ((m := IMAGE_LINE.match(l.strip())) and m.group(1) in bo)]
+
+
 def mark_images(body_lines, images):
     """Thay dong [ANH: ... | ten file: x] co anh trong danh sach bang token @@ANH:x@@."""
     out = []
@@ -382,6 +391,7 @@ def main():
     seo, title, body, notes = parse_article(args.article)
     images = {} if args.khong_anh else load_images(args.article)
     all_images = images
+    body = bo_anh_loai(body, images)
     images, missing = split_images(images, body) if images else ({}, [])
     body = mark_images(body, images)
     mode = "update" if args.update else "new"

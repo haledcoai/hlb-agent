@@ -433,6 +433,8 @@ def chuan_bi_anh(article, tren, duoi, auth=None):
 
 def noi_dung(article, auth=None):
     seo, tren, duoi, ghi_chu = doc_bai(article)
+    tat_ca = wp_draft.load_images(article)
+    tren, duoi = wp_draft.bo_anh_loai(tren, tat_ca), wp_draft.bo_anh_loai(duoi, tat_ca)  # anh nguoi dung da loai bo
     images, missing, src_of = chuan_bi_anh(article, tren, duoi, auth)
     h_tren, h_duoi = html_khoi(tren, images), html_khoi(duoi, images)
     if images:
