@@ -1148,5 +1148,115 @@
   "bai": "DM_den-led-nha-xuong-150w",
   "vong": 2,
   "ten_tieu_chi": "Dữ liệu và kỹ thuật"
+ },
+ {
+  "nhan": "goi-y-chon-mau-thuan-bai-blog",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "K2 bang H2 1 va ket: phong ac quy dung doi trai bai 1m2, phong rong thieu dieu kien, ho 5-6 m",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Dữ liệu và kỹ thuật"
+ },
+ {
+  "nhan": "faq-tra-loi-chua-thang",
+  "muc": "nen_sua",
+  "tieu_chi": "chon_mua",
+  "mo_ta": "C6 FAQ 1 mo bang Tuy cap IP khong noi IP nao, FAQ 3 bat khach tu tra QCVN",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Giúp chọn mua"
+ },
+ {
+  "nhan": "phan-c-thieu-phan-vai",
+  "muc": "nen_sua",
+  "tieu_chi": "seo",
+  "mo_ta": "S5 phan C chua ghi URL bai 4147 va cach phan vai, chua ghi URL du kien dang 301 sang 4147",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "SEO và technical"
+ },
+ {
+  "nhan": "tu-khoa-phu-chua-dat",
+  "muc": "nen_sua",
+  "tieu_chi": "seo",
+  "mo_ta": "S7 3 tu khoa phu outline chua co trong chu: den chong no 0.6m, 6 tac, mang 0.6m",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "SEO và technical"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "gon",
+  "mo_ta": "G3 FAQ 1, 3, 4 lap y H2 2, H2 1, H2 5 (IP54, HLB tinh bo tri, giao toan quoc)",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Ngắn gọn, không trùng blog"
+ },
+ {
+  "nhan": "doan-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "gon",
+  "mo_ta": "G4 khoi tren mot doan 81 tu, qua 4 dong, can tach sapo va doan danh muc kem CTA",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Ngắn gọn, không trùng blog"
+ },
+ {
+  "nhan": "anh-sai-vi-tri",
+  "muc": "nen_sua",
+  "tieu_chi": "gon",
+  "mo_ta": "G6 anh doc ky hieu Ex dat sau cau ket H2 2, nen dat canh danh sach kiem tra",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Ngắn gọn, không trùng blog"
+ },
+ {
+  "nhan": "bao-hanh-thieu-thoi-han-chung",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T2 H2 5 khong neu cac hang thuong bao hanh 2 nam, thieu loi nha san xuat mien phi",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và giọng văn"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T6 H2 2 vung 1, vung 2, nhom khi IIC chua giai thich ngan",
+  "ma": "L024",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và giọng văn"
+ },
+ {
+  "nhan": "cau-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "gon",
+  "mo_ta": "G4 G3 H2 1 cau dau 39 tu, lap y khoi tren ve don mot bong doi hai bong",
+  "ma": "L025",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 2,
+  "ten_tieu_chi": "Ngắn gọn, không trùng blog"
+ },
+ {
+  "nhan": "thuat-ngu-chua-giai-thich",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T6 FAQ 2 quang thong xuat hien lan dau chua giai thich ngan",
+  "ma": "L025",
+  "bai": "DM_den-chong-chay-no-0-6m",
+  "vong": 2,
+  "ten_tieu_chi": "Thương hiệu và giọng văn"
  }
 ]
