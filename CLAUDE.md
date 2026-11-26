@@ -65,5 +65,5 @@ Mô hình phòng ban: người dùng giao việc qua Bảng điều phối, Agen
 
 - **Không tự chạy `tools/phieu_duyet.py ghi`.** Phiếu chỉ do agent đánh giá (`danh-gia-noi-dung` hoặc `danh-gia-danh-muc`) ghi sau khi chấm. Khi bị hook chặn, chạy lại vòng duyệt, không tìm cách vượt hook.
 - Chỉ chạy `python tools/wp_draft.py <file_bai.md> ... --post` khi người dùng đã đồng ý đăng và bài có phiếu ĐẠT. Agent không bao giờ dùng `--bo-qua-phieu` (chỉ người dùng tự chạy trong terminal của họ).
-- **Ghi lên danh mục là công khai ngay.** Chỉ chạy `danh_muc.py ap-dung ... --post` khi người dùng đã bấm "Duyệt, cập nhật lên danh mục" trên bảng (trường `duyet_ap_dung_luc`) hoặc đồng ý trong chat. Không tự điền `--duyet-luc`.
+- **Không ghi lên danh mục (người dùng chốt 26/11/2026).** Nội dung danh mục sau khi duyệt chỉ để ở Trang nháp (`danh_muc.py nhap --post`). Agent không ghi mô tả, SEO title, meta vào danh mục sản phẩm; `danh_muc.py ap-dung --post` đã tắt. Người dùng tự chép từ Trang nháp vào danh mục trong wp-admin.
 - Ảnh tải lên thư viện Media của WordPress là công khai ngay, dù bài còn ở trạng thái nháp. Chỉ ảnh có `trang_thai: "duyet"` trong `anh.json` được chèn vào bài.

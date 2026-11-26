@@ -16,7 +16,7 @@ Dùng chung với Agent Blog, giữ nguyên: bốn quy tắc cốt lõi, giọng
 | Vị trí | Bài riêng ở mục Tư vấn | Hai khối quanh lưới sản phẩm của danh mục |
 | Độ dài | Đủ trả lời intent | Khối trên 80-150 từ, khối dưới ngắn hơn bài blog, không lan man |
 | Thông số | CSV và trang sản phẩm | Chỉ sản phẩm đang bán trong chính danh mục |
-| Đưa lên web | Bản nháp bài viết | Trang nháp để xem trước; duyệt xong mới ghi vào danh mục (công khai ngay) |
+| Đưa lên web | Bản nháp bài viết | Chỉ Trang nháp, kể cả sau khi duyệt. Agent không ghi vào danh mục (người dùng chốt 26/11/2026) |
 | File | `Bai_<slug>.md` | `DM_<slug danh mục>.md` |
 
 ## 2. Quy trình
@@ -25,7 +25,7 @@ Dùng chung với Agent Blog, giữ nguyên: bốn quy tắc cốt lõi, giọng
 
 - **Danh mục cha hay danh mục con theo hãng:** Agent tự phân tích, không hỏi lại. Người dùng đưa link danh mục thì làm đúng danh mục đó. Không có link thì theo từ khóa chính: có tên hãng (Philips, Rạng Đông, Điện Quang, HALEDCO...) thì danh mục con của hãng đó; không có tên hãng thì danh mục cha cùng công suất, loại đèn. SERP cho thấy intent khác (ví dụ người tìm từ khóa chung nhưng top toàn trang một hãng) thì vẫn làm theo quy tắc trên, ghi nhận xét vào `serp`.
 - Danh mục con theo hãng (ví dụ Philips 150W) thuộc phạm vi Agent Danh mục, có viết như danh mục cha (người dùng chốt 27/10/2026). Mỗi lần viết theo một từ khóa hoặc link được nạp. Thấy danh mục khác (cha hoặc con) nội dung đang trống hoặc yếu thì ghi ở phần C từ khóa nên nạp tiếp, để người dùng đưa lên bảng.
-- **Website chưa có danh mục** (`danh_muc.py tim` không KHỚP, không có danh mục GẦN đúng loại đèn; người dùng chốt 05/11/2026): không dừng chờ người dùng tạo danh mục. Agent tự đề xuất theo SEO tên danh mục, slug (không dấu, 2-5 từ, có từ khóa chính), danh mục cha, chạy `python tools/danh_muc.py de-xuat <slug> --ten "<tên>" [--cha <slug cha>] [--tim "<cụm tìm sản phẩm>"]` (ghi `nghien_cuu/DM_<slug>/` với `de_xuat: true`, sản phẩm đang bán có tên khớp), rồi làm tiếp Bước 1-4 như danh mục có sẵn. Phần A ghi `Danh mục: <tên> (đề xuất, chưa có trên website)`, `Term ID: 0`, `Link danh mục: <link dự kiến>`. Bài ĐẠT thì vẫn đưa lên Trang nháp (`danh_muc.py nhap --post`), trang ghi rõ danh mục chưa tạo, chỗ lưới sản phẩm để trống. Chỉ nêu model có trong `san_pham.json` (thường là 0, khi đó viết theo cách chọn đèn, không nêu model, sản phẩm để `[CẦN BỔ SUNG]`). Ghi lên danh mục (`ap-dung`) chỉ khi người dùng đã tạo danh mục đúng slug: script tự dừng nếu chưa có; khi đã có, chạy lại `danh_muc.py doc <slug>`, giao `agent-danh-muc` chế độ `sua` nếu sản phẩm thay đổi, chấm lại rồi mới áp dụng. Không tự tạo danh mục, không chuyển sang viết blog khi người dùng không yêu cầu.
+- **Website chưa có danh mục** (`danh_muc.py tim` không KHỚP, không có danh mục GẦN đúng loại đèn; người dùng chốt 05/11/2026): không dừng chờ người dùng tạo danh mục. Agent tự đề xuất theo SEO tên danh mục, slug (không dấu, 2-5 từ, có từ khóa chính), danh mục cha, chạy `python tools/danh_muc.py de-xuat <slug> --ten "<tên>" [--cha <slug cha>] [--tim "<cụm tìm sản phẩm>"]` (ghi `nghien_cuu/DM_<slug>/` với `de_xuat: true`, sản phẩm đang bán có tên khớp), rồi làm tiếp Bước 1-4 như danh mục có sẵn. Phần A ghi `Danh mục: <tên> (đề xuất, chưa có trên website)`, `Term ID: 0`, `Link danh mục: <link dự kiến>`. Bài ĐẠT thì vẫn đưa lên Trang nháp (`danh_muc.py nhap --post`), trang ghi rõ danh mục chưa tạo, chỗ lưới sản phẩm để trống. Chỉ nêu model có trong `san_pham.json` (thường là 0, khi đó viết theo cách chọn đèn, không nêu model, sản phẩm để `[CẦN BỔ SUNG]`). Khi người dùng đã tạo danh mục đúng slug và yêu cầu, chạy lại `danh_muc.py doc <slug>`, giao `agent-danh-muc` chế độ `sua` nếu sản phẩm thay đổi, chấm lại rồi cập nhật Trang nháp. Agent không ghi lên danh mục (mục 4). Không tự tạo danh mục, không chuyển sang viết blog khi người dùng không yêu cầu.
 
 ### Bước 1: Đọc danh mục và SERP (gộp duyệt với Bước 2 trên Bảng điều phối)
 
@@ -106,19 +106,12 @@ Ba dòng Danh mục, Term ID, Link danh mục chép từ `nghien_cuu/DM_<slug>/d
 
 ## 4. Đưa lên website
 
-Danh mục không có bản nháp, ghi vào là công khai ngay. Vì vậy có hai bước, bước sau chỉ chạy khi người dùng bấm duyệt:
+**Chỉ Trang nháp (người dùng chốt 26/11/2026).** Nội dung danh mục, kể cả sau khi người dùng duyệt, chỉ nằm ở Trang (Page) nháp. Agent không ghi mô tả, khối trên, SEO title, meta description vào danh mục sản phẩm, vì danh mục không có bản nháp, ghi vào là khách thấy ngay. Người dùng tự chép từ Trang nháp vào danh mục trong wp-admin khi muốn đưa lên.
 
-1. **Trang nháp** (sau khi bài ĐẠT, giống đăng nháp bài blog): `python tools/danh_muc.py nhap DM_<slug>.md` (xem trước), rồi `--post`. Script tạo hoặc cập nhật Trang (Page) nháp "[Nháp danh mục] <tên>": ghi chú SEO, khối trên, lưới sản phẩm thật của danh mục (shortcode WooCommerce), khối dưới. Trạng thái nháp nên khách không thấy. Ghi `link_xem`, `link_nhap` lên Bảng điều phối.
-2. **Áp dụng vào danh mục** (chỉ khi trên bảng người dùng bấm "Duyệt, cập nhật lên danh mục", trường `duyet_ap_dung_luc`): `python tools/danh_muc.py ap-dung DM_<slug>.md --duyet-luc <duyet_ap_dung_luc>` (chạy thử), rồi thêm `--post`. Script:
-   - Kiểm tra phiếu ĐẠT khớp nội dung, ảnh đã duyệt đủ.
-   - Sao lưu mô tả, khối trên, SEO title, meta description cũ vào `danh_muc/sao_luu/<slug>_<giờ>.json` (commit file này).
-   - Ghi khối dưới vào mô tả danh mục, ghi SEO title, meta description, focus keyword vào Rank Math.
-   - **Khối trên** nằm ở trường riêng của theme, REST API chưa mở. Khi `danh_muc/cau_hinh.json` có `khoi_tren_meta` (tên trường theme đã mở cho REST) thì ghi luôn; chưa có thì ghi file `danh_muc/DM_<slug>.khoi_tren.html`, đưa lên bảng để người dùng chép, dán vào ô khối trên trong wp-admin, bấm "Đã dán khối trên".
-   - Tải lại trang danh mục kiểm tra, khớp thì chuyển Trang nháp vào Thùng rác.
-3. **Kiểm tra lại:** `python tools/danh_muc.py kiem-trang DM_<slug>.md` (sau khi người dùng dán khối trên, hoặc khi trang còn bộ nhớ đệm).
-4. **Khôi phục** khi người dùng yêu cầu: `python tools/danh_muc.py khoi-phuc <slug> --post` (ghi lại bản sao lưu mới nhất; script sao lưu bản hiện tại trước khi ghi).
-
-Không bao giờ chạy `ap-dung --post` khi người dùng chưa bấm duyệt trên bảng hoặc chưa đồng ý trong chat. Không tự điền `--duyet-luc`.
+1. **Trang nháp** (sau khi bài ĐẠT, giống đăng nháp bài blog): `python tools/danh_muc.py nhap DM_<slug>.md` (xem trước), rồi `--post`. Script tạo hoặc cập nhật Trang nháp "[Nháp danh mục] <tên>": ghi chú SEO, khối trên, lưới sản phẩm thật của danh mục (shortcode WooCommerce), khối dưới. Trạng thái nháp nên khách không thấy. Ghi `link_xem`, `link_nhap` lên Bảng điều phối. Ảnh đã duyệt cũng chèn vào Trang nháp bằng lệnh này.
+2. **Người dùng duyệt** trên bảng (nút "Duyệt, giữ ở Trang nháp"): bảng đặt `da_duyet_nhap`, Agent không làm thêm gì trên website.
+3. **Xem những gì cần chép:** `python tools/danh_muc.py ap-dung DM_<slug>.md` (không `--post`) in ra phần sẽ ghi vào từng ô. `ap-dung --post` đã tắt, script tự dừng.
+4. **Khôi phục** chỉ khi người dùng yêu cầu trong chat: `python tools/danh_muc.py khoi-phuc <slug> --post` (dùng cho danh mục đã ghi trước 26/11/2026, nếu có).
 
 ## 5. Ranh giới
 
