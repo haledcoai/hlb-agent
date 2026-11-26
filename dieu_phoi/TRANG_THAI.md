@@ -21,11 +21,11 @@ Quy trình mỗi lượt (không nhắn chat, mỗi lượt một phiên mới, 
 - Tên file ảnh không trùng slug bài hay slug đã có trên website.
 - Repo `haledcoai/hlb-agent` nhánh `main` là bản gốc; thread được tự merge PR.
 
-## Trạng thái từ khóa trên bảng (28/10 14:05)
+## Trạng thái từ khóa trên bảng
 
-5 từ khóa đầu đang `tam_dung` do người dùng bấm. Lượt chạy bỏ qua cho tới khi người dùng bấm Tiếp tục.
+**26/11/2026 người dùng chốt: xóa sạch dữ liệu cũ trên bảng mới, từ nay chỉ làm việc mới trên bảng mới.** Bảng mới không còn từ khóa nào. 11 từ khóa dưới đây có dấu `da_xoa/<id>` trên bảng (để `doi_chieu_bang.py` không nạp lại bài lên bảng). File bài, `nghien_cuu/`, `anh/`, `.danh_gia/` trên repo và bản nháp WordPress giữ nguyên. Bảng dưới chỉ để tra lại; muốn làm tiếp từ khóa nào thì người dùng nạp lại trên bảng.
 
-| Từ khóa | Dừng ở | File, ghi chú |
+| Từ khóa (lưu trữ) | Dừng ở | File, ghi chú |
 |---|---|---|
 | cách chọn đèn LED nhà xưởng | `cho_duyet_bai` | `Bai_cach-chon-den-led-nha-xuong.md`, nháp WP 8514, vòng 3 = 99 ĐẠT. Người dùng nói bỏ qua nháp này (27/10) |
 | mẫu nhà xưởng 200m2 | `cho_duyet_bai` | `Bai_mau-nha-xuong-200m2.md`, nháp WP 8524, vòng 2 = 99 ĐẠT. Người dùng nói bỏ qua nháp này (27/10) |
@@ -46,6 +46,8 @@ Quy trình mỗi lượt (không nhắn chat, mỗi lượt một phiên mới, 
 - Agent Danh mục (PR #16) chưa chạy thử với danh mục thật.
 
 ## Lịch sử thay đổi bảng gần đây
+
+- 26/11/2026 (sau): người dùng chốt xóa sạch dữ liệu cũ trên bảng mới (11 từ khóa, 5 bài, 20 dòng ảnh, `cham_bai/tong_hop`), từ nay làm trên bảng mới. Đã ghi `da_xoa` cho cả 11 từ khóa, `xoa_nhap: false` (không đụng nháp WP). Hai mục `da_xoa` còn `cho_xu_ly` (`den-chong-chay-no-1m2`, `den-chong-chay-no-0-6m`): lượt Agent kế tiếp xóa 16 tài sản ảnh trên bảng (DIEU_PHOI mục 3b), giữ logo `68bc4a52...`. Lần chấm kế tiếp `cham_len_bang.py` gộp mọi phiếu nên tab Lịch sử chấm điểm sẽ hiện lại điểm các bài cũ.
 
 - 26/11/2026: chuyển sang bảng mới https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM (bảng cũ ở tổ chức Claude khác). Dữ liệu dựng lại từ repo, id từ khóa là slug. Chưa có `trigger_id`, chưa có quyền `mcp`: nút gọi Agent ngay chưa chạy (`0_TONG_HOP` mục 8). Phiên cloud (lịch `trig_015wH6yUw1ZwT6sW57KQANC2`) KHÔNG đọc được bảng mới (khác tổ chức), vẫn chỉ thấy bảng cũ; 26/11 09:37 người dùng còn bấm nút trên bảng cũ. Cần người dùng chọn một bảng dùng chung cho cả máy và cloud.
 
