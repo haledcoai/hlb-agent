@@ -9,8 +9,8 @@ Cach dung:
                                                            # ghi nghien_cuu/DM_<slug>/ voi danh muc de xuat, 0 san pham
   python tools/danh_muc.py nhap DM_<slug>.md               # tao file xem truoc DM_<slug>.preview.html
   python tools/danh_muc.py nhap DM_<slug>.md --post        # tao/cap nhat Trang nhap "[Nhap danh muc] <ten>" tren WordPress
-  python tools/danh_muc.py ap-dung DM_<slug>.md --duyet-luc <ISO>            # chay thu: in nhung gi se ghi
-  python tools/danh_muc.py ap-dung DM_<slug>.md --duyet-luc <ISO> --post     # sao luu, ghi danh muc + Rank Math, kiem tra
+  python tools/danh_muc.py ap-dung DM_<slug>.md            # chi in nhung gi can chep vao danh muc
+  (ap-dung --post da tat 26/11/2026: noi dung danh muc chi de o Trang nhap, nguoi dung tu chep)
   python tools/danh_muc.py kiem-trang DM_<slug>.md         # trang danh muc cong khai da hien noi dung moi chua (ca khoi tren)
   python tools/danh_muc.py khoi-phuc <slug> [--ban <file sao luu>] --post   # ghi lai ban sao luu gan nhat
 
@@ -19,8 +19,7 @@ File bai DM_<slug>.md co 3 phan nhu bai blog (# A., # B., # C.). Phan B co 2 don
 
 Danh muc khong co ban nhap: ghi vao la cong khai ngay. Vi vay:
 - nhap --post va ap-dung --post chi chay khi bai co phieu DAT khop noi dung (tools/phieu_duyet.py kiem).
-- ap-dung --post can --duyet-luc: gio nguoi dung bam "Duyet, cap nhat len danh muc" tren Bang dieu phoi (truong
-  duyet_ap_dung_luc). Agent chi chep gia tri do, khong tu dien.
+- ap-dung --post bi tat (nguoi dung chot 26/11/2026): Agent khong ghi len danh muc.
 - ap-dung luon sao luu mo ta, SEO title, meta description cu vao danh_muc/sao_luu/ truoc khi ghi.
 Khoi tren nam o truong rieng cua theme, REST API chua mo: dat ten truong vao danh_muc/cau_hinh.json ("khoi_tren_meta")
 khi theme da dang ky truong do cho REST; chua co thi script ghi file HTML khoi tren de nguoi dung dan tay, roi kiem-trang.
@@ -493,8 +492,8 @@ def ghi_chu_nhap(c, seo, ghi_chu, missing):
         "<tr><td><strong>%s</strong></td><td>%s</td></tr>" % (k, v) for k, v in rows)
     thieu = ("<p><strong>ẢNH CÒN THIẾU:</strong> %s</p>" % html.escape(", ".join(missing))) if missing else ""
     return ("<p><strong>BẢN NHÁP NỘI DUNG DANH MỤC, KHÔNG ĐĂNG TRANG NÀY.</strong> Trang này chỉ để xem trước. "
-            "Khi bạn bấm \"Duyệt, cập nhật lên danh mục\" trên Bảng điều phối, Agent chép nội dung vào danh mục thật "
-            "(sao lưu bản cũ trước) rồi chuyển trang nháp này vào Thùng rác.</p>\n%s\n%s\n%s\n<hr>\n"
+            "Agent không ghi nội dung này lên danh mục. Sau khi duyệt, bạn tự chép từng khối vào danh mục "
+            "trong wp-admin (Sản phẩm, Danh mục) khi muốn đưa lên.</p>\n%s\n%s\n%s\n<hr>\n"
             % (bang, wp_draft.md_to_html(ghi_chu, headings=False), thieu))
 
 
@@ -575,9 +574,11 @@ def mau_cau(h, n=1):
 
 
 def cmd_ap_dung(args):
-    if not args.duyet_luc:
-        sys.exit("Thiếu --duyet-luc: giờ người dùng bấm \"Duyệt, cập nhật lên danh mục\" trên Bảng điều phối "
-                 "(trường duyet_ap_dung_luc). Chưa có thì không áp dụng.")
+    # Nguoi dung chot 26/11/2026: noi dung danh muc chi de o Trang nhap, Agent khong ghi len danh muc.
+    # Chay thu (khong --post) van in nhung gi se ghi, de nguoi dung tu chep trong wp-admin.
+    if args.post:
+        sys.exit("Không ghi lên danh mục: người dùng chốt 26/11/2026 nội dung danh mục chỉ để ở Trang nháp, "
+                 "người dùng tự chép vào danh mục trong wp-admin. Bỏ --post để xem những gì cần chép.")
     if args.post:
         kiem_phieu(args.article)
     auth = wp_draft.credentials()

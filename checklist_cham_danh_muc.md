@@ -19,7 +19,7 @@ Phần lớn các mục lấy từ quy tắc đã có. Số trong ngoặc là m�
 1. Một tiêu chí chỉ được điểm tối đa khi mọi mục của nó là Đạt hoặc Không áp dụng.
 2. Mỗi vấn đề nên sửa trừ ít nhất 1 điểm, mỗi lỗi bắt buộc trừ ít nhất 2 điểm, ở đúng tiêu chí của mục. Một vấn đề chỉ trừ ở một tiêu chí.
 3. Cùng một lỗi lặp ở nhiều chỗ thì ghi thành một vấn đề, liệt kê đủ mọi vị trí.
-4. ĐẠT nghĩa là nội dung ghi lên danh mục được ngay mà người dùng không phải sửa thêm câu chữ hay số liệu. Nội dung danh mục hiện công khai ngay khi áp dụng, nên mọi nghi ngờ về số liệu phải kiểm tra cho xong, hoặc xếp thành vấn đề.
+4. ĐẠT nghĩa là nội dung chép lên danh mục được ngay mà người dùng không phải sửa thêm câu chữ hay số liệu. Người dùng chép từ Trang nháp vào danh mục là khách thấy ngay, nên mọi nghi ngờ về số liệu phải kiểm tra cho xong, hoặc xếp thành vấn đề.
 5. Đọc như người mua thật: chủ xưởng hoặc nhà thầu vào trang danh mục, lướt khối trên, nhìn lưới sản phẩm, kéo xuống khối dưới. Chỗ nào khiến họ phải đoán, phải tự tính, hoặc phải rời trang để tìm câu trả lời đều là điểm yếu cần ghi.
 
 ## 1. Chính xác dữ liệu và kỹ thuật (du_lieu, 25 điểm)

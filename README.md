@@ -107,7 +107,7 @@ Trên Windows đặt bằng `setx TEN "giá trị"`, rồi mở lại Claude Cod
 | `python tools/phieu_duyet.py ...` | Phiếu duyệt, nhật ký chấm, hook. Lệnh `ghi` chỉ agent đánh giá được chạy |
 | `python tools/nghien_cuu.py luu-outline ...` | Lưu outline đã chốt và bài top SERP để kiểm heading, kiểm trùng |
 | `python tools/wp_draft.py <file.md> --new` hoặc `--update <ID>` | Xem trước bản nháp; thêm `--post` để đưa lên WordPress (chỉ khi có phiếu ĐẠT) |
-| `python tools/danh_muc.py ds, tim, doc, nhap, ap-dung` | Đọc danh mục, đưa Trang nháp, ghi nội dung lên danh mục |
+| `python tools/danh_muc.py ds, tim, doc, nhap, ap-dung` | Đọc danh mục, đưa Trang nháp (`ap-dung` chỉ in phần cần chép, không ghi lên danh mục) |
 | `python tools/tao_anh.py ...` | Liệt kê chỗ [ẢNH], lấy ảnh sản phẩm, chuẩn hóa JPG (rộng 800-850 px, cao 400-800 px, tối đa 200 KB), ghi `anh.json`, kiểm đủ ảnh |
 | `tools/mau_anh.py` | Thư viện mẫu sơ đồ dùng chung |
 | `python tools/lam_moi_csv.py` | Làm mới CSV sản phẩm từ website |
@@ -120,6 +120,6 @@ Trên Windows đặt bằng `setx TEN "giá trị"`, rồi mở lại Claude Cod
 - Bám đúng outline đã chốt. Heading lệch outline hoặc đoạn trùng bài top SERP là lỗi.
 - Không dùng em dash, không emoji trong bài.
 - Mọi bài chỉ là bản nháp. `wp_draft.py --post` chỉ chạy khi bài có phiếu ĐẠT; agent không bao giờ dùng `--bo-qua-phieu`.
-- Ghi lên danh mục là công khai ngay: chỉ chạy `danh_muc.py ap-dung ... --post` khi người dùng đã bấm "Duyệt, cập nhật lên danh mục" hoặc đồng ý trong chat.
+- Nội dung danh mục chỉ để ở Trang nháp, Agent không ghi lên danh mục (người dùng chốt 26/11/2026).
 - Ảnh tải lên Media là công khai ngay. Chỉ ảnh `trang_thai: "duyet"` trong `anh.json` được chèn vào bài. Tên file ảnh không trùng slug bài hay slug đã có trên website.
 - Đổi quy tắc thì sửa file trong repo, không sửa Project settings. Lịch sử thay đổi ghi ở `0_TONG_HOP_DU_AN_AI_AGENT_HLB.md` mục 8.

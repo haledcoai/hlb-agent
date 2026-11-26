@@ -348,8 +348,10 @@ const ST = {
   cho_hoan_thien:   { t: "Chờ hoàn thiện", c: "agent", s: 7 },
   dang_hoan_thien:  { t: "Đang hoàn thiện", c: "agent", s: 7, run: true },
   san_sang_dang:    { t: "Sẵn sàng đăng", c: "done", s: 8 },
-  // Nội dung danh mục (Agent Danh mục, DIEU_PHOI.md mục 3c): ghi lên danh mục chỉ sau khi bạn bấm duyệt
-  san_sang_ap_dung: { t: "Chờ bạn duyệt cập nhật danh mục", c: "you", s: 6 },
+  // Nội dung danh mục (Agent Danh mục, DIEU_PHOI.md mục 3c): chỉ để ở Trang nháp, Agent không ghi lên danh mục (người dùng chốt 26/11/2026)
+  san_sang_ap_dung: { t: "Chờ bạn duyệt nội dung (Trang nháp)", c: "you", s: 6 },
+  da_duyet_nhap:    { t: "Đã duyệt, nằm ở Trang nháp", c: "done", s: 8 },
+  // Trạng thái cũ, không còn dùng: Agent không ghi lên danh mục nữa
   cho_ap_dung:      { t: "Chờ cập nhật lên danh mục", c: "agent", s: 7 },
   dang_ap_dung:     { t: "Đang cập nhật danh mục", c: "agent", s: 7, run: true },
   cho_dan_khoi_tren:{ t: "Chờ bạn dán khối trên", c: "you", s: 7 },
@@ -510,11 +512,11 @@ function runBtn(r, dis, dangLam) {
 const tenBai = r => (r.file_bai || "").replace(/\.md$/, "");
 const laDm = r => r.loai === "danh_muc" || /^DM_/.test(r.file_bai || "");
 const loaiPill = r => laDm(r) ? `<span class="pill agent">Danh mục</span>` : r.loai === "blog" || r.file_bai ? `<span class="pill off">Blog</span>` : "";
+const LINK_NHAP = r => r.link_nhap || r.link_xem ? ` <a href="${esc(r.link_nhap || r.link_xem)}" target="_blank" rel="noopener">Trang nháp${r.draft_id ? ` ID ${esc(r.draft_id)}` : ""}</a> (cần đăng nhập wp-admin)` : " Trang nháp";
 const AP_DUNG_BOX = (r, dis) => `<div class="panel act box">
-      <h3>Cập nhật lên danh mục</h3>
-      <p class="hint">Bấm duyệt thì Agent ghi nội dung mới vào danh mục${r.link_danh_muc ? ` <a href="${esc(r.link_danh_muc)}" target="_blank" rel="noopener">${esc(r.link_danh_muc)}</a>` : ""}, SEO title và meta description. Khách thấy ngay, vì danh mục không có bản nháp. Bản cũ được sao lưu trên GitHub, nhắn trong chat để khôi phục khi cần.${r.link_xem ? ` Xem trước ở <a href="${esc(r.link_xem)}" target="_blank" rel="noopener">Trang nháp</a> (cần đăng nhập wp-admin).` : ""}</p>
-      <label class="check" for="apOk-${esc(r.id)}"><input type="checkbox" id="apOk-${esc(r.id)}" data-apok> Tôi đã xem bài và Trang nháp, đồng ý cập nhật lên danh mục</label>
-      <div class="actions"><button class="btn ok" type="button" data-act="ap_dung" ${dis}>Duyệt, cập nhật lên danh mục</button>${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
+      <h3>Duyệt nội dung danh mục</h3>
+      <p class="hint">Bấm duyệt là chốt bài. Nội dung chỉ nằm ở${LINK_NHAP(r)}, trạng thái nháp nên khách không thấy. Agent không ghi gì lên danh mục; khi muốn đưa lên, bạn tự chép từ Trang nháp vào danh mục trong wp-admin.</p>
+      <div class="actions"><button class="btn ok" type="button" data-act="ap_dung" ${dis}>Duyệt, giữ ở Trang nháp</button>${DUNG_BTN(dis)}</div><div class="msg err" data-err hidden></div></div>`;
 
 function dungHtml(r, dis) {
   const ve = choCua(r, r.truoc_khi_dung || r.truoc_khi_bo || "moi"), veT = (ST[ve] || ST.moi).t;
@@ -569,6 +571,7 @@ function actionHtml(r) {
       <p class="hint">Agent đã ghi khối dưới, SEO title, meta description. Khối trên lưới sản phẩm nằm ở ô riêng của theme, chưa ghi được qua API. Chép đoạn HTML dưới đây, mở danh mục trong wp-admin (Sản phẩm, Danh mục), dán vào ô mô tả phía trên (chế độ Văn bản/Text), lưu lại rồi bấm "Đã dán khối trên".</p>
       <textarea class="big" readonly id="kt-${esc(r.id)}" aria-label="HTML khối trên">${esc(kt)}</textarea>
       <div class="actions"><button class="btn main" type="button" data-copy="kt-${esc(r.id)}">Chép HTML</button><button class="btn ok" type="button" data-act="da_dan" ${dis}>Đã dán khối trên</button></div><div class="msg err" data-err hidden></div></div>`; }
+  if (t === "da_duyet_nhap") return `<div class="panel"><p>Đã duyệt. Nội dung nằm ở${LINK_NHAP(r)}, khách chưa thấy. Agent không ghi lên danh mục; bạn tự chép vào danh mục trong wp-admin khi muốn đưa lên.</p></div>`;
   if (t === "da_ap_dung") return `<div class="panel"><p>Đã cập nhật lên danh mục${r.ap_dung && r.ap_dung.luc ? ` lúc ${fmt(r.ap_dung.luc)}` : ""}.${r.link_danh_muc ? ` <a href="${esc(r.link_danh_muc)}" target="_blank" rel="noopener">Mở trang danh mục</a>.` : ""} Bản cũ lưu ở <code>${esc((r.ap_dung && r.ap_dung.sao_luu) || "danh_muc/sao_luu/")}</code>; muốn khôi phục thì nhắn trong chat.</p></div>`;
   if (t === "cho_duyet_bai") return `<div class="panel act box">
       <h3>Duyệt bài</h3>
@@ -647,11 +650,11 @@ function renderDetail() {
 const AGENTS = [
   { k: "viet", t: "Agent Blog", role: "Nghiên cứu SERP, lập outline, viết bài blog (mục Tư vấn), đăng và cập nhật bản nháp WordPress.",
     files: ["1_Project_Instructions_Auto_Blog_HLB.md", "2_Knowledge_Du_lieu_tham_chieu_HLB.md", "tools/wp_draft.py"] },
-  { k: "dm", t: "Agent Danh mục", role: "Viết lại nội dung danh mục sản phẩm đã có (khối trên, khối dưới lưới sản phẩm, SEO title, meta). Xem trước bằng Trang nháp, chỉ ghi lên danh mục khi bạn bấm duyệt, bản cũ được sao lưu.",
+  { k: "dm", t: "Agent Danh mục", role: "Viết lại nội dung danh mục sản phẩm đã có (khối trên, khối dưới lưới sản phẩm, SEO title, meta). Nội dung chỉ để ở Trang nháp, Agent không ghi lên danh mục; bạn tự chép vào danh mục khi muốn đưa lên.",
     files: ["6_Agent_Danh_muc_HLB.md", "tools/danh_muc.py", "quy_tac_cham_danh_muc.md"] },
   { k: "cham", t: "Agent đánh giá Blog", role: "Leader Content chấm bài blog 100 điểm (ngưỡng ĐẠT 95), ghi phiếu duyệt. Chưa ĐẠT thì không được đăng nháp.",
     files: [".claude/agents/danh-gia-noi-dung.md", "tools/kiem_tra_bai.py", "tools/phieu_duyet.py"] },
-  { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và cách viết nội dung bán hàng. Rà checklist từng mục, chấm khắt khe nội dung danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp, không ghi lên danh mục.",
+  { k: "chamdm", t: "Agent đánh giá danh mục", role: "Leader Content 7 năm kinh nghiệm, hiểu kỹ thuật chiếu sáng, technical SEO và cách viết nội dung bán hàng. Rà checklist từng mục, chấm khắt khe nội dung danh mục (ngưỡng ĐẠT 95). Chưa ĐẠT thì không lên Trang nháp.",
     files: [".claude/agents/danh-gia-danh-muc.md", "checklist_cham_danh_muc.md", "quy_tac_cham_danh_muc.md"] },
   { k: "anh", t: "Agent tạo ảnh", role: "Chuẩn bị ảnh cho từng chỗ [ẢNH] trong bài, đưa lên tab Kiểm duyệt hình ảnh, chèn ảnh đã duyệt vào bản nháp.",
     files: [".claude/agents/tao-anh.md", "tools/tao_anh.py"] }
@@ -690,7 +693,7 @@ function renderAgent() {
     dm: stat(byDm("moi", "sua_outline", "cho_viet", "sua_bai", "cho_ap_dung", "cho_kiem_trang"), "Đang chờ Agent")
       + stat(byDm("dang_nghien_cuu", "dang_viet", "dang_ap_dung"), "Đang làm")
       + stat(byDm("cho_duyet_outline", "cho_duyet_bai", "san_sang_ap_dung", "cho_dan_khoi_tren"), "Chờ bạn", true)
-      + stat(byDm("da_ap_dung"), "Đã cập nhật lên web"),
+      + stat(byDm("da_duyet_nhap", "da_ap_dung"), "Đã duyệt, ở Trang nháp"),
     cham: chamStats(false),
     chamdm: chamStats(true),
     anh: stat(ac("cho_duyet"), "Chờ bạn duyệt", true) + stat(ac("lam_lai"), "Chờ làm lại") + stat(ac("duyet"), "Đã duyệt") + stat(ac("loai_bo"), "Đã loại bỏ")
@@ -842,7 +845,6 @@ async function act(r, kind, btn) {
   const errEl = btn.closest(".panel")?.querySelector("[data-err]");
   const showErr = m => { if (errEl) { errEl.textContent = m; errEl.hidden = false; } };
   const muc = r.trang_thai === "cho_duyet_bai" ? mucNotes(r) : [];
-  if (kind === "ap_dung" && !btn.closest(".panel")?.querySelector("[data-apok]")?.checked) { showErr("Đánh dấu ô đồng ý trước: nội dung sẽ hiện công khai ngay trên trang danh mục."); return; }
   if (["duyet_bai", "ap_dung"].includes(kind) && muc.length) { showErr(`Bạn đang có góp ý ở ${muc.length} mục. Bấm "Gửi góp ý, sửa bài", hoặc xóa góp ý mục rồi mới duyệt.`); return; }
   const need = ["gop_y_outline", "tra_loi"].concat(muc.length ? [] : ["gop_y_bai"]);
   if (need.includes(kind) && !note) { showErr("Ghi nội dung góp ý hoặc trả lời để Agent biết cần làm gì."); noteEl && noteEl.focus(); return; }
@@ -857,7 +859,7 @@ async function act(r, kind, btn) {
   } else if (kind === "gop_y_outline") { upd.trang_thai = "sua_outline"; upd.gop_y_outline = note; viec = "Góp ý outline"; queue = true; }
   else if (kind === "duyet_bai") { upd.trang_thai = "cho_tao_anh"; upd.ghi_chu_duyet_bai = note; viec = "Duyệt bài"; queue = true; }
   else if (kind === "gop_y_bai") { upd.trang_thai = "sua_bai"; upd.gop_y_bai = note; upd.gop_y_muc = muc; viec = "Góp ý bài" + (muc.length ? ` (${muc.length} mục: ${muc.map(x => x.muc).join("; ")})` : ""); queue = true; }
-  else if (kind === "ap_dung") { upd.trang_thai = "cho_ap_dung"; upd.duyet_ap_dung_luc = upd.cap_nhat; viec = "Duyệt, cập nhật lên danh mục"; queue = true; }
+  else if (kind === "ap_dung") { upd.trang_thai = "da_duyet_nhap"; upd.duyet_nhap_luc = upd.cap_nhat; upd.ghi_chu_duyet_bai = note; viec = "Duyệt nội dung danh mục, giữ ở Trang nháp"; }
   else if (kind === "da_dan") { upd.trang_thai = "cho_kiem_trang"; viec = "Đã dán khối trên"; queue = true; }
   else if (kind === "anh_xong") { upd.trang_thai = "cho_hoan_thien"; viec = "Báo đã duyệt ảnh xong"; queue = true; }
   else if (kind === "tra_loi") { upd.trang_thai = r.quay_ve && ST[r.quay_ve] ? r.quay_ve : "moi"; upd.tra_loi = note; viec = "Trả lời câu hỏi của Agent"; queue = true; }
