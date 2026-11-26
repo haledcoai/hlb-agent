@@ -1,6 +1,6 @@
 # Trạng thái Điều phối HLB (bàn giao cho lượt chạy phiên riêng)
 
-Cập nhật: 26/11/2026 09:45 giờ VN. Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
+Cập nhật: 26/11/2026 giờ VN (đối chiếu bảng trên máy). Mỗi lượt chạy đọc file này sau `DIEU_PHOI.md`. Lượt nào đổi trạng thái lớn (bài mới ĐẠT, người dùng chốt quyết định mới) thì sửa file này và commit.
 
 ## Cách chạy từ 28/10/2026
 
@@ -46,6 +46,8 @@ Quy trình mỗi lượt (không nhắn chat, mỗi lượt một phiên mới, 
 - Agent Danh mục (PR #16) chưa chạy thử với danh mục thật.
 
 ## Lịch sử thay đổi bảng gần đây
+
+- 26/11/2026 (đối chiếu trên máy): bảng mới không còn `tu_khoa`, `bai_viet`, `anh`, `yeu_cau`; còn 11 `da_xoa` (9 `da_xu_ly`, 2 `cho_xu_ly`: `den-chong-chay-no-1m2`, `den-chong-chay-no-0-6m`) và 16 tài sản ảnh cũ chờ xóa, logo giữ. Trang bảng đang chạy là bản trước PR #54 (nút "Duyệt, cập nhật lên danh mục"): đã đăng lại từ `dieu_phoi/bang-dieu-phoi.html`, nay hiện "Duyệt, giữ ở Trang nháp". Sửa `bang-dieu-phoi.html` ở phiên cloud thì phiên trên máy phải đăng lại bảng (cloud không ghi được bảng mới).
 
 - 26/11/2026 (sau): người dùng chốt xóa sạch dữ liệu cũ trên bảng mới (11 từ khóa, 5 bài, 20 dòng ảnh, `cham_bai/tong_hop`), từ nay làm trên bảng mới. Đã ghi `da_xoa` cho cả 11 từ khóa, `xoa_nhap: false` (không đụng nháp WP). Hai mục `da_xoa` còn `cho_xu_ly` (`den-chong-chay-no-1m2`, `den-chong-chay-no-0-6m`): lượt Agent kế tiếp xóa 16 tài sản ảnh trên bảng (DIEU_PHOI mục 3b), giữ logo `68bc4a52...`. Lần chấm kế tiếp `cham_len_bang.py` gộp mọi phiếu nên tab Lịch sử chấm điểm sẽ hiện lại điểm các bài cũ.
 
