@@ -8,12 +8,15 @@
       "alt": "Sơ đồ chọn đèn chống cháy nổ 0.6m loại đơn, đôi theo vị trí lắp",
       "mo_ta": "Sơ đồ so sánh bộ đèn chống nổ 0,6 m loại đơn và loại đôi, vị trí lắp ở hành lang và phòng nhỏ",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8551,
       "dai_dien": true,
       "ghi_chu": "Sơ đồ vẽ bằng Python (anh/DM_den-chong-chay-no-0-6m/ve_so_do.py). Số liệu lấy từ bảng chọn loại theo chiều cao lắp trong bài (dưới 2,5 m; 2,5-3,5 m; 3-6 m; trên 6 m). Không có mẫu cụ thể.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/so-do-chon-bo-den-chong-no-don-doi-6-tac.jpg",
+      "sha_da_tai": "2821fc7071ff16370fa106d113dc8b3a891870400ce529c297dee424ccf70c65"
     },
     {
       "ten": "cach-doc-ky-hieu-ex-tren-nhan-den-tuyp-6-tac.jpg",
@@ -22,12 +25,15 @@
       "alt": "Sơ đồ đọc ký hiệu Ex trên nhãn đèn chống cháy nổ 0.6m",
       "mo_ta": "Sơ đồ minh họa cách đọc ký hiệu Ex trên nhãn đèn chống nổ 0,6 m, gồm kiểu bảo vệ, nhóm khí, cấp nhiệt độ",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8552,
       "dai_dien": false,
       "ghi_chu": "Sơ đồ vẽ bằng Python (anh/DM_den-chong-chay-no-0-6m/ve_so_do.py). Cấu trúc nhãn Ex chung: kiểu bảo vệ d, e, m; nhóm khí IIA-IIC; cấp T1-T6; Ga, Gb; IP54, IP65 theo bài. Không phải nhãn của mẫu cụ thể.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/cach-doc-ky-hieu-ex-tren-nhan-den-tuyp-6-tac.jpg",
+      "sha_da_tai": "56676c697f140325add0859a3f6527e39344f194be73edc1aea863839127f9c4"
     },
     {
       "ten": "bo-den-chong-no-tuyp-6-tac-don-va-doi-canh-nhau.jpg",
@@ -36,12 +42,15 @@
       "alt": "Bộ đèn chống cháy nổ 0.6m loại đơn và loại đôi",
       "mo_ta": "Bộ đèn chống nổ 0,6 m loại đơn và loại đôi đặt cạnh nhau để so sánh kích thước",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8553,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ Python tỷ lệ theo chiều dài 0,6 m và bộ 1,2 m để so sánh. Minh họa, không vẽ đúng từng mẫu; chưa có mẫu 0,6 m trên website.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/bo-den-chong-no-tuyp-6-tac-don-va-doi-canh-nhau.jpg",
+      "sha_da_tai": "00542dc771b65d84e9ae7ce3cc4dd6275243ca9d024909ed0c317fa98cf14e02"
     },
     {
       "ten": "tho-dien-ngat-nguon-thay-bong-den-chong-no-tuyp-ngan.jpg",
@@ -50,12 +59,15 @@
       "alt": "Thay bóng đèn chống cháy nổ 0.6m sau khi ngắt nguồn điện",
       "mo_ta": "Thợ điện ngắt nguồn, mở nắp thay bóng đèn chống nổ 0,6 m trong phòng kỹ thuật",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8554,
       "dai_dien": false,
       "ghi_chu": "Ảnh minh họa, không phải công trình thật. Nguồn: https://unsplash.com/photos/man-on-ladder-working-on-ceiling-access-panel-fAcfdibroFc, Unsplash License. Ảnh chỉ thể hiện thao tác mở nắp trần, không thể hiện bước ngắt nguồn; đèn trần trong ảnh đang sáng.",
       "prompt": "",
       "tac_gia": "Adhitya Sibikumar trên Unsplash",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/tho-dien-ngat-nguon-thay-bong-den-chong-no-tuyp-ngan.jpg",
+      "sha_da_tai": "c86a95b7c7d65a79fc1829241ac93bdced86992089010272ce5add1beb49bc27"
     },
     {
       "ten": "den-chong-no-tuyp-6-tac-dong-thung-cho-giao.jpg",
@@ -64,12 +76,15 @@
       "alt": "Đèn chống cháy nổ 0.6m đóng thùng chờ giao hàng",
       "mo_ta": "Đèn chống nổ được đóng thùng tại kho, chờ giao cho khách",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8555,
       "dai_dien": false,
       "ghi_chu": "Ảnh minh họa, không phải công trình thật. Nguồn: https://unsplash.com/photos/a-warehouse-filled-with-lots-of-boxes-and-pallets-VnMbc9Szs-E, Unsplash License. Ảnh là kệ hàng trong kho, không phải đèn chống nổ.",
       "prompt": "",
       "tac_gia": "Arum Visuals trên Unsplash",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-chong-no-tuyp-6-tac-dong-thung-cho-giao.jpg",
+      "sha_da_tai": "344e77823e7d29cf46a509fa3e42c4bdaaa9bb43ab6fcfa63e8931dc79e873aa"
     }
   ]
 }
