@@ -15,18 +15,18 @@
 
 # Đèn chống cháy nổ 250W: hướng dẫn chọn đèn LED cho kho, xưởng
 
-Đèn chống cháy nổ 250W là mức công suất lớn của đèn chống nổ, ít mẫu trên thị trường. Loại này dùng cho kho, xưởng trần cao cần chiếu sáng mạnh trong khu có khí, hơi dung môi dễ cháy. Bài này là hướng dẫn chọn, không phải bảng xếp hạng. Bạn sẽ biết cách đọc nhãn Ex, chọn highbay hay đèn pha, tính công suất và hỏi gì khi mua.
+Đèn chống cháy nổ 250W là mức công suất lớn của đèn chống nổ; khi tra ngày 25/11/2026, chúng tôi chỉ thấy 2 mẫu 250W có tên model rõ. Loại này dùng cho kho, xưởng trần cao cần chiếu sáng mạnh trong khu có khí, hơi dung môi dễ cháy. Bài này là hướng dẫn chọn, không phải bảng xếp hạng. Bạn sẽ biết cách đọc nhãn Ex, chọn highbay hay đèn pha, tính công suất và hỏi gì khi mua.
 
 Trước khi chốt mẫu, bạn kiểm tra 4 điểm:
 
-- **Công suất 250W** hợp khi trần cao hoặc cần độ rọi lớn, khu nhỏ trần thấp thường dùng mức thấp hơn.
+- **Công suất 250W** hợp khi trần cao (kinh nghiệm phổ biến: từ khoảng 6 m trở lên) hoặc cần độ rọi lớn; kho 600 m² trong ví dụ dưới cần khoảng 7 bộ. Khu nhỏ trần thấp thường dùng mức thấp hơn.
 - **Dạng đèn:** highbay treo trần, đèn pha gắn tường hoặc cột.
 - **Ký hiệu Ex** ghi đúng model, khớp vùng nguy hiểm của khu lắp.
 - **Giấy chứng nhận** ghi đúng model đèn bạn mua.
 
 ## Đèn chống cháy nổ 250W dùng khi nào và cho khu vực nào
 
-Đèn chống nổ 250W công suất lớn, số mẫu ít nên khó tìm hơn các mức 50W, 100W. Đèn thường được cân nhắc cho xưởng và kho rộng, trần cao, nơi một bộ đèn phải phủ sáng một vùng lớn. Đây là kinh nghiệm phổ biến chứ không phải quy định: khu trần dưới 6 m thường chia thành nhiều bộ công suất thấp hơn sẽ đều sáng hơn.
+Đèn chống nổ 250W có công suất lớn; chúng tôi chỉ thấy 2 mẫu có tên model khi tra ngày 25/11/2026. Đèn thường được cân nhắc cho xưởng và kho rộng, trần cao, nơi một bộ đèn phải phủ sáng một vùng lớn. Đây là kinh nghiệm phổ biến chứ không phải quy định: khu trần dưới 6 m thường chia thành nhiều bộ công suất thấp hơn sẽ đều sáng hơn.
 
 Các khu hay cần loại đèn này:
 
@@ -48,7 +48,7 @@ Hai mẫu 250W dưới đây có thông số trên trang bán hàng của một 
 
 ### Đèn highbay chống cháy nổ 250W
 
-Đèn highbay chống cháy nổ 250W treo dưới trần hoặc kèo, hợp xưởng và kho trần cao vì ánh sáng chiếu thẳng xuống sàn. Nếu cần bộ đèn rộng hơn, bạn xem thêm bài [đèn LED highbay chống cháy nổ](https://denlednhaxuongcaocap.com/tu-van/den-led-highbay-chong-chay-no/) với các mức công suất khác.
+Đèn highbay chống cháy nổ 250W treo dưới trần hoặc kèo, hợp xưởng và kho trần cao vì ánh sáng chiếu thẳng xuống sàn. Muốn xem thêm các mức công suất khác của đèn highbay chống nổ, bạn đọc bài [đèn LED highbay chống cháy nổ](https://denlednhaxuongcaocap.com/tu-van/den-led-highbay-chong-chay-no/) với các mức công suất khác.
 
 Mẫu **Soho Lighting SH-HB5-250SMD** (hậu tố SMD trong tên model là loại chip) có các thông số sau trên trang bán hàng:
 
@@ -64,7 +64,7 @@ Trang không công bố quang thông, điện áp, ký hiệu Ex, vật liệu v
 
 ### Đèn pha chống cháy nổ 250W
 
-Đèn pha chống cháy nổ 250W gắn tường, cột hoặc khung giá, chiếu bồn bể, sân bãi và mặt bằng ngoài trời. Chùm sáng định hướng nên dễ chiếu tập trung vào một mặt, nhưng cũng dễ chói và để lại vùng tối sau vật cản. Nếu cần chiếu xa hơn khoảng cách thông thường, bạn xem lại bài [đèn pha chống cháy nổ](https://denlednhaxuongcaocap.com/tu-van/den-pha-chong-chay-no/) để chọn góc chiếu.
+Đèn pha chống cháy nổ 250W gắn tường, cột hoặc khung giá, chiếu bồn bể, sân bãi và mặt bằng ngoài trời. Chùm sáng định hướng nên dễ chiếu tập trung vào một mặt, nhưng cũng dễ chói và để lại vùng tối sau vật cản. Cách chọn góc chiếu cho đèn pha chống nổ có trong bài [đèn pha chống cháy nổ](https://denlednhaxuongcaocap.com/tu-van/den-pha-chong-chay-no/).
 
 Mẫu **Soho Lighting SH-FL1EX-250W** trên trang bán hàng: công suất 250W, đường kính 330 mm, IP65, bảo hành 24 tháng, giá "Liên hệ". Cũng như mẫu highbay, trang không ghi quang thông, ký hiệu Ex, vật liệu. Trang còn có bảng so sánh chi phí ghi 3W, lệch với 250W, nên chúng tôi chỉ lấy các thông số trong khối thông số sản phẩm [CẦN KIỂM TRA: bảng so sánh chi phí ghi 3W trên trang SH-FL1EX-250W].
 
@@ -84,9 +84,9 @@ Ví dụ ước tính điện năng, chạy 16 giờ mỗi ngày, 26 ngày mỗi
 2. Đèn LED 250W: 250W x 16 giờ x 26 ngày = 104 kWh mỗi tháng.
 3. Chênh lệch 12,48 kWh mỗi tháng.
 
-Thay cùng công suất 250W thì mức chênh nhỏ. Điện năng chỉ giảm nhiều khi đèn LED mới đủ độ rọi ở công suất thấp hơn.
+Thay cùng công suất 250W thì mức chênh nhỏ. Điện năng chỉ giảm nhiều khi đèn LED mới đủ độ rọi ở công suất thấp hơn. Điều đó phải kiểm theo quang thông ghi trên nhãn của model LED, theo cách ở phần ví dụ tính bên dưới.
 
-Điều đó phải tính theo quang thông ghi trên nhãn của model LED, theo cách ở phần ví dụ tính bên dưới. Giả sử đèn LED mới chỉ cần 150W, mức tiêu thụ là 150W x 16 x 26 = 62,4 kWh mỗi tháng. Con số này chỉ đúng khi quang thông model đó đủ.
+Giả sử mỗi bộ LED mới chỉ cần 150W: mỗi bộ dùng 150W x 16 x 26 = 62,4 kWh mỗi tháng. Nhưng một bộ 150W không thay được một bộ 250W về độ rọi; ví dụ tính bên dưới cần 11 bộ 150W, tổng 11 x 62,4 = 686,4 kWh mỗi tháng. Các con số này chỉ đúng khi quang thông model đó đủ.
 
 [ẢNH: Bộ đèn chống nổ dùng bóng cao áp đặt cạnh bộ đèn LED chống nổ cùng khung treo (ảnh minh họa) | alt: Bộ đèn chống nổ bóng cao áp 250W và đèn LED thay thế | tên file: bo-den-cao-ap-chong-no-va-den-led-thay-the.jpg]
 
@@ -116,7 +116,7 @@ Cấp bảo vệ IP (theo TCVN 4255:2025, dựa trên IEC 60529) cho biết đè
 
 Tuy vậy, IP không thay cho ký hiệu Ex. Đèn IP65 chưa chắc là đèn chống nổ, nên bạn phải xem cả hai chỉ số.
 
-- **Khu trong nhà, khô:** IP65 là đủ cho phần lớn kho hóa chất.
+- **Khu trong nhà, khô:** IP65 là mức tối thiểu nên xét; bạn đối chiếu điều kiện thực tế của kho và hỏi hãng.
 - **Ngoài trời, bồn bể, khu rửa nước:** ưu tiên IP cao hơn và vật liệu thân chịu ăn mòn. Thép và hợp kim nhôm có thể hợp hoặc không tùy hóa chất trong khu, bạn hỏi hãng về vật liệu thân.
 - **Khu có hơi ăn mòn:** hỏi hãng lớp sơn, gioăng và vật liệu kính.
 
@@ -161,9 +161,9 @@ Trước khi đặt hàng, bạn dùng bảng dưới để hỏi nhà cung cấ
 | Bản sao giấy chứng nhận | Chứng minh ghi đúng model | Chưa công bố | Chưa công bố |
 | Quang thông (lm) | Tính số bộ cần dùng | Chưa công bố | Chưa công bố |
 | Cấp IP | Hợp bụi, nước | IP65 | IP65 |
-| Bảo hành, giá, thời gian giao | So sánh báo giá | 24 tháng, "Liên hệ" | 24 tháng, "Liên hệ" |
-
-Dòng cuối của bảng gộp ba mục vì bảo hành và giá của hai mẫu giống nhau. Thời gian giao, bạn hỏi riêng từng nhà cung cấp.
+| Bảo hành | So sánh giữa các nhà cung cấp | 24 tháng | 24 tháng |
+| Giá | So sánh báo giá | "Liên hệ" | "Liên hệ" |
+| Thời gian giao | Lên kế hoạch lắp | Hỏi nhà cung cấp | Hỏi nhà cung cấp |
 
 [ẢNH: Bảng kiểm các câu hỏi cần hỏi nhà cung cấp trước khi mua đèn chống nổ, đặt cạnh giấy chứng nhận (ảnh minh họa) | alt: Bảng kiểm hỏi nhà cung cấp khi mua đèn chống cháy nổ 250W | tên file: bang-kiem-hoi-nha-cung-cap-den-chong-no-250w.jpg]
 
@@ -179,8 +179,6 @@ Việc đấu nối và kiểm tra trong vùng nguy hiểm nên giao cho thợ �
 - **Gá treo chắc chắn:** đèn công suất lớn nặng hơn các mức thấp, điểm bắt trần và dây an toàn phải chịu được tải. [CẦN KIỂM TRA: trọng lượng từng model, trang bán hàng không công bố]
 - **Làm việc trên cao** có người giữ thang, đeo dây an toàn.
 
-Các bước chi tiết cho đèn công suất thấp hơn có trong bài về từng mức công suất, bài này không nhắc lại.
-
 [ẢNH: Thợ điện siết đầu cáp chống nổ trên thân bộ đèn trước khi đóng nắp (ảnh minh họa) | alt: Siết đầu cáp khi lắp đèn chống cháy nổ 250W | tên file: siet-dau-cap-khi-lap-den-chong-no-250w.jpg]
 
 Nắm được cách chọn và lắp, phần dưới trả lời nhanh các câu bạn hay hỏi nhà cung cấp.
@@ -189,7 +187,7 @@ Nắm được cách chọn và lắp, phần dưới trả lời nhanh các câ
 
 **Đèn chống cháy nổ 250W giá khoảng bao nhiêu?**
 
-Hai mẫu Soho 250W mà chúng tôi đọc được trên trang bán hàng ngày 25/11/2026 đều ghi giá "Liên hệ". Giá phụ thuộc hãng, ký hiệu Ex, số lượng và thời điểm mua, nên bạn xin báo giá kèm bản sao giấy chứng nhận. Bài này không dùng các mức giá cũ từ bài trước vì chúng không có nguồn và ngày kiểm tra.
+Hai mẫu Soho 250W mà chúng tôi đọc được trên trang bán hàng ngày 25/11/2026 đều ghi giá "Liên hệ". Giá phụ thuộc hãng, ký hiệu Ex, số lượng và thời điểm mua, nên bạn xin báo giá kèm bản sao giấy chứng nhận.
 
 **Đèn LED nhà xưởng 250W thường có thay đèn chống nổ được không?**
 
@@ -197,11 +195,11 @@ Không, nếu khu của bạn có phân vùng nguy hiểm. Đèn nhà xưởng t
 
 **Nên chọn đèn highbay hay đèn pha chống cháy nổ 250W?**
 
-Chọn highbay khi lắp dưới trần hoặc kèo trong kho, xưởng trần cao, cần ánh sáng phủ xuống sàn. Chọn đèn pha khi gắn tường, cột để chiếu bồn bể, sân bãi hoặc một mặt cụ thể. Nếu khu có cả hai, bạn tính riêng từng khu theo độ rọi cần đạt.
+Chọn highbay khi lắp dưới trần hoặc kèo cần phủ sáng xuống sàn, chọn đèn pha khi gắn tường, cột để chiếu một mặt cụ thể như bồn bể, sân bãi.
 
 **Đèn chống cháy nổ 250W chạy 2 ca tốn bao nhiêu điện mỗi tháng?**
 
-Với công suất 250W, chạy 16 giờ mỗi ngày (2 ca), 26 ngày mỗi tháng, đèn dùng khoảng 104 kWh. Tiền điện ước tính theo đơn giá giả định 2.000 đồng/kWh là khoảng 208.000 đồng mỗi bộ. Con số chưa tính hao hụt của driver (bộ nguồn), bạn thay bằng đơn giá điện trong hợp đồng của nhà máy.
+Khoảng 104 kWh, tương đương khoảng 208.000 đồng mỗi bộ theo đơn giá giả định 2.000 đồng/kWh (250W, 16 giờ mỗi ngày, 26 ngày mỗi tháng, chưa tính hao hụt driver). Bạn thay bằng đơn giá trong hợp đồng điện của nhà máy.
 
 ## Chọn đèn chống cháy nổ 250W theo từng khu vực
 
@@ -214,7 +212,7 @@ Với công suất 250W, chạy 16 giờ mỗi ngày (2 ca), 26 ngày mỗi thá
 
 Giữa các hãng, bạn chọn mẫu có ký hiệu Ex đúng vùng, thông số và giấy tờ công bố rõ. Chúng tôi không kết luận hãng nào hơn.
 
-Gửi HLB loại khu vực (khí, hơi dung môi hay bụi, vùng nguy hiểm nếu đã có), kích thước khu và chiều cao lắp. Bạn gửi qua [trang Liên hệ](https://denlednhaxuongcaocap.com/lien-he/), hotline hoặc Zalo 0967569588. Chúng tôi gợi ý công suất, số lượng và cách bố trí cho đèn chống cháy nổ 250W. [CẦN BỔ SUNG: HLB có nhận báo giá đèn chống nổ 250W theo dự án không, chờ người dùng xác nhận]
+Bạn gửi HLB loại khu vực, kích thước khu và chiều cao lắp qua [trang Liên hệ](https://denlednhaxuongcaocap.com/lien-he/) hoặc hotline, Zalo 0967569588. Chúng tôi gợi ý công suất, số lượng và cách bố trí cho đèn chống cháy nổ 250W. [CẦN BỔ SUNG: HLB có nhận báo giá đèn chống nổ 250W theo dự án không, chờ người dùng xác nhận]
 
 # C. GHI CHÚ CHO NGƯỜI DUYỆT
 
@@ -256,7 +254,9 @@ Phép tính đã kiểm bằng Python: 200 x 600 / 0,64 = 187.500 lm; 187.500 / 
 
 **6. Schema:** Article và FAQPage (4 câu).
 
-**7. Chênh lệch phát hiện:** website HLB chưa có sản phẩm hay danh mục chống nổ, nên bài chỉ có 1 link danh mục (đèn LED nhà xưởng 250W, FAQ). Mẫu Soho là của đơn vị khác, HLB không phân phối, bài nêu "theo trang bán hàng".
+**7. Ghi chú nguồn giá:** bài không dùng các mức giá cũ của bài trước vì không có nguồn và ngày kiểm tra.
+
+**7b. Chênh lệch phát hiện:** website HLB chưa có sản phẩm hay danh mục chống nổ, nên bài chỉ có 1 link danh mục (đèn LED nhà xưởng 250W, FAQ). Mẫu Soho là của đơn vị khác, HLB không phân phối, bài nêu "theo trang bán hàng".
 
 **8. Điểm cần người dùng quyết định**
 1. HLB có phân phối hoặc báo giá đèn chống nổ 250W của hãng nào, có catalogue không (4 chỗ [CẦN BỔ SUNG]).
