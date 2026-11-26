@@ -1,6 +1,6 @@
 # Agent điều phối HLB
 
-Cập nhật: 31/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi bảng gọi Agent lúc người dùng thao tác) trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG
+Cập nhật: 31/10/2026. File này là quy trình cho phiên Claude chạy theo lịch (hoặc khi bảng gọi Agent lúc người dùng thao tác) trên trang **Bảng điều phối HLB**: https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM
 
 **Từ 28/10/2026 mỗi lượt chạy là một phiên mới.** Đọc `dieu_phoi/TRANG_THAI.md` (quyết định đã chốt, trạng thái từ khóa, việc còn chờ) ngay sau file này. Phiên mới không nhắn được vào chat: báo người dùng qua bảng.
 

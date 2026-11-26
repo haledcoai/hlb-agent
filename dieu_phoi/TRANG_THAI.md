@@ -47,6 +47,8 @@ Quy trình mỗi lượt (không nhắn chat, mỗi lượt một phiên mới, 
 
 ## Lịch sử thay đổi bảng gần đây
 
+- 26/11/2026: chuyển sang bảng mới https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM (bảng cũ ở tổ chức Claude khác). Dữ liệu dựng lại từ repo, id từ khóa là slug. Chưa có `trigger_id`, chưa có quyền `mcp`: nút gọi Agent ngay chưa chạy (`0_TONG_HOP` mục 8).
+
 - PR #26: Agent xác nhận nhận việc, nút Chạy Agent ngay mờ khi đã giao, nút cố định vị trí.
 - PR #27: nạp trùng từ khóa thì mở sẵn từ khóa cũ; "Tất cả" gồm cả tạm dừng.
 - PR #28: gọi ngay mà 10 phút chưa xác nhận thì nút sáng lại.

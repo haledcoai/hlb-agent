@@ -81,7 +81,7 @@ Khi không có script, rà tay đủ các mục dưới đây.
 
 **Bác bỏ:** trưởng phòng (agent chính) ghi lần agent đánh giá nói sai bằng lệnh `python tools/phieu_duyet.py bac-bo <bài> --vong <n> --nhan <nhãn> --ly-do "<nguồn nói gì>"`.
 
-**Trang theo dõi:** tab **Lịch sử chấm điểm** của Bảng điều phối HLB (https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG) cho thấy:
+**Trang theo dõi:** tab **Lịch sử chấm điểm** của Bảng điều phối HLB (https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM) cho thấy:
 - điểm qua các lần chấm
 - % điểm theo từng tiêu chí
 - vấn đề lặp lại

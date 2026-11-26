@@ -6,7 +6,7 @@
 
 Mỗi lần agent đánh giá ghi phiếu, `tools/phieu_duyet.py` thêm một dòng vào `.danh_gia/nhat_ky.jsonl` (điểm từng tiêu chí, các vấn đề có nhãn). Agent chính ghi thêm các lần bác bỏ (bước 3). Không sửa tay file nhật ký.
 
-Lịch sử chấm hiện ở tab **Lịch sử chấm điểm** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG. Cập nhật một lần khi kết thúc vòng duyệt (bước 5), trước khi báo người dùng:
+Lịch sử chấm hiện ở tab **Lịch sử chấm điểm** của **Bảng điều phối HLB**: https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM. Cập nhật một lần khi kết thúc vòng duyệt (bước 5), trước khi báo người dùng:
 1. `python tools/phieu_duyet.py xuat` rồi `python dieu_phoi/cham_len_bang.py > <file tạm>.json`.
 2. `ArtifactData` `set` collection `cham_bai`, doc_id `tong_hop`, `file_path` là file tạm, kèm `if_version` (đọc `get` trước để lấy version).
 

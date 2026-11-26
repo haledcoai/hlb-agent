@@ -13,7 +13,7 @@
 
 ## Trang duyệt ảnh
 
-Người dùng duyệt ảnh ở tab **Kiểm duyệt hình ảnh** của **Bảng điều phối HLB**: https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG. Dữ liệu đọc ghi bằng công cụ `ArtifactData` với URL trên:
+Người dùng duyệt ảnh ở tab **Kiểm duyệt hình ảnh** của **Bảng điều phối HLB**: https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM. Dữ liệu đọc ghi bằng công cụ `ArtifactData` với URL trên:
 - Collection `anh`, mã tài liệu `<tên bài>--<tên file>` (ví dụ `Bai_cach-chon-den-led-nha-xuong--cap-bao-ve-ip-den-nha-xuong.jpg`). Trường: `bai`, `tieu_de_bai`, `ten`, `thu_tu`, `muc`, `alt`, `nguon`, `url`, `asset_id`, `rong`, `cao`, `vong`, `trang_thai` (`cho_duyet` | `duyet` | `lam_lai` | `loai_bo`), `ghi_chu` (của người dùng), `ghi_chu_agent`, `cap_nhat`.
 - Collection `yeu_cau`: ảnh người dùng xin thêm. Trường: `bai`, `noi_dung` (tên file hoặc mô tả), `ghi_chu`, `trang_thai` (`moi` | `da_xu_ly`), `phan_hoi`, `tao_luc`.
 

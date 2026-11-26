@@ -37,7 +37,7 @@ Agent nhận bộ từ khóa, nghiên cứu SERP, lập outline gửi duyệt, v
 | dieu_phoi/anh_len_bang.py | Tạo sẵn dữ liệu đưa ảnh chờ duyệt của cả bài lên tab Kiểm duyệt hình ảnh: danh sách file cần tải và mảng `writes` cho một lần ArtifactData batch |
 | anh/<bài>/ | Ảnh của từng bài, `anh.json` và script vẽ sơ đồ `ve_so_do.py` (gọi mẫu trong `tools/mau_anh.py`). `wp_draft.py` đọc `anh.json`: `--post` tải ảnh lên Media, chèn vào bài và đặt ảnh đại diện |
 | .danh_gia/nhat_ky.jsonl | Nhật ký chấm, chỉ thêm không ghi đè: mỗi lần chấm (điểm 6 tiêu chí, vấn đề có nhãn, phiên bản thang chấm) và mỗi lần agent đánh giá bị bác bỏ. Đã nhập lại 3 lần chấm bài "cách chọn đèn" ngày 21/10/2026 (thang v1) |
-| Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (`quy_trinh/nhat_ky_cham_va_bang.md`) |
+| Lịch sử chấm bài | Tab Lịch sử chấm của Bảng điều phối HLB https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM (trang cũ JVfjfAmGtDAtZr49TFodBc ngừng cập nhật từ 22/10/2026): điểm qua các lần chấm, điểm mất theo tiêu chí, vấn đề lặp lại, lần agent bị bác bỏ, bảng lịch sử. Dữ liệu từ `phieu_duyet.py xuat`, cập nhật cuối mỗi vòng duyệt (`quy_trinh/nhat_ky_cham_va_bang.md`) |
 | .claude/settings.json | Cho phép lệnh `phieu_duyet.py ghi`, `nhan`. Khai báo 5 hook: PreToolUse Bash (chặn đăng, chặn ghi phiếu ngoài agent đánh giá), PreToolUse Agent (đánh dấu đang chấm), SubagentStop (bỏ đánh dấu), PostToolUse (ghi nhận sửa bài), Stop (nhắc chấm lại) |
 
 ## 3. Quyết định đã chốt
@@ -49,7 +49,7 @@ Không chép lại ở đây để tránh lệch. Nguồn duy nhất:
 
 ## 4. Trạng thái công việc
 
-Trạng thái từng từ khóa và bài: Bảng điều phối HLB (https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG) và `dieu_phoi/TRANG_THAI.md`. Mục 5 dưới đây chỉ giữ chi tiết để tra cứu.
+Trạng thái từng từ khóa và bài: Bảng điều phối HLB (https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM) và `dieu_phoi/TRANG_THAI.md`. Mục 5 dưới đây chỉ giữ chi tiết để tra cứu.
 
 ## 5. Việc còn dở (chi tiết tra cứu)
 
@@ -126,3 +126,4 @@ python tools/wp_draft.py Bai_cach-chon-den-led-nha-xuong.md --update 2323 --post
 - **Ô Nạp từ khóa (10/11/2026, người dùng chốt):** trước đó bảng ghi "mỗi dòng là một bài", sai với quy ước. Đúng là một nhóm từ khóa là một bài SEO: mỗi dòng một từ khóa, dòng đầu là từ khóa chính, các dòng sau là phụ, liên quan. Nhiều bài một lần thì cách nhóm bằng dòng trống; `#ID` (viết lại bài cũ) và link danh mục ghi ở dòng đầu của nhóm.
 - **Dung lượng ảnh (16/11/2026, người dùng chốt):** tối đa 200 KB thay cho 300 KB; kích thước giữ rộng 800-850 px, cao 400-800 px. `tao_anh.py chuan-hoa` nén dần tới chất lượng 40, vẫn quá thì báo lỗi; `kiem` và `wp_draft.py` xem ảnh quá 200 KB là sai chuẩn.
 - **Nút "Loại bỏ ảnh" (25/11/2026, người dùng yêu cầu):** tab Kiểm duyệt hình ảnh có nút Loại bỏ ảnh (bấm 2 lần) cho ảnh thừa, ghi `trang_thai: "loai_bo"`, có nút Khôi phục ảnh. Giữ dòng `[ẢNH]` trong bài (phiếu duyệt còn hiệu lực); `wp_draft.py`, `danh_muc.py nhap` bỏ hẳn ảnh và chú thích khi đẩy nháp; `tao_anh.py kiem`, `liet-ke`, `phan-loai` bỏ qua, không tạo ảnh thay thế; `kiem_tra_bai.py` và thang chấm không tính thiếu ảnh ở mục đó. Chi tiết `quy_trinh/anh.md`.
+- **Bảng điều phối mới (26/11/2026, người dùng yêu cầu):** bảng cũ `3wRDGsubs7s2Kb75vpypmG` nằm ở tổ chức Claude khác, phiên trên máy không đọc ghi được. Đăng bảng mới https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM từ `dieu_phoi/bang-dieu-phoi.html` (quyền `db`, `user`, `assets`), mọi file đã đổi sang link mới. Dữ liệu dựng lại từ repo: 11 từ khóa theo `TRANG_THAI.md` (SERP, outline từ `nghien_cuu/`, điểm từ `nhat_ky.jsonl`), 5 `bai_viet`, `cham_bai/tong_hop`, 20 ảnh chờ duyệt của bài 1m2 và danh mục 0.6m; `doi_chieu_bang.py` báo khớp. Lịch sử thao tác, góp ý trên bảng cũ không chuyển được. Bảng mới chưa khai báo quyền `mcp` (gọi lịch "Claude Code Remote"), nên nút gọi Agent ngay chưa chạy; `cau_hinh/chung` chưa có `trigger_id`.

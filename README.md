@@ -66,7 +66,7 @@ Trạng thái chi tiết (`moi`, `cho_duyet_outline`, `cho_viet`, `cho_tao_anh`,
 
 ## Bảng điều phối
 
-https://claude.ai/artifact/3wRDGsubs7s2Kb75vpypmG, mã nguồn ở `dieu_phoi/bang-dieu-phoi.html`. Bốn tab: Tổng quan, Trung tâm Agent, Kiểm duyệt hình ảnh, Lịch sử chấm điểm.
+https://claude.ai/artifact/57apPM1U3HKFqe2PVvFsXM, mã nguồn ở `dieu_phoi/bang-dieu-phoi.html`. Bốn tab: Tổng quan, Trung tâm Agent, Kiểm duyệt hình ảnh, Lịch sử chấm điểm.
 
 - Người dùng nạp từ khóa, duyệt outline, duyệt bài, duyệt ảnh, tạm dừng, xóa ngay trên bảng.
 - Agent điều phối và agent con chỉ ghi kết quả, câu hỏi lên bảng, không nhắn trong chat (chốt 29/10, 30/10/2026).
