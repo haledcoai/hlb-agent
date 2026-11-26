@@ -1258,5 +1258,255 @@
   "bai": "DM_den-chong-chay-no-0-6m",
   "vong": 2,
   "ten_tieu_chi": "Thương hiệu và giọng văn"
+ },
+ {
+  "nhan": "tra-loi-nhanh-thieu-dieu-kien",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "I3 Bốn gạch đầu dòng đầu bài chưa có con số kèm điều kiện",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "vi-du-dien-nang-gay-nham",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "D4 Ví dụ điện năng 150W một bộ không khớp ví dụ cần 11 bộ, dòng 81-89 lủng củng",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "D9 Ít mẫu, trần dưới 6 m, IP65 đủ cho phần lớn kho hóa chất chưa có nguồn",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "S8 FAQ highbay hay đèn pha và FAQ điện năng lặp thân bài",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "link-sai-ngu-canh",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "S5 Câu dẫn link highbay và đèn pha không khớp trang đích",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "bang-gop-dong-thieu-du-lieu",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "S6 Hàng gộp bảo hành, giá, thời gian giao nhưng không có dữ liệu giao hàng",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "ghi-chu-noi-bo-trong-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "G1 Câu nói về bài trước, dòng gộp bảng, bước bài khác là ghi chú nội bộ",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "cta-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T7 CTA 3 câu, câu đầu cụt, vượt 1-2 câu",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "thieu-du-lieu-hang-hlb",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "Chưa có catalogue và giá 250W HLB phân phối, 4 CẦN BỔ SUNG",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "cta-bao-gia-du-an",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "HLB có nhận báo giá dự án 250W chưa xác nhận",
+  "ma": "L026",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 1,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "tra-loi-nhanh-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "I3 4 gach dau dong dau bai 88 tu, can 40-60 tu (dong 20-25)",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "sapo-vuot-do-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "intent",
+  "mo_ta": "I2 Sapo 81 tu, cau dau chen cau tra ngay 25/11 lam cau dai (dong 18)",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Đáp ứng search intent"
+ },
+ {
+  "nhan": "so-suy-ra-thieu-gia-dinh",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "D2 Dong 22 ghi kho 600 m2 can khoang 7 bo, chua nhac theo gia dinh quang thong",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "cau-lap-tu-trong-link",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "G1 Dong 51 lap cum 'cac muc cong suat khac' hai lan trong mot cau",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "y-lap-giua-cac-phan",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "G2 Cau 'chi thay 2 mau, tra ngay 25/11/2026' lap o sapo, dong 29, dong 47",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "S8 FAQ cau 1 chep lai doan gia dong 152 (Lien he, phu thuoc hang, xin bao gia)",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "thieu-du-lieu-hang-hlb",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "D7 Chua co catalogue va gia 250W HLB phan phoi, 3 CAN BO SUNG (dong 61, 71, 154)",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "cta-bao-gia-du-an",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T7 HLB co nhan bao gia du an 250W chua xac nhan (dong 215)",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "giu-nhac-mau-soho",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T6 Co giu nhac 2 mau Soho HLB khong phan phoi hay bo; khong tru diem",
+  "ma": "L027",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 2,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
+ },
+ {
+  "nhan": "khang-dinh-chua-co-nguon",
+  "muc": "nen_sua",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "D9 Dong 29 'kho tim hon cac muc 50W, 100W' la nhan dinh thi truong khong nguon",
+  "ma": "L028",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "cau-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "giong_van",
+  "mo_ta": "G5 Dong 69, 89, 101 cau tren 35 tu (kem placeholder, so tinh)",
+  "ma": "L028",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 3,
+  "ten_tieu_chi": "Giọng văn"
+ },
+ {
+  "nhan": "faq-lap-than-bai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "S8 FAQ cau 1 van lap dong 152, 156 (Lien he, xin bao gia); cau 4 lap dong 84",
+  "ma": "L028",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 3,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "faq-qua-dai",
+  "muc": "nen_sua",
+  "tieu_chi": "cau_truc",
+  "mo_ta": "S8 FAQ cau 1 (~38 tu) va cau 3 (~35 tu) duoi 40 tu",
+  "ma": "L028",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 3,
+  "ten_tieu_chi": "Cấu trúc và SEO"
+ },
+ {
+  "nhan": "thieu-du-lieu-hang-hlb",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "du_lieu",
+  "mo_ta": "D7 Chua co catalogue va gia 250W HLB, 3 CAN BO SUNG (dong 61, 71, 154)",
+  "ma": "L028",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 3,
+  "ten_tieu_chi": "Chính xác dữ liệu và nguồn"
+ },
+ {
+  "nhan": "cta-bao-gia-du-an",
+  "muc": "cho_nguoi_dung",
+  "tieu_chi": "thuong_hieu",
+  "mo_ta": "T7 HLB co nhan bao gia du an 250W chua xac nhan (dong 215)",
+  "ma": "L028",
+  "bai": "den-chong-chay-no-250w",
+  "vong": 3,
+  "ten_tieu_chi": "Thương hiệu và tuân thủ"
  }
 ]
