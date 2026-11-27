@@ -13,7 +13,8 @@
       "ghi_chu": "Ảnh bài cũ 3904 (media 6998, đèn chống nổ đôi 1m2 60W HALEDCO), khớp mẫu HLEP TL2-60. Nhãn thông số không đọc được trên ảnh.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "den-chong-no-1m2-philips-dau-cap.jpg",
@@ -27,7 +28,8 @@
       "ghi_chu": "Ảnh bài cũ 3904 (media 3909, mẫu đèn tuýp LED chống nổ Philips bóng đôi), thấy đầu cáp và ống kính có lưới bảo vệ. Không có logo.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "mang-den-chong-no-1m2-doi-chua-lap-bong.jpg",
@@ -41,7 +43,8 @@
       "ghi_chu": "Ảnh bài cũ 3904 (media 6237, bộ đèn tuýp LED đôi chống nổ Athaco), khớp mục Athaco. Ảnh không thể hiện rõ trạng thái nắp mở, chưa lắp bóng.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "siet-dau-cap-den-chong-no-1m2.jpg",
@@ -55,7 +58,8 @@
       "ghi_chu": "Ảnh bài cũ 3904 (media 6999, đèn chống nổ đôi 1m2 80W HALEDCO mở hộp đấu dây), thấy rõ 2 đầu cáp và cút nối dây trước khi đóng nắp. Không có người thợ trong ảnh.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": ""
     },
     {
       "ten": "den-chong-no-1m2-don-va-doi-so-sanh.jpg",
@@ -64,12 +68,16 @@
       "alt": "Đèn chống cháy nổ 1m2 đơn và đôi đặt cạnh nhau",
       "mo_ta": "Bộ đèn chống nổ 1m2 loại đơn và loại đôi đặt cạnh nhau để so sánh kích thước",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8568,
       "dai_dien": true,
       "ghi_chu": "Ảnh ghép bằng Python từ 2 ảnh bài cũ 3904 (media 3908 bóng đơn, media 3906 bóng đôi), nhãn loại đơn, đôi và khu dùng theo bài. Script ve_so_do.py.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-chong-no-1m2-don-va-doi-so-sanh.jpg",
+      "sha_da_tai": "d729600aa99e8af2ab964ee526049bfb87b9ac047726c7335fb14040170a93f6",
+      "chu_thich_da_ghi": "Bộ đèn chống nổ 1m2 loại đơn và loại đôi đặt cạnh nhau để so sánh kích thước"
     },
     {
       "ten": "bong-tuyp-led-va-huynh-quang-chong-no-1m2.jpg",
@@ -78,12 +86,16 @@
       "alt": "Bóng tuýp LED và huỳnh quang dùng cho đèn chống cháy nổ 1m2",
       "mo_ta": "Bóng tuýp LED và bóng huỳnh quang dài 1,2 m đặt cạnh máng chống nổ đang mở nắp",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8569,
       "dai_dien": false,
       "ghi_chu": "Sơ đồ Python so sánh bóng LED và huỳnh quang, ý lấy từ mục Bóng tuýp LED hay huỳnh quang của bài, không có số liệu. Thay cho ảnh chụp bóng cạnh máng mở nắp (không có ảnh thật phù hợp).",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/bong-tuyp-led-va-huynh-quang-chong-no-1m2.jpg",
+      "sha_da_tai": "365dcfdc2fdc4708dec048ef2b1594f05929f73b9808dc8fd7db329c0343585a",
+      "chu_thich_da_ghi": "Bóng tuýp LED và bóng huỳnh quang dài 1,2 m đặt cạnh máng chống nổ đang mở nắp"
     },
     {
       "ten": "den-mang-mica-thuong-canh-den-chong-no-1m2.jpg",
@@ -92,12 +104,16 @@
       "alt": "Đèn LED máng mica thường và đèn chống cháy nổ 1m2 đặt cạnh nhau",
       "mo_ta": "Bộ đèn LED máng mica thông thường đặt cạnh bộ đèn chống nổ 1m2 để thấy khác biệt về thân vỏ và đầu cáp (ảnh minh họa)",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8570,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python so sánh máng LED mica thường và đèn chống nổ 1m2 (thân vỏ, đầu cáp, nhãn Ex), không phải sản phẩm Điện Quang.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-mang-mica-thuong-canh-den-chong-no-1m2.jpg",
+      "sha_da_tai": "bbe06f8d361e4991e724adc75a31a5edee6d614bf058dff274629595c4045691",
+      "chu_thich_da_ghi": "Bộ đèn LED máng mica thông thường đặt cạnh bộ đèn chống nổ 1m2 để thấy khác biệt về thân vỏ và đầu cáp (ảnh minh họa)"
     },
     {
       "ten": "cach-doc-ky-hieu-ex-den-chong-no.jpg",
@@ -106,12 +122,16 @@
       "alt": "Cách đọc ký hiệu Ex trên nhãn đèn chống cháy nổ 1m2",
       "mo_ta": "Sơ đồ giải thích từng phần của ký hiệu Ex trên nhãn đèn chống nổ",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8571,
       "dai_dien": false,
       "ghi_chu": "Sơ đồ Python theo ví dụ Ex d IIB T4 Gb trong bài (mục Đọc nhanh ký hiệu Ex).",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/cach-doc-ky-hieu-ex-den-chong-no.jpg",
+      "sha_da_tai": "c2b1684af3451de2ab3c01bb96e64bde804546cccd03f349752398effc274435",
+      "chu_thich_da_ghi": "Sơ đồ giải thích từng phần của ký hiệu Ex trên nhãn đèn chống nổ"
     },
     {
       "ten": "so-do-bo-tri-den-chong-no-kho-6x10m.jpg",
@@ -120,12 +140,16 @@
       "alt": "Sơ đồ bố trí đèn chống cháy nổ 1m2 cho kho 6 x 10 m",
       "mo_ta": "Sơ đồ bố trí 3 bộ đèn chống nổ 1m2 đôi theo 1 hàng giữa mặt bằng kho 6 x 10 m",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8572,
       "dai_dien": false,
       "ghi_chu": "Sơ đồ Python theo ví dụ trong bài: kho 6 x 10 m, 3 bộ đôi HLEP TL2-60 (60W, 7.800 lm) 1 hàng theo chiều 10 m, 180W, 3 W/m². Khoảng cách 3,3 m = 10/3 m. Ghi cần tính bằng DIALux.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/so-do-bo-tri-den-chong-no-kho-6x10m.jpg",
+      "sha_da_tai": "8d7a420a75512b9df3eac199a1bf2d263aea5c4c1a61eda5e5f35be535569e59",
+      "chu_thich_da_ghi": "Sơ đồ bố trí 3 bộ đèn chống nổ 1m2 đôi theo 1 hàng giữa mặt bằng kho 6 x 10 m"
     },
     {
       "ten": "cac-phan-tinh-gia-bo-den-chong-no-1m2.jpg",
@@ -134,12 +158,16 @@
       "alt": "Các phần tính giá của bộ đèn chống cháy nổ 1m2",
       "mo_ta": "Các phần của một bộ đèn chống nổ 1m2 bày trên bàn: máng, 2 bóng LED, đầu cáp, giá treo",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8573,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python các phần của bộ đèn (máng, bóng, đầu cáp, nút bịt, giá treo) theo mục Giá của bài. Thay cho ảnh chụp bày trên bàn.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/cac-phan-tinh-gia-bo-den-chong-no-1m2.jpg",
+      "sha_da_tai": "60822439752c6d97e4637f184dd10e3397be032d8b155cdbba97848dd575bd12",
+      "chu_thich_da_ghi": "Các phần của một bộ đèn chống nổ 1m2 bày trên bàn: máng, 2 bóng LED, đầu cáp, giá treo"
     },
     {
       "ten": "den-chong-no-1m2-rang-dong-lap-kho.jpg",
@@ -148,12 +176,16 @@
       "alt": "Đèn chống cháy nổ 1m2 Rạng Đông lắp trong kho",
       "mo_ta": "Bộ đèn LED chống nổ 1m2 Rạng Đông lắp trên trần kho",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8574,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python vị trí lắp trong kho có kệ, số liệu CN01 1200/40W.PLUS (40W, 4.000 lm, IP54) lấy từ bài. Không có ảnh thật Rạng Đông trên website HLB và bài cũ; kho ảnh không có đèn chống nổ. Thay bằng ảnh thật khi có.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-chong-no-1m2-rang-dong-lap-kho.jpg",
+      "sha_da_tai": "cc962092b428f3c196cb8959295beaf67611a8183899d7a6265fecf038f6d445",
+      "chu_thich_da_ghi": "Bộ đèn LED chống nổ 1m2 Rạng Đông lắp trên trần kho"
     },
     {
       "ten": "den-chong-no-1m2-lap-kho-son.jpg",
@@ -162,12 +194,16 @@
       "alt": "Đèn chống nổ 1m2 lắp trong kho sơn",
       "mo_ta": "Bộ đèn chống nổ 1m2 loại đôi lắp trong kho sơn có kệ hàng (ảnh minh họa, không phải sản phẩm Duhal)",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8575,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python bộ đôi treo trên lối đi kho sơn có kệ, trần khoảng 4 m theo bài. Không phải sản phẩm Duhal.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-chong-no-1m2-lap-kho-son.jpg",
+      "sha_da_tai": "0eb63cd20f6d8433b011d00860cbcbc28529059591efc539a121cb9c8e7da770",
+      "chu_thich_da_ghi": "Bộ đèn chống nổ 1m2 loại đôi lắp trong kho sơn có kệ hàng (ảnh minh họa, không phải sản phẩm Duhal)"
     },
     {
       "ten": "den-chong-no-1m2-phong-pha-che.jpg",
@@ -176,12 +212,16 @@
       "alt": "Đèn chống nổ 1m2 gắn trần phòng pha chế",
       "mo_ta": "Đèn chống nổ 1m2 gắn sát trần phòng pha chế có trần phẳng (ảnh minh họa)",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8576,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python đèn gắn sát trần phẳng phòng pha chế, trần 3-4 m theo bảng chọn trong bài. Không phải sản phẩm Paragon.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-chong-no-1m2-phong-pha-che.jpg",
+      "sha_da_tai": "793473823ea782a66dcedd5c776bb50dc16d64dff5fd8bc952d98faccf95e057",
+      "chu_thich_da_ghi": "Đèn chống nổ 1m2 gắn sát trần phòng pha chế có trần phẳng (ảnh minh họa)"
     },
     {
       "ten": "den-chong-no-1m2-don-lap-hanh-lang.jpg",
@@ -190,12 +230,16 @@
       "alt": "Đèn chống cháy nổ 1m2 loại đơn lắp hành lang kho",
       "mo_ta": "Hành lang kho hóa chất trần thấp lắp đèn chống nổ 1m2 loại đơn theo một hàng",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8577,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python mặt bằng hành lang kho, bộ đơn 1 hàng, trần 3-4 m theo bảng chọn trong bài. Không ghi số bộ, khoảng cách.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/den-chong-no-1m2-don-lap-hanh-lang.jpg",
+      "sha_da_tai": "009a5a85d6e1027f91624761e0f675ff547f7258a8a0d217991d04387898da9e",
+      "chu_thich_da_ghi": "Hành lang kho hóa chất trần thấp lắp đèn chống nổ 1m2 loại đơn theo một hàng"
     },
     {
       "ten": "kho-tran-cao-dung-highbay-chong-no.jpg",
@@ -204,12 +248,16 @@
       "alt": "Kho trần cao dùng đèn highbay chống nổ thay đèn 1m2",
       "mo_ta": "Kho cao trên 6 m lắp đèn highbay chống nổ thay cho đèn tuýp 1m2",
       "url_website": null,
-      "media_id": null,
+      "media_id": 8578,
       "dai_dien": false,
       "ghi_chu": "Hình vẽ minh họa Python so sánh bộ 1m2 lắp dày và highbay chống nổ ở trần trên 6 m, theo mục Khi nào không nên dùng đèn 1m2.",
       "prompt": "",
       "tac_gia": "",
-      "trang_thai": "cho_duyet"
+      "trang_thai": "duyet",
+      "ghi_chu_duyet": "",
+      "url_da_tai": "https://denlednhaxuongcaocap.com/wp-content/uploads/2026/11/kho-tran-cao-dung-highbay-chong-no.jpg",
+      "sha_da_tai": "271972fd852d564699146a3f01751024fbc50b14c879b078a50c6f9361bb53e2",
+      "chu_thich_da_ghi": "Kho cao trên 6 m lắp đèn highbay chống nổ thay cho đèn tuýp 1m2"
     }
   ]
 }
