@@ -741,14 +741,17 @@ function renderAnh() {
           <dt>Nguồn</dt><dd>${esc(NGUON[a.nguon] || a.nguon)}${a.rong ? `, ${esc(a.rong)} x ${esc(a.cao)} px` : ""}</dd></dl>
         ${a.ghi_chu_agent ? `<div class="anote">${esc(a.ghi_chu_agent)}</div>` : ""}
         ${st === "loai_bo" ? `<div class="anote">Ảnh này sẽ không có trong bài, kể cả chú thích. Agent không tạo ảnh thay thế. Muốn dùng lại thì bấm Khôi phục ảnh.</div>` : ""}
+        ${st === "duyet" ? (a.ghi_chu ? `<div class="anote">Ghi chú của bạn: ${esc(a.ghi_chu)}</div>` : "") : `
         <label for="an-${esc(a.id)}">Ghi chú cho Agent</label>
-        <textarea id="an-${esc(a.id)}" data-anote="${esc(a.id)}" placeholder="Ví dụ: đèn phải là UFO tròn dẹt, chụp góc thấp hơn" ${dis}>${esc(note)}</textarea>
+        <textarea id="an-${esc(a.id)}" data-anote="${esc(a.id)}" placeholder="Ví dụ: đèn phải là UFO tròn dẹt, chụp góc thấp hơn" ${dis}>${esc(note)}</textarea>`}
         <div class="actions">
-          ${st === "loai_bo" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Khôi phục ảnh</button>` : `
+          ${st === "loai_bo" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Khôi phục ảnh</button>`
+          // Ảnh đã duyệt (chốt 27/11/2026): chỉ còn nút Bỏ duyệt để đổi ý, bấm xong ảnh về Chờ duyệt và các nút hiện lại
+          : st === "duyet" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" title="Đưa ảnh về Chờ duyệt để chọn lại" ${dis}>Bỏ duyệt</button>` : `
           <button class="btn ok" type="button" data-aact="duyet" data-aid="${esc(a.id)}" ${dis}>Duyệt</button>
           <button class="btn redo" type="button" data-aact="lam_lai" data-aid="${esc(a.id)}" ${dis}>Làm lại</button>
           <button class="btn stop" type="button" data-aact="loai_bo" data-aid="${esc(a.id)}" title="Bỏ ảnh thừa khỏi bài, không tạo ảnh thay thế" ${dis}>${xacNhanLoai === a.id ? "Bấm lần nữa để loại bỏ" : "Loại bỏ ảnh"}</button>
-          ${st !== "cho_duyet" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" ${dis}>Bỏ chọn</button>` : ""}`}
+          ${st === "lam_lai" ? `<button class="btn ghost" type="button" data-aact="cho_duyet" data-aid="${esc(a.id)}" title="Thôi làm lại, đưa ảnh về Chờ duyệt" ${dis}>Hủy làm lại</button>` : ""}`}
         </div><div class="msg err" data-aerr="${esc(a.id)}" hidden></div>
       </div></article>`;
   };
@@ -939,7 +942,8 @@ document.addEventListener("click", async e => {
   if (b.dataset.go) { locBai = b.dataset.bai || ""; if (b.dataset.go === "anh") locAnh = "tat_ca"; showPane(b.dataset.go); window.scrollTo({ top: 0 }); return; }
   if (b.dataset.aloc) { locAnh = b.dataset.aloc; renderAnh(); return; }
   if (b.dataset.aact && db) {
-    const id = b.dataset.aid, ta = document.querySelector(`[data-anote="${CSS.escape(id)}"]`), note = ta ? ta.value.trim() : "";
+    const id = b.dataset.aid, ta = document.querySelector(`[data-anote="${CSS.escape(id)}"]`), cu = anh.find(x => x.id === id);
+    const note = ta ? ta.value.trim() : ((cu && cu.ghi_chu) || "");
     const errEl = document.querySelector(`[data-aerr="${CSS.escape(id)}"]`);
     if (b.dataset.aact === "lam_lai" && !note) { errEl.textContent = "Ghi lý do cần làm lại để Agent biết sửa gì."; errEl.hidden = false; ta && ta.focus(); return; }
     if (b.dataset.aact === "loai_bo" && xacNhanLoai !== id) { xacNhanLoai = id; b.textContent = "Bấm lần nữa để loại bỏ"; return; }

@@ -17,6 +17,8 @@ Người dùng duyệt ảnh ở tab **Kiểm duyệt hình ảnh** của **Bả
 - Collection `anh`, mã tài liệu `<tên bài>--<tên file>` (ví dụ `Bai_cach-chon-den-led-nha-xuong--cap-bao-ve-ip-den-nha-xuong.jpg`). Trường: `bai`, `tieu_de_bai`, `ten`, `thu_tu`, `muc`, `alt`, `nguon`, `url`, `asset_id`, `rong`, `cao`, `vong`, `trang_thai` (`cho_duyet` | `duyet` | `lam_lai` | `loai_bo`), `ghi_chu` (của người dùng), `ghi_chu_agent`, `cap_nhat`.
 - Collection `yeu_cau`: ảnh người dùng xin thêm. Trường: `bai`, `noi_dung` (tên file hoặc mô tả), `ghi_chu`, `trang_thai` (`moi` | `da_xu_ly`), `phan_hoi`, `tao_luc`.
 
+Nút trên thẻ ảnh theo trạng thái (chốt 27/11/2026): `cho_duyet` có Duyệt, Làm lại, Loại bỏ ảnh; `lam_lai` thêm "Hủy làm lại" (về `cho_duyet`); `duyet` chỉ hiện "Bỏ duyệt" (về `cho_duyet`, giữ `ghi_chu`), không có ô ghi chú; `loai_bo` có "Khôi phục ảnh".
+
 ### Ảnh người dùng loại bỏ (nút "Loại bỏ ảnh", chốt 25/11/2026)
 
 Người dùng bấm "Loại bỏ ảnh" (bấm 2 lần) khi thấy ảnh thừa. Bảng ghi `trang_thai: "loai_bo"`, không gọi Agent ngay; Agent xử lý ở lượt có việc của bài (thường `cho_hoan_thien`). "Khôi phục ảnh" đưa ảnh về `cho_duyet`.
